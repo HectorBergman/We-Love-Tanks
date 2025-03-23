@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_playerVariables_movement",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_playerVariables_movement",
+  "parent":{
+    "name":"playerVariables",
+    "path":"folders/Objects/aInitiationVariables/playerVariables.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,7 @@
+function enemyState_normal(){
+	
+}
+
+
+
+

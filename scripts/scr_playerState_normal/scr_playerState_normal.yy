@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_playerState_normal",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_playerState_normal",
+  "parent":{
+    "name":"states",
+    "path":"folders/oScripts/player/states.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

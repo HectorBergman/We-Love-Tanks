@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_enemyState_scanning_cannon_1",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_enemyState_scanning_cannon_1",
+  "parent":{
+    "name":"cannon",
+    "path":"folders/oScripts/player/states/cannon.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
