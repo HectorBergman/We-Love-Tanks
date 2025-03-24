@@ -36,7 +36,7 @@ function summonObject(obj, arguments = noone, _x = x, _y = y, _depth = depth){
 	}else{
 		struct = {}
 	}
-    instance_create_depth(_x, _y, _depth, obj, struct);
+    return instance_create_depth(_x, _y, _depth, obj, struct);
     
 }
 
@@ -84,3 +84,7 @@ function stepCollisionWhileWithFailCon(object, step, horizontal){
 	}
 }
 
+
+function is_in_range(value, minimum, maximum) {
+    return value > minimum && value < maximum;
+}

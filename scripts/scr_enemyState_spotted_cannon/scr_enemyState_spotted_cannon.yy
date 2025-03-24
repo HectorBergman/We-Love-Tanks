@@ -6,7 +6,7 @@
   "name":"scr_enemyState_spotted_cannon",
   "parent":{
     "name":"cannon",
-    "path":"folders/oScripts/player/states/cannon.yy",
+    "path":"folders/oScripts/cannon.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

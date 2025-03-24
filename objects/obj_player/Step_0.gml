@@ -1,5 +1,12 @@
 lol++
 
+/*for (var i = 0; i < breadCrumbRadius*2; i++){
+	for (var j = 0; j < breadCrumbRadius*2; j++){
+		if (power(i - 4.5,2) + power(j - 4.5,2) <= 25){
+			summonObject(obj_breadCrumbs, [["x", x-breadCrumbRadius*32+i*32], ["y", y-breadCrumbRadius*32+j*32]])
+		}
+	}
+}*/
 
 switch (state){
     case playerStates.normal: playerState_normal(); break;

@@ -1,16 +1,16 @@
 {
   "$GMObject":"",
-  "%Name":"obj_enemy_cannon",
+  "%Name":"obj_gridSquare",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_enemy_cannon",
+  "name":"obj_gridSquare",
   "overriddenProperties":[],
   "parent":{
-    "name":"enemy",
-    "path":"folders/Objects/enemy.yy",
+    "name":"player",
+    "path":"folders/Objects/player.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_cannon_enemy",
-    "path":"sprites/spr_cannon_enemy/spr_cannon_enemy.yy",
+    "name":"spr_grid",
+    "path":"sprites/spr_grid/spr_grid.yy",
   },
   "spriteMaskId":null,
   "visible":true,

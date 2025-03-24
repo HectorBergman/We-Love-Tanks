@@ -16,3 +16,5 @@ generalVariables();
 summonObject(obj_player_hitbox, [["parent", id]]);
 
 lol = 0;
+
+breadCrumbRadius = 5;
