@@ -1,7 +1,6 @@
 function enemyState_normal_cannon(){
 	firingCooldown--
-	if (parent.wallSeen < 3 && parent.playerSeen){
-	
+	if !(collision_line(x, y, playerTank.x, playerTank.y, obj_wall, false, true)){
 		image_angle = point_direction(x,y,playerTank.x,playerTank.y)
 
 	}else{

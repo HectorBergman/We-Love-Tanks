@@ -1,7 +1,8 @@
 
 
 switch (state){
-    case enemyStates.normal: enemyState_normal(); break;
+    case bodyEnemyStates.normal: enemyState_normal(); break;
+	case bodyEnemyStates.prowling: enemyState_prowling(); break;
 }
 
 /*if (place_meeting(x + movementX(), y, obj_wall)){

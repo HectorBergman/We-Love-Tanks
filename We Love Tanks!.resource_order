@@ -27,6 +27,7 @@
     {"name":"obj_bullet","order":3,"path":"objects/obj_bullet/obj_bullet.yy",},
     {"name":"obj_cam","order":3,"path":"objects/obj_cam/obj_cam.yy",},
     {"name":"obj_detectionSquare","order":4,"path":"objects/obj_detectionSquare/obj_detectionSquare.yy",},
+    {"name":"obj_detectionSquareHandler","order":6,"path":"objects/obj_detectionSquareHandler/obj_detectionSquareHandler.yy",},
     {"name":"obj_enemy_cannon_moving","order":1,"path":"objects/obj_enemy_cannon_moving/obj_enemy_cannon_moving.yy",},
     {"name":"obj_enemy_cannon","order":1,"path":"objects/obj_enemy_cannon/obj_enemy_cannon.yy",},
     {"name":"obj_enemy_hitbox_moving","order":2,"path":"objects/obj_enemy_hitbox_moving/obj_enemy_hitbox_moving.yy",},

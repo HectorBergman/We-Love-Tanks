@@ -1,5 +1,5 @@
 function enemyState_scanning_cannon(){
-	if !(parent.wallSeen < 3 && parent.playerSeen){
+	if (collision_line(x, y, playerTank.x, playerTank.y, obj_wall, false, true)){
 		if stepsTilSwitch > 0{
 			image_angle = radtodeg(degtorad(image_angle) + scanningDirection*scanningStep)
 		}else{

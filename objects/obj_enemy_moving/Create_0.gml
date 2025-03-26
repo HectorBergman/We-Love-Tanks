@@ -1,9 +1,18 @@
-enum movingEnemyStates{
+enum bodyEnemyStates{
 	normal,
 	spotted,
 	prowling,
 }
-state = movingEnemyStates.prowling;
+
+tickrate = 5;
+tick = 5;
+
+breadCrumbs = []
+nearestCrumb = noone
+nearestCrumbDistance = 9999999;
+detectionSquareHandlers = []
+
+state = bodyEnemyStates.prowling;
 function movementX(){
 	return movementVector[0]*movementSpeed;
 }

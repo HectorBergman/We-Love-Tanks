@@ -1,5 +1,5 @@
 function enemyState_spotted_cannon(){
-	if (parent.wallSeen < 3 && parent.playerSeen){
+	if (!collision_line(x, y, playerTank.x, playerTank.y, obj_wall, false, true)){
 		image_angle = image_angle mod 360;
 		var goalDirection = point_direction(x,y,playerTank.x, playerTank.y) mod 360;
 		var turnDirection = 0
