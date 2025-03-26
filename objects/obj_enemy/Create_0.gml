@@ -24,12 +24,3 @@ wallSeen = 0;
 detectionSquareWidth = 6;
 
 
-function coordinateFormula(x1,y1,x2,y2,t){
-	return [x1+t*(x2-x1),y1+t*(y2-y1)]
-}
-function findNextCoordinate(stepSize, iteration){
-	return coordinateFormula(x,y,playerTank.x,playerTank.y,stepSize*iteration)
-}
-function getStepSize(){
-	return detectionSquareWidth/distance
-}

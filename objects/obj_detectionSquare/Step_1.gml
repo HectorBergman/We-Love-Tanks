@@ -1,3 +1,7 @@
+image_alpha = 0.5;
+if (!instance_exists(parent)){
+	instance_destroy();
+}
 if (place_meeting(x,y,obj_wall)){
 	parent.wallSeen++
 }

@@ -11,12 +11,16 @@ amountWidth = new_width/base_width;
 amountHeight = new_height/base_height;
 
 for (var i = 0; i < amountWidth; i += 1){
+	increase++
 	for (var j = 0; j < amountHeight; j += 1){
+		increase++
 		blockStruct = {
 			image_xscale: scale,
 			image_yscale: scale,
+			squareNo: increase,
 		}
-		var slave = summonObject(obj_positionCheckerSlave, [["x", self.x + xOffset + i*base_width*scale],["y",  self.y + yOffset + j*base_height*scale, obj_wall]]) 
+		var slave = summonObject(obj_positionCheckerSlave, [["parent", id], ["base_width", base_width], 
+["base_height", base_height], ["i", i], ["j", j]]) 
 		var wallThere = false;
 		with (slave){
 			if (place_meeting(x,y,obj_wall)){
