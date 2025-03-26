@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_enemyState_prowling",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_enemyState_prowling",
+  "parent":{
+    "name":"cannon",
+    "path":"folders/oScripts/cannon.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

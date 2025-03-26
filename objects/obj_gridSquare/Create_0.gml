@@ -11,7 +11,7 @@ detectionSquareWidth = 6;
 wallSeen = 0;
 playerSeen = false;
 function getStepSizeRedux(){
-	return detectionSquareWidth/distance*8
+	return detectionSquareWidth/distance*4
 }
 for (var k = 0; getStepSizeRedux()*k <= 1; k++){
 	var coords = findNextCoordinate(getStepSizeRedux(), k, 16, 16);
