@@ -11,13 +11,13 @@ function enemyState_spotted_cannon(){
 		print(turnDirection);
 	
 		if (is_in_range(image_angle,goalDirection-2, goalDirection+2)){
-			parent.state = enemyStates.normal;
+			state = cannonEnemyStates.normal;
 		}else{
 			image_angle = (image_angle + turnDirection*radtodeg(scanningStep)) mod 360
 		}
 	
 	}else{
-		parent.state = enemyStates.scanning;
+		state = cannonEnemyStates.scanning;
 		stepsTilSwitch = 50;
 	} 
 }

@@ -1,16 +1,14 @@
-enum bodyEnemyStates{
-	normal,
-	spotted,
-	prowling,
-}
+
 
 tickrate = 5;
 tick = 5;
+movementSpeed = 1.5;
 
 breadCrumbs = []
 nearestCrumb = noone
 nearestCrumbDistance = 9999999;
 detectionSquareHandlers = []
+
 
 state = bodyEnemyStates.prowling;
 function movementX(){
@@ -19,9 +17,10 @@ function movementX(){
 function movementY(){
 	return movementVector[1]*movementSpeed;
 }
+movementVector = [0,0];
 
-summonObject(obj_enemy_cannon, [["parent", id], ["depth", depth-1]]);
-summonObject(obj_enemy_hitbox, [["parent", id]]);
+summonObject(obj_enemy_cannon_moving, [["parent", id], ["depth", depth-1]]);
+hitbox = summonObject(obj_enemy_hitbox_moving, [["parent", id]]);
 
 distance = point_distance(x, y, playerTank.x, playerTank.y);
 distanceX = abs(playerTank.x - x);

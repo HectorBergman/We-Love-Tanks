@@ -1,1 +1,1 @@
-lifeTime = 180; //set to 180 or sum shit
+lifeTime = 360; //set to 180 or sum shit

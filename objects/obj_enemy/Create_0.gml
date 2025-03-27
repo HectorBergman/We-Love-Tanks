@@ -1,8 +1,4 @@
-enum enemyStates{
-	normal,
-	scanning,
-	spotted,
-}
+
 state = enemyStates.scanning;
 function movementX(){
 	return movementVector[0]*movementSpeed;

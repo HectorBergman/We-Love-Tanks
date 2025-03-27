@@ -4,7 +4,7 @@ function enemyState_normal_cannon(){
 		image_angle = point_direction(x,y,playerTank.x,playerTank.y)
 
 	}else{
-		parent.state = enemyStates.scanning;
+		state = cannonEnemyStates.scanning;
 		scanningPoint = image_angle
 		scanningDirection = sign(random_range(-1, 1));
 

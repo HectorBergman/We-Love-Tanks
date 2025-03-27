@@ -9,7 +9,7 @@ function enemyState_scanning_cannon(){
 		}
 		stepsTilSwitch--
 	}else{
-		parent.state = enemyStates.spotted;
+		state = cannonEnemyStates.spotted;
 		stepsTilSwitch = 50;
 	}
 }

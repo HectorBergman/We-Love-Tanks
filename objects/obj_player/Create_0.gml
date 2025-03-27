@@ -13,7 +13,8 @@ summonObject(obj_player_cannon, [["parent", id], ["depth", depth-1]]);
 //initialize a bunch of variables
 playerVariables_movement()
 generalVariables();
-summonObject(obj_player_hitbox, [["parent", id]]);
+initializeEnums();
+hitbox = summonObject(obj_player_hitbox, [["parent", id]]);
 
 lol = 0;
 

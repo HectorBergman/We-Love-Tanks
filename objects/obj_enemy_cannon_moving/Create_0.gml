@@ -1,10 +1,12 @@
+
+
 x = parent.x
 y = parent.y
 activeBullets = 0;
 firingCooldown = 0;
 firingCooldownTime = 90;
 fire = false;
-state = parent.state;
+state = cannonEnemyStates.scanning;
 
 scanningArea = pi/2
 scanningStep = (pi/2)/100
