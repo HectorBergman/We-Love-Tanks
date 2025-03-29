@@ -129,3 +129,62 @@ function getWallCoords(wall, quadrant){
 		return [_x + 32*xScale, _y + 32*yScale];
 	}
 }
+
+/// @function determineIfWithinBoxCone(wall, quadrant, objectCoords, acceptableAngleDifference)
+/// @description Checks if an object's coordinates fall within a directional cone extending from a specified box corner.
+/// @param {instance} wall       The wall instance to check from
+/// @param {int} quadrant        Which corner to use (0-3):
+///                              0 = Bottom-left (45°)
+///                              1 = Top-left (135°)
+///                              2 = Top-right (225°)
+///                              3 = Bottom-right (315°)
+/// @param {array} objectCoords  [x,y] coordinates to check
+/// @param {float} acceptableAngleDifference  Angular tolerance in degrees (half of total cone angle)
+///								 i.e. an acceptableAngleDifference of 20 means a cone of angle 40 degrees
+/// @returns {bool}              Returns true if object is within the cone, false otherwise
+///
+/// @example
+/// var wall = instance_nearest(x, y, obj_wall);
+/// var target = [obj_player.x, obj_player.y];
+/// if (determineIfWithinBoxCone(wall, 1, target, 15)) {
+///     // Player is in 30° cone from top-left corner
+/// }
+function determineIfWithinBoxCone(wall, quadrant, objectCoords, acceptableAngleDifference){
+	var wallCoords = getWallCoords(wall,quadrant);
+	var pointDirection = point_direction(wallCoords[0],wallCoords[1], objectCoords[0],objectCoords[1]);
+	var directionalAngle = 0;
+	if quadrant == 0{
+		directionalAngle = 45;
+	}else if quadrant == 1{
+		directionalAngle = 135;
+	}else if quadrant == 2{
+		directionalAngle = 225;
+	}else if quadrant == 3{
+		directionalAngle = 315;
+	}
+	if abs(angle_difference(pointDirection, directionalAngle)) < acceptableAngleDifference{
+		return true;
+	}else{
+		return false
+	}
+}
+	/*
+	var truAngularWidth = angularWidth/2
+	var directionalAngle = 0;
+	if quadrant == 0{
+		directionalAngle = 45;
+	}else if quadrant == 1{
+		directionalAngle = 135;
+	}else if quadrant == 2{
+		directionalAngle = 225;
+	}else if quadrant == 3{
+		directionalAngle = 315;
+	}
+	var wallCoords = getWallCoords(wall, quadrant);
+	var deltaX = coords[0]-wallCoords[0];
+	var deltaY = coords[1]-wallCoords[1];
+	if (sqrt(power(deltaX,2)+power(deltaY,2)) <= radius){
+		
+	}else{
+		return false
+	}*/

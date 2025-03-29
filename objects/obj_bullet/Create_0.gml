@@ -11,3 +11,4 @@ prevVector = [noone, noone];
 timeSinceBounce = 0;
 
 lastWallStruck = noone;
+newCoords = [0,0]
