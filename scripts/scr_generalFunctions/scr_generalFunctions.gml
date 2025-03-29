@@ -88,3 +88,44 @@ function stepCollisionWhileWithFailCon(object, step, horizontal){
 function is_in_range(value, minimum, maximum) {
     return value > minimum && value < maximum;
 }
+
+function normalizedVector(objectA, objectB){
+	// Get direction vector
+	var dir_x = objectB.x - objectA.x;
+	var dir_y = objectB.y - objectA.y;
+
+	// Normalize using point_distance (more efficient than manual calculation)
+	var dist = point_distance(0, 0, dir_x, dir_y);
+	if (dist > 0) {
+	    dir_x /= dist;
+	    dir_y /= dist;
+	}
+	return [dir_x, dir_y];
+}
+
+/// @function getWallCoords(wall, quadrant)
+/// @description Returns the coordinate of a corner of a wall instance
+/// @param {instance} wall The wall instance to check (obj_wall or compatible)
+/// @param {int} quadrant Which corner to get (0-3, counter-clockwise from top-right)
+/// @returns {array<int>} [x,y] coordinates of the requested corner
+/// @example
+/// var corner = getWallCoords(wall_instance, 2); // Gets bottom-left corner
+
+function getWallCoords(wall, quadrant){
+	var xScale = wall.image_xscale;
+	var yScale = wall.image_yscale;
+	var _x = wall.x;
+	var _y = wall.y;
+	if quadrant == 0{
+		return [_x + 32*xScale,_y]
+	}
+	if quadrant == 1{
+		return [_x,_y]
+	}
+	if quadrant == 2{
+		return [_x, _y + 32*yScale];
+	}
+	if quadrant == 3{
+		return [_x + 32*xScale, _y + 32*yScale];
+	}
+}

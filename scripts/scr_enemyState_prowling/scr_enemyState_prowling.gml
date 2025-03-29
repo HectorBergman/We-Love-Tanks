@@ -1,10 +1,21 @@
 function enemyState_prowling(){
-	
+	var interval = 1;
+	var halfSize = 24;
 	for (var i = 0; i < instance_number(obj_breadCrumbs); ++i;){
+		
 		var breadCrumb = instance_find(obj_breadCrumbs,i);
-		if !collision_line(x, y, breadCrumb.x, breadCrumb.y, obj_wall, false, true){
+		var distanceToCrumb = point_distance(x,y,breadCrumb.x,breadCrumb.y);
+		var reachable = true;
+		var vector = normalizedVector(id, breadCrumb);
+		for (var j = 16; j < distanceToCrumb; j = j+interval){
+			if collision_rectangle(x+vector[0]*j-halfSize, y+vector[1]*j-halfSize, x+vector[0]*(j+interval)+halfSize, y+vector[1]*(j+interval)+halfSize, obj_wall, 0, 1){
+				reachable = false;
+				break;
+			}
+		}
+		if reachable{
 			var crumbDistance = point_distance(playerTank.x, playerTank.y, breadCrumb.x, breadCrumb.y);
-			if (crumbDistance) < nearestCrumbDistance{
+			if (crumbDistance) < nearestCrumbDistance && !collision_line(breadCrumb.x,breadCrumb.y,playerTank.x,playerTank.y,obj_wall,0,1){ //!collision_cone(breadCrumb.x,breadCrumb.y,playerTank.x,playerTank.y,45, 5, obj_wall){
 				nearestCrumb = breadCrumb
 				nearestCrumbDistance = crumbDistance
 			}
@@ -22,6 +33,5 @@ function enemyState_prowling(){
 		movementVector[0] = 0;
 		movementVector[1] = 0;
 	}
-	nearestCrumb = noone;
-	nearestCrumbDistance = 99999999;
+
 }

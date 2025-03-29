@@ -24,7 +24,6 @@ for (var i = 0; i < amountWidth; i += 1){
 		var wallThere = false;
 		with (slave){
 			if (place_meeting(x,y,obj_wall)){
-				print("moneY!");
 				wallThere = true
 			}
 		}

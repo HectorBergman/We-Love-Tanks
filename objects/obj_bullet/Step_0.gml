@@ -38,29 +38,40 @@ if (hit != noone && (hit != lastWallStruck || timeSinceBounce < 1)){
 		print("lefttop");
 		collisionVector[0] = 0;
 	    collisionVector[1] = 0;
-		movementVector[0] = -movementVector[0]
-		movementVector[1] = -movementVector[1]
+		movementVector[0] = choose(-1, 1)*movementVector[0]
+		movementVector[1] = choose(-1, 1)*movementVector[1]
 	}
 	else if (abs(x - block_left) < threshold && abs(y-block_bottom) < threshold){
 		print("leftbot");
 		collisionVector[0] = 0;
 	    collisionVector[1] = 0;
-		movementVector[0] = -movementVector[0]
-		movementVector[1] = -movementVector[1]
+		var wallCoords = getWallCoords(hit, 2)
+		var xDifference = fireCoords[0]-wallCoords[0]; //greater than 0 means bullet was fired "behind" wall
+		var yDifference = fireCoords[1]-wallCoords[1]; //greater than 0 means bullet was fired "under" wall
+		if (xDifference < 0 && yDifference > 0){
+			movementVector[0] = -1*movementVector[0]
+			movementVector[1] = -1*movementVector[1]
+		}else if (xDifference < 0 && yDifference < 0){
+			movementVector[0] = -1*movementVector[0]
+			movementVector[1] = 1*movementVector[1]
+		}else if (xDifference > 0 && yDifference > 0){
+			movementVector[0] = 1*movementVector[0]
+			movementVector[1] = -1*movementVector[1]
+		}
 	}
 	else if (abs(x- block_right) < threshold && abs(y-block_top) < threshold){
 		print("righttop");
 		collisionVector[0] = 0;
 	    collisionVector[1] = 0;
-		movementVector[0] = -movementVector[0]
-		movementVector[1] = -movementVector[1]
+		movementVector[0] = choose(-1, 1)*movementVector[0]
+		movementVector[1] = choose(-1, 1)*movementVector[1]
 	}
 	else if (abs(x - block_right) < threshold && abs(y-block_bottom) < threshold){
 		print("rightbot");
 		collisionVector[0] = 0;
 	    collisionVector[1] = 0;
-		movementVector[0] = -movementVector[0]
-		movementVector[1] = -movementVector[1]
+		movementVector[0] = choose(-1, 1)*movementVector[0]
+		movementVector[1] = choose(-1, 1)*movementVector[1]
 	}
 	else if (abs(x - block_left) < threshold) {
 		print("left");
@@ -104,6 +115,7 @@ if (hit != noone && (hit != lastWallStruck || timeSinceBounce < 1)){
 	    movementVector[0] = v_x_new;
 		movementVector[1] = v_y_new;
 	}
+	fireCoords = [x,y];
 	timeSinceBounce = 5
 	lastWallStruck = hit;
 	maxBounce--

@@ -32,7 +32,7 @@ if (movementVector[0] != 0 || movementVector[1] != 0){
 		hitbox.image_angle = tempAngle;
 	}
 }else{
-	print("lolswaggg");
+	
 }
 
 x += movementVector[0]*movementSpeed;
