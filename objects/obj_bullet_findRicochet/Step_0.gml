@@ -8,27 +8,30 @@ movementVector = normalizeVector(movementVector);
 
 newCoords = [lengthdir_x(sprite_width - sprite_xoffset, image_angle), 
 			 lengthdir_y(sprite_height - sprite_yoffset, image_angle)]
-
-var hit = noone;
-if (place_meeting(x+movementX(), y+movementY(), obj_wall)){
-	var _x = x;
-	var _y = y;
-	while (!place_meeting(x,y,obj_wall)){
-		x += movementVector[0]*0.1;
-		y += movementVector[1]*0.1;
-	}if !(collision_rectangle(x+newCoords[0]-0.5,y+newCoords[1]-0.5,x+newCoords[0]+0.5,y+newCoords[1]+0.5,obj_wall,false,true)){
-		x = _x
-		y = _y
-	}else{
-		hit = instance_place(x, y, obj_wall)
+while !place_meeting(x+movementX(), y+movementY(), obj_wall){
+	if originalAngle == 150{
+		print("x: " + string(x));
+		print("y: " + string(y));
 	}
+	var distance = point_distance(x+newCoords[0],y+newCoords[1], playerTank.x,playerTank.y)
+	closestDistanceToPlayer = min(closestDistanceToPlayer,distance);
+	x += movementX();
+	y += movementY();
 }
 
-//todo: add sum shi like this for megafast bullets
-var prevhit14 = instance_place(x + (prevVector[0] - x)*0.25, y, obj_wall)
-var prevhit24 = instance_place(x + (prevVector[0] - x)*0.50, y, obj_wall)
-var prevhit34 = instance_place(x + (prevVector[0] - x)*0.75, y, obj_wall)
+var hit = noone;
 
+var _x = x;
+var _y = y;
+while (!place_meeting(x,y,obj_wall)){
+	x += movementVector[0]*0.1;
+	y += movementVector[1]*0.1;
+}if !(collision_rectangle(x+newCoords[0]-0.5,y+newCoords[1]-0.5,x+newCoords[0]+0.5,y+newCoords[1]+0.5,obj_wall,false,true)){
+	x = _x
+	y = _y
+}else{
+	hit = instance_place(x, y, obj_wall)
+}
 
 if (hit != noone ){
 	// Get the block's boundaries
@@ -43,29 +46,29 @@ if (hit != noone ){
 	var smallest = min(abs(xDifferenceLeft),abs(xDifferenceRight),abs(yDifferenceTop),abs(yDifferenceBottom));
 	if (smallest = abs(xDifferenceLeft)) {
 		latestWallHit = 2;
-		print("left");
+		//print("left");
 		movementVector[0] = -movementVector[0]
 		movementVector[1] = movementVector[1]
 	}else if (smallest = abs(xDifferenceRight)){
 		latestWallHit = 0;
-		print("right");
+		//print("right");
 		movementVector[0] = -movementVector[0]
 		movementVector[1] = movementVector[1]
 	}else if (smallest = abs(yDifferenceTop)) {
 		latestWallHit = 1;
-		print("top");
+		//print("top");
 		movementVector[0] = movementVector[0]
 		movementVector[1] = -movementVector[1]
 	}else if (smallest = abs(yDifferenceBottom)){
 		latestWallHit = 3;
-		print("bot");
+		//print("bot");
 		movementVector[0] = movementVector[0]
 		movementVector[1] = -movementVector[1]
 	}
 	fireCoords = [x,y];
 	
 	lastWallStruck = hit;
-	if (timeSinceBounce > 9){
+	if (timeSinceBounce < 9){
 		maxBounce--
 	}
 	timeSinceBounce = 0
@@ -96,6 +99,9 @@ if (collision_rectangle(x+newCoords[0]-0.5, y+newCoords[1]-0.5,x+newCoords[0]+0.
 }
 
 if (maxBounce <= 0){
-	parent.activeBullets = parent.activeBullets - 1
+	print("-------------");
+	print(closestDistanceToPlayer);
+	print(originalAngle);
+	ricochetArray[originalAngle] = closestDistanceToPlayer
 	instance_destroy();
 }

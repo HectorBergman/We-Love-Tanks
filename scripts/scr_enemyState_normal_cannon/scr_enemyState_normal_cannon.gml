@@ -10,10 +10,6 @@ function enemyState_normal_cannon(){
 
 	}
 	if !place_meeting(x,y, obj_wall) && activeBullets < 3 && firingCooldown < 1{
-		var angle = degtorad(image_angle)+pi/2
-		summonObject(obj_bullet_enemy, [["movementVector", [sin(angle), cos(angle)]], 
-		["bulletSpeed", 3], ["x", x+20*sin(angle)], ["y", y+20*cos(angle)], ["maxBounce", 3], ["parent", id]]);
-		activeBullets++;
-		firingCooldown = firingCooldownTime;
+		fireBullet(obj_bullet_enemy, 1.5, 3)	
 	}
 }

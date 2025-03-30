@@ -168,23 +168,12 @@ function determineIfWithinBoxCone(wall, quadrant, objectCoords, acceptableAngleD
 		return false
 	}
 }
-	/*
-	var truAngularWidth = angularWidth/2
-	var directionalAngle = 0;
-	if quadrant == 0{
-		directionalAngle = 45;
-	}else if quadrant == 1{
-		directionalAngle = 135;
-	}else if quadrant == 2{
-		directionalAngle = 225;
-	}else if quadrant == 3{
-		directionalAngle = 315;
-	}
-	var wallCoords = getWallCoords(wall, quadrant);
-	var deltaX = coords[0]-wallCoords[0];
-	var deltaY = coords[1]-wallCoords[1];
-	if (sqrt(power(deltaX,2)+power(deltaY,2)) <= radius){
-		
-	}else{
-		return false
-	}*/
+
+
+function fireBullet(bulletObj, bulletSpeed, maxBounce){
+	var angle = degtorad(image_angle)+pi/2
+	summonObject(bulletObj, [["movementVector", [sin(angle), cos(angle)]], 
+	["bulletSpeed", bulletSpeed], ["x", x+20*sin(angle)], ["y", y+20*cos(angle)], ["maxBounce", maxBounce], ["parent", id]]);
+	activeBullets++;
+	firingCooldown = firingCooldownTime;
+}
