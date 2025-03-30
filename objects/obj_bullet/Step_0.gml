@@ -13,7 +13,7 @@ newCoords = [lengthdir_x(sprite_width - sprite_xoffset, image_angle),
 var hit = 0;
 
 if (place_meeting(x+movementX(), y+movementY(), obj_wall)){
-	print("lol");
+
 	var _x = x;
 	var _y = y;
 	while (!place_meeting(x,y,obj_wall)){
@@ -23,7 +23,8 @@ if (place_meeting(x+movementX(), y+movementY(), obj_wall)){
 		x = _x
 		y = _y
 	}else{
-		hit = instance_place_list(x, y, obj_wall, hitList, 1)
+		print("boom");
+		hit = instance_place_list(x+movementX(), y+movementY(), obj_wall, hitList, 1)
 	}
 }
 
@@ -34,10 +35,19 @@ var prevhit34 = instance_place(x + (prevVector[0] - x)*0.75, y, obj_wall)
 
 
 
-if (hit < 0){
-	if (hit == 1){
-		print("yes!");
-		var hitWall = ds_list_find_index(hitList,0);
+if (hit > 0){
+	
+	if (hit > 1){
+	
+		movementVector[0] = -movementVector[0]
+		movementVector[1] = -movementVector[1]
+		if (timeSinceBounce > 9){
+			maxBounce--
+		}
+		timeSinceBounce = 0
+	}else{
+
+		var hitWall = ds_list_find_value(hitList,0);
 		// Get the block's boundaries
 		var block_left = hitWall.bbox_left;
 		var block_right = hitWall.bbox_right;
@@ -78,14 +88,7 @@ if (hit < 0){
 			maxBounce--
 		}
 		timeSinceBounce = 0
-	}else{
-		print("naurrr");
-		movementVector[0] = -movementVector[0]
-		movementVector[1] = -movementVector[1]
-		if (timeSinceBounce > 9){
-			maxBounce--
-		}
-		timeSinceBounce = 0
+		
 	}
 }
 image_angle = point_direction(x,y,x+movementVector[0],y+movementVector[1]);
@@ -103,4 +106,5 @@ if (maxBounce <= 0){
 	instance_destroy();
 }
 
+ds_list_clear(hitList);
 
