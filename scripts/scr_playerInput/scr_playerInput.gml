@@ -15,7 +15,7 @@ function playerInput(){
 	{
 		moveRight = true;
 	}
-	if mouse_check_button_pressed(mb_left)
+	if mouse_check_button(mb_left)
 	{
 		fire = true;
 	}

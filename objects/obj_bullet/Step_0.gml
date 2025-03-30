@@ -5,10 +5,9 @@ if (x > room_width || x < 0 || y < 0 || y > room_height){
 }
 movementVector = normalizeVector(movementVector);
 
-var xOrigin = sprite_get_xoffset(sprite_index)
-var yOrigin = sprite_get_yoffset(sprite_index)
-newCoords = [lengthdir_x(sprite_width - xOrigin, image_angle), 
-			 lengthdir_y(sprite_height - yOrigin, image_angle)]
+
+newCoords = [lengthdir_x(sprite_width - sprite_xoffset, image_angle), 
+			 lengthdir_y(sprite_height - sprite_yoffset, image_angle)]
 
 var hit = noone;
 //instance_place(x+movementX(), y+movementY(), obj_wall)
@@ -56,18 +55,22 @@ if (hit != noone ){
 	var yDifferenceBottom = y+newCoords[1] - block_bottom;
 	var smallest = min(abs(xDifferenceLeft),abs(xDifferenceRight),abs(yDifferenceTop),abs(yDifferenceBottom));
 	if (smallest = abs(xDifferenceLeft)) {
+		latestWallHit = 2;
 		print("left");
 		movementVector[0] = -movementVector[0]
 		movementVector[1] = movementVector[1]
 	}else if (smallest = abs(xDifferenceRight)){
+		latestWallHit = 0;
 		print("right");
 		movementVector[0] = -movementVector[0]
 		movementVector[1] = movementVector[1]
 	}else if (smallest = abs(yDifferenceTop)) {
+		latestWallHit = 1;
 		print("top");
 		movementVector[0] = movementVector[0]
 		movementVector[1] = -movementVector[1]
 	}else if (smallest = abs(yDifferenceBottom)){
+		latestWallHit = 3;
 		print("bot");
 		movementVector[0] = movementVector[0]
 		movementVector[1] = -movementVector[1]
@@ -205,12 +208,31 @@ if (hit != noone ){
 	}
 	timeSinceBounce = 0
 }
+image_angle = point_direction(x,y,x+movementVector[0],y+movementVector[1]);
 //erm actually this is a prevCoord
+
 prevVector[0] = x
 prevVector[1] = y
 x = x + movementX();
 y = y + movementY();
-	
+newCoords = [lengthdir_x(sprite_width - sprite_xoffset, image_angle), 
+				 lengthdir_y(sprite_height - sprite_yoffset, image_angle)]
+if (collision_rectangle(x+newCoords[0]-0.5, y+newCoords[1]-0.5,x+newCoords[0]+0.5, y+newCoords[1]+0.5,obj_wall,true,true)){
+	x = prevVector[0];
+	y = prevVector[1];
+	if (latestWallHit == 0){
+		movementVector[1] = -movementVector[1]
+	}else if (latestWallHit == 1){
+		movementVector[0] = -movementVector[0]
+	}else if (latestWallHit == 2){
+		movementVector[1] = -movementVector[1]
+	}else if (latestWallHit == 3){
+		movementVector[0] = -movementVector[0]
+	}
+	x = x + movementX();
+	y = y + movementY();
+}
+
 if (maxBounce <= 0){
 	parent.activeBullets = parent.activeBullets - 1
 	instance_destroy();
