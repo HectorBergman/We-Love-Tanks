@@ -34,11 +34,9 @@ var prevhit24 = instance_place(x + (prevVector[0] - x)*0.50, y, obj_wall)
 var prevhit34 = instance_place(x + (prevVector[0] - x)*0.75, y, obj_wall)
 
 
-
 if (hit > 0){
 	
 	if (hit > 1){
-	
 		movementVector[0] = -movementVector[0]
 		movementVector[1] = -movementVector[1]
 		if (timeSinceBounce > 9){

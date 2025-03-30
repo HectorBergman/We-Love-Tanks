@@ -7,8 +7,8 @@ function movementY(){
 	return movementVector[1]*movementSpeed;
 }
 
-summonObject(obj_enemy_cannon, [["parent", id], ["depth", depth-1]]);
-summonObject(obj_enemy_hitbox, [["parent", id]]);
+summonObject(obj_enemy_cannon_ricochet, [["parent", id], ["depth", depth-1]]);
+summonObject(obj_enemy_hitbox_ricochet, [["parent", id]]);
 
 distance = point_distance(x, y, playerTank.x, playerTank.y);
 distanceX = abs(playerTank.x - x);

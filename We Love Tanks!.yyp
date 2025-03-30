@@ -43,8 +43,8 @@
   "name":"We Love Tanks!",
   "resources":[
     {"id":{"name":"obj_breadCrumbs","path":"objects/obj_breadCrumbs/obj_breadCrumbs.yy",},},
-    {"id":{"name":"obj_bullet_attempt_2","path":"objects/obj_bullet_attempt_2/obj_bullet_attempt_2.yy",},},
     {"id":{"name":"obj_bullet_enemy","path":"objects/obj_bullet_enemy/obj_bullet_enemy.yy",},},
+    {"id":{"name":"obj_bullet_findRicochet","path":"objects/obj_bullet_findRicochet/obj_bullet_findRicochet.yy",},},
     {"id":{"name":"obj_bullet","path":"objects/obj_bullet/obj_bullet.yy",},},
     {"id":{"name":"obj_cam","path":"objects/obj_cam/obj_cam.yy",},},
     {"id":{"name":"obj_crosshair","path":"objects/obj_crosshair/obj_crosshair.yy",},},
