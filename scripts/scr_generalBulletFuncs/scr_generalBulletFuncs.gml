@@ -1,0 +1,162 @@
+/// @function getWallCoords(wall, quadrant)
+/// @description Returns the coordinate of a corner of a wall instance
+/// @param {instance} wall The wall instance to check (obj_wall or compatible)
+/// @param {int} quadrant Which corner to get (0-3, counter-clockwise from top-right)
+/// @returns {array<int>} [x,y] coordinates of the requested corner
+/// @example
+/// var corner = getWallCoords(wall_instance, 2); // Gets bottom-left corner
+
+function getWallCoords(wall, quadrant){
+	var xScale = wall.image_xscale;
+	var yScale = wall.image_yscale;
+	var _x = wall.x;
+	var _y = wall.y;
+	if quadrant == 0{
+		return [_x + 32*xScale,_y]
+	}
+	if quadrant == 1{
+		return [_x,_y]
+	}
+	if quadrant == 2{
+		return [_x, _y + 32*yScale];
+	}
+	if quadrant == 3{
+		return [_x + 32*xScale, _y + 32*yScale];
+	}
+}
+
+/// @function determineIfWithinBoxCone(wall, quadrant, objectCoords, acceptableAngleDifference)
+/// @description Checks if an object's coordinates fall within a directional cone extending from a specified box corner.
+/// @param {instance} wall       The wall instance to check from
+/// @param {int} quadrant        Which corner to use (0-3):
+///                              0 = Bottom-left (45°)
+///                              1 = Top-left (135°)
+///                              2 = Top-right (225°)
+///                              3 = Bottom-right (315°)
+/// @param {array} objectCoords  [x,y] coordinates to check
+/// @param {float} acceptableAngleDifference  Angular tolerance in degrees (half of total cone angle)
+///								 i.e. an acceptableAngleDifference of 20 means a cone of angle 40 degrees
+/// @returns {bool}              Returns true if object is within the cone, false otherwise
+///
+/// @example
+/// var wall = instance_nearest(x, y, obj_wall);
+/// var target = [obj_player.x, obj_player.y];
+/// if (determineIfWithinBoxCone(wall, 1, target, 15)) {
+///     // Player is in 30° cone from top-left corner
+/// }
+function determineIfWithinBoxCone(wall, quadrant, objectCoords, acceptableAngleDifference){
+	var wallCoords = getWallCoords(wall,quadrant);
+	var pointDirection = point_direction(wallCoords[0],wallCoords[1], objectCoords[0],objectCoords[1]);
+	var directionalAngle = 0;
+	if quadrant == 0{
+		directionalAngle = 45;
+	}else if quadrant == 1{
+		directionalAngle = 135;
+	}else if quadrant == 2{
+		directionalAngle = 225;
+	}else if quadrant == 3{
+		directionalAngle = 315;
+	}
+	if abs(angle_difference(pointDirection, directionalAngle)) < acceptableAngleDifference{
+		return true;
+	}else{
+		return false
+	}
+}
+
+
+function fireBullet(bulletObj, bulletSpeed, maxBounce){
+	var angle = degtorad(image_angle)+pi/2
+	summonObject(bulletObj, [["movementVector", [sin(angle), cos(angle)]], 
+	["bulletSpeed", bulletSpeed], ["x", x+20*sin(angle)], ["y", y+20*cos(angle)], ["maxBounce", maxBounce], ["parent", id]]);
+	activeBullets++;
+	firingCooldown = firingCooldownTime;
+}
+
+
+/// @function findWallSideHit(wall)
+/// @description Returns the quadrant of the wall that was hit by the bullet
+/// @param {instance} wall The obj_wall that is checked
+/// @returns {real} number from 0,3, representing right,top,left, and bottom respectively.
+
+
+function findWallSideHit(wall){
+	
+	// Get the block's boundaries
+	var block_left = wall.bbox_left;
+	var block_right = wall.bbox_right;
+	var block_top = wall.bbox_top;
+	var block_bottom = wall.bbox_bottom;
+	
+	
+	var xDifferenceLeft = x+newCoords[0] - block_left
+	var xDifferenceRight = x+newCoords[0] - block_right
+	var yDifferenceTop = y+newCoords[1] - block_top;
+	var yDifferenceBottom = y+newCoords[1] - block_bottom;
+	var smallest = min(abs(xDifferenceLeft),abs(xDifferenceRight),abs(yDifferenceTop),abs(yDifferenceBottom));
+	if (smallest = abs(xDifferenceLeft)) {
+		return 2;
+	}else if (smallest = abs(xDifferenceRight)){
+		return 0;
+	}else if (smallest = abs(yDifferenceTop)) {
+		return 1;
+	}else if (smallest = abs(yDifferenceBottom)){
+		return 3;
+	}
+}
+
+/// @function findWallSideHit(wall)
+/// @description Returns the quadrant of the wall that was hit by the bullet, plus the distance of the bullet from each side
+/// @param {instance} wall The obj_wall that is checked
+/// @returns {array<real>} index 0 is number from 0,3, representing right,top,left, and bottom respectively,
+///						   index 1-4 is the distance from the bullet for each side, in the same order as earlier.
+
+
+function findWallSideHitDeluxe(wall){
+	
+	// Get the block's boundaries
+	var block_left = wall.bbox_left;
+	var block_right = wall.bbox_right;
+	var block_top = wall.bbox_top;
+	var block_bottom = wall.bbox_bottom;
+	
+	
+	var xDifferenceLeft = x+newCoords[0] - block_left
+	var xDifferenceRight = x+newCoords[0] - block_right
+	var yDifferenceTop = y+newCoords[1] - block_top;
+	var yDifferenceBottom = y+newCoords[1] - block_bottom;
+	var smallest = min(abs(xDifferenceLeft),abs(xDifferenceRight),abs(yDifferenceTop),abs(yDifferenceBottom));
+	if (smallest = abs(xDifferenceLeft)) {
+		return [2,abs(xDifferenceRight),abs(yDifferenceTop),abs(yDifferenceBottom),abs(xDifferenceLeft)];
+	}else if (smallest = abs(xDifferenceRight)){
+		return [0,abs(xDifferenceRight),abs(yDifferenceTop),abs(yDifferenceBottom),abs(xDifferenceLeft)];
+	}else if (smallest = abs(yDifferenceTop)) {
+		return [1,abs(xDifferenceRight),abs(yDifferenceTop),abs(yDifferenceBottom),abs(xDifferenceLeft)];
+	}else if (smallest = abs(yDifferenceBottom)){
+		return [3,abs(xDifferenceRight),abs(yDifferenceTop),abs(yDifferenceBottom),abs(xDifferenceLeft)];
+	}
+}
+
+
+/// @function filterOutIntersections(inst_array)
+/// @description Returns array of instances where object_index != obj_intersection
+/// @param {array} inst_array Array of instances to filter
+/// @returns {array} Filtered array of instances (max 2 elements)
+
+function filterOutIntersections(inst_array) {
+    var filtered = [];
+    
+    for (var i = 0; i < array_length(inst_array); i++) {
+        var inst = inst_array[i];
+        if (inst.object_index != obj_intersection) {
+            array_push(filtered, inst);
+            
+            // Early exit if we already found 2
+            if (array_length(filtered) >= 2) {
+                break;
+            }
+        }
+    }
+    
+    return filtered;
+}

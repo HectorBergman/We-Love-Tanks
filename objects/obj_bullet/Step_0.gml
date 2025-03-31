@@ -23,7 +23,7 @@ if (place_meeting(x+movementX(), y+movementY(), obj_wall)){
 		x = _x
 		y = _y
 	}else{
-		print("boom");
+		//print("boom");
 		hit = instance_place_list(x+movementX(), y+movementY(), obj_wall, hitList, 1)
 	}
 }
@@ -35,59 +35,65 @@ var prevhit34 = instance_place(x + (prevVector[0] - x)*0.75, y, obj_wall)
 
 
 if (hit > 0){
-	
-	if (hit > 1){
+
+	var hitWall = ds_list_find_value(hitList,0);
+	// Get the block's boundaries
+	var whichWall = findWallSideHit(hitWall);
+	if (hit > 2){
+		var walls = filterOutIntersections([ds_list_find_value(hitList,0),ds_list_find_value(hitList,1),ds_list_find_value(hitList,2)])
+		if findWallSideHit(walls[0]) == findWallSideHit(walls[1]){
+			hit = 1;
+		}else{
+			hit = 2;
+		}
+	}else if (hit > 1){
+		if (ds_list_find_value(hitList,1).object_index == obj_intersection || 
+			ds_list_find_value(hitList,0).object_index == obj_intersection){
+			var wall1 = findWallSideHitDeluxe(ds_list_find_value(hitList,0));
+			var wall2 = findWallSideHitDeluxe(ds_list_find_value(hitList,1));
+			var result = minIndex(wall1[1]+wall2[1], wall1[2]+wall2[2], wall1[3]+wall2[3], wall1[4]+wall2[4]);
+			whichWall = result[1];
+
+			print(whichWall);
+			hit = 1;
+			
+		}else if whichWall == findWallSideHit(ds_list_find_value(hitList,1)){
+			hit = 1;
+		}
+	}
+	if (hit == 1){
+		if (whichWall == 2) {
+			
+			//print("left");
+			movementVector[0] = -movementVector[0]
+			movementVector[1] = movementVector[1]
+		}else if (whichWall == 0){
+			//print("right");
+			movementVector[0] = -movementVector[0]
+			movementVector[1] = movementVector[1]
+		}else if (whichWall == 1) {
+
+			//print("top");
+			movementVector[0] = movementVector[0]
+			movementVector[1] = -movementVector[1]
+		}else if (whichWall == 3){
+
+			//print("bot");
+			movementVector[0] = movementVector[0]
+			movementVector[1] = -movementVector[1]
+		}
+			
+	}else{
 		movementVector[0] = -movementVector[0]
 		movementVector[1] = -movementVector[1]
-		if (timeSinceBounce > 9){
-			maxBounce--
-		}
-		timeSinceBounce = 0
-	}else{
-
-		var hitWall = ds_list_find_value(hitList,0);
-		// Get the block's boundaries
-		var block_left = hitWall.bbox_left;
-		var block_right = hitWall.bbox_right;
-		var block_top = hitWall.bbox_top;
-		var block_bottom = hitWall.bbox_bottom;
-	
-	
-		var xDifferenceLeft = x+newCoords[0] - block_left
-		var xDifferenceRight = x+newCoords[0] - block_right
-		var yDifferenceTop = y+newCoords[1] - block_top;
-		var yDifferenceBottom = y+newCoords[1] - block_bottom;
-		var smallest = min(abs(xDifferenceLeft),abs(xDifferenceRight),abs(yDifferenceTop),abs(yDifferenceBottom));
-		if (smallest = abs(xDifferenceLeft)) {
-			latestWallHit = 2;
-			print("left");
-			movementVector[0] = -movementVector[0]
-			movementVector[1] = movementVector[1]
-		}else if (smallest = abs(xDifferenceRight)){
-			latestWallHit = 0;
-			print("right");
-			movementVector[0] = -movementVector[0]
-			movementVector[1] = movementVector[1]
-		}else if (smallest = abs(yDifferenceTop)) {
-			latestWallHit = 1;
-			print("top");
-			movementVector[0] = movementVector[0]
-			movementVector[1] = -movementVector[1]
-		}else if (smallest = abs(yDifferenceBottom)){
-			latestWallHit = 3;
-			print("bot");
-			movementVector[0] = movementVector[0]
-			movementVector[1] = -movementVector[1]
-		}
-		fireCoords = [x,y];
-	
-		lastWallStruck = hitWall;
-		if (timeSinceBounce > 9){
-			maxBounce--
-		}
-		timeSinceBounce = 0
-		
 	}
+	fireCoords = [x,y];
+	
+	lastWallStruck = hitWall;
+	if (timeSinceBounce > 9){
+		maxBounce--
+	}
+	timeSinceBounce = 0
 }
 image_angle = point_direction(x,y,x+movementVector[0],y+movementVector[1]);
 

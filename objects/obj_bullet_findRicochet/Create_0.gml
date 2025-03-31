@@ -14,3 +14,5 @@ lastWallStruck = noone;
 newCoords = [0,0]
 latestWallHit = -1;
 closestDistanceToPlayer = 9999999;
+
+hitList = ds_list_create();
