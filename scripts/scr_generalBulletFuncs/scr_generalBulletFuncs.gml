@@ -68,7 +68,8 @@ function determineIfWithinBoxCone(wall, quadrant, objectCoords, acceptableAngleD
 function fireBullet(bulletObj, bulletSpeed, maxBounce){
 	var angle = degtorad(image_angle)+pi/2
 	summonObject(bulletObj, [["movementVector", [sin(angle), cos(angle)]], 
-	["bulletSpeed", bulletSpeed], ["x", x+20*sin(angle)], ["y", y+20*cos(angle)], ["maxBounce", maxBounce], ["parent", id]]);
+	["bulletSpeed", bulletSpeed], ["x", x+20*sin(angle)], ["y", y+20*cos(angle)], 
+	["maxBounce", maxBounce], ["parent", id], ["firedFrom", [x,y]], ["firedAngle", image_angle]]);
 	activeBullets++;
 	firingCooldown = firingCooldownTime;
 }

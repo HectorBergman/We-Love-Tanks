@@ -13,7 +13,7 @@ timeSinceBounce = 0;
 lastWallStruck = noone;
 newCoords = [0,0]
 latestWallHit = -1;
-
+hitInARow = 0;
 slowmovin = 1;
 slowMovinTime = 60;
 

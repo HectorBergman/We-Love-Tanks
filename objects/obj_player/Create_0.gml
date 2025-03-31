@@ -1,3 +1,6 @@
+x = 522.92
+y = 440.87
+
 enum playerStates{
 	normal,
 }
