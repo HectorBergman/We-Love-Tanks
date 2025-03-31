@@ -1,6 +1,6 @@
 
 shotCooldownTime = 300;
-shotCooldown = shotCooldownTime;
+shotCooldown = 1;
 
 x = parent.x
 y = parent.y
@@ -23,22 +23,26 @@ closestDistanceToPlayer = 999999;
 chosenAngle = -1;
 ricochetArray = [];
 ricochetArray[360] = 99999
-bulletSpeed = 6;
+bulletSpeed = 9;
 maxBounces = 3;
 
-angleInterval = 30;
+startAngle = 0;
+angleInterval = 5;
 
 function findBestRicochetAngle(){
-	for (var i = 0; i < 360; i = i+angleInterval){
-		var angle = i;
+	for (var i = startAngle; i < 360; i = i+angleInterval){
+		var angle = degtorad(i)+pi/2;
 		summonObject(obj_bullet_findRicochet, [["movementVector", [sin(angle), cos(angle)]], 
 		["bulletSpeed", bulletSpeed], ["x", x+20*sin(angle)], ["y", y+20*cos(angle)], ["maxBounce", maxBounces], 
-		["parent", id], ["originalAngle", angle]])
+		["parent", id], ["originalAngle", i], ["firedFrom", [x,y]], ["firedAngle", image_angle]])
 	}
 }
 function searchRicochetArray(){
 	
-	for (var i = 0; i < 360; i = i+angleInterval){
+	for (var i = startAngle; i < 360; i = i+angleInterval){
+		print("====____====")
+		print(i)
+		print(ricochetArray[i])
 		if ricochetArray[i] < closestDistanceToPlayer{
 			chosenAngle = i
 			closestDistanceToPlayer = ricochetArray[i]

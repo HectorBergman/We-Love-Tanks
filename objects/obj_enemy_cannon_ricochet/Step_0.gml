@@ -1,13 +1,12 @@
 x = parent.x
 y = parent.y
-shotCooldown--
-if (shotCooldown == 20){
+shotCooldown++
+if (shotCooldown mod shotCooldownTime == shotCooldownTime-maxBounces-1){
 	findBestRicochetAngle();
-}else if (shotCooldown == 0){
+}else if (shotCooldown mod shotCooldownTime == 0){
 	searchRicochetArray();
 	image_angle = chosenAngle;
 	fireBullet(obj_bullet_enemy, bulletSpeed, 3)
-	shotCooldown = shotCooldownTime
 	chosenAngle = -1;
 	closestDistanceToPlayer = 999999;
 }

@@ -5,6 +5,7 @@ function movementY(){
 	return movementVector[1]*bulletSpeed;
 }
 
+hitInARow = 0;
 collisionVector = [0,0];
 
 prevVector = [noone, noone];

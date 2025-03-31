@@ -106,7 +106,7 @@ if (slowmovin mod 60 == 0){
 	newCoords = [lengthdir_x(sprite_width - sprite_xoffset, image_angle), 
 					lengthdir_y(sprite_height - sprite_yoffset, image_angle)]
 
-	if (hitInARow == 10){
+	if (hitInARow == 3){
 		print(firedAngle);
 		print(string(firedFrom[0]) + " " + string(firedFrom[1]));
 		instance_destroy()
