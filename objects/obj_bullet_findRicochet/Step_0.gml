@@ -12,8 +12,10 @@ newCoords = [lengthdir_x(sprite_width - sprite_xoffset, image_angle),
 while !place_meeting(x+movementX(), y+movementY(), obj_wall){
 	timeSinceBounce++;
 	//print("x; " + string(x) + "y: " + string(y));
-	var distance = point_distance(x+newCoords[0],y+newCoords[1], playerTank.x,playerTank.y)
-	closestDistanceToPlayer = min(closestDistanceToPlayer,distance);
+	if !(collision_line(x,y,playerTank.x,playerTank.y, obj_wall, 0,0)){
+		var distance = point_distance(x+newCoords[0],y+newCoords[1], playerTank.x,playerTank.y)
+		closestDistanceToPlayer = min(closestDistanceToPlayer,distance);
+	}
 	x += movementX();
 	y += movementY();
 }
@@ -47,7 +49,6 @@ if (hit > 0){
 			var result = minIndex(wall1[1]+wall2[1], wall1[2]+wall2[2], wall1[3]+wall2[3], wall1[4]+wall2[4]);
 			whichWall = result[1];
 
-			print(whichWall);
 			hit = 1;
 			
 		}else if whichWall == findWallSideHit(ds_list_find_value(hitList,1)){
@@ -83,7 +84,7 @@ if (hit > 0){
 	fireCoords = [x,y];
 	
 	lastWallStruck = hitWall;
-	if (timeSinceBounce > 9){
+	if (timeSinceBounce > 3){
 		maxBounce--
 	}
 	timeSinceBounce = 0
@@ -101,9 +102,9 @@ newCoords = [lengthdir_x(sprite_width - sprite_xoffset, image_angle),
 				 lengthdir_y(sprite_height - sprite_yoffset, image_angle)]
 
 if (maxBounce <= 0){
-	print("-------------");
+	/*print("-------------");
 	print(closestDistanceToPlayer);
-	print(originalAngle);
+	print(originalAngle);*/
 	parent.ricochetArray[originalAngle] = closestDistanceToPlayer
 	instance_destroy();
 }

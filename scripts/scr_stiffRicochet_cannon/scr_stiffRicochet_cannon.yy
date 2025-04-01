@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_stiffRicochet_cannon",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_stiffRicochet_cannon",
+  "parent":{
+    "name":"stiffRicochet",
+    "path":"folders/Objects/enemy/enemies/stiffRicochet.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

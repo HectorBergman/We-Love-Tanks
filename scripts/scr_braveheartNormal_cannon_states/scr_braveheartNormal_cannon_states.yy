@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_braveheartNormal_cannon_states",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_braveheartNormal_cannon_states",
+  "parent":{
+    "name":"braveheartNormal",
+    "path":"folders/Objects/enemy/enemies/braveheartNormal.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

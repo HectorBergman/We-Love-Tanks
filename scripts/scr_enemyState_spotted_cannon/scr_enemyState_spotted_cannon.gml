@@ -36,12 +36,7 @@ function enemyState_spotted_cannon_moving(){
 function gradualPoint(targetAngle, turningSpeed){
 	//var goalDirection = point_direction(x,y,playerTank.x, playerTank.y) mod 360;
 	var turnDirection = sign(angle_difference(targetAngle, image_angle))
-	print("----------------");
-	print(angle_difference(targetAngle, image_angle));
-	print(targetAngle)
-	print(image_angle);
-	print(turningSpeed*pi/2);
-	print(turnDirection);
+	
 	if (abs(angle_difference(targetAngle, image_angle)) < abs(radtodeg(turningSpeed*pi/2))*2){
 		return true; 
 	}else{
@@ -51,3 +46,15 @@ function gradualPoint(targetAngle, turningSpeed){
 	
 	
 }
+
+/// @function gradualPointOverTime(goalDirection,turningSpeed)
+/// @description Returns the angle needed every step to go from current image_angle to target angle.
+/// @param {real} targetAngle Target angle, given in degrees
+/// @param {real} steps Amount of steps to reach target angle
+/// @returns {real} The angle to be added over (steps) steps
+
+function gradualPointOverTime(targetAngle, steps){
+	var turnDirection = sign(angle_difference(targetAngle, image_angle))
+	return angle_difference(targetAngle, image_angle)/steps; 
+}
+

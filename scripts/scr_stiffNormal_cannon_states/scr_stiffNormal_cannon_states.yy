@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_stiffNormal_cannon_states",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_stiffNormal_cannon_states",
+  "parent":{
+    "name":"stiffNormal",
+    "path":"folders/Objects/enemy/enemies/stiffNormal.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

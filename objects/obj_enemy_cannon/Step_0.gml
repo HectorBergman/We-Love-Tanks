@@ -1,11 +1,12 @@
-x = parent.x
-y = parent.y
-firingCooldown--
 
-switch (state){
-    case cannonEnemyStates.normal: enemyState_normal_cannon(); break;
-	case cannonEnemyStates.scanning: enemyState_scanning_cannon(); break;
-	case cannonEnemyStates.spotted: enemyState_spotted_cannon(); break;
+
+switch(type){
+	case enemyTypes.stiffNormal: stiffNormal_step_cannon(); break;
+	case enemyTypes.braveheartNormal: braveheartNormal_step_cannon(); break;
+	case enemyTypes.stiffRicochet: stiffRicochet_step_cannon(); break;
+	
 }
+
+
 
 

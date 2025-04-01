@@ -10,10 +10,13 @@ if (breadCrumbTimer == 1){
 	}
 }else if (breadCrumbTimer == 0){
 	if (distance < 32*breadCrumbRadius){
-		if (!collision_line(x+16, y+16, playerTank.x, playerTank.y, obj_wall, false, true) && !instance_exists(activeBreadcrumb)){
-			if squareNo == 295{
+		if (!collision_line(x+16, y+16, playerTank.x, playerTank.y, obj_wall, false, true)){
+			if !instance_exists(activeBreadcrumb){
+				activeBreadcrumb = summonObject(obj_breadCrumbs, [["x" , x], ["y", y]]);
+			}else{
+				activeBreadcrumb.lifeTime =  360
 			}
-			activeBreadcrumb = summonObject(obj_breadCrumbs, [["x" , x], ["y", y]]);
+			
 		}else if (instance_exists(activeBreadcrumb) && collision_line(x, y, playerTank.x, playerTank.y, obj_wall, false, true) && activeBreadcrumb.lifeTime < 0){
 			instance_destroy(activeBreadcrumb);
 		}

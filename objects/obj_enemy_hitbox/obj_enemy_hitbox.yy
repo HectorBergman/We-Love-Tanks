@@ -9,8 +9,8 @@
   "name":"obj_enemy_hitbox",
   "overriddenProperties":[],
   "parent":{
-    "name":"enemy",
-    "path":"folders/Objects/enemy.yy",
+    "name":"enemies",
+    "path":"folders/Objects/enemy/enemies.yy",
   },
   "parentObjectId":null,
   "persistent":false,

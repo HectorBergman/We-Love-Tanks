@@ -54,7 +54,7 @@ if (slowmovin mod 60 == 0){
 				var result = minIndex(wall1[1]+wall2[1], wall1[2]+wall2[2], wall1[3]+wall2[3], wall1[4]+wall2[4]);
 				whichWall = result[1];
 
-				print(whichWall);
+				
 				hit = 1;
 			
 			}else if whichWall == findWallSideHit(ds_list_find_value(hitList,1)){
@@ -90,7 +90,7 @@ if (slowmovin mod 60 == 0){
 		fireCoords = [x,y];
 	
 		lastWallStruck = hitWall;
-		if (timeSinceBounce > 9){
+		if (timeSinceBounce > 3){
 			maxBounce--
 		}
 		timeSinceBounce = 0
@@ -107,8 +107,8 @@ if (slowmovin mod 60 == 0){
 					lengthdir_y(sprite_height - sprite_yoffset, image_angle)]
 
 	if (hitInARow == 3){
-		print(firedAngle);
-		print(string(firedFrom[0]) + " " + string(firedFrom[1]));
+		/*print(firedAngle);
+		print(string(firedFrom[0]) + " " + string(firedFrom[1]));*/
 		instance_destroy()
 	
 	}

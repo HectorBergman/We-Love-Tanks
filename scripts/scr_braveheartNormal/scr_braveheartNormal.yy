@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_braveheartNormal",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_braveheartNormal",
+  "parent":{
+    "name":"braveheartNormal",
+    "path":"folders/Objects/enemy/enemies/braveheartNormal.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

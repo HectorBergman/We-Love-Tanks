@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_enemyState_approaching",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_enemyState_approaching",
+  "parent":{
+    "name":"decommissioned",
+    "path":"folders/Objects/enemy/decommissioned.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

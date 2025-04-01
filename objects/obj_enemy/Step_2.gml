@@ -1,2 +1,0 @@
-
-wallSeen = 0;

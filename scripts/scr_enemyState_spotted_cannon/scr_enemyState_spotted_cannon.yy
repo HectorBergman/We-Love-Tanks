@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_enemyState_spotted_cannon",
   "parent":{
-    "name":"cannon",
-    "path":"folders/oScripts/cannon.yy",
+    "name":"decommissioned",
+    "path":"folders/Objects/enemy/decommissioned.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

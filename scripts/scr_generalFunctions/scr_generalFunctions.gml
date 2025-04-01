@@ -71,9 +71,16 @@ function print(text){
 	show_debug_message(text);
 }
 
-function stepCollisionWhileWithFailCon(object, step, horizontal){
+
+/// @function stepCollisionWhileWithFailCon(objectArray, step, horizontal)
+/// @description Used before colliding with something collideable, will check all object types in objectArray
+/// @param {array} objectArray Array of all objects that need to be checked
+/// @param {real} step Negative or positive direction
+/// @param {real} horizontal y-axis or x-axis? 1 for x-axis, 0 for y-axis
+
+function stepCollisionWhileWithFailCon(objectArray, step, horizontal){
 	global.preWhileCoord = [x,y];
-	while(!place_meeting(x+step*horizontal,y+step*!horizontal,object)){
+	while(!collisionWithArray(objectArray,step,horizontal)){
 		x += step*horizontal;
 		y += step*!horizontal
 		global.whileFail++
@@ -84,6 +91,22 @@ function stepCollisionWhileWithFailCon(object, step, horizontal){
 			break;
 		}
 	}
+}
+
+/// @function collisionWithArray(array, step, horizontal)
+/// @description Helper function for stepCollisionWhileWithFailCon
+/// @param {array} objectArray Array of all objects that need to be checked
+/// @param {real} step Negative or positive direction
+/// @param {real} horizontal y-axis or x-axis? 1 for x-axis, 0 for y-axis
+/// @returns {bool} true if collision with any obj in array, else false
+function collisionWithArray(array,step,horizontal){
+	var boolean = false;
+	for (var i = 0; i < array_length(array); i++) {
+		if place_meeting(x+step*horizontal,y+step*!horizontal,array[i]){
+			return true
+		}
+	}
+	return false;
 }
 
 

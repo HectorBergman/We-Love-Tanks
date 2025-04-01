@@ -4,7 +4,7 @@ activeBreadcrumb = noone;
 breadCrumbTimer = 1;
 breadCrumbTime = 5;
 
-breadCrumbRadius = 4;
+breadCrumbRadius = 2;
 
 distance = point_distance(x, y, playerTank.x, playerTank.y);
 distanceX = abs(playerTank.x - x);

@@ -13,14 +13,14 @@ switch (state){
 }
 
 //collision with walls
-if (place_meeting(x + movementX(), y, obj_wall)){
+if (place_meeting(x + movementX(), y, [obj_wall, obj_enemy])){
 	var _hStep = sign(movementX());
-	stepCollisionWhileWithFailCon(obj_wall, _hStep, true)
+	stepCollisionWhileWithFailCon([obj_wall, obj_enemy], _hStep, true)
 	movementVector[0] = 0;
 }
-if (place_meeting(x, y + movementY(), obj_wall)){
+if (place_meeting(x, y + movementY(), [obj_wall, obj_enemy])){
 	var _vStep = sign(movementY());
-	stepCollisionWhileWithFailCon(obj_wall, _vStep, false)
+	stepCollisionWhileWithFailCon([obj_wall, obj_enemy], _vStep, false)
 	movementVector[1] = 0;
 }
 

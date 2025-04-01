@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_stiffNormal",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_stiffNormal",
+  "parent":{
+    "name":"stiffNormal",
+    "path":"folders/Objects/enemy/enemies/stiffNormal.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
