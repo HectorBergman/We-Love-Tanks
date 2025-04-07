@@ -48,7 +48,7 @@ function braveheartNormal_approaching(){
 
 function braveheartNormal_patrolling(){
 	
-	if !collision_line(x,y,playerTank.x,playerTank.y, obj_wall,0,1){
+	if !collision_line(x,y,playerTank.x,playerTank.y, [obj_wall,  obj_enemy],0,1){
 		var arr = findNearbyCrumbs()
 		nearestCrumb = arr[0];
 		if (nearestCrumb == noone){
@@ -63,7 +63,7 @@ function braveheartNormal_patrolling(){
 }
 
 function braveheartNormal_spotted(){
-	if !collision_line(x,y,playerTank.x,playerTank.y, obj_wall,0,1){
+	if !collision_line(x,y,playerTank.x,playerTank.y, [obj_wall, obj_enemy],0,1){
 		var dir = point_direction(x, y, playerTank.x, playerTank.y);
 		movementVector[0] = lengthdir_x(movementSpeed, dir);
 		movementVector[1] = lengthdir_y(movementSpeed, dir);

@@ -1,4 +1,4 @@
 function playerVariables_movement(){
-	movementSpeed = 1;
+	movementSpeed = 6;
 	movementVector = [0, 0] //x, y
 }

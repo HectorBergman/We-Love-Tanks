@@ -1,0 +1,11 @@
+{
+  "$GMNotes":"",
+  "%Name":"RoomLoaderLicence",
+  "name":"RoomLoaderLicence",
+  "parent":{
+    "name":"Notes",
+    "path":"folders/GMRoomLoader/Notes.yy",
+  },
+  "resourceType":"GMNotes",
+  "resourceVersion":"2.0",
+}

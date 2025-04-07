@@ -88,6 +88,7 @@ function findWallSideHit(wall){
 	var block_right = wall.bbox_right;
 	var block_top = wall.bbox_top;
 	var block_bottom = wall.bbox_bottom;
+	print(block_left);
 	
 	
 	var xDifferenceLeft = x+newCoords[0] - block_left
