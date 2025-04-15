@@ -10,6 +10,10 @@ new_height= base_height *image_yscale/scale;
 amountWidth = new_width/base_width;
 amountHeight = new_height/base_height;
 
+if (place_meeting(x,y,obj_gridSquare)){
+	instance_destroy();
+	exit;
+}
 for (var i = 0; i < amountWidth; i += 1){
 	increase++
 	for (var j = 0; j < amountHeight; j += 1){
@@ -19,8 +23,9 @@ for (var i = 0; i < amountWidth; i += 1){
 			image_yscale: scale,
 			squareNo: increase,
 		}
-		var slave = summonObject(obj_positionCheckerSlave, [["parent", id], ["base_width", base_width], 
-["base_height", base_height], ["i", i], ["j", j]]) 
+		var slave = summonObject(obj_positionCheckerSlave, 
+		[["parent", id], ["base_width", base_width], 
+		["base_height", base_height], ["i", i], ["j", j]]) 
 		var wallThere = false;
 		with (slave){
 			if (place_meeting(x,y,obj_wall)){

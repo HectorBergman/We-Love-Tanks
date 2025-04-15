@@ -22,3 +22,5 @@ prevTurn = -1;
 minimumdifference = 3;
 
 hitList = ds_list_create();
+
+firedRoom = [roomHandler.currentRoom[0],roomHandler.currentRoom[1]];

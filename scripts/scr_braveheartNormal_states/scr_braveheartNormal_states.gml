@@ -1,4 +1,5 @@
 function braveheartNormal_approaching(){
+	print("wonder if it lags now!");
 	nearestCrumb = noone;
 	nearestCrumbDistance = 99999999;
 	wallSeen = 0;

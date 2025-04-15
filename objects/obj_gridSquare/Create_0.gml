@@ -12,6 +12,10 @@ distanceY = abs(playerTank.y - y);
 detectionSquareWidth = 6;
 wallSeen = 0;
 playerSeen = false;
+
+debugNum = 0;
+
+currentRoom = roomHandler.currentRoom;
 /*for (var i = -1; i < 2; i++){
 	for (var j = -1; j < 2; j++){
 		if (collision_line(x, y, x+i*32, y+j*32, obj_wall, false, true)){

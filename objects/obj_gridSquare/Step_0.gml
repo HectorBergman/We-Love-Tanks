@@ -1,4 +1,13 @@
+debugNum++
+if roomHandler.currentRoom[0] != currentRoom[0] || roomHandler.currentRoom[1] != currentRoom[1]{
+	print("lol");
+	instance_destroy();
+	exit;
+}
+if squareNo == 40{
 
+	
+}
 if (breadCrumbTimer == 5){
 	distance = point_distance(x,y,playerTank.x,playerTank.y)
 }

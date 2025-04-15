@@ -1,3 +1,10 @@
+
+if (roomHandler.currentRoom[0] != firedRoom[0] || roomHandler.currentRoom[1] != firedRoom[1]){
+	instance_destroy();
+	exit;
+}
+
+
 if (keyboard_check(vk_space)){
 	slowmovin++
 }else{

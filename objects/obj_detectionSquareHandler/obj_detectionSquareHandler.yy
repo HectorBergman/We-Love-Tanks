@@ -11,8 +11,8 @@
   "name":"obj_detectionSquareHandler",
   "overriddenProperties":[],
   "parent":{
-    "name":"enemy",
-    "path":"folders/Objects/enemy.yy",
+    "name":"decommissioned",
+    "path":"folders/Objects/enemy/decommissioned.yy",
   },
   "parentObjectId":null,
   "persistent":false,

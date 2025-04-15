@@ -31,8 +31,8 @@ roomGrid[7][7] = ["startRoom", true];
 
 
 function roomCreate(newRoom, xChange, yChange){
-	
-	print("test")
+	//print(currentRoom[0])
+	//print(currentRoom[1])
 	if (roomGrid[currentRoom[0]][currentRoom[1]][0] != "startRoom"){
 		roomGrid[currentRoom[0]][currentRoom[1]][0].cleanup();
 		roomGrid[currentRoom[0]][currentRoom[1]][1] = false;
