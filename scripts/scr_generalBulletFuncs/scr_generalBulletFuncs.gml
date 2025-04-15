@@ -88,7 +88,10 @@ function findWallSideHit(wall){
 	var block_right = wall.bbox_right;
 	var block_top = wall.bbox_top;
 	var block_bottom = wall.bbox_bottom;
+<<<<<<< HEAD
 	//print(block_left);
+=======
+>>>>>>> parent of cfaa1f1 (gmroomloader_beginning)
 	
 	
 	var xDifferenceLeft = x+newCoords[0] - block_left
