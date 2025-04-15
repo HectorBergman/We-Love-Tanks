@@ -37,7 +37,7 @@ function findNearbyCrumbs(){
 		}
 		if reachable{
 			var crumbDistance = point_distance(playerTank.x, playerTank.y, breadCrumb.x, breadCrumb.y);
-			if (crumbDistance) < closestCrumbDistance && !collision_line(breadCrumb.x,breadCrumb.y,playerTank.x,playerTank.y,[obj_wall, obj_enemy],0,1){ //!collision_cone(breadCrumb.x,breadCrumb.y,playerTank.x,playerTank.y,45, 5, obj_wall){
+			if (crumbDistance) < closestCrumbDistance && !collision_line(breadCrumb.x,breadCrumb.y,playerTank.x,playerTank.y,obj_wall,0,1){ //!collision_cone(breadCrumb.x,breadCrumb.y,playerTank.x,playerTank.y,45, 5, obj_wall){
 				closestCrumb = breadCrumb
 				closestCrumbDistance = crumbDistance
 			}

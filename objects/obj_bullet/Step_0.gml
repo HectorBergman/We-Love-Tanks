@@ -13,6 +13,9 @@ if (keyboard_check(vk_space)){
 if (slowmovin mod 60 == 0){
 	timeSinceBounce++
 	image_angle = point_direction(x,y,x+movementVector[0],y+movementVector[1]);
+	if (x > room_width || x < 0 || y < 0 || y > room_height){
+		instance_destroy();
+	}
 	movementVector = normalizeVector(movementVector);
 
 
