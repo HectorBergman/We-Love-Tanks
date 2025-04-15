@@ -1,5 +1,5 @@
 {
-  "$GMProject":"",
+  "$GMProject":"v1",
   "%Name":"We Love Tanks!",
   "AudioGroups":[
     {"$GMAudioGroup":"","%Name":"audiogroup_default","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
@@ -23,6 +23,7 @@
     {"$GMFolder":"","%Name":"braveheartNormal","folderPath":"folders/Objects/enemy/enemies/braveheartNormal.yy","name":"braveheartNormal","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"stiffNormal","folderPath":"folders/Objects/enemy/enemies/stiffNormal.yy","name":"stiffNormal","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"stiffRicochet","folderPath":"folders/Objects/enemy/enemies/stiffRicochet.yy","name":"stiffRicochet","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"handlers","folderPath":"folders/Objects/handlers.yy","name":"handlers","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"player","folderPath":"folders/Objects/player.yy","name":"player","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"oScripts","folderPath":"folders/oScripts.yy","name":"oScripts","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"cannon","folderPath":"folders/oScripts/cannon.yy","name":"cannon","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -37,11 +38,12 @@
     {"$GMFolder":"","%Name":"Tile Sets","folderPath":"folders/Tile Sets.yy","name":"Tile Sets","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Timelines","folderPath":"folders/Timelines.yy","name":"Timelines","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
+  "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[],
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.11.0.179",
+    "IDEVersion":"2024.13.0.190",
   },
   "name":"We Love Tanks!",
   "resources":[
@@ -73,10 +75,13 @@
     {"id":{"name":"obj_player_hitbox","path":"objects/obj_player_hitbox/obj_player_hitbox.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"obj_positionCheckerSlave","path":"objects/obj_positionCheckerSlave/obj_positionCheckerSlave.yy",},},
+    {"id":{"name":"obj_roomHandler","path":"objects/obj_roomHandler/obj_roomHandler.yy",},},
+    {"id":{"name":"obj_roomTransition","path":"objects/obj_roomTransition/obj_roomTransition.yy",},},
     {"id":{"name":"obj_wall_ricochetbbox","path":"objects/obj_wall_ricochetbbox/obj_wall_ricochetbbox.yy",},},
     {"id":{"name":"obj_wall","path":"objects/obj_wall/obj_wall.yy",},},
+    {"id":{"name":"rm_startingRoom","path":"rooms/rm_startingRoom/rm_startingRoom.yy",},},
     {"id":{"name":"rm_startup","path":"rooms/rm_startup/rm_startup.yy",},},
-    {"id":{"name":"rm_test","path":"rooms/rm_test/rm_test.yy",},},
+    {"id":{"name":"rm_test1","path":"rooms/rm_test1/rm_test1.yy",},},
     {"id":{"name":"scr_braveheartNormal_cannon_states","path":"scripts/scr_braveheartNormal_cannon_states/scr_braveheartNormal_cannon_states.yy",},},
     {"id":{"name":"scr_braveheartNormal_cannon","path":"scripts/scr_braveheartNormal_cannon/scr_braveheartNormal_cannon.yy",},},
     {"id":{"name":"scr_braveheartNormal_states","path":"scripts/scr_braveheartNormal_states/scr_braveheartNormal_states.yy",},},
@@ -125,7 +130,8 @@
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
     {"roomId":{"name":"rm_startup","path":"rooms/rm_startup/rm_startup.yy",},},
-    {"roomId":{"name":"rm_test","path":"rooms/rm_test/rm_test.yy",},},
+    {"roomId":{"name":"rm_startingRoom","path":"rooms/rm_startingRoom/rm_startingRoom.yy",},},
+    {"roomId":{"name":"rm_test1","path":"rooms/rm_test1/rm_test1.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

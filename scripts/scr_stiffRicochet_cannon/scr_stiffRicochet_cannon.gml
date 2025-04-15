@@ -27,7 +27,7 @@ function stiffRicochet_create_cannon(){
 	chosenAngle = -1;
 	ricochetArray = [];
 	ricochetArray[360] = 99999
-	bulletSpeed = 9;
+	bulletSpeed = 6;
 	maxBounces = 3;
 
 	timeFromCalculationToFire = 40; //to make tanks "sharper", decrease this. Minimum: 10
