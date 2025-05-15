@@ -7,11 +7,15 @@ ds_grid_clear(dungeonGrid, {_room : rm_test1});
 ds_grid_set(dungeonGrid, currentRoom[0],currentRoom[1], {_room : rm_startingRoom});
 
 function enterNewRoom(xDirection, yDirection){
-
+	print(playerTank.y);
 	currentRoom = [currentRoom[0]+xDirection,currentRoom[1]+yDirection];
-	room_goto(ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1])._room);
-	playerTank.x = playerTank.x-room_width mod room_width;
-	playerTank.y = playerTank.y-room_height mod room_height;
+	if (currentRoom[0] > dungeonSize || currentRoom[0] < 0 || currentRoom[1] > dungeonSize || currentRoom[1] < 0){
+		room_goto(rm_errorRoom);
+	}else{
+		room_goto(ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1])._room);
+	}
+	playerTank.x = playerTank.x-room_width*xDirection+(playerTank.sprite_width)*xDirection 
+	playerTank.y = playerTank.y-room_height*yDirection+(playerTank.sprite_height)*yDirection 
 }
 
 

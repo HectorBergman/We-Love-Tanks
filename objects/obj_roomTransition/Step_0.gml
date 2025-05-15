@@ -1,5 +1,6 @@
 if (place_meeting(x,y,playerTank)){
 	if !colliding{
+		print("dolla");
 		//RoomLoader.unload(
 		if orientation == 0{
 			with roomHandler{

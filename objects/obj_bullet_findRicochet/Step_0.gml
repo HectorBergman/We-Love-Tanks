@@ -9,7 +9,7 @@ newCoords = [lengthdir_x(sprite_width - sprite_xoffset, image_angle),
 			 lengthdir_y(sprite_height - sprite_yoffset, image_angle)]
 while !place_meeting(x+movementX(), y+movementY(), obj_wall){
 	timeSinceBounce++;
-	print("x; " + string(x) + "y: " + string(y));
+	//print("x; " + string(x) + "y: " + string(y));
 	if !(collision_line(x,y,playerTank.x,playerTank.y, obj_wall, 0,0)){
 		var distance = point_distance(x+newCoords[0],y+newCoords[1], playerTank.x,playerTank.y)
 		closestDistanceToPlayer = min(closestDistanceToPlayer,distance);

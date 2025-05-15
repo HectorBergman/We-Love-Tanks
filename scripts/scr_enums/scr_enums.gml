@@ -21,7 +21,7 @@ function initializeEnums(){
 	
 	enum enemyTypes{
 		stiffNormal,		//Doesn't move, only shoots when it has a direct path to player
-		braveheartNormal,		//Drives around when player not close, approaches when close, shoots normally
+		braveheartNormal,	//Drives around when player not close, approaches when close, shoots normally
 		stiffRicochet,		//Doesn't move, ricochets bullets off walls to hit player
 	}
 	
