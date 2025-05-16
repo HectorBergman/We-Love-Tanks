@@ -57,6 +57,7 @@
     {"name":"obj_gridSquare","order":5,"path":"objects/obj_gridSquare/obj_gridSquare.yy",},
     {"name":"obj_intersection","order":8,"path":"objects/obj_intersection/obj_intersection.yy",},
     {"name":"obj_lock","order":11,"path":"objects/obj_lock/obj_lock.yy",},
+    {"name":"obj_minimapHandler","order":4,"path":"objects/obj_minimapHandler/obj_minimapHandler.yy",},
     {"name":"obj_onBootUp","order":1,"path":"objects/obj_onBootUp/obj_onBootUp.yy",},
     {"name":"obj_player_cannon","order":1,"path":"objects/obj_player_cannon/obj_player_cannon.yy",},
     {"name":"obj_player_hitbox","order":2,"path":"objects/obj_player_hitbox/obj_player_hitbox.yy",},

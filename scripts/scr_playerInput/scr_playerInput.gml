@@ -19,6 +19,9 @@ function playerInput(){
 	{
 		fire = true;
 	}
+	if keyboard_check(vk_shift){
+		run = true;
+	}
 }
 
 function resetInputs(){
@@ -27,4 +30,5 @@ function resetInputs(){
 	moveLeft = false;
 	moveRight = false;
 	fire = false;
+	run = false;
 }

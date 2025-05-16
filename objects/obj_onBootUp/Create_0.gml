@@ -2,7 +2,7 @@
 //please summon using this object.
 timer = 0;
 
-
+print(randomize());
 window_set_cursor(cr_none); //hide pc cursorr
 room_goto(rm_startingRoom);
 

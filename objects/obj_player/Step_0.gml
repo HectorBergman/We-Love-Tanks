@@ -1,5 +1,9 @@
 lol++
-
+if run{
+	movementSpeed = runSpeed
+}else{
+	movementSpeed = regularSpeed;
+}
 /*for (var i = 0; i < breadCrumbRadius*2; i++){
 	for (var j = 0; j < breadCrumbRadius*2; j++){
 		if (power(i - 4.5,2) + power(j - 4.5,2) <= 25){

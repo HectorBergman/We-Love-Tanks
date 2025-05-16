@@ -84,6 +84,7 @@
     {"id":{"name":"obj_gridSquare","path":"objects/obj_gridSquare/obj_gridSquare.yy",},},
     {"id":{"name":"obj_intersection","path":"objects/obj_intersection/obj_intersection.yy",},},
     {"id":{"name":"obj_lock","path":"objects/obj_lock/obj_lock.yy",},},
+    {"id":{"name":"obj_minimapHandler","path":"objects/obj_minimapHandler/obj_minimapHandler.yy",},},
     {"id":{"name":"obj_onBootUp","path":"objects/obj_onBootUp/obj_onBootUp.yy",},},
     {"id":{"name":"obj_player_cannon","path":"objects/obj_player_cannon/obj_player_cannon.yy",},},
     {"id":{"name":"obj_player_hitbox","path":"objects/obj_player_hitbox/obj_player_hitbox.yy",},},

@@ -12,9 +12,16 @@ function createRoom(_x,_y){
 	var adjacentRooms = checkAdjacentRooms(_x,_y); 
 	var adjacentRoomsCounter = 0;
 	for (var i = 0; i < 4; i++){
-		if adjacentRooms[i] == 1 || adjacentRooms[i] == -2{
+		if adjacentRooms[i] == 1{
 			adjacentRoomsCounter++
 			adjacentRooms[i] = 1;
+		}else if adjacentRooms[i] == -2{
+			if irandom(1) == 1{
+				adjacentRoomsCounter++
+				adjacentRooms[i] = 1;
+			}else{
+				adjacentRooms[i] = 0;
+			}
 		}else{
 			adjacentRooms[i] = 0;
 		}
@@ -50,10 +57,6 @@ function checkAdjacentRooms(_x,_y){
 	for (var i = 0; i < 4; i++){
 		var result = checkAdjacentRooms_helper(_x,_y,i)
 		if !(result[0] == undefined || result[0] == -4) {
-			print(result)
-			print(result[0]);
-			print((i+2) mod 4)
-			print("----");
 			if result[0].doors[(i+2) mod 4] == 1{
 				if result[0]._room != rm_errorRoom{
 					returnArray[i] = 1;
