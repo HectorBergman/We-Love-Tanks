@@ -1,12 +1,12 @@
 function generateDungeon(){
 	ds_grid_clear(dungeonGrid,noone)//, {_room : rm_errorRoom, doors : [0,0,0,0]});
-	ds_grid_set(dungeonGrid, currentRoom[0],currentRoom[1], {_room : rm_startingRoom, doors : [1,1,1,1]});
-	for (var i = 0; i < dungeonSize+1; i++){
-		for (var j = 0; j < dungeonSize+1; j++){
-			createRoom(i,j);
-		}
-	}
+	spiralGridScan(currentRoom[0],currentRoom[1],10,10,function(i,j) {
+		createRoom(i,j);
+	});
+	
+	ds_grid_set(dungeonGrid, currentRoom[0],currentRoom[1], {_room : rm_startingRoom, doors : checkAdjacentRooms(currentRoom[0],currentRoom[1])});
 }
+
 
 function createRoom(_x,_y){
 	var adjacentRooms = checkAdjacentRooms(_x,_y); 
@@ -16,7 +16,7 @@ function createRoom(_x,_y){
 			adjacentRoomsCounter++
 			adjacentRooms[i] = 1;
 		}else if adjacentRooms[i] == -2{
-			if irandom(1) == 1{
+			if irandom(4) == 4{
 				adjacentRoomsCounter++
 				adjacentRooms[i] = 1;
 			}else{

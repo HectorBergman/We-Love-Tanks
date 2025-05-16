@@ -156,3 +156,65 @@ function minIndex() {
     
     return [min_val, min_index];
 }
+
+/// @function spiralGridScan(centerX, centerY, gridWidth, gridHeight, processCellFunc)
+/// @desc Spiral outward from center coordinates (0-based indices)
+/// @param {real} _centerX       Grid X center position (0-based)
+/// @param {real} _centerY       Grid Y center position (0-based)
+/// @param {real} gridWidth      Total width of grid
+/// @param {real} gridHeight     Total height of grid
+/// @param {function} processCellFunc   Callback for each cell (receives _x,_y)
+
+function spiralGridScan(_centerX, _centerY, gridWidth, gridHeight, processCellFunc) {
+    // Directions: right, down, left, up
+    var _dirs = [
+        {dx:1, dy:0},  
+        {dx:0, dy:1},   
+        {dx:-1, dy:0},  
+        {dx:0, dy:-1}   
+    ];
+    
+    var _currentDir = 0;
+    var _stepSize = 1;
+    var _stepsTaken = 0;
+    var _currentX = _centerX;
+    var _currentY = _centerY;
+    var _stepChange = 0;
+    var _maxRadius = max(
+        max(_centerX, gridWidth - _centerX - 1),
+        max(_centerY, gridHeight - _centerY - 1)
+    );
+
+    // Process center cell first
+    if (_currentX >= 0 && _currentX < gridWidth && _currentY >= 0 && _currentY < gridHeight) {
+        script_execute(processCellFunc, _currentX, _currentY);
+    }
+
+    // Spiral outward
+    while (_stepSize <= _maxRadius * 2) {
+        // Move in current direction
+        _currentX += _dirs[_currentDir].dx;
+        _currentY += _dirs[_currentDir].dy;
+        print(_currentX);
+		print(_currentY);
+		print("-----");
+        // Process cell if within bounds
+        if (_currentX >= 0 && _currentX < gridWidth && _currentY >= 0 && _currentY < gridHeight) {
+            script_execute(processCellFunc, _currentX, _currentY);
+        }
+        
+        _stepsTaken++;
+        
+        // Change direction when stepSize reached
+        if (_stepsTaken >= _stepSize) {
+            _stepsTaken = 0;
+            _currentDir = (_currentDir + 1) % 4;
+            _stepChange++;
+            
+            // Increase stepSize every 2 direction changes
+            if (_stepChange % 2 == 0) {
+                _stepSize++;
+            }
+        }
+    }
+}
