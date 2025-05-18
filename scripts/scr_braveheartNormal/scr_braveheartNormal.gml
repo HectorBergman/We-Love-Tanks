@@ -1,4 +1,5 @@
 function braveheartNormal_create(){
+	_health = 1;
 	tickrate = 5;
 	tick = 5;
 	movementSpeed = 1;
@@ -10,16 +11,7 @@ function braveheartNormal_create(){
 
 
 	state = braveheartNormal.approaching;
-	function movementX(){
-		return movementVector[0]*movementSpeed;
-	}
-	function movementY(){
-		return movementVector[1]*movementSpeed;
-	}
-	movementVector = [0,0];
-
-	summonObject(obj_enemy_cannon, [["parent", id], ["depth", depth-1]]);
-	hitbox = summonObject(obj_enemy_hitbox, [["parent", id]]);
+	
 
 	distance = point_distance(x, y, playerTank.x, playerTank.y);
 	distanceX = abs(playerTank.x - x);

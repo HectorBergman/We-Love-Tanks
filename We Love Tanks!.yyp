@@ -105,6 +105,7 @@
     {"id":{"name":"scr_braveheartNormal_cannon","path":"scripts/scr_braveheartNormal_cannon/scr_braveheartNormal_cannon.yy",},},
     {"id":{"name":"scr_braveheartNormal_states","path":"scripts/scr_braveheartNormal_states/scr_braveheartNormal_states.yy",},},
     {"id":{"name":"scr_braveheartNormal","path":"scripts/scr_braveheartNormal/scr_braveheartNormal.yy",},},
+    {"id":{"name":"scr_death","path":"scripts/scr_death/scr_death.yy",},},
     {"id":{"name":"scr_dungeonGeneration","path":"scripts/scr_dungeonGeneration/scr_dungeonGeneration.yy",},},
     {"id":{"name":"scr_enemyState_approaching","path":"scripts/scr_enemyState_approaching/scr_enemyState_approaching.yy",},},
     {"id":{"name":"scr_enemyState_normal_cannon","path":"scripts/scr_enemyState_normal_cannon/scr_enemyState_normal_cannon.yy",},},

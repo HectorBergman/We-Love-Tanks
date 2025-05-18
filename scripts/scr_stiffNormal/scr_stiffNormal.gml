@@ -1,15 +1,7 @@
 function stiffNormal_create(){
 	//todo: sprites
+	_health = 1;
 	state = stiffNormal.normal
-	function movementX(){
-		return movementVector[0]*movementSpeed;
-	}
-	function movementY(){
-		return movementVector[1]*movementSpeed;
-	}
-
-	summonObject(obj_enemy_cannon, [["parent", id], ["depth", depth-1]]);
-	summonObject(obj_enemy_hitbox, [["parent", id]]);
 
 	distance = point_distance(x, y, playerTank.x, playerTank.y);
 	distanceX = abs(playerTank.x - x);

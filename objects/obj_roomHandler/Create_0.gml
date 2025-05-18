@@ -14,6 +14,7 @@ function enterNewRoom(xDirection, yDirection){
 		var newRoom = ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1])
 		currentRoomHandler.roomDoors = newRoom.doors;
 		print(newRoom.doors);
+		print(newRoom._room)
 		room_goto(newRoom._room);
 	}
 	playerTank.x = playerTank.x-room_width*xDirection+(playerTank.sprite_width)*xDirection 

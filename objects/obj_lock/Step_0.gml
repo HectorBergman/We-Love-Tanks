@@ -1,5 +1,5 @@
 
-if currentRoomHandler.roomDoors[_direction] == 0{
+if currentRoomHandler.roomDoors[_direction] != 1{
 	
 	image_index = 0;
 }else{
