@@ -1,6 +1,6 @@
 dungeonSize = 10; 
 currentRoom = [dungeonSize/2,dungeonSize/2];
-
+uniqueIDGiver = 0;
 dungeonGrid = ds_grid_create(dungeonSize, dungeonSize);
 
 generateDungeon();

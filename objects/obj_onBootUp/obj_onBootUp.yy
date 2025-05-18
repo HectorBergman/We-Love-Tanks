@@ -9,8 +9,8 @@
   "name":"obj_onBootUp",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"handlers",
+    "path":"folders/Objects/handlers.yy",
   },
   "parentObjectId":null,
   "persistent":true,

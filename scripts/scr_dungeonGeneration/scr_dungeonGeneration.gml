@@ -1,39 +1,57 @@
 function generateDungeon(){
 	ds_grid_clear(dungeonGrid,noone)//, {_room : rm_errorRoom, doors : [0,0,0,0]});
-	var uniqueIDGiver = 0;
 	
 	spiralGridScan(currentRoom[0],currentRoom[1],10,10,function(i,j) {
-		createRoom(i,j,uniqueIDGiver);
+		createRoom(i,j);
 		uniqueIDGiver++
 	});
 	spiralGridScan(currentRoom[0],currentRoom[1],10,10,function(i,j) {
-		var visitedRooms = ds_list_create();
-		if !roomLooper(i,j,visitedRooms){
-			deleteRoom(_x,_y);
+		if (!(i == 5 && j == 5)){
+			var visitedRooms = ds_list_create();
+			if !roomLooper(i,j,visitedRooms){
+				print("hello");
+				//deleteRoom(i,j);
+			}
+			ds_list_destroy(visitedRooms);
 		}
-		ds_list_destroy(visitedRooms);
 	});
+	print("moneyy");
+	print(ds_grid_get(dungeonGrid,6,5));
 }
 
 function roomLooper(originX,originY,visitedRooms,blockedDirection = -1){
-	var itWorks = false;
 	for (var i = 0; i < 4; i++){
 		if i != blockedDirection{
 			var result = checkAdjacentRooms_helper(originX,originY,i)
-			if result[5] == 1 && ds_list_find_index(visitedRooms,result.uniqueID) == -1{
-				ds_list_add(visitedRooms,result.uniqueID);
-				var xY = directionToXY(i);
-				if roomLooper(_x+xY[0],_y+xY[1],visitedRooms,directionToXY( (i+2) mod 4) ){
-					itWorks = true;
-					break;
+			print("-----");
+			print(i)
+			print(originX)
+			print(originY)
+			print(result)
+			
+			if result[4] == 1{
+				print("We have a match!")
+				print(ds_list_find_index(visitedRooms,result[0].roomID))
+				if ds_list_find_index(visitedRooms,result[0].roomID) == -1{
+					ds_list_add(visitedRooms,result[0].roomID);
+					var xY = directionToXY(i);
+					print("Lets dig deeper");
+					if roomLooper(originX+xY[0],originY+xY[1],visitedRooms,directionToXY( (i+2) mod 4) ){
+						print("yipee");
+						return true
+					}else{
+						print("darn");
+					}
 				}
 			}
+			print("-----");
 		}
 	}
-	return itWorks
+	return false
 }
 
 function deleteRoom(_x,_y){
+	ds_grid_set(dungeonGrid, _x,_y,undefined)
 }
 function directionToXY(_direction){
 	if _direction == 0{
@@ -62,33 +80,35 @@ function checkingStuff(_x,_y){
 }
 
 
-function createRoom(_x,_y, uniqueIDGiver){
+function createRoom(_x,_y){
 	if _x == 5 && _y == 5{ //todo: make this not hardcoded, i.e. make it depend on where the middle is based on stage
-		ds_grid_set(dungeonGrid, _x,_y, {_room : rm_startingRoom, doors : adjacentRooms[0], connectedToStart : [1,1,1,1], edge: false,roomID : uniqueIDgiver})
+		ds_grid_set(dungeonGrid, _x,_y, {_room : rm_startingRoom, doors : [1,1,1,1], connectedToStart : true, edge: false,roomID : uniqueIDGiver})
 	}else{
-		ds_grid_set(dungeonGrid, _x,_y, {_room : rm_roomTemplate, doors : adjacentRooms[0], connectedToStart : adjacentRooms[1][3], edge: false,roomID : uniqueIDgiver})
+		ds_grid_set(dungeonGrid, _x,_y, {_room : rm_roomTemplate, doors : [irandom(1),irandom(1),irandom(1),irandom(1)], connectedToStart : false, edge: false,roomID : uniqueIDGiver})
 	}
 }
 function checkAdjacentRooms_helper(_x,_y,_direction){
 	
 	var adjacentRoom = [undefined,-9,-9,-9,-9]
 	try{
+		//directionToXY
 		if _direction == 0{
 			adjacentRoom = ds_grid_get(dungeonGrid, _x+1, _y)
 			return [adjacentRoom, -1, 0, adjacentRoom.connectedToStart, adjacentRoom.doors[(_direction+2) mod 4]]
 		}else if _direction == 1{
 			adjacentRoom = ds_grid_get(dungeonGrid, _x, _y-1)
-			return [adjacentRoom, 0, 1, adjacentRoom.connectedToStart, adjacentRoom.doors[(_direction+2) mod 4 ]]
+			return [adjacentRoom, 0, 1 , adjacentRoom.connectedToStart, adjacentRoom.doors[(_direction+2) mod 4]]
 		}else if _direction == 2{
 			adjacentRoom = ds_grid_get(dungeonGrid, _x-1, _y)
-			return [adjacentRoom, 1, 0, adjacentRoom.connectedToStart, adjacentRoom.doors[(_direction+2) mod 4 ]]
+			return [adjacentRoom, 1 , 0, adjacentRoom.connectedToStart, adjacentRoom.doors[(_direction+2) mod 4]]
 		}else if _direction == 3{
 			adjacentRoom = ds_grid_get(dungeonGrid, _x, _y+1)
 			return [adjacentRoom, 0, -1, adjacentRoom.connectedToStart, adjacentRoom.doors[(_direction+2) mod 4]]
 		}
 	}catch(e){
-		print(e);
-		return adjacentRoom
+		var adjacentRoo = [undefined,-9,-9,-9,-9]
+		print("Nothing here");
+		return adjacentRoo
 	}
 }
 //returns an array of 4 bools,
