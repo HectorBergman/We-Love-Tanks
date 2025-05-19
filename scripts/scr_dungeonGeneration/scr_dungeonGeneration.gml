@@ -6,20 +6,75 @@ function generateDungeon(){
 		uniqueIDGiver++
 	});
 	print("areweconnected?")
-	spiralGridScan(currentRoom[0],currentRoom[1],10,10,function(i,j) {
-		if (!(i == 5 && j == 5)){
-			var visitedRooms = ds_list_create();
-			var origin = [i,j]
-			if !roomLooper(i,j,visitedRooms, -1, origin){
-				//print("hello");
-				deleteRoom(i,j);
+	
+	var visitedRooms = ds_list_create();
+	allRooms = ds_map_create();
+	roomLooperSpecil(5,5,visitedRooms,allRooms,0)
+	ds_list_destroy(visitedRooms);
+	//todo check all rooms, if roomID not in allrooms destroy that room
+	for (var i = 0; i < 10; i++){
+		for (var j = 1; j < 10; j++){
+			if i == 5 && j == 5{
+			}else{
+				try{
+					var rID = ds_grid_get(dungeonGrid, i, j).roomID
+					print(rID);
+					if (is_undefined(ds_map_find_value(allRooms, rID))){
+						deleteRoom(i,j);
+						print("DIE");
+					}
+				}
+				catch(e){
+					print(e)
+					print(i)
+					print(j)
+					print("-----");
+				}
 			}
-			ds_list_destroy(visitedRooms);
 		}
-		//print("hello???")
-	});
+	}
 	print("monetttttyy");
 	//print(ds_grid_get(dungeonGrid,6,5));
+}
+
+//Use t
+function roomLooperSpecil(originX,originY,visitedRooms,allRooms,stepsFromMiddle,blockedDirection = -1){
+	var currentRoom = ds_grid_get(dungeonGrid, originX, originY)
+	for (var i = 0; i < 4; i++){
+		if i != blockedDirection{
+			var xY = directionToXY(i);
+			if currentRoom.doors[i] != 1{
+				continue;
+			}
+			if (!inRange(originX+xY[0],0,9) || !inRange(originY+xY[1],0,9)){
+				if originX == 4 && originY == 5{
+					print("UFUUFUUFUAFJKSAFMASFK1");
+				}
+				print("HEJJJ!!!");
+				continue
+			}
+			var result = checkAdjacentRooms_helper(originX,originY,i)
+			
+			if (ds_list_find_index(visitedRooms,result[0]) != -1 && allRooms[? result[0].roomID] <= stepsFromMiddle) || is_undefined(result[0]){
+				print("fuckass");
+				continue
+			}
+			print("sike!!!");
+			ds_list_add(visitedRooms,result[0]);
+			print(result[0])
+			print(originX)
+			print(originY);
+			print(i);
+			ds_map_set(allRooms, result[0].roomID, stepsFromMiddle)
+			print("wegotthere");
+			print(ds_map_find_value(allRooms, result[0].roomID));
+			print(result[0].roomID);
+
+			roomLooperSpecil(originX+xY[0],originY+xY[1],visitedRooms,allRooms,stepsFromMiddle++,(i+2) mod 4)
+			
+		}
+	}
+	return false
 }
 
 function roomLooper(originX,originY,visitedRooms,blockedDirection = -1, origin = [0,0]){
@@ -96,6 +151,7 @@ function createRoom(_x,_y){
 				adjacentDoors[i] = random(1) < 0.39
 			}
 		}
+		print("room created on " + string(_x) + "," + string(_y));
 
 		ds_grid_set(dungeonGrid, _x,_y, {_room : rm_roomTemplate, doors : adjacentDoors, connectedToStart : false, edge: false,roomID : uniqueIDGiver})
 	}
@@ -103,24 +159,20 @@ function createRoom(_x,_y){
 function checkAdjacentRooms_helper(_x,_y,_direction){
 	
 	var adjacentRoom = [undefined,-9,-9,-9,-9]
-	try{
-		//directionToXY
-		if _direction == 0{
-			adjacentRoom = ds_grid_get(dungeonGrid, _x+1, _y)
-			return [adjacentRoom, -1, 0, adjacentRoom.connectedToStart, adjacentRoom.doors[(_direction+2) mod 4]]
-		}else if _direction == 1{
-			adjacentRoom = ds_grid_get(dungeonGrid, _x, _y-1)
-			return [adjacentRoom, 0, 1 , adjacentRoom.connectedToStart, adjacentRoom.doors[(_direction+2) mod 4]]
-		}else if _direction == 2{
-			adjacentRoom = ds_grid_get(dungeonGrid, _x-1, _y)
-			return [adjacentRoom, 1 , 0, adjacentRoom.connectedToStart, adjacentRoom.doors[(_direction+2) mod 4]]
-		}else if _direction == 3{
-			adjacentRoom = ds_grid_get(dungeonGrid, _x, _y+1)
-			return [adjacentRoom, 0, -1, adjacentRoom.connectedToStart, adjacentRoom.doors[(_direction+2) mod 4]]
+	var xy = directionToXY(_direction);
+	if inRange(_x+xy[0],0,9) && inRange(_y+xy[1],0,9){
+		adjacentRoom = ds_grid_get(dungeonGrid, _x+xy[0], _y+xy[1])
+		if adjacentRoom != noone{
+			print(adjacentRoom)
+			print(xy[0])
+			print(xy[1])
+			return [adjacentRoom, -xy[0], -xy[1], adjacentRoom.connectedToStart, adjacentRoom.doors[(_direction+2) mod 4]]
 		}
-	}catch(e){
+		else return [undefined,-9,-9,-9,-9]
+	
+	}else{
 		var adjacentRoo = [undefined,-9,-9,-9,-9]
-		//print("Nothing here");
+		print("HI");
 		return adjacentRoo
 	}
 }

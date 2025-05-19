@@ -218,3 +218,13 @@ function spiralGridScan(_centerX, _centerY, gridWidth, gridHeight, processCellFu
         }
     }
 }
+
+
+/// @function inRange(value, min, max)
+/// @description Returns whether value is between min and max (inclusive)
+/// @param {real} value The value to check
+/// @param {real} min   Minimum bound
+/// @param {real} max   Maximum bound
+function inRange(_value, _min, _max) {
+    return (_value >= _min && _value <= _max);
+}
