@@ -16,7 +16,7 @@ latestWallHit = -1;
 hitInARow = 0;
 slowmovin = 1;
 slowMovinTime = 60;
-
+angle = image_angle
 prevTurn = -1;
 
 minimumdifference = 3;
