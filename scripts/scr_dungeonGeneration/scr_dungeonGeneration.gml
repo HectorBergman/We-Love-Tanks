@@ -11,11 +11,10 @@ function generateDungeon(){
 	allRooms = ds_map_create();
 	roomLooperSpecil(5,5,visitedRooms,allRooms,0)
 	ds_list_destroy(visitedRooms);
-	//todo check all rooms, if roomID not in allrooms destroy that room
+	
 	for (var i = 0; i < 10; i++){
 		for (var j = 1; j < 10; j++){
-			if i == 5 && j == 5{
-			}else{
+			if !(i == 5 && j == 5){
 				try{
 					var rID = ds_grid_get(dungeonGrid, i, j).roomID
 					if (is_undefined(ds_map_find_value(allRooms, rID))){
@@ -29,11 +28,11 @@ function generateDungeon(){
 					print(j)
 					print("-----");
 				}
+			}else{
+				ds_map_set(allRooms,0,0)
 			}
 		}
 	}
-	print("monetttttyy");
-	//print(ds_grid_get(dungeonGrid,6,5));
 }
 
 //Use t
