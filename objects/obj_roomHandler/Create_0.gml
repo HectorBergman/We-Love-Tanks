@@ -4,7 +4,7 @@ uniqueIDGiver = 0;
 dungeonGrid = ds_grid_create(dungeonSize, dungeonSize);
 allRooms = 0;
 generateDungeon();
-print("penis");
+
 
 function enterNewRoom(xDirection, yDirection){
 	print(playerTank.y);

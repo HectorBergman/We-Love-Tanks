@@ -16,13 +16,15 @@ function getRoomsToDisplay(){
 	ds_grid_clear(roomsToDisplay, undefined)
 	for (var i = -2; i < 3; i++){
 		for (var j = -2; j < 3; j++){
-			try{
-				var doors = ds_grid_get(roomHandler.dungeonGrid,currentRoom[0]+i,currentRoom[1]+j).doors
+			if (inRange(currentRoom[0]+i,0,9) && inRange(currentRoom[1]+j,0,9)){
+				var doors = ds_grid_get(roomHandler.dungeonGrid,currentRoom[0]+i,currentRoom[1]+j)
+				if !is_undefined(doors){
+					doors =doors.doors
+				}
 				ds_grid_set(roomsToDisplay,i+2,j+2,doors)
-			}catch(e){
-			
-				ds_grid_set(roomsToDisplay,i+2,j+2,undefined)
 			}
+			
+				
 		}
 	}
 }

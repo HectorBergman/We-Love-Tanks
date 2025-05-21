@@ -47,24 +47,26 @@ function roomLooperSpecil(originX,originY,visitedRooms,allRooms,stepsFromMiddle,
 				continue;
 			}
 			if (!inRange(originX+xY[0],0,9) || !inRange(originY+xY[1],0,9)){
-				if originX == 4 && originY == 5{
-					print("UFUUFUUFUAFJKSAFMASFK1");
-				}
-				print("HEJJJ!!!");
+				print("Outside range");
 				continue
 			}
 			var result = checkAdjacentRooms_helper(originX,originY,i)
-			
-			if (ds_list_find_index(visitedRooms,result[0]) != -1 && allRooms[? result[0].roomID] <= stepsFromMiddle) || is_undefined(result[0]){
+			print(i);
+			print(originX)
+			print(originY);
+			print(result);
+			//print("stepsfromMiddle: " + string(ds_map_find_value(allRooms, result[0].roomID)));
+			if (ds_list_find_index(visitedRooms,result[0]) != -1 && ds_map_find_value(allRooms, result[0].roomID) <= stepsFromMiddle) || is_undefined(result[0]){
 				print("fuckass");
 				continue
 			}
 			print("sike!!!");
 			ds_list_add(visitedRooms,result[0]);
-			print(result[0])
+			//print(result[0])
 			print(originX)
 			print(originY);
 			print(i);
+			print("----");
 			ds_map_set(allRooms, result[0].roomID, stepsFromMiddle)
 			print("wegotthere");
 			print(ds_map_find_value(allRooms, result[0].roomID));
@@ -72,40 +74,6 @@ function roomLooperSpecil(originX,originY,visitedRooms,allRooms,stepsFromMiddle,
 
 			roomLooperSpecil(originX+xY[0],originY+xY[1],visitedRooms,allRooms,stepsFromMiddle++,(i+2) mod 4)
 			
-		}
-	}
-	return false
-}
-
-function roomLooper(originX,originY,visitedRooms,blockedDirection = -1, origin = [0,0]){
-	for (var i = 0; i < 4; i++){
-		if i != blockedDirection{
-			var result = checkAdjacentRooms_helper(originX,originY,i)
-			if result[4] == 1{
-				if origin[0] == 5 && origin[1] == 6{
-					print(i)
-					print(originX)
-					print(originY)
-					print(ds_list_find_index(visitedRooms,result[0].roomID))
-					print("We have a match!")
-				}
-				if result[0].connectedToStart{
-					return true;
-				}else{
-					if ds_list_find_index(visitedRooms,result[0].roomID) == -1{
-						ds_list_add(visitedRooms,result[0].roomID);
-						var xY = directionToXY(i);
-						//print("Lets dig deeper");
-						if roomLooper(originX+xY[0],originY+xY[1],visitedRooms,directionToXY( (i+2) mod 4), origin ){
-							print("yipee");
-							return true
-						}else{
-							//print("darn");
-						}
-					}
-				}
-			}
-			//print("-----");
 		}
 	}
 	return false
