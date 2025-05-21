@@ -31,65 +31,15 @@ if (slowmovin mod 60 == 0){
 
 	}
 
-	//todo: add sum shi like this for megafast bullets
-	var prevhit14 = instance_place(x + (prevVector[0] - x)*0.25, y, obj_wall)
-	var prevhit24 = instance_place(x + (prevVector[0] - x)*0.50, y, obj_wall)
-	var prevhit34 = instance_place(x + (prevVector[0] - x)*0.75, y, obj_wall)
 
 
+	var hitWall = ds_list_find_value(hitList,0);
+	
+    
+	
 	if (hit > 0){
 		hitInARow++
-		var hitWall = ds_list_find_value(hitList,0);
-		// Get the block's boundaries
-		var whichWall = findWallSideHit(hitWall);
-		if (hit > 2){
-			var walls = filterOutIntersections([ds_list_find_value(hitList,0),ds_list_find_value(hitList,1),ds_list_find_value(hitList,2)])
-			if findWallSideHit(walls[0]) == findWallSideHit(walls[1]){
-				hit = 1;
-			}else{
-				hit = 2;
-			}
-		}else if (hit > 1){
-			if (ds_list_find_value(hitList,1).object_index == obj_intersection || 
-				ds_list_find_value(hitList,0).object_index == obj_intersection){
-				var wall1 = findWallSideHitDeluxe(ds_list_find_value(hitList,0));
-				var wall2 = findWallSideHitDeluxe(ds_list_find_value(hitList,1));
-				var result = minIndex(wall1[1]+wall2[1], wall1[2]+wall2[2], wall1[3]+wall2[3], wall1[4]+wall2[4]);
-				whichWall = result[1];
-
-				
-				hit = 1;
-			
-			}else if whichWall == findWallSideHit(ds_list_find_value(hitList,1)){
-				hit = 1;
-			}
-		}
-		if (hit == 1){
-			if (whichWall == 2) {
-			
-				//print("left");
-				movementVector[0] = -movementVector[0]
-				movementVector[1] = movementVector[1]
-			}else if (whichWall == 0){
-				//print("right");
-				movementVector[0] = -movementVector[0]
-				movementVector[1] = movementVector[1]
-			}else if (whichWall == 1) {
-
-				//print("top");
-				movementVector[0] = movementVector[0]
-				movementVector[1] = -movementVector[1]
-			}else if (whichWall == 3){
-
-				//print("bot");
-				movementVector[0] = movementVector[0]
-				movementVector[1] = -movementVector[1]
-			}
-			
-		}else{
-			movementVector[0] = -movementVector[0]
-			movementVector[1] = -movementVector[1]
-		}
+		
 		fireCoords = [x,y];
 	
 		lastWallStruck = hitWall;
