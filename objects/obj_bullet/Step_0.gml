@@ -3,6 +3,9 @@ if (keyboard_check(vk_space)){
 }else{
 	slowmovin = 0
 }
+if !(inRange(x,-32,room_width+32) && inRange(y,-32,room_height+32)){
+	instance_destroy()
+}
 if (slowmovin mod 60 == 0){
 	timeSinceBounce++
 	image_angle = point_direction(x,y,x+movementVector[0],y+movementVector[1]);

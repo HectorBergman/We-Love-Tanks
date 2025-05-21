@@ -1,5 +1,5 @@
 var rH = roomHandler
-var cRoom = ds_grid_get(rH.dungeonGrid, rH.currentRoom[0], rH.currentRoom[1])
+
 
 for (var i = 0; i < 5; i++){
 	for (var j = 0; j < 5; j++){

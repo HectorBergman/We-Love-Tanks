@@ -100,7 +100,9 @@ function checkingStuff(_x,_y){
 			adjacentRoomsCounter++
 			adjacentRooms[0][i] = 1;
 		}else if adjacentRooms[i] == -2{
-			print("somethinwrongiholdmyheadmjgone")
+			adjacentRooms[0][i] = 0;
+		}else if adjacentRooms[i] == -1{
+			adjacentRooms[0][i] = 0;
 		}else{
 			adjacentRooms[0][i] = 0;
 		}
@@ -120,7 +122,7 @@ function createRoom(_x,_y){
 		}
 		print("room created on " + string(_x) + "," + string(_y));
 
-		ds_grid_set(dungeonGrid, _x,_y, {_room : rm_roomTemplate, doors : adjacentDoors, connectedToStart : false, edge: false,roomID : uniqueIDGiver})
+		ds_grid_set(dungeonGrid, _x,_y, {_room : asset_get_index(pickRandomRoomByType(global.roomList,"boringAf").roomName), doors : adjacentDoors, connectedToStart : false, edge: false,roomID : uniqueIDGiver})
 	}
 }
 function checkAdjacentRooms_helper(_x,_y,_direction){

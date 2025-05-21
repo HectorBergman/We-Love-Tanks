@@ -1,0 +1,17 @@
+[
+ {
+   "Room Name": "rm_room_test",
+   "Type": "undefined",
+   "Difficulty": "undefined"
+ },
+ {
+   "Room Name": "rm_room_test_2",
+   "Type": "fun",
+   "Difficulty": "99"
+ },
+ {
+   "Room Name": "rm_room_test_3",
+   "Type": "boringAf",
+   "Difficulty": "5"
+ }
+]

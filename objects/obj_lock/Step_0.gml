@@ -1,7 +1,7 @@
 
 if currentRoomHandler.roomDoors[_direction] != 1{
 	
-	image_index = 0;
+	sprite_index = spr_wall;
 }else{
 	if currentRoomHandler.lock == false{
 		image_index = 1;
