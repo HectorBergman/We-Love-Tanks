@@ -195,9 +195,6 @@ function spiralGridScan(_centerX, _centerY, gridWidth, gridHeight, processCellFu
         // Move in current direction
         _currentX += _dirs[_currentDir].dx;
         _currentY += _dirs[_currentDir].dy;
-        print(_currentX);
-		print(_currentY);
-		print("-----");
         // Process cell if within bounds
         if (_currentX >= 0 && _currentX < gridWidth && _currentY >= 0 && _currentY < gridHeight) {
             script_execute(processCellFunc, _currentX, _currentY);

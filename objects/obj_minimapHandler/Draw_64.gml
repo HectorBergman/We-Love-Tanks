@@ -4,7 +4,7 @@ var cRoom = ds_grid_get(rH.dungeonGrid, rH.currentRoom[0], rH.currentRoom[1])
 for (var i = 0; i < 5; i++){
 	for (var j = 0; j < 5; j++){
 		var grid = ds_grid_get(roomsToDisplay, i, j)
-		if grid != undefined{
+		if grid != undefined && grid != noone{
 
 			var _x = x+i*(rectangleWidth+doorWidth)
 			var _y = y+j*(rectangleHeight+doorHeight)

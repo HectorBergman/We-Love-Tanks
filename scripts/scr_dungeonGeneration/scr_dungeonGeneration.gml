@@ -18,10 +18,9 @@ function generateDungeon(){
 			}else{
 				try{
 					var rID = ds_grid_get(dungeonGrid, i, j).roomID
-					print(rID);
 					if (is_undefined(ds_map_find_value(allRooms, rID))){
 						deleteRoom(i,j);
-						print("DIE");
+						
 					}
 				}
 				catch(e){
@@ -39,6 +38,7 @@ function generateDungeon(){
 
 //Use t
 function roomLooperSpecil(originX,originY,visitedRooms,allRooms,stepsFromMiddle,blockedDirection = -1){
+	stepsFromMiddle++
 	var currentRoom = ds_grid_get(dungeonGrid, originX, originY)
 	for (var i = 0; i < 4; i++){
 		if i != blockedDirection{
@@ -72,7 +72,7 @@ function roomLooperSpecil(originX,originY,visitedRooms,allRooms,stepsFromMiddle,
 			print(ds_map_find_value(allRooms, result[0].roomID));
 			print(result[0].roomID);
 
-			roomLooperSpecil(originX+xY[0],originY+xY[1],visitedRooms,allRooms,stepsFromMiddle++,(i+2) mod 4)
+			roomLooperSpecil(originX+xY[0],originY+xY[1],visitedRooms,allRooms,stepsFromMiddle,(i+2) mod 4)
 			
 		}
 	}
