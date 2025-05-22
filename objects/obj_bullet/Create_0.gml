@@ -21,4 +21,4 @@ prevTurn = -1;
 
 minimumdifference = 3;
 
-hitList = ds_list_create();
+hitMap = ds_map_create();

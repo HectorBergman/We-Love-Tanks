@@ -242,15 +242,17 @@ function inRange(_value, _min, _max) {
 /// @param  {real}      radius      radius of test area (default 4)
 /// @param  {real}      spacing     space between each sample (default 1)
 ///
-/// @return {real}      direction pointing away from the detected surface
+/// @return {array}      direction pointing away from the detected surface + collided instance
 ///
 /// GMLscripts.com/license
+///edited slightly by dondon :)
 
 function collision_normal(x, y, obj, radius=4, spacing=1)
 {
     var nx = 0;
     var ny = 0;
-    if (collision_circle(x, y, radius, obj, true, true) != noone) {
+	var objectHit = collision_circle(x, y, radius, obj, true, true)
+    if (objectHit != noone) {
         for (var j=spacing; j<=radius; j+=spacing) {
             for (var i=0; i<radius; i+=spacing) {
                 if (point_distance(0, 0, i, j) <= radius) {
@@ -261,8 +263,8 @@ function collision_normal(x, y, obj, radius=4, spacing=1)
                 }
             }
         }
-        if (nx == 0 && ny == 0) return (-1);
-        return point_direction(0, 0, nx, ny);
+        if (nx == 0 && ny == 0) return ([-1,noone]);
+        return [point_direction(0, 0, nx, ny),objectHit];
     }
-    return (-1);
+    return ([-1,noone]);
 }
