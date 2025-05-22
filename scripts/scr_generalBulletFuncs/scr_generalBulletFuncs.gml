@@ -69,7 +69,8 @@ function fireBullet(bulletObj, bulletSpeed, maxBounce){
 	var angle = degtorad(image_angle)+pi/2
 	summonObject(bulletObj, [["movementVector", [sin(angle), cos(angle)]], 
 	["bulletSpeed", bulletSpeed], ["x", x+20*sin(angle)], ["y", y+20*cos(angle)], 
-	["maxBounce", maxBounce], ["parent", id], ["firedFrom", [x,y]], ["firedAngle", image_angle]]);
+	["maxBounce", maxBounce], ["parent", id], ["firedFrom", [x,y]], ["firedAngle", image_angle],
+	["image_angle", image_angle], ["depth", depth+1]]);
 	activeBullets++;
 	firingCooldown = firingCooldownTime;
 }

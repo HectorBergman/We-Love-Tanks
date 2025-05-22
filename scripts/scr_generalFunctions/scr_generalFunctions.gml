@@ -187,7 +187,7 @@ function spiralGridScan(_centerX, _centerY, gridWidth, gridHeight, processCellFu
 
     // Process center cell first
     if (_currentX >= 0 && _currentX < gridWidth && _currentY >= 0 && _currentY < gridHeight) {
-        script_execute(processCellFunc, _currentX, _currentY);
+        method_call(processCellFunc, [_currentX, _currentY]);
     }
 
     // Spiral outward
@@ -197,7 +197,7 @@ function spiralGridScan(_centerX, _centerY, gridWidth, gridHeight, processCellFu
         _currentY += _dirs[_currentDir].dy;
         // Process cell if within bounds
         if (_currentX >= 0 && _currentX < gridWidth && _currentY >= 0 && _currentY < gridHeight) {
-            script_execute(processCellFunc, _currentX, _currentY);
+            method_call(processCellFunc, [_currentX, _currentY]);
         }
         
         _stepsTaken++;

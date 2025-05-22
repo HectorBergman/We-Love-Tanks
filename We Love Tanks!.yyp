@@ -100,6 +100,7 @@
     {"id":{"name":"obj_wall_ricochetbbox","path":"objects/obj_wall_ricochetbbox/obj_wall_ricochetbbox.yy",},},
     {"id":{"name":"obj_wall","path":"objects/obj_wall/obj_wall.yy",},},
     {"id":{"name":"rm_errorRoom","path":"rooms/rm_errorRoom/rm_errorRoom.yy",},},
+    {"id":{"name":"rm_room_itemRoom_1","path":"rooms/rm_room_itemRoom_1/rm_room_itemRoom_1.yy",},},
     {"id":{"name":"rm_room_test_2","path":"rooms/rm_room_test_2/rm_room_test_2.yy",},},
     {"id":{"name":"rm_room_test_3","path":"rooms/rm_room_test_3/rm_room_test_3.yy",},},
     {"id":{"name":"rm_room_test","path":"rooms/rm_room_test/rm_room_test.yy",},},
@@ -126,6 +127,7 @@
     {"id":{"name":"scr_generalBulletFuncs","path":"scripts/scr_generalBulletFuncs/scr_generalBulletFuncs.yy",},},
     {"id":{"name":"scr_generalFunctions","path":"scripts/scr_generalFunctions/scr_generalFunctions.yy",},},
     {"id":{"name":"scr_generalVariables","path":"scripts/scr_generalVariables/scr_generalVariables.yy",},},
+    {"id":{"name":"scr_parentChildFunctions","path":"scripts/scr_parentChildFunctions/scr_parentChildFunctions.yy",},},
     {"id":{"name":"scr_playerInput","path":"scripts/scr_playerInput/scr_playerInput.yy",},},
     {"id":{"name":"scr_playerState_normal","path":"scripts/scr_playerState_normal/scr_playerState_normal.yy",},},
     {"id":{"name":"scr_playerVariables_movement","path":"scripts/scr_playerVariables_movement/scr_playerVariables_movement.yy",},},
@@ -180,6 +182,7 @@
     {"roomId":{"name":"rm_room_test","path":"rooms/rm_room_test/rm_room_test.yy",},},
     {"roomId":{"name":"rm_room_test_2","path":"rooms/rm_room_test_2/rm_room_test_2.yy",},},
     {"roomId":{"name":"rm_room_test_3","path":"rooms/rm_room_test_3/rm_room_test_3.yy",},},
+    {"roomId":{"name":"rm_room_itemRoom_1","path":"rooms/rm_room_itemRoom_1/rm_room_itemRoom_1.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

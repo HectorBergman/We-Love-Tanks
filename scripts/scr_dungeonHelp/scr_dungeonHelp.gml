@@ -10,10 +10,6 @@ function findRoomsByProperty(roomArray, propertyName, targetValue) {
     
     for (var i = 0; i < array_length(roomArray); i++) {
         var _room = roomArray[i];
-        print("thisiswhereuwanttogo");
-		print(targetValue);
-		print(variable_struct_exists(_room, propertyName))
-		print(propertyName)
         // Check if property exists AND matches targetValue
         if (variable_struct_exists(_room, propertyName) 
         && (variable_struct_get(_room, propertyName) == targetValue)) {
@@ -33,9 +29,7 @@ function findRoomsByProperty(roomArray, propertyName, targetValue) {
 
 function pickRandomRoomByType(roomArray, roomType) {
     var matchingRooms = findRoomsByProperty(roomArray, "type", roomType);
-    print(matchingRooms);
     if (array_length(matchingRooms) == 0) {
-		print("fuckme");
         return undefined; // No matches found
     }
     
@@ -43,3 +37,38 @@ function pickRandomRoomByType(roomArray, roomType) {
     var randomIndex = irandom(array_length(matchingRooms) - 1);
     return matchingRooms[randomIndex];
 }
+
+function isEdge(doors){
+	var doorCount = 0;
+	for (var i = 0; i < 4; i++){
+		if doors[i] == 1{
+			doorCount++
+		}
+	}
+	return doorCount == 1
+}
+ //hello me from the future. too much shit to do in your mf dungeon?
+ // method_call(processCellFunc, [(params)])
+ //take this, and create an array of touple pairs of function and params and loop through the array.
+ //good luck brah. i aint doin allat 100 im hardcoding that shi lmfaoooo
+function loopThroughDungeon(dungeonList){
+	var edgeList = ds_list_create()
+	for (var i = 0; i < ds_list_size(dungeonList); i++){
+		addIfEdge(dungeonList,i,edgeList);
+		
+	}
+	crownItemRoom(edgeList);
+}
+
+function addIfEdge(list,index, toAdd){
+	var value = ds_list_find_value(list, index)
+	if (value.edge){
+		ds_list_add(toAdd,value);
+	}
+}
+
+function crownItemRoom(edgeList){
+	var randomIndex = irandom(ds_list_size(edgeList)-1)
+	ds_list_find_value(edgeList,randomIndex)._room = asset_get_index(pickRandomRoomByType(global.roomList,"item").roomName)
+}
+

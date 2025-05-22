@@ -7,6 +7,12 @@ rectangleWidth = 35
 rectangleHeight = 18;
 doorWidth = 4;
 doorHeight = 4;
+// In Create Event:
+processRoomCell = function(i, j) {
+    createRoom(i, j);       // Your room creation
+    uniqueIDGiver++;        // Your counter
+    // Whatever else you need
+};
 
 
 roomsToDisplay = ds_grid_create(5,5);

@@ -34,3 +34,7 @@ function bulletBounce(){
 		}
 	}
 }
+
+function death(){
+	instance_destroy()
+}

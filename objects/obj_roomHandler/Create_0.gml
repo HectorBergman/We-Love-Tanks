@@ -3,8 +3,10 @@ currentRoom = [dungeonSize/2,dungeonSize/2];
 uniqueIDGiver = 0;
 dungeonGrid = ds_grid_create(dungeonSize, dungeonSize);
 allRooms = 0;
+roomList = noone;
+roomList = ds_list_create();
+dungeon = generateDungeon();
 
-generateDungeon();
 
 
 function enterNewRoom(xDirection, yDirection){

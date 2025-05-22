@@ -13,5 +13,10 @@
    "roomName": "rm_room_test_3",
    "type": "boringAf",
    "difficulty": "5"
+ },
+ {
+   "roomName": "rm_room_itemRoom_1",
+   "type": "item",
+   "difficulty": "0"
  }
 ]

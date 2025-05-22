@@ -1,6 +1,6 @@
 function generateDungeon(){
 	ds_grid_clear(dungeonGrid,noone)//, {_room : rm_errorRoom, doors : [0,0,0,0]});
-	
+
 	spiralGridScan(currentRoom[0],currentRoom[1],10,10,function(i,j) {
 		createRoom(i,j);
 		uniqueIDGiver++
@@ -13,9 +13,10 @@ function generateDungeon(){
 	ds_list_destroy(visitedRooms);
 	
 	for (var i = 0; i < 10; i++){
-		for (var j = 1; j < 10; j++){
+		for (var j = 0; j < 10; j++){
 			if !(i == 5 && j == 5){
 				try{
+
 					var rID = ds_grid_get(dungeonGrid, i, j).roomID
 					if (is_undefined(ds_map_find_value(allRooms, rID))){
 						deleteRoom(i,j);
@@ -23,19 +24,27 @@ function generateDungeon(){
 					}
 				}
 				catch(e){
-					print(e)
-					print(i)
-					print(j)
-					print("-----");
+					print("errorLOL!");
 				}
 			}else{
 				ds_map_set(allRooms,0,0)
 			}
 		}
 	}
+
+	
+	loopThroughDungeon(roomList);
+
+	print(ds_list_size(roomList));
+	print("here are all le rooms :))))")
+	for (var i = 0; i < ds_list_size(roomList); i++){
+		print(ds_list_find_value(roomList,i));
+	}
+	print(roomList);
+	return roomList;
 }
 
-//Use t
+//This function is hell
 function roomLooperSpecil(originX,originY,visitedRooms,allRooms,stepsFromMiddle,blockedDirection = -1){
 	stepsFromMiddle++
 	var currentRoom = ds_grid_get(dungeonGrid, originX, originY)
@@ -49,28 +58,16 @@ function roomLooperSpecil(originX,originY,visitedRooms,allRooms,stepsFromMiddle,
 				print("Outside range");
 				continue
 			}
+			
+			
+			
 			var result = checkAdjacentRooms_helper(originX,originY,i)
-			print(i);
-			print(originX)
-			print(originY);
-			print(result);
-			//print("stepsfromMiddle: " + string(ds_map_find_value(allRooms, result[0].roomID)));
 			if (ds_list_find_index(visitedRooms,result[0]) != -1 && ds_map_find_value(allRooms, result[0].roomID) <= stepsFromMiddle) || is_undefined(result[0]){
-				print("fuckass");
 				continue
 			}
-			print("sike!!!");
-			ds_list_add(visitedRooms,result[0]);
-			//print(result[0])
-			print(originX)
-			print(originY);
-			print(i);
-			print("----");
-			ds_map_set(allRooms, result[0].roomID, stepsFromMiddle)
-			print("wegotthere");
-			print(ds_map_find_value(allRooms, result[0].roomID));
-			print(result[0].roomID);
 
+			ds_list_add(visitedRooms,result[0]);
+			ds_map_set(allRooms, result[0].roomID, stepsFromMiddle)
 			roomLooperSpecil(originX+xY[0],originY+xY[1],visitedRooms,allRooms,stepsFromMiddle,(i+2) mod 4)
 			
 		}
@@ -79,6 +76,7 @@ function roomLooperSpecil(originX,originY,visitedRooms,allRooms,stepsFromMiddle,
 }
 
 function deleteRoom(_x,_y){
+	ds_list_delete(roomList, ds_list_find_index(roomList,ds_grid_get(dungeonGrid,_x,_y)));
 	ds_grid_set(dungeonGrid, _x,_y,undefined)
 }
 function directionToXY(_direction){
@@ -111,19 +109,24 @@ function checkingStuff(_x,_y){
 
 
 function createRoom(_x,_y){
+
+	var newRoom = noone;
 	if _x == 5 && _y == 5{ //todo: make this not hardcoded, i.e. make it depend on where the middle is based on stage
-		ds_grid_set(dungeonGrid, _x,_y, {_room : rm_startingRoom, doors : [1,1,1,1], connectedToStart : true, edge: false,roomID : uniqueIDGiver})
+		newRoom = {_room : rm_startingRoom, doors : [1,1,1,1], connectedToStart : true, edge: false,roomID : uniqueIDGiver, coords : [_x,_y]}
 	}else{
 		var adjacentDoors = checkAdjacentRooms(_x,_y)[0]
 		for (var i = 0; i < 3; i++){
 			if adjacentDoors[i] == -2{
-				adjacentDoors[i] = random(1) < 0.39
+				adjacentDoors[i] = random(1) < 0.01 //0.39
 			}
 		}
 		print("room created on " + string(_x) + "," + string(_y));
-
-		ds_grid_set(dungeonGrid, _x,_y, {_room : asset_get_index(pickRandomRoomByType(global.roomList,"boringAf").roomName), doors : adjacentDoors, connectedToStart : false, edge: false,roomID : uniqueIDGiver})
+		
+		newRoom = {_room : asset_get_index(pickRandomRoomByType(global.roomList,"boringAf").roomName), doors : adjacentDoors, connectedToStart : false, edge: isEdge(adjacentDoors),roomID : uniqueIDGiver, coords : [_x,_y]}
 	}
+
+	ds_list_add(roomList, newRoom);
+	ds_grid_set(dungeonGrid, _x,_y, newRoom);
 }
 function checkAdjacentRooms_helper(_x,_y,_direction){
 	
@@ -132,16 +135,12 @@ function checkAdjacentRooms_helper(_x,_y,_direction){
 	if inRange(_x+xy[0],0,9) && inRange(_y+xy[1],0,9){
 		adjacentRoom = ds_grid_get(dungeonGrid, _x+xy[0], _y+xy[1])
 		if adjacentRoom != noone{
-			print(adjacentRoom)
-			print(xy[0])
-			print(xy[1])
 			return [adjacentRoom, -xy[0], -xy[1], adjacentRoom.connectedToStart, adjacentRoom.doors[(_direction+2) mod 4]]
 		}
 		else return [undefined,-9,-9,-9,-9]
 	
 	}else{
 		var adjacentRoo = [undefined,-9,-9,-9,-9]
-		print("HI");
 		return adjacentRoo
 	}
 }

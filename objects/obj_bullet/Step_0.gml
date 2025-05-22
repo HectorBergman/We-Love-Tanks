@@ -29,3 +29,5 @@ if (slowmovin mod 60 == 0){
 
 	
 }
+hitOpponentBullet(object_index);
+hitOpponent(object_index);

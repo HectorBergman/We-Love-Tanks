@@ -7,7 +7,7 @@ function movementY(){
 }
 movementVector = [0,0];
 
-summonObject(obj_enemy_cannon, [["parent", id], ["depth", depth-1]]);
+cannon = summonObject(obj_enemy_cannon, [["parent", id], ["depth", depth-1]]);
 hitbox = summonObject(obj_enemy_hitbox, [["parent", id]]);
 switch(type){
 	case enemyTypes.stiffNormal: stiffNormal_create(); break;
@@ -16,4 +16,8 @@ switch(type){
 }
 //todo: add code for selecting a sprite according to enemy type
 
-
+function death(){
+	instance_destroy(cannon);
+	instance_destroy(hitbox);
+	instance_destroy();
+}
