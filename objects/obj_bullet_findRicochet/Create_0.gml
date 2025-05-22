@@ -16,4 +16,17 @@ newCoords = [0,0]
 latestWallHit = -1;
 closestDistanceToPlayer = 9999999;
 
-hitList = ds_list_create();
+bounces = 0;
+
+function ricochetBounce(){
+	
+	if bounces >= maxBounce{
+		parent.ricochetArray[originalAngle] = closestDistanceToPlayer
+		print(closestDistanceToPlayer);
+		print(originalAngle);
+		print("-----");
+		instance_destroy();
+	}else{
+		bounces++
+	}
+}

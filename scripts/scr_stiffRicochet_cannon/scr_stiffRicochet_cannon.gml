@@ -86,4 +86,7 @@ function searchRicochetArray(){
 			closestDistanceToPlayer = ricochetArray[i]
 		}
 	}
+	print("itsdecided");
+	print(chosenAngle)
+	print(closestDistanceToPlayer)
 }

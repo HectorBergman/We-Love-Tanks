@@ -35,5 +35,5 @@
     "path":"sprites/spr_bullet_enemy/spr_bullet_enemy.yy",
   },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }
