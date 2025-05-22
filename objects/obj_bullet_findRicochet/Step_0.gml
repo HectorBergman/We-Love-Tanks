@@ -5,7 +5,7 @@ var collisionAngle = collision_normal(x+movementX(),y+movementY(),obj_wall,2,1)
 while collisionAngle == -1{
 	collisionAngle = collision_normal(x+movementX(),y+movementY(),obj_wall,2,1)
 	if !(inRange(x,-32,room_width+32) && inRange(y,-32,room_height+32)){
-		parent.ricochetArray[originalAngle] = closestDistanceToPlayer
+		
 		instance_destroy()
 		exit;
 	}

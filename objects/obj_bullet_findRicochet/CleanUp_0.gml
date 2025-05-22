@@ -1,0 +1,1 @@
+parent.ricochetArray[originalAngle] = closestDistanceToPlayer

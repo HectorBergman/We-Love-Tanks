@@ -21,7 +21,7 @@ bounces = 0;
 function ricochetBounce(){
 	
 	if bounces >= maxBounce{
-		parent.ricochetArray[originalAngle] = closestDistanceToPlayer
+		
 		print(closestDistanceToPlayer);
 		print(originalAngle);
 		print("-----");
