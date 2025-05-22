@@ -9,7 +9,7 @@ if !(inRange(x,-32,room_width+32) && inRange(y,-32,room_height+32)){
 if (slowmovin mod 60 == 0){
 	timeSinceBounce++
 	
-	var collisionAngle = collision_normal(x,y,obj_wall,9,1)
+	var collisionAngle = collision_normal(x+movementX(),y+movementY(),obj_wall,3,1)
 	
 	if collisionAngle != -1{
 		var dot = movementVector[0] * cos(degtorad(collisionAngle)) + movementVector[1] * sin(degtorad(collisionAngle));
@@ -17,11 +17,7 @@ if (slowmovin mod 60 == 0){
 		reflectedVector[1] = movementVector[1] - 2 * dot * sin(degtorad(collisionAngle));
 		movementVector[0] = reflectedVector[0]
 		movementVector[1] = reflectedVector[1]
-		
-		print(collisionAngle);
-		print(movementVector[0])
-		print(movementVector[1]);
-		print(degtorad(collisionAngle));
+		bulletBounce();
 	}
 	
 	image_angle = point_direction(x,y,x+movementVector[0],y+movementVector[1]);

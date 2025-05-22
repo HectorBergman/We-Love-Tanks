@@ -18,7 +18,19 @@ slowmovin = 1;
 slowMovinTime = 60;
 angle = image_angle
 prevTurn = -1;
+bounces = 0;
 
 minimumdifference = 3;
 
-hitList = ds_list_create();
+
+
+function bulletBounce(){
+	if timeSinceBounce > 5{
+		if bounces >= maxBounce{
+			instance_destroy();
+		}else{
+			timeSinceBounce = 0;
+			bounces++
+		}
+	}
+}
