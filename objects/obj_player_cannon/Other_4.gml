@@ -1,0 +1,1 @@
+activeBullets = 0;

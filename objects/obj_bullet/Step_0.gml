@@ -1,10 +1,18 @@
+ds_list_add(pathPoints, [x, y]);
+
+
+// Trim path if too long
+if (ds_list_size(pathPoints) > maxPathLength) {
+    ds_list_delete(pathPoints, 0); // Remove oldest point
+}
+
 if (keyboard_check(vk_space)){
 	slowmovin++
 }else{
 	slowmovin = 0
 }
 if !(inRange(x,-32,room_width+32) && inRange(y,-32,room_height+32)){
-	instance_destroy()
+	death();
 }
 if (slowmovin mod 60 == 0){
 	lifeTime++

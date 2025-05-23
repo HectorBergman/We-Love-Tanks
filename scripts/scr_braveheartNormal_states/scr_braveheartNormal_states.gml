@@ -29,8 +29,11 @@ function braveheartNormal_approaching(){
 			stepCollisionWhileWithFailCon([obj_wall, obj_enemy, obj_player], _vStep, false)
 			movementVector[1] = 0;
 		}
-		if (movementVector[0] != 0 || movementVector[1] != 0){
-			hitbox.image_angle = point_direction(x,y,x + movementVector[0]*movementSpeed, y + movementVector[1]*movementSpeed)
+		try{
+			if (movementVector[0] != 0 || movementVector[1] != 0){
+				hitbox.image_angle = point_direction(x,y,x + movementVector[0]*movementSpeed, y + movementVector[1]*movementSpeed)
+			}
+		}catch(e){
 		}
 
 

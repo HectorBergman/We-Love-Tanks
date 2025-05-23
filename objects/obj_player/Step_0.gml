@@ -34,7 +34,7 @@ if (place_meeting(x, y + movementY(), [obj_wall, obj_enemy])){
 if (movementVector[0] != 0 || movementVector[1] != 0){
 	var tempAngle = hitbox.image_angle;
 	hitbox.image_angle = point_direction(x,y,x + movementVector[0]*movementSpeed, y + movementVector[1]*movementSpeed)
-	if (place_meeting(x,y, obj_wall) && !(hitbox.image_angle = 90 || hitbox.image_angle == 180 || hitbox.image_angle == 270 || hitbox.image_angle == 0)){
+	if (place_meeting(x,y, obj_wall) && !(hitbox.image_angle == 90 || hitbox.image_angle == 180 || hitbox.image_angle == 270 || hitbox.image_angle == 0)){
 		hitbox.image_angle = tempAngle;
 	}
 }else{

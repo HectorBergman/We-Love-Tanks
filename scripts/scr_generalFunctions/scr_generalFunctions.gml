@@ -114,10 +114,10 @@ function is_in_range(value, minimum, maximum) {
     return value > minimum && value < maximum;
 }
 
-function normalizedVector(objectA, objectB){
+function normalizedVector(coordsA, coordsB){
 	// Get direction vector
-	var dir_x = objectB.x - objectA.x;
-	var dir_y = objectB.y - objectA.y;
+	var dir_x = coordsB[0] - coordsA[0];
+	var dir_y = coordsB[1] - coordsA[1];
 
 	// Normalize using point_distance (more efficient than manual calculation)
 	var dist = point_distance(0, 0, dir_x, dir_y);

@@ -1,14 +1,42 @@
 function spinnyBullet_onFire(){
-	var _angle = radtodeg(arctan2(-movementVector[1], movementVector[0]))
+	if lifeTime > 3{
+		// Golden Ratio (φ ≈ 1.618) and Golden Angle (≈137.508°)
+		var _phi = (1 + sqrt(5)) / 2;
+		var _golden_angle = 360 / ((_phi * _phi)*10); // ≈137.508°
 
-	if lifeTime < 200{
-		_angle = (_angle + 3) mod 360;
-	}else{
-		_angle = (_angle + 3*sqrt(200)/sqrt(lifeTime)) mod 360;
-		print("iminit");
+		// Initial angle calculation
+		var _angle = radtodeg(arctan2(-movementVector[1], movementVector[0]));
+
+		var _radius = 50/(power(lifeTime,1.2)+30) // Increase radius over time
+		// Apply Golden Angle increment per frame
+		_angle = (_angle + _golden_angle*_radius) mod 360;
+
+		// Update movement vector (preserve speed)
+	
+		bulletSpeed *= 0.999999
+		
+		// Update movement vector
+		movementVector[0] = dcos(_angle);
+		movementVector[1] = -dsin(_angle);
 	}
 
-	movementVector[0] = dcos(_angle);
-	movementVector[1] = -dsin(_angle);
-
 }
+
+/*// Golden Ratio (φ ≈ 1.618) and Golden Angle (≈137.508°)
+		var _phi = (1 + sqrt(5)) / 2;
+		var _golden_angle = 360 / ((_phi * _phi)*10); // ≈137.508°
+
+		// Initial angle calculation
+		var _angle = radtodeg(arctan2(-movementVector[1], movementVector[0]));
+
+		var _radius = lifeTime/5; // Increase radius over time
+		// Apply Golden Angle increment per frame
+		_angle = (_angle + _golden_angle*_radius) mod 360;
+
+		// Update movement vector (preserve speed)
+	
+		bulletSpeed -= 0.02
+		
+		// Update movement vector
+		movementVector[0] = dcos(_angle);
+		movementVector[1] = -dsin(_angle);*/

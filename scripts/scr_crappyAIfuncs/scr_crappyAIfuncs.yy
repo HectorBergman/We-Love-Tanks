@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"lol1",
+  "%Name":"scr_crappyAIfuncs",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"lol1",
+  "name":"scr_crappyAIfuncs",
   "parent":{
     "name":"enemy",
     "path":"folders/Objects/enemy.yy",

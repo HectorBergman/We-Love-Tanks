@@ -10,7 +10,7 @@ function findNearbyCrumbs(){
 		var breadCrumb = instance_find(obj_breadCrumbs,i);
 		var distanceToCrumb = point_distance(x,y,breadCrumb.x,breadCrumb.y);
 		var reachable = true;
-		var vector = normalizedVector(id, breadCrumb);
+		var vector = normalizedVector([x,y], [breadCrumb.x,breadCrumb.y]);
 		for (var j = 16; j < distanceToCrumb; j = j+interval){
 			if collision_rectangle(x+vector[0]*j-halfSize, y+vector[1]*j-halfSize, x+vector[0]*(j+interval)+halfSize, y+vector[1]*(j+interval)+halfSize, obj_wall, 0, 1){
 				reachable = false;

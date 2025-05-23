@@ -23,12 +23,24 @@ bounces = 0;
 minimumdifference = 3;
 lifeTime = 0;
 
+pathPoints = ds_list_create();
+maxPathLength = 100
+
+   // CREATE EVENT
+pathSurface = -1; // Will store our surface;
+
+
+
+// Initial values (put these in Create Event)
+growth_factor = 1;
+initial_radius = 1; // Starting size
+rotation_speed = 3; // Degrees per frame
 
 
 function bulletBounce(){
 	if timeSinceBounce > 5{
 		if bounces >= maxBounce{
-			instance_destroy();
+			death();
 		}else{
 			timeSinceBounce = 0;
 			bounces++
@@ -37,6 +49,9 @@ function bulletBounce(){
 }
 
 function death(){
+	if instance_exists(parent){
+		parent.activeBullets--;
+	}
 	instance_destroy()
 }
 
