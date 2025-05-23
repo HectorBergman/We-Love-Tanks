@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"lol1",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"lol1",
+  "parent":{
+    "name":"enemy",
+    "path":"folders/Objects/enemy.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
