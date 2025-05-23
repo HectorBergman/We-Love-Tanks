@@ -10,7 +10,7 @@ function stiffNormal_cannon_firing(){
 
 	}
 	if !place_meeting(x,y, obj_wall) && activeBullets < 3 && firingCooldown < 1{
-		fireBullet(obj_bullet_enemy, 1.5, 3)	
+		fireBullet(obj_bullet_enemy, 1.5, 3, 1, image_angle)	
 	}
 }
 

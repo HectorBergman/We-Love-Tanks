@@ -18,6 +18,7 @@ hitbox = summonObject(obj_player_hitbox, [["parent", id]]);
 playerVariables_movement()
 generalVariables();
 initializeEnums();
+hp = 3;
 
 lol = 0;
 
@@ -27,4 +28,13 @@ function death(){
 	cannon.visible = false;
 	hitbox.visible = false;
 	visible = false;
+}
+
+function decreaseHealth(){
+	hp--;
+}
+function checkForDeath(){
+	if hp < 1{
+		death();
+	}
 }

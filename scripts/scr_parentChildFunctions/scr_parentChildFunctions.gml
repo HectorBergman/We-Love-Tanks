@@ -7,8 +7,9 @@ function hitOpponent(ownObject){
 	}
 	var enemyHit = instance_place(x,y,target)
 	if enemyHit != noone {
+		var dmg = damage;
 		with enemyHit{
-			death();
+			decreaseHealth(dmg);
 		}
 		death();
 	}
@@ -22,7 +23,9 @@ function hitOpponentBullet(ownObject){
 	}
 	var bulletHit = instance_place(x,y,obj_bullet)
 	if bulletHit != noone{
-		instance_destroy(bulletHit);
-		instance_destroy();
+		with bulletHit{
+			death();
+		}
+		death();
 	}
 }

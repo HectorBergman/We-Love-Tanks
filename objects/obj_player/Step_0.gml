@@ -1,3 +1,5 @@
+checkForDeath();
+
 lol++
 if run{
 	movementSpeed = runSpeed

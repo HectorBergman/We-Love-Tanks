@@ -21,6 +21,7 @@ prevTurn = -1;
 bounces = 0;
 
 minimumdifference = 3;
+lifeTime = 0;
 
 
 
@@ -37,4 +38,7 @@ function bulletBounce(){
 
 function death(){
 	instance_destroy()
+}
+
+function bulletEdits(){
 }

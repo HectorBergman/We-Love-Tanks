@@ -14,5 +14,13 @@ print(global.roomList);
 
 
 window_set_size(display_get_width(),display_get_height());
-show_debug_message(string(display_get_width()) + string(display_get_height()))
-summonObject(obj_cam, [["swag", true], ["x", 100]])
+
+
+gpu_set_texfilter(false);
+
+window_set_cursor(cr_none); //hide pc cursor todo: replace cursor with something fun :))
+scribble_font_bake_outline_and_shadow("fnt_coolFont", "fnt_coolFont_outline",0,0, SCRIBBLE_OUTLINE.EIGHT_DIR_THICK ,0,false);
+
+scribble_font_set_default("fnt_coolFont_outline");
+
+window_set_size(1920,1080); //window_get_width

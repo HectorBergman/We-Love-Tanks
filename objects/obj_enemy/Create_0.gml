@@ -6,7 +6,7 @@ function movementY(){
 	return movementVector[1]*movementSpeed;
 }
 movementVector = [0,0];
-
+hp = 1;
 cannon = summonObject(obj_enemy_cannon, [["parent", id], ["depth", depth-1]]);
 hitbox = summonObject(obj_enemy_hitbox, [["parent", id]]);
 switch(type){
@@ -20,4 +20,13 @@ function death(){
 	instance_destroy(cannon);
 	instance_destroy(hitbox);
 	instance_destroy();
+}
+
+function decreaseHealth(){
+	hp--;
+}
+function checkForDeath(){
+	if hp < 1{
+		death();
+	}
 }

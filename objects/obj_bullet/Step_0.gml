@@ -7,6 +7,10 @@ if !(inRange(x,-32,room_width+32) && inRange(y,-32,room_height+32)){
 	instance_destroy()
 }
 if (slowmovin mod 60 == 0){
+	lifeTime++
+	if object_index == obj_bullet{
+		loop_onHit();
+	}
 	timeSinceBounce++
 	
 	var collisionAngle = collision_normal(x+movementX(),y+movementY(),obj_wall,3,1)
@@ -19,6 +23,7 @@ if (slowmovin mod 60 == 0){
 		movementVector[1] = reflectedVector[1]
 		bulletBounce();
 	}
+	
 	
 	image_angle = point_direction(x,y,x+movementVector[0],y+movementVector[1]);
 

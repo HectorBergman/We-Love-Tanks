@@ -1,6 +1,5 @@
-if (_health == 0){
-	enemyDie();
-}
+checkForDeath();
+
 switch(type){
 	case enemyTypes.stiffNormal: stiffNormal_step(); break;
 	case enemyTypes.braveheartNormal: braveheartNormal_step(); break;

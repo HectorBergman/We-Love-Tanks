@@ -1,7 +1,0 @@
-function enemyState_normal(){
-	
-}
-
-
-
-
