@@ -31,6 +31,7 @@ function death(){
 }
 
 function decreaseHealth(){
+	loop_onHit();
 	hp--;
 }
 function checkForDeath(){

@@ -22,3 +22,6 @@ fadeWait = 60;
 fadeTimer = 0;
 fadeTime = 30;
 
+info = variable_instance_get(global.items,itemId)
+pickupText = info.pickupText;
+sprite_index = info.sprite;

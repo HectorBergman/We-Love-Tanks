@@ -28,7 +28,6 @@
   "physicsShapePoints":[],
   "physicsStartAwake":true,
   "properties":[
-    {"$GMObjectProperty":"v1","%Name":"pickupText","filters":[],"listItems":[],"multiselect":false,"name":"pickupText","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"Fuck","varType":2,},
     {"$GMObjectProperty":"v1","%Name":"itemId","filters":[],"listItems":[],"multiselect":false,"name":"itemId","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"spinnyBullet","varType":2,},
   ],
   "resourceType":"GMObject",
