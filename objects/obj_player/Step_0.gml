@@ -1,5 +1,11 @@
 checkForDeath();
-
+if invincible{
+	invincibilityFrames--
+}
+if invincibilityFrames == 0{
+	invincibilityFrames = 60;
+	invincible = false;
+}
 lol++
 if run{
 	movementSpeed = runSpeed

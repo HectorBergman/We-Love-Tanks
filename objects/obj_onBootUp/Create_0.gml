@@ -7,12 +7,33 @@ print(randomize());
 window_set_cursor(cr_none); //hide pc cursorr
 room_goto(rm_startingRoom);
 
-var buffer =  buffer_load("roomData.json");
+/*var buffer =  buffer_load("roomData.json");
 var _string = buffer_read(buffer, buffer_string);
 global.roomList = json_parse(_string);
-print(global.roomList);
+print(global.roomList);*/
 
-
+global.roomList =  [
+ {
+   "roomName": "rm_room_test",
+   "type": "standard",
+   "difficulty": "1"
+ },
+ {
+   "roomName": "rm_room_test_2",
+   "type": "standard",
+   "difficulty": "1"
+ },
+ {
+   "roomName": "rm_room_test_3",
+   "type": "standard",
+   "difficulty": "1"
+ },
+ {
+   "roomName": "rm_room_itemRoom_1",
+   "type": "item",
+   "difficulty": "0"
+ }
+]
 window_set_size(display_get_width(),display_get_height());
 
 

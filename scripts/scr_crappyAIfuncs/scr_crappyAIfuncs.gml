@@ -11,12 +11,6 @@ function findNearbyCrumbs(){
 		var distanceToCrumb = point_distance(x,y,breadCrumb.x,breadCrumb.y);
 		var reachable = true;
 		var vector = normalizedVector([x,y], [breadCrumb.x,breadCrumb.y]);
-		for (var j = 16; j < distanceToCrumb; j = j+interval){
-			if collision_rectangle(x+vector[0]*j-halfSize, y+vector[1]*j-halfSize, x+vector[0]*(j+interval)+halfSize, y+vector[1]*(j+interval)+halfSize, obj_wall, 0, 1){
-				reachable = false;
-				break;
-			}
-		}
 		if reachable{
 			var crumbDistance = point_distance(playerTank.x, playerTank.y, breadCrumb.x, breadCrumb.y);
 			if (crumbDistance) < closestCrumbDistance && !collision_line(breadCrumb.x,breadCrumb.y,playerTank.x,playerTank.y,obj_wall,0,1){ //!collision_cone(breadCrumb.x,breadCrumb.y,playerTank.x,playerTank.y,45, 5, obj_wall){

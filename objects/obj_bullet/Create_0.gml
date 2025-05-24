@@ -49,11 +49,10 @@ function bulletBounce(){
 }
 
 function death(){
-	if instance_exists(parent){
+	if increaseCount && instance_exists(parent){
 		parent.activeBullets--;
 	}
 	instance_destroy()
 }
 
-function bulletEdits(){
-}
+

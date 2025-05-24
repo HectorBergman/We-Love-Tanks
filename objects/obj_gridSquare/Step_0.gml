@@ -1,11 +1,7 @@
 
-if (breadCrumbTimer == 5){
-	distance = point_distance(x,y,playerTank.x,playerTank.y)
-}
-breadCrumbTimer--
 
 
-if (breadCrumbTimer == 1){
+/*if (breadCrumbTimer == 1){
 	if (distance < 32*5 ){
 	}
 }else if (breadCrumbTimer == 0){

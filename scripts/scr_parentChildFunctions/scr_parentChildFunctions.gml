@@ -21,7 +21,7 @@ function hitOpponentBullet(ownObject){
 	}else if ownObject == obj_bullet_enemy{
 		target = obj_bullet;	
 	}
-	var bulletHit = instance_place(x,y,obj_bullet)
+	var bulletHit = instance_place(x,y,target)
 	if bulletHit != noone{
 		with bulletHit{
 			death();

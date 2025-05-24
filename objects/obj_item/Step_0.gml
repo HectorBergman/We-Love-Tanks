@@ -32,4 +32,3 @@ switch (state){
 	}
 }
 
-print(textY);

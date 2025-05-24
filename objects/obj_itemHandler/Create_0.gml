@@ -4,6 +4,8 @@ onFireItems = ds_list_create();
 
 allItems = ds_list_create();
 
+global.itemRoomPool = ["cactus","spinnyBullet"];
+
 
 //in the future, create seperate lists or w/e for items that
 //perform different things at different points

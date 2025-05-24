@@ -12,13 +12,17 @@ function movementY(){
 }
 resetInputs() //same effect as initializing inputs
 cannon = summonObject(obj_player_cannon, [["parent", id], ["depth", depth-1]]);
-hitbox = summonObject(obj_player_hitbox, [["parent", id]]);
+hitbox = summonObject(obj_player_visual, [["parent", id], ["cannon", cannon]]);
 
 //initialize a bunch of variables
 playerVariables_movement()
 generalVariables();
 initializeEnums();
-hp = 3;
+hp = 99;
+
+invincibilityFrames = 90;
+invincible = false;
+
 
 lol = 0;
 
@@ -31,8 +35,11 @@ function death(){
 }
 
 function decreaseHealth(){
-	loop_onHit();
-	hp--;
+	if !invincible{
+		invincible = true;
+		loop_onHit();
+		hp--;
+	}
 }
 function checkForDeath(){
 	if hp < 1{

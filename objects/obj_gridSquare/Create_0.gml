@@ -6,9 +6,7 @@ breadCrumbTime = 5;
 
 breadCrumbRadius = 2;
 
-distance = point_distance(x, y, playerTank.x, playerTank.y);
-distanceX = abs(playerTank.x - x);
-distanceY = abs(playerTank.y - y);
+distance = 0
 detectionSquareWidth = 6;
 wallSeen = 0;
 playerSeen = false;

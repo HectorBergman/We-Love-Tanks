@@ -1,3 +1,12 @@
+enum enemyPhase {
+	startingUp,
+	active
+}
+
+phase = enemyPhase.startingUp
+startUpTimer = 90;
+
+
 type = stringToEnum(enemyType);
 function movementX(){
 	return movementVector[0]*movementSpeed;
@@ -23,7 +32,9 @@ function death(){
 }
 
 function decreaseHealth(){
-	hp--;
+	if phase != enemyPhase.startingUp{
+		hp--;
+	}
 }
 function checkForDeath(){
 	if hp < 1{

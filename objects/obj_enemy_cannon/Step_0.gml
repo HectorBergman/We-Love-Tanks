@@ -1,12 +1,15 @@
-
-
-switch(type){
-	case enemyTypes.stiffNormal: stiffNormal_step_cannon(); break;
-	case enemyTypes.braveheartNormal: braveheartNormal_step_cannon(); break;
-	case enemyTypes.stiffRicochet: stiffRicochet_step_cannon(); break;
+switch(parent.phase){
+	case enemyPhase.startingUp:{
 	
+	}break;
+	case enemyPhase.active:{
+		switch(type){
+			case enemyTypes.stiffNormal: stiffNormal_step_cannon(); break;
+			case enemyTypes.braveheartNormal: braveheartNormal_step_cannon(); break;
+			case enemyTypes.stiffRicochet: stiffRicochet_step_cannon(); break;
+	
+		}
+	}
 }
-
-
 
 

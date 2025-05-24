@@ -2,7 +2,7 @@
 // 1. Draw the bullet itself first
 
 
-
+/*
 // DRAW EVENT
 // 1. Ensure surface exists
 if (!surface_exists(pathSurface)) {
@@ -36,5 +36,5 @@ surface_reset_target();
 // 3. Draw the surface with outline effect
 draw_surface_ext(pathSurface, 0, 0, 1, 1, 0, c_white, 0.7);
 
-
+*/
 draw_self();

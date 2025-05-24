@@ -122,7 +122,7 @@ function createRoom(_x,_y){
 		}
 		print("room created on " + string(_x) + "," + string(_y));
 		
-		newRoom = {_room : asset_get_index(pickRandomRoomByType(global.roomList,"boringAf").roomName), doors : adjacentDoors, connectedToStart : false, edge: isEdge(adjacentDoors),roomID : uniqueIDGiver, coords : [_x,_y]}
+		newRoom = {_room : asset_get_index(pickRandomRoomByType(global.roomList,"standard").roomName), doors : adjacentDoors, connectedToStart : false, edge: isEdge(adjacentDoors),roomID : uniqueIDGiver, coords : [_x,_y]}
 	}
 
 	ds_list_add(roomList, newRoom);
