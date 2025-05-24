@@ -14,15 +14,19 @@ function resetNodes(){
 		ds_map_find_value(gridMap,first).visited = false;
 	}
 }
-function getClosestToPlayer(){
-	var closestList = ds_list_create();
-	with playerTank{
-		instance_place_list(x,y,obj_gridSquare,closestList,true)
-	}
-	var closest = ds_list_find_value(closestList,0);
-	return closest;
-}
 
+function BFS(){
+	var first = ds_map_find_first(gridMap)
+	first = ds_map_find_next(gridMap,first)
+	if (ds_map_find_value(gridMap,first).visited){
+		print("resetting!");
+		resetNodes();
+	}
+	addNeighboursToQueue(getClosestToPlayer(), breadthQueue,0)
+	while !ds_queue_empty(breadthQueue){
+		popEntry(breadthQueue);
+	}
+}
 function addNeighboursToQueue(node, queue, distance){
 	for (var i = 0; i < 3; i++){
 		for (var j = 0; j < 3; j++){
@@ -35,20 +39,19 @@ function addNeighboursToQueue(node, queue, distance){
 					ds_queue_enqueue(breadthQueue, point)
 				}
 			}
-
 		}
 	}
 }
-function BFS(){
-	var first = ds_map_find_first(gridMap)
-	if (ds_map_find_value(gridMap,first).visited){
-		resetNodes();
+
+function getClosestToPlayer(){
+	var closestList = ds_list_create();
+	with playerTank{
+		instance_place_list(x,y,obj_gridSquare,closestList,true)
 	}
-	addNeighboursToQueue(getClosestToPlayer(), breadthQueue,0)
-	while !ds_queue_empty(breadthQueue){
-		popEntry(breadthQueue);
-	}
+	var closest = ds_list_find_value(closestList,0);
+	return closest;
 }
+
 function popEntry(queue){
 	var entry = ds_queue_dequeue(queue)
 	print("penisssese");
@@ -58,8 +61,7 @@ function popEntry(queue){
 	addNeighboursToQueue(entry.square,queue, entry.distance)
 }
 
-function checkAll(){
-}
+
 
 function checkOne(node, distance){
 	if !node.square.isWall{
