@@ -1,9 +1,35 @@
 function braveheartNormal_approaching(){
-	// Enemy step event
-	nearestCrumb = noone;
-	nearestCrumbDistance = 99999999;
 
-	var arr = findOptimizedPath();
+	var list = ds_list_create()
+	instance_place_list(x,y,obj_gridSquare,list,true);
+	var nearestSquare = ds_list_find_value(list,0)
+	if nearestSquare != noone && !is_undefined(nearestSquare){
+		if targetSquare == noone || targetSquare == nearestSquare{
+			targetSquare = pfHandler.getNearestNeighbour2(nearestSquare);
+		}
+		
+		var dir = point_direction(x, y, targetSquare.x, targetSquare.y);
+	    movementVector[0] = lengthdir_x(movementSpeed, dir);
+	    movementVector[1] = lengthdir_y(movementSpeed, dir);
+		
+	 
+	}
+	
+	if !collision_line(x,y,playerTank.x,playerTank.y, obj_wall,0,1){
+		state = braveheartNormal.spotted
+	}
+	ds_list_destroy(list);
+	if (place_meeting(x + movementX(), y, [obj_wall, obj_player])){
+		var _hStep = sign(movementX());
+		stepCollisionWhileWithFailCon([obj_wall, obj_player], _hStep, true)
+		movementVector[0] = 0;
+	}
+	if (place_meeting(x, y + movementY(), [obj_wall, obj_player])){
+		var _vStep = sign(movementY());
+		stepCollisionWhileWithFailCon([obj_wall, obj_player], _vStep, false)
+		movementVector[1] = 0;
+	}
+	/*var arr = findOptimizedPath();
 	if (array_length(arr) > 0) {
 	    nearestCrumb = arr[0];
 	    nearestCrumbDistance = arr[1];
@@ -22,8 +48,7 @@ function braveheartNormal_approaching(){
         
 	        // Move if path is clear
 	        if (!place_meeting(x + movementVector[0], y + movementVector[1], obj_wall)) {
-	            x += movementVector[0];
-	            y += movementVector[1];
+	           
             
 	            // Update facing direction
 	            if (movementVector[0] != 0 || movementVector[1] != 0) {
@@ -34,16 +59,17 @@ function braveheartNormal_approaching(){
 	} else {
 	    // No crumbs found - patrol or use simple wall avoidance
 	    state = braveheartNormal.patrolling;
-	}
+	}*/
 	
 	
-
+	
 
 }
 
 function braveheartNormal_patrolling(){
-	
-	if !collision_line(x,y,playerTank.x,playerTank.y, obj_wall,0,1){
+
+	state = braveheartNormal.approaching
+	/*if !collision_line(x,y,playerTank.x,playerTank.y, obj_wall,0,1){
 		var arr = findNearbyCrumbs()
 		nearestCrumb = arr[0];
 		if (nearestCrumb == noone){
@@ -53,16 +79,27 @@ function braveheartNormal_patrolling(){
 		}
 	}else{
 		state = braveheartNormal.spotted
-	}
+	}*/
 	
 }
 
 function braveheartNormal_spotted(){
+
 	if !collision_line(x,y,playerTank.x,playerTank.y, obj_wall,0,1){
 		var dir = point_direction(x, y, playerTank.x, playerTank.y);
 		movementVector[0] = lengthdir_x(movementSpeed, dir);
 		movementVector[1] = lengthdir_y(movementSpeed, dir);
 	}else{
 		state = braveheartNormal.approaching
+	}
+	if (place_meeting(x + movementX(), y, [obj_wall, obj_player])){
+		var _hStep = sign(movementX());
+		stepCollisionWhileWithFailCon([obj_wall, obj_player], _hStep, true)
+		movementVector[0] = 0;
+	}
+	if (place_meeting(x, y + movementY(), [obj_wall, obj_player])){
+		var _vStep = sign(movementY());
+		stepCollisionWhileWithFailCon([obj_wall, obj_player], _vStep, false)
+		movementVector[1] = 0;
 	}
 }

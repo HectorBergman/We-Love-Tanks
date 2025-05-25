@@ -30,13 +30,18 @@ function BFS(){
 function addNeighboursToQueue(node, queue, distance){
 	for (var i = 0; i < 3; i++){
 		for (var j = 0; j < 3; j++){
-			var point = {square : collision_point(node.x+32*(i-1),node.y+32*(j-1),obj_gridSquare,false,false),distance : distance + 1}
-			if point.square != noone{
-				var mapEntry = ds_map_find_value(gridMap,point.square.squareNo)
-				if !mapEntry.visited && !point.square.isWall{
-					mapEntry.visited = true;
-					point.square.distance = point.distance
-					ds_queue_enqueue(breadthQueue, point)
+			if (!(j == 1 && i == 1)){
+				var point = {square : collision_point(node.x+32*(i-1),node.y+32*(j-1),obj_gridSquare,false,false),distance : distance + 1}
+				if point.square != noone{
+					var mapEntry = ds_map_find_value(gridMap,point.square.squareNo)
+					if !mapEntry.visited && !point.square.isWall{
+						mapEntry.visited = true;
+						point.square.distance = distance+1
+						ds_queue_enqueue(breadthQueue, point)
+					}else if point.square.isWall && !mapEntry.visited{
+						mapEntry.visited = true;
+						point.square.distance = 999
+					}
 				}
 			}
 		}
@@ -54,14 +59,107 @@ function getClosestToPlayer(){
 
 function popEntry(queue){
 	var entry = ds_queue_dequeue(queue)
-	print("penisssese");
-	print(entry);
 	var entryInMap = ds_map_find_value(gridMap,entry.square.squareNo)
 	entryInMap.visited = true;
 	addNeighboursToQueue(entry.square,queue, entry.distance)
 }
 
+function getMovementCandidates(middle) {
+    var candidates = [];
+    // Check all 8 surrounding cells
+    for (var i = 0; i < 3; i++) {
+        for (var j =  0; j < 3; j++) {
+            if (!(j == 1 && i == 1)) { // Skip center cell
+                var point = collision_point(middle.x+32*(i-1), middle.y+32*(j-1), obj_gridSquare, false, false);
+                if (point != noone && !point.isWall) {
+                    array_push(candidates,({
+                        point: point,
+                        distance: point.distance,
+                        isDiagonal: (i != 1 && j != 1) // Flag for diagonal moves
+                    }))
+                }
+            }
+        }
+    }
+    return candidates;
+}
 
+function selectBestMove(candidates,middle) {
+    // Sort by distance (ascending)
+	array_sort(candidates, function(a, b) {
+		if (a.distance < b.distance) return -1;
+		if (a.distance > b.distance) return 1;
+		return 0;
+	});
+    
+    // Try candidates in order until we find a valid one
+    for (var i = 0; i < array_length(candidates); i++) {
+		var candidate = candidates[i];
+        
+		// If straight move (non-diagonal), always valid
+		if (!candidate.isDiagonal) {
+		    return candidate.point;
+		}
+        
+		// For diagonal moves, check wall clipping
+		var width = 24
+		var hasWallBetween = 
+		collision_line(candidate.point.x-width,candidate.point.y-width,middle.x-width,middle.y-width, obj_wall,false,true) || 
+		collision_line(candidate.point.x+width,candidate.point.y+width,middle.x+width,middle.y+width, obj_wall,false,true) ||
+		collision_line(candidate.point.x,candidate.point.y,middle.x,middle.y, obj_wall,false,true)
+        
+		if (!hasWallBetween) {
+		    return candidate.point;
+		}
+    }
+    
+    // If all diagonal moves are blocked, return closest (original behavior)
+    return candidates.length > 0 ? candidates[0].point : noone;
+}
+function getNearestNeighbour2(middle){
+	var candidates = getMovementCandidates(middle);
+	var target = selectBestMove(candidates,middle);
+	
+	return target;
+	
+}
+function getNearestNeighbour(middle){
+	var minDistance = 9999;
+	var nearestNeighbour = noone;
+	for (var i = 0; i < 3; i++){
+		for (var j = 0; j < 3; j++){
+			if (!(j == 1 && i == 1)){
+				var point = collision_point(middle.x+32*(i-1),middle.y+32*(j-1),obj_gridSquare,false,false)
+				if point != noone{
+					print("hello");
+					var dist =point.distance
+					if dist < minDistance && !point.isWall{
+						minDistance = dist;
+						nearestNeighbour = point;
+					}
+				}
+			}
+		}
+	}
+	nearestNeighbour.lightUp = true;
+	return nearestNeighbour;
+}
+
+function hasWallNeighbour(middle){
+	for (var i = 0; i < 3; i++){
+		for (var j = 0; j < 3; j++){
+			if (!(j == 1 && i == 1)){
+				var point = collision_point(middle.x+32*(i-1),middle.y+32*(j-1),obj_gridSquare,false,false)
+				if point != noone{
+					if point.isWall{
+						return true
+					}
+				}
+			}
+		}
+	}
+	return false;
+}
 
 function checkOne(node, distance){
 	if !node.square.isWall{

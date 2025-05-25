@@ -17,3 +17,5 @@ switch(phase){
 	}break;
 }
 
+ x += movementVector[0];
+ y += movementVector[1];

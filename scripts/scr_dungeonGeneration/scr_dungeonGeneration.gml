@@ -5,7 +5,6 @@ function generateDungeon(){
 		createRoom(i,j);
 		uniqueIDGiver++
 	});
-	print("areweconnected?")
 	
 	var visitedRooms = ds_list_create();
 	allRooms = ds_map_create();

@@ -13,12 +13,13 @@ function braveheartNormal_create(){
 	state = braveheartNormal.approaching;
 	
 
-	distance = point_distance(x, y, playerTank.x, playerTank.y);
+	distance = 0
 	distanceX = abs(playerTank.x - x);
 	distanceY = abs(playerTank.y - y);
 
 	playerSeen = false;
 	wallSeen = 0;
+	targetSquare = noone;
 
 	detectionSquareWidth = 6;
 }
