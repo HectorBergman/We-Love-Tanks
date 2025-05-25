@@ -11,3 +11,7 @@ var text = "[scale][$eee7e7][scale,0.5][#" + string(dec_to_hex(color)) + "]" + s
 var toDraw = scribble(text).align(fa_center,fa_middle);
 toDraw.draw(x, y);
 
+// Draw a vector from (x, y) with components (xvec, yvec)
+draw_set_color(c_red); // Choose a color
+draw_line_width(x, y, x + vector[0] * 10, y + vector[1] * 10, 2); // 'scale' adjusts visual length
+draw_set_color(c_white);
