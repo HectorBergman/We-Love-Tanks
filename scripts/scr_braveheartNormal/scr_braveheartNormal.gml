@@ -22,6 +22,9 @@ function braveheartNormal_create(){
 	targetSquare = noone;
 
 	detectionSquareWidth = 6;
+	
+	timeSinceLastSquare = 0;
+	timeSinceLastSquareLim = 120;
 }
 //move ts
 

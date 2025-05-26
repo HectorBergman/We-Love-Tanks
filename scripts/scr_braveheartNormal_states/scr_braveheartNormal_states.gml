@@ -1,11 +1,16 @@
 function braveheartNormal_approaching(){
-
+	timeSinceLastSquare++;
 	var list = ds_list_create()
 	instance_place_list(x,y,obj_gridSquare,list,true);
 	var nearestSquare = ds_list_find_value(list,0)
 	if nearestSquare != noone && !is_undefined(nearestSquare){
-		if targetSquare == noone || targetSquare == nearestSquare{
+		if targetSquare == noone || targetSquare == nearestSquare || timeSinceLastSquare > timeSinceLastSquareLim{
+			if targetSquare != noone{
+				targetSquare.lightUp = false;
+			}
 			targetSquare = pfHandler.getNearestNeighbour2(nearestSquare);
+			targetSquare.lightUp = true;
+			timeSinceLastSquare = 0;
 		}
 		
 		var dir = point_direction(x, y, targetSquare.x, targetSquare.y);
@@ -18,15 +23,23 @@ function braveheartNormal_approaching(){
 	if !collision_line(x,y,playerTank.x,playerTank.y, obj_wall,0,1){
 		state = braveheartNormal.spotted
 	}
+	var moveX = place_meeting(x + movementX(), y, [obj_wall, obj_player, obj_enemy])
+	var moveY = place_meeting(x, y + movementY(), [obj_wall, obj_player, obj_enemy])
 	ds_list_destroy(list);
-	if (place_meeting(x + movementX(), y, [obj_wall, obj_player])){
+	if (moveX){
 		var _hStep = sign(movementX());
-		stepCollisionWhileWithFailCon([obj_wall, obj_player], _hStep, true)
+		stepCollisionWhileWithFailCon([obj_wall, obj_player, obj_enemy], _hStep, true)
+		if !moveY {
+			movementVector[1] = sign(movementVector[1]);
+		}
 		movementVector[0] = 0;
 	}
-	if (place_meeting(x, y + movementY(), [obj_wall, obj_player])){
+	if (moveY){
 		var _vStep = sign(movementY());
-		stepCollisionWhileWithFailCon([obj_wall, obj_player], _vStep, false)
+		stepCollisionWhileWithFailCon([obj_wall, obj_player, obj_enemy], _vStep, false)
+		if !moveX {
+			movementVector[0] = sign(movementVector[0]);
+		}
 		movementVector[1] = 0;
 	}
 	/*var arr = findOptimizedPath();
@@ -84,22 +97,35 @@ function braveheartNormal_patrolling(){
 }
 
 function braveheartNormal_spotted(){
-
-	if !collision_line(x,y,playerTank.x,playerTank.y, obj_wall,0,1){
+	var width = 16;
+	var collisionLines = collision_line(x,y,playerTank.x,playerTank.y, obj_wall,0,1) || 
+						 collision_line(x+width,y+width,playerTank.x+width,playerTank.y+width, obj_wall,0,1) ||
+						 collision_line(x-width,y-width,playerTank.x-width,playerTank.y-width, obj_wall,0,1)
+	if !collisionLines{
 		var dir = point_direction(x, y, playerTank.x, playerTank.y);
 		movementVector[0] = lengthdir_x(movementSpeed, dir);
 		movementVector[1] = lengthdir_y(movementSpeed, dir);
 	}else{
 		state = braveheartNormal.approaching
+		targetSquare = noone;
+		timeSinceLastSquare = 0;
 	}
-	if (place_meeting(x + movementX(), y, [obj_wall, obj_player])){
+	var moveX = place_meeting(x + movementX(), y, [obj_wall, obj_player, obj_enemy])
+	var moveY = place_meeting(x, y + movementY(), [obj_wall, obj_player, obj_enemy])
+	if (moveX){
 		var _hStep = sign(movementX());
-		stepCollisionWhileWithFailCon([obj_wall, obj_player], _hStep, true)
+		stepCollisionWhileWithFailCon([obj_wall, obj_player, obj_enemy], _hStep, true)
 		movementVector[0] = 0;
+		if !moveY {
+			movementVector[1] = sign(movementVector[1]);
+		}
 	}
-	if (place_meeting(x, y + movementY(), [obj_wall, obj_player])){
+	if (moveY){
 		var _vStep = sign(movementY());
-		stepCollisionWhileWithFailCon([obj_wall, obj_player], _vStep, false)
+		stepCollisionWhileWithFailCon([obj_wall, obj_player, obj_enemy], _vStep, false)
 		movementVector[1] = 0;
+		if !moveX {
+			movementVector[0] = sign(movementVector[0]);
+		}
 	}
 }

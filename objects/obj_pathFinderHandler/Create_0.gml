@@ -1,7 +1,7 @@
 gridMap = ds_map_create();
 
 breadthQueue = ds_queue_create();
-
+cRoom = noone;
 howOften = 5;
 closestToPlayer = noone;
 
@@ -89,13 +89,21 @@ function addNeighboursToQueue(node, queue, distance){
 	for (var i = 0; i < 3; i++){
 		for (var j = 0; j < 3; j++){
 			if (!(j == 1 && i == 1)){
-				var point = {square : collision_point(node.x+32*(i-1),node.y+32*(j-1),obj_gridSquare,false,false),distance : distance + 1}
+				
+				var point = {square : collision_point(node.x+32*(i-1),node.y+32*(j-1),obj_gridSquare,false,false),distance : distance + 1 }
 				if point.square != noone{
 					var mapEntry = ds_map_find_value(gridMap,point.square.squareNo)
 					if !mapEntry.visited && !point.square.isWall{
+						ds_queue_enqueue(breadthQueue, point)
 						mapEntry.visited = true;
 						point.square.distance = distance+1
-						ds_queue_enqueue(breadthQueue, point)
+						
+						
+					}else if !point.square.isWall{
+						if distance+1 < point.square.distance{
+							
+							point.square.distance = distance+1
+						}
 					}else if point.square.isWall && !mapEntry.visited{
 						mapEntry.visited = true;
 						point.square.distance = 999

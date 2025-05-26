@@ -37,6 +37,7 @@
     {"name":"Miscellaneous","order":8,"path":"folders/Scribble/Miscellaneous.yy",},
     {"name":"Quick Functions","order":9,"path":"folders/Scribble/Quick Functions.yy",},
     {"name":"Superfonts","order":10,"path":"folders/Scribble/Superfonts.yy",},
+    {"name":"Scripts","order":13,"path":"folders/Scripts.yy",},
     {"name":"Sounds","order":2,"path":"folders/Sounds.yy",},
     {"name":"placeholders","order":1,"path":"folders/Sprites/placeholders.yy",},
     {"name":"enemy","order":3,"path":"folders/Sprites/placeholders/enemy.yy",},

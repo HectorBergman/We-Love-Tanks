@@ -16,6 +16,6 @@ switch(phase){
 		}
 	}break;
 }
-
+angle= point_direction(x,y,x+movementVector[0],y+movementVector[1])
  x += movementVector[0];
  y += movementVector[1];

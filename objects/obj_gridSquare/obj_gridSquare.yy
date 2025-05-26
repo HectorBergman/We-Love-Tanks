@@ -37,5 +37,5 @@
     "path":"sprites/spr_grid/spr_grid.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }

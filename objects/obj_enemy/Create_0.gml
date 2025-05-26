@@ -5,7 +5,7 @@ enum enemyPhase {
 
 phase = enemyPhase.startingUp
 startUpTimer = 90;
-
+angle = 0;
 
 type = stringToEnum(enemyType);
 function movementX(){
