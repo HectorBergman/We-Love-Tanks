@@ -1,6 +1,6 @@
 function hitOpponent(ownObject){
 	var target = noone;
-	if ownObject == obj_bullet{
+	if ownObject == obj_bullet_player{
 		target = obj_enemy
 	}else if ownObject == obj_bullet_enemy{
 		target = obj_player
@@ -16,10 +16,10 @@ function hitOpponent(ownObject){
 }
 function hitOpponentBullet(ownObject){
 	var target = noone
-	if ownObject == obj_bullet{
+	if ownObject == obj_bullet_player{
 		target = obj_bullet_enemy;
 	}else if ownObject == obj_bullet_enemy{
-		target = obj_bullet;	
+		target = obj_bullet_player;	
 	}
 	var bulletHit = instance_place(x,y,target)
 	if bulletHit != noone{

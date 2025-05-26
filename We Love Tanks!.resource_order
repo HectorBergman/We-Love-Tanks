@@ -57,6 +57,7 @@
     {"name":"TGMX_Update_Log","order":2,"path":"notes/TGMX_Update_Log/TGMX_Update_Log.yy",},
     {"name":"obj_breadCrumbs","order":4,"path":"objects/obj_breadCrumbs/obj_breadCrumbs.yy",},
     {"name":"obj_bullet_findRicochet","order":9,"path":"objects/obj_bullet_findRicochet/obj_bullet_findRicochet.yy",},
+    {"name":"obj_bullet_player","order":10,"path":"objects/obj_bullet_player/obj_bullet_player.yy",},
     {"name":"obj_bullet","order":3,"path":"objects/obj_bullet/obj_bullet.yy",},
     {"name":"obj_cam","order":2,"path":"objects/obj_cam/obj_cam.yy",},
     {"name":"obj_currentRoomHandler","order":2,"path":"objects/obj_currentRoomHandler/obj_currentRoomHandler.yy",},

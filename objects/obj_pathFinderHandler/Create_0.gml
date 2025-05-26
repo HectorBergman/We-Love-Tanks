@@ -27,64 +27,9 @@ function BFS(){
 		popEntry(breadthQueue);
 	}
 }
-function BFS2(){
-	var first = ds_map_find_first(gridMap)
-	first = ds_map_find_next(gridMap,first)
-	if (ds_map_find_value(gridMap,first).visitedTwo){
-		print("resetting!");
-		resetNodes2();
-	}
-	addNeighboursToQueue2(getClosestToPlayer(), breadthQueue,0)
-	while !ds_queue_empty(breadthQueue){
-		popEntry2(breadthQueue);
-	}
-}
-function resetNodes2(){
-	var first = ds_map_find_first(gridMap)
-	ds_map_find_value(gridMap,first).visitedTwo = false;
 
-	for (var i = 0; i < ds_map_size(gridMap)-1; i++){
-		first = ds_map_find_next(gridMap, first);
-		ds_map_find_value(gridMap,first).visitedTwo = false;
-	}
-}
-function addNeighboursToQueue2(node, queue, distance){
-	var minDistance = 9999;
-	var hero = noone;
-	for (var i = 0; i < 3; i++){
-		for (var j = 0; j < 3; j++){
-			if (!(j == 1 && i == 1)){
-				var point = collision_point(node.x+32*(i-1),node.y+32*(j-1),obj_gridSquare,false,false)
-				if point != noone{
-					var value = ds_map_find_value(gridMap,point.squareNo)
-					if !value.visitedTwo{
-						value.visitedTwo = true;
-						ds_queue_enqueue(queue,point);
-						if point.distance < minDistance{
-							minDistance = point.distance;
-							hero = point
-						}
-					}
-				}
-			}
-		}
-	}
-	if hero != noone{
-		var angle = point_direction(node.x,node.y,hero.x,hero.y);
-		// Convert to normalized vectors (-1 to 1 for each component)
-		var xvec = dcos(angle);
-		var yvec = -dsin(angle);  // Negative because GM's y-axis is inverted
-		print("pneis");
-		print(string(xvec) + " " + string(yvec))
-		node.vector = [xvec,yvec];
-	}
-}
-function popEntry2(queue){
-	var entry = ds_queue_dequeue(queue)
-	var entryInMap = ds_map_find_value(gridMap,entry.squareNo)
-	entryInMap.visitedTwo = true;
-	addNeighboursToQueue2(entry,queue, entry.distance)
-}
+
+
 function addNeighboursToQueue(node, queue, distance){
 	for (var i = 0; i < 3; i++){
 		for (var j = 0; j < 3; j++){

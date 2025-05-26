@@ -14,8 +14,24 @@ for (var i = 0; i < amountWidth; i += 1){
 	
 	for (var j = 0; j < amountHeight; j += 1){
 		
-		
-		
+		/*var found = false;
+		for (var k = 0; k < 3; k++){
+			for (var g = 0; g < 3; g++){
+				if (!(k == 1 && g == 1)){
+					var point = collision_circle(x + xOffset+ i*base_width+16*scale+32*(k-1), y + yOffset + j*base_height+16*scale+32*(g-1), 5,obj_wall,false,false)
+					if point == noone{
+						found = true;
+						print("webreak");
+						break;
+					}
+				}
+			}
+			if found{
+				break;
+			}
+			print("breakfuckedup");
+		}*/
+		//if !found
 		summonObject(obj_gridSquare, 
 			[["x",x + xOffset+ i*base_width+16*scale],	
 			["y", y + yOffset + j*base_height+16*scale], 
@@ -24,6 +40,7 @@ for (var i = 0; i < amountWidth; i += 1){
 			["isWall", collision_circle(x+i*base_width+16*scale,y+base_height*j+16*scale,5*scale,obj_wall,0,1)]])
 
 		increase++
+		
 	}
 }
 
