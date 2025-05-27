@@ -1,15 +1,15 @@
 
 
 
-var collisionAngle = collision_normal(x+movementX(),y+movementY(),obj_wall,2,1)
+var collisionAngle = collision_normal(x+movementX(),y+movementY(),obj_solid,2,1)
 while collisionAngle == -1{
-	collisionAngle = collision_normal(x+movementX(),y+movementY(),obj_wall,2,1)
+	collisionAngle = collision_normal(x+movementX(),y+movementY(),obj_solid,2,1)
 	if !(inRange(x,-32,room_width+32) && inRange(y,-32,room_height+32)){
 		
 		instance_destroy()
 		exit;
 	}
-	if !(collision_line(x,y,playerTank.x,playerTank.y, obj_wall, 0,0)){
+	if !(collision_line(x,y,playerTank.x,playerTank.y, obj_solid, 0,0)){
 		var distance = point_distance(x+newCoords[0],y+newCoords[1], playerTank.x,playerTank.y)
 		closestDistanceToPlayer = min(closestDistanceToPlayer,distance);
 	}

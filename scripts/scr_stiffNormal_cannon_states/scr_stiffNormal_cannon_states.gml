@@ -1,21 +1,30 @@
 function stiffNormal_cannon_firing(){
+	rapidCooldown--;
 	firingCooldown--
-	if !(collision_line(x, y, playerTank.x, playerTank.y, obj_wall, false, true)){
+	if !(collision_line(x, y, playerTank.x, playerTank.y, obj_solid, false, true)){
 		image_angle = point_direction(x,y,playerTank.x,playerTank.y)
 
 	}else{
 		state = stiffNormal_cannon.scanning;
+		rapidCooldown = 0;
 		scanningPoint = image_angle
 		scanningDirection = sign(random_range(-1, 1));
 
 	}
-	if !place_meeting(x,y, obj_wall) && activeBullets < 3 && firingCooldown < 1{
+	if rapidCooldown > rapidCooldownLimit{
+		rapidCool = true;
+	}
+	if rapidCooldown < 0{
+		rapidCool = false;
+	}
+	if !place_meeting(x,y, obj_solid) && activeBullets < 3 && firingCooldown < 1 && !rapidCool{
 		fireBullet(obj_bullet_enemy, 1.5, 3, 1, image_angle)	
+		rapidCooldown += 90;
 	}
 }
 
 function stiffNormal_cannon_scanning(){
-	if (collision_line(x, y, playerTank.x, playerTank.y, obj_wall, false, true)){
+	if (collision_line(x, y, playerTank.x, playerTank.y, obj_solid, false, true)){
 		if stepsTilSwitch > 0{
 			image_angle = radtodeg(degtorad(image_angle) + scanningDirection*scanningStep)
 		}else{
@@ -31,7 +40,7 @@ function stiffNormal_cannon_scanning(){
 }
 
 function stiffNormal_cannon_spotted(){
-	if (!collision_line(x, y, playerTank.x, playerTank.y, obj_wall, false, true)){
+	if (!collision_line(x, y, playerTank.x, playerTank.y, obj_solid, false, true)){
 
 		var goalDirection = point_direction(x,y,playerTank.x, playerTank.y)
 		if (gradualPoint(goalDirection, 0.02)){

@@ -10,8 +10,8 @@
   "name":"obj_positionCheckerSlave",
   "overriddenProperties":[],
   "parent":{
-    "name":"player",
-    "path":"folders/Objects/player.yy",
+    "name":"misc",
+    "path":"folders/Objects/misc.yy",
   },
   "parentObjectId":null,
   "persistent":false,

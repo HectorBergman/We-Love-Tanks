@@ -1,3 +1,5 @@
 x = parent.x;
 y = parent.y;
-image_angle = parent.angle;
+if parent.pointInMoveDir{
+	image_angle = parent.angle;
+}

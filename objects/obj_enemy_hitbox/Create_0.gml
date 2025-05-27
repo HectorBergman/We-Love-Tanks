@@ -1,0 +1,1 @@
+sprite_index = parent.sprite_index

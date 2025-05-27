@@ -2,7 +2,7 @@ gridMap = ds_map_create();
 
 breadthQueue = ds_queue_create();
 cRoom = noone;
-howOften = 5;
+howOften = 60;
 closestToPlayer = noone;
 
 function resetNodes(){
@@ -17,6 +17,7 @@ function resetNodes(){
 
 function BFS(){
 	var first = ds_map_find_first(gridMap)
+	print(first);
 	first = ds_map_find_next(gridMap,first)
 	if (ds_map_find_value(gridMap,first).visited){
 		print("resetting!");

@@ -6,8 +6,8 @@
   "name":"obj_bullet_player",
   "overriddenProperties":[],
   "parent":{
-    "name":"player",
-    "path":"folders/Objects/player.yy",
+    "name":"bullets",
+    "path":"folders/Objects/bullets.yy",
   },
   "parentObjectId":{
     "name":"obj_bullet",

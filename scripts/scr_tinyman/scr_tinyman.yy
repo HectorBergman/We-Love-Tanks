@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_tinyman",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_tinyman",
+  "parent":{
+    "name":"tinyman",
+    "path":"folders/Objects/enemy/enemies/tinyman.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -16,12 +16,12 @@ if !(inRange(x,-32,room_width+32) && inRange(y,-32,room_height+32)){
 }
 if (slowmovin mod 60 == 0){
 	lifeTime++
-	if object_index == obj_bullet{
+	if object_index == obj_bullet_player{
 		loop_onFire();
 	}
 	timeSinceBounce++
 	
-	var collisionAngle = collision_normal(x+movementX(),y+movementY(),obj_wall,3,1)
+	var collisionAngle = collision_normal(x+movementX(),y+movementY(),obj_solid,3,1)
 	
 	if collisionAngle != -1{
 		var dot = movementVector[0] * cos(degtorad(collisionAngle)) + movementVector[1] * sin(degtorad(collisionAngle));

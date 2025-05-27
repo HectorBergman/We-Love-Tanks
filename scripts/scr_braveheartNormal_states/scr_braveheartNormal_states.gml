@@ -20,15 +20,15 @@ function braveheartNormal_approaching(){
 	 
 	}
 	
-	if !collision_line(x,y,playerTank.x,playerTank.y, obj_wall,0,1){
+	if !collision_line(x,y,playerTank.x,playerTank.y, obj_impassable,0,1){
 		state = braveheartNormal.spotted
 	}
-	var moveX = place_meeting(x + movementX(), y, [obj_wall, obj_player, obj_enemy])
-	var moveY = place_meeting(x, y + movementY(), [obj_wall, obj_player, obj_enemy])
+	var moveX = place_meeting(x + movementX(), y, [obj_impassable, obj_player, obj_enemy])
+	var moveY = place_meeting(x, y + movementY(), [obj_impassable, obj_player, obj_enemy])
 	ds_list_destroy(list);
 	if (moveX){
 		var _hStep = sign(movementX());
-		stepCollisionWhileWithFailCon([obj_wall, obj_player, obj_enemy], _hStep, true)
+		stepCollisionWhileWithFailCon([obj_impassable, obj_player, obj_enemy], _hStep, true)
 		if !moveY {
 			movementVector[1] = sign(movementVector[1]);
 		}
@@ -36,7 +36,7 @@ function braveheartNormal_approaching(){
 	}
 	if (moveY){
 		var _vStep = sign(movementY());
-		stepCollisionWhileWithFailCon([obj_wall, obj_player, obj_enemy], _vStep, false)
+		stepCollisionWhileWithFailCon([obj_impassable, obj_player, obj_enemy], _vStep, false)
 		if !moveX {
 			movementVector[0] = sign(movementVector[0]);
 		}
@@ -98,9 +98,9 @@ function braveheartNormal_patrolling(){
 
 function braveheartNormal_spotted(){
 	var width = 16;
-	var collisionLines = collision_line(x,y,playerTank.x,playerTank.y, obj_wall,0,1) || 
-						 collision_line(x+width,y+width,playerTank.x+width,playerTank.y+width, obj_wall,0,1) ||
-						 collision_line(x-width,y-width,playerTank.x-width,playerTank.y-width, obj_wall,0,1)
+	var collisionLines = collision_line(x,y,playerTank.x,playerTank.y, obj_impassable,0,1) || 
+						 collision_line(x+width,y+width,playerTank.x+width,playerTank.y+width, obj_impassable,0,1) ||
+						 collision_line(x-width,y-width,playerTank.x-width,playerTank.y-width, obj_impassable,0,1)
 	if !collisionLines{
 		var dir = point_direction(x, y, playerTank.x, playerTank.y);
 		movementVector[0] = lengthdir_x(movementSpeed, dir);
@@ -110,11 +110,11 @@ function braveheartNormal_spotted(){
 		targetSquare = noone;
 		timeSinceLastSquare = 0;
 	}
-	var moveX = place_meeting(x + movementX(), y, [obj_wall, obj_player, obj_enemy])
-	var moveY = place_meeting(x, y + movementY(), [obj_wall, obj_player, obj_enemy])
+	var moveX = place_meeting(x + movementX(), y, [obj_impassable, obj_player, obj_enemy])
+	var moveY = place_meeting(x, y + movementY(), [obj_impassable, obj_player, obj_enemy])
 	if (moveX){
 		var _hStep = sign(movementX());
-		stepCollisionWhileWithFailCon([obj_wall, obj_player, obj_enemy], _hStep, true)
+		stepCollisionWhileWithFailCon([obj_impassable, obj_player, obj_enemy], _hStep, true)
 		movementVector[0] = 0;
 		if !moveY {
 			movementVector[1] = sign(movementVector[1]);
@@ -122,7 +122,7 @@ function braveheartNormal_spotted(){
 	}
 	if (moveY){
 		var _vStep = sign(movementY());
-		stepCollisionWhileWithFailCon([obj_wall, obj_player, obj_enemy], _vStep, false)
+		stepCollisionWhileWithFailCon([obj_impassable, obj_player, obj_enemy], _vStep, false)
 		movementVector[1] = 0;
 		if !moveX {
 			movementVector[0] = sign(movementVector[0]);

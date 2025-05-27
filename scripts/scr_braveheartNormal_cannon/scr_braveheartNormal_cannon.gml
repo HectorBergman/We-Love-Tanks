@@ -3,7 +3,7 @@ function braveheartNormal_create_cannon(){
 	y = parent.y
 	activeBullets = 0;
 	firingCooldown = 0;
-	firingCooldownTime = 90;
+	firingCooldownTime = 900;
 	fire = false;
 	state = braveheartNormal_cannon.scanning;
 

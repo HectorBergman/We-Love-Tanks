@@ -34,11 +34,11 @@ function death(){
 	visible = false;
 }
 
-function decreaseHealth(){
+function decreaseHealth(amount){
 	if !invincible{
 		invincible = true;
 		loop_onHit();
-		hp--;
+		hp -= amount;
 	}
 }
 function checkForDeath(){

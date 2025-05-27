@@ -8,8 +8,8 @@
   "name":"obj_lock",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"wallsNStuff",
+    "path":"folders/Objects/wallsNStuff.yy",
   },
   "parentObjectId":{
     "name":"obj_intersection",

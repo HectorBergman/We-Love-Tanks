@@ -1,1 +1,3 @@
-parent.ricochetArray[originalAngle] = closestDistanceToPlayer
+try{
+	parent.ricochetArray[originalAngle] = closestDistanceToPlayer
+}

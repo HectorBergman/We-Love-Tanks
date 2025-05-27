@@ -9,8 +9,8 @@
   "name":"obj_roomTransition",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"wallsNStuff",
+    "path":"folders/Objects/wallsNStuff.yy",
   },
   "parentObjectId":null,
   "persistent":false,

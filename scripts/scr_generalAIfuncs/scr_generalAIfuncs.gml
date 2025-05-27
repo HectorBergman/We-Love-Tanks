@@ -76,7 +76,7 @@ function findOptimizedPath() {
         // Prefer crumbs that are both close to us and lead toward player
         if (distToCrumb < nearestDist && distToPlayerFromCrumb < point_distance(x, y, playerTank.x, playerTank.y)) {
             // Verify path to crumb isn't blocked
-            if (!collision_line(x, y, crumb.x, crumb.y, obj_wall, false, true)) {
+            if (!collision_line(x, y, crumb.x, crumb.y, obj_solid, false, true)) {
                 nearestCrumb = crumb;
                 nearestDist = distToCrumb;
             }
@@ -102,7 +102,7 @@ function findAlternativePath(originalDir) {
         var testX = x + lengthdir_x(64, testAngle); // Check 64 pixels ahead
         var testY = y + lengthdir_y(64, testAngle);
         
-        if (!place_meeting(testX, testY, obj_wall)) {
+        if (!place_meeting(testX, testY, obj_solid)) {
             // Score based on how close this gets us to player
             var newDist = point_distance(testX, testY, playerTank.x, playerTank.y);
             var currentDist = point_distance(x, y, playerTank.x, playerTank.y);

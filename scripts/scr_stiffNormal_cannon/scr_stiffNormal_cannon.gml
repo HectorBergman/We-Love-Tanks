@@ -5,7 +5,12 @@ function stiffNormal_create_cannon(){
 	y = parent.y
 	activeBullets = 0;
 	firingCooldown = 0;
-	firingCooldownTime = 90;
+	firingCooldownTime = 60;
+	
+	rapidCooldownLimit = 120;
+	rapidCooldown = 0;
+	rapidCool = false;
+	
 	fire = false;
 	state = cannonEnemyStates.scanning;
 
