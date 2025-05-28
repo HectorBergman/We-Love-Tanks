@@ -1,5 +1,5 @@
 hit--;
-print(color);
+
 switch(phase){
 	case enemyPhase.startingUp:{
 		startUpTimer--

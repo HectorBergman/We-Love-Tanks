@@ -17,10 +17,8 @@ function resetNodes(){
 
 function BFS(){
 	var first = ds_map_find_first(gridMap)
-	print(first);
 	first = ds_map_find_next(gridMap,first)
 	if (ds_map_find_value(gridMap,first).visited){
-		print("resetting!");
 		resetNodes();
 	}
 	addNeighboursToQueue(getClosestToPlayer(), breadthQueue,0)
@@ -137,7 +135,6 @@ function getNearestNeighbour(middle){
 			if (!(j == 1 && i == 1)){
 				var point = collision_point(middle.x+32*(i-1),middle.y+32*(j-1),obj_gridSquare,false,false)
 				if point != noone{
-					print("hello");
 					var dist = point.distance
 					if dist < minDistance && !point.isWall{
 						minDistance = dist;

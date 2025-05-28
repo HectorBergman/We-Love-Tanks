@@ -1,5 +1,7 @@
 ds_list_add(pathPoints, [x, y]);
-
+if lifeTime > 5{
+	depth = -99
+}
 
 // Trim path if too long
 if (ds_list_size(pathPoints) > maxPathLength) {

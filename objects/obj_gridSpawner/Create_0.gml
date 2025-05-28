@@ -11,7 +11,7 @@ new_height= base_height *image_yscale/scale;
 amountWidth = new_width/base_width;
 amountHeight = new_height/base_height;
 
-print("hejbog");
+
 
 for (var i = 0; i < amountWidth; i += 1){
 	

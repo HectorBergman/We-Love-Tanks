@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_player_tank_hitbox",
-    "path":"sprites/spr_player_tank_hitbox/spr_player_tank_hitbox.yy",
+    "name":"spr_player_tank_wheels_2",
+    "path":"sprites/spr_player_tank_wheels_2/spr_player_tank_wheels_2.yy",
   },
   "spriteMaskId":null,
   "visible":true,

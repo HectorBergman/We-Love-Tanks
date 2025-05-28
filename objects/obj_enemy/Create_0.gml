@@ -15,7 +15,7 @@ movementSpeed = 1;
 type = stringToEnum(enemyType);
 pointInMoveDir = true;
 hp = 3;
-
+print("welived");
 function movementX(){
 	return movementVector[0]*movementSpeed;
 }

@@ -65,10 +65,10 @@ function determineIfWithinBoxCone(wall, quadrant, objectCoords, acceptableAngleD
 }
 
 
-function fireBullet(bulletObj, bulletSpeed, maxBounce, damage, angle, increaseCount = true){
+function fireBullet(bulletObj, bulletSpeed, maxBounce, damage, angle, increaseCount = true, barrelLength = 20){
 	
 	summonObject(bulletObj, [["movementVector", [dcos(angle), -dsin(angle)]], 
-	["bulletSpeed", bulletSpeed], ["x", x+20*dcos(angle)], ["y", y+20*-dsin(angle)], 
+	["bulletSpeed", bulletSpeed], ["x", x+barrelLength*dcos(angle)], ["y", y+barrelLength*-dsin(angle)], 
 	["maxBounce", maxBounce], ["parent", id], ["firedFrom", [x,y]], ["firedAngle", angle],
 	["image_angle", angle], ["depth", depth+1], ["damage", damage], ["increaseCount", increaseCount]]);
 	if increaseCount{
