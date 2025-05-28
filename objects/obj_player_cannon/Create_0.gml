@@ -4,5 +4,6 @@ activeBullets = 0;
 firingCooldown = 0;
 firingCooldownTime = 30;
 maxBullets = 3;
+bulletDamage  = 3;
 
-bulletSpeed = 6;
+bulletSpeed = 2;

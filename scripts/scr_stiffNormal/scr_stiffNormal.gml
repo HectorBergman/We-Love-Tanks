@@ -1,12 +1,12 @@
 function stiffNormal_create(){
 	//todo: sprites
-	_health = 1;
+
 	state = stiffNormal.normal
 
 	distance = point_distance(x, y, playerTank.x, playerTank.y);
 	distanceX = abs(playerTank.x - x);
 	distanceY = abs(playerTank.y - y);
-	hp = 2;
+	hp = 4;
 	playerSeen = false;
 	wallSeen = 0;
 

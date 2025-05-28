@@ -7,13 +7,14 @@ phase = enemyPhase.startingUp
 startUpTimer = 90;
 angle = 0;
 hit = -99;
+collideable = true;
 
 //customizable probably
 createCannon = true;
 movementSpeed = 1;
 type = stringToEnum(enemyType);
 pointInMoveDir = true;
-hp = 1;
+hp = 3;
 
 function movementX(){
 	return movementVector[0]*movementSpeed;

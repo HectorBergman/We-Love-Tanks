@@ -1,14 +1,14 @@
 function hitOpponent(ownObject){
 	var target = noone;
 	if ownObject == obj_bullet_player{
-		target = obj_enemy
+		target = obj_enemy_hitbox
 	}else if ownObject == obj_bullet_enemy{
-		target = obj_player
+		target = obj_player_visual
 	}
 	var enemyHit = instance_place(x,y,target)
 	if enemyHit != noone {
 		var dmg = damage;
-		with enemyHit{
+		with enemyHit.parent{
 			decreaseHealth(dmg);
 		}
 		death();

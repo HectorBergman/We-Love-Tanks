@@ -8,7 +8,7 @@ function braveheartNormal_create(){
 	nearestCrumb = noone
 	nearestCrumbDistance = 9999999;
 	detectionSquareHandlers = []
-	hp = 3;
+	hp = 8;
 
 	state = braveheartNormal.approaching;
 	

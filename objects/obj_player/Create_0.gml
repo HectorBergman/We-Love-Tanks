@@ -23,7 +23,8 @@ hp = 99;
 invincibilityFrames = 90;
 invincible = false;
 
-
+backJackList = ds_list_create();
+angle = 0;
 lol = 0;
 
 breadCrumbRadius = 5;

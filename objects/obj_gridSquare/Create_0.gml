@@ -6,7 +6,7 @@ breadCrumbTime = 5;
 
 breadCrumbRadius = 2;
 
-distance = 0
+distance = 999
 detectionSquareWidth = 6;
 wallSeen = 0;
 playerSeen = false;

@@ -7,12 +7,14 @@ function tinyman_create(){
 	
 	pointInMoveDir = false;
 	
-	basemoveTime = 120;
+	basemoveTime = 60;
 	moveTime = basemoveTime
 	moveTimer = moveTime+1;
 	
-	waitTime = 30;
+	waitTime = 20;
 	waitTimer = waitTime;
+	
+	hitThisCycle = false;
 
 	
 	sprite_index = spr_tinyman
@@ -32,9 +34,11 @@ function tinyman_step(){
 function tinyman_waiting(){
 	waitTimer--;
 	if waitTimer == 0{
-		moveTime = basemoveTime + irandom_range(-50,50);
+		moveTime = basemoveTime + irandom_range(-40,40);
 		moveTimer = moveTime+1;
 		state = tinyman.walking;
+		hitThisCycle = false;
+		collideable = false;
 	}
 }
 
@@ -43,15 +47,27 @@ function tinyman_walking(){
 	if moveTimer == moveTime{
 		tinyman_decideMove();
 	}
-	var moveX = place_meeting(x + movementX(), y, [obj_impassable, obj_player, obj_enemy])
-	var moveY = place_meeting(x, y + movementY(), [obj_impassable, obj_player, obj_enemy])
-	if (moveX){
+	var moveX = instance_place(x + movementX(), y, [obj_impassable, obj_player, obj_enemy])
+	var moveY = instance_place(x, y + movementY(), [obj_impassable, obj_player, obj_enemy])
+	if (moveX != noone){
+		if moveX == playerTank && !hitThisCycle{
+			with playerTank{
+				decreaseHealth(1);
+			}
+			hitThisCycle = true;
+		}
 		var _hStep = sign(movementX());
 		stepCollisionWhileWithFailCon([obj_impassable, obj_player, obj_enemy], _hStep, true)
 		
 		movementVector[0] = 0;
 	}
-	if (moveY){
+	if (moveY != noone){
+		if moveY == playerTank && !hitThisCycle{
+			with playerTank{
+				decreaseHealth(1);
+			}
+			hitThisCycle = true;
+		}
 		var _vStep = sign(movementY());
 		stepCollisionWhileWithFailCon([obj_impassable, obj_player, obj_enemy], _vStep, false)
 		
