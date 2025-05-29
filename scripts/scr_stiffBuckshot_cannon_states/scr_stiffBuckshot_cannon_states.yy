@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_stiffBuckshot_cannon_states",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_stiffBuckshot_cannon_states",
+  "parent":{
+    "name":"stiffBuckshot",
+    "path":"folders/Objects/enemy/enemies/stiffBuckshot.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -5,6 +5,10 @@ switch (state){
 		if place_meeting(x,y,obj_player){
 			state = itemState.collected;
 			ds_list_add(itemHand.currentItems, itemId);
+			var _id = itemId
+			with playerTank{
+				find_onPickup(_id);
+			}
 		}
 	}break;
 	case itemState.collected:{

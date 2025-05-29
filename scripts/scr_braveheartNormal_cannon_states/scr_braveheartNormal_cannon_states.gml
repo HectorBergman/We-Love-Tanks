@@ -12,7 +12,7 @@ function braveheartNormal_firing_cannon(){
 
 	}
 	if !place_meeting(x,y, obj_solid) && activeBullets < 3 && firingCooldown < 1{
-		fireBullet(obj_bullet_enemy, 1.5, 3, 1, image_angle)	
+		fireBullet(obj_bullet_enemy, 1.5, 3, 1, image_angle,20,true)	
 		
 	}
 }

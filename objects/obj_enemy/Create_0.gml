@@ -29,6 +29,7 @@ switch(type){
 	case enemyTypes.stiffNormal: stiffNormal_create(); break;
 	case enemyTypes.braveheartNormal: braveheartNormal_create(); break;
 	case enemyTypes.stiffRicochet: stiffRicochet_create(); break; 
+	case enemyTypes.stiffBuckshot: stiffBuckshot_create(); break; 
 	case enemyTypes.tinyman: tinyman_create(); break;
 }
 if createCannon{

@@ -24,6 +24,7 @@ function initializeEnums(){
 		braveheartNormal,	//Drives around when player not close, approaches when close, shoots normally
 		stiffRicochet,		//Doesn't move, ricochets bullets off walls to hit player
 		tinyman,			//TBOI spider
+		stiffBuckshot,		//Doesn't move, shots spread after travelling
 	}
 	
 	//body
@@ -39,7 +40,11 @@ function initializeEnums(){
 	enum stiffRicochet{
 		normal,
 	}
+	enum stiffBuckshot{
+		normal,
+	}
 	
+
 	//cannon
 	
 	enum stiffNormal_cannon{
@@ -55,6 +60,11 @@ function initializeEnums(){
 	enum stiffRicochet_cannon{
 		ricochet,
 	}
+	enum stiffBuckshot_cannon{
+		firing,
+		scanning,
+		spotted,
+	}
 	
 	enum tinyman{
 		walking,
@@ -69,6 +79,7 @@ function stringToEnum(str) {
         case "braveheartNormal": return enemyTypes.braveheartNormal;
         case "stiffRicochet":   return enemyTypes.stiffRicochet;
 		case "tinyman": return enemyTypes.tinyman;
+		case "stiffBuckshot": return enemyTypes.stiffBuckshot;
         default: exception_unhandled_handler(str + " is not an existing enemy type!")
     }
 }

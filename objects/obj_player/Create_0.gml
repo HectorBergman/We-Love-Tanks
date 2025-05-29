@@ -1,5 +1,5 @@
 
-
+luck = 1;
 enum playerStates{
 	normal,
 }

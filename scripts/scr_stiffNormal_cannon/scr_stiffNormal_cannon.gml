@@ -12,7 +12,7 @@ function stiffNormal_create_cannon(){
 	rapidCool = false;
 	
 	fire = false;
-	state = cannonEnemyStates.scanning;
+	state = stiffNormal.normal
 
 	scanningArea = pi/2
 	scanningStep = (pi/2)/100

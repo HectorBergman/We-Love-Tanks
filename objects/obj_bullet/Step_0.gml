@@ -8,6 +8,7 @@ if (ds_list_size(pathPoints) > maxPathLength) {
     ds_list_delete(pathPoints, 0); // Remove oldest point
 }
 
+
 if (keyboard_check(vk_space)){
 	slowmovin++
 }else{
@@ -21,6 +22,7 @@ if (slowmovin mod 60 == 0){
 	if object_index == obj_bullet_player{
 		loop_onBulletTravel();
 	}
+	findTags();
 	timeSinceBounce++
 	
 	var collisionAngle = collision_normal(x+movementX(),y+movementY(),obj_solid,3,1)

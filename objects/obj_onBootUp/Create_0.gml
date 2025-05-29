@@ -29,6 +29,11 @@ global.roomList =  [
    "difficulty": "1"
  },
  {
+	 "roomName": "rm_room_test_4",
+	 "type": "standard",
+	 "difficulty": "1",
+ },
+ {
    "roomName": "rm_room_itemRoom_1",
    "type": "item",
    "difficulty": "0"

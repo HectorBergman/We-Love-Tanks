@@ -15,6 +15,7 @@ switch(phase){
 			case enemyTypes.braveheartNormal: braveheartNormal_step(); break;
 			case enemyTypes.stiffRicochet: stiffRicochet_step(); break;
 			case enemyTypes.tinyman: tinyman_step(); break;
+			case enemyTypes.stiffBuckshot: stiffBuckshot_step(); break;
 	
 		}
 	}break;

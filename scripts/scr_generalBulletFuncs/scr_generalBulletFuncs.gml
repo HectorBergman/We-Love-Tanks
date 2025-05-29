@@ -65,16 +65,25 @@ function determineIfWithinBoxCone(wall, quadrant, objectCoords, acceptableAngleD
 }
 
 
-function fireBullet(bulletObj, bulletSpeed, maxBounce, damage, angle, increaseCount = true, barrelLength = 20){
-	
-	summonObject(bulletObj, [["movementVector", [dcos(angle), -dsin(angle)]], 
+function fireBullet(bulletObj, bulletSpeed, maxBounce, damage, angle, barrelLength, increaseCount, extraArgs = []){
+	var summonArray = [ ["movementVector", [dcos(angle), -dsin(angle)]], 
 	["bulletSpeed", bulletSpeed], ["x", x+barrelLength*dcos(angle)], ["y", y+barrelLength*-dsin(angle)], 
 	["maxBounce", maxBounce], ["parent", id], ["firedFrom", [x,y]], ["firedAngle", angle],
-	["image_angle", angle], ["depth", depth+1], ["damage", damage], ["increaseCount", increaseCount]]);
+	["image_angle", angle], ["depth", depth+1], ["damage", damage], ["increaseCount",increaseCount]];
+	
+	var length = array_length(extraArgs)
+	var summonLength = array_length(summonArray)
+	for (var i = 0; i < length; i++){
+		array_insert(summonArray, summonLength+i, extraArgs[i])
+		
+	}
+	print(summonArray);
+	var bullet = summonObject(bulletObj, summonArray);
 	if increaseCount{
 		activeBullets++;
 		firingCooldown = firingCooldownTime;
 	}
+	return bullet;
 }
 
 
@@ -163,4 +172,27 @@ function filterOutIntersections(inst_array) {
     }
     
     return filtered;
+}
+
+function findTags(){
+	if variable_instance_exists(id,"tags"){
+		for (var i = 0; i <array_length(tags); i++){
+			var tag = tags[i]
+			engageTag(tag);
+		}
+	}
+}
+
+function engageTag(tag){
+	if tag == "buckshot"{
+		print("lol");
+		buckshotTime--
+		if buckshotTime < 1{
+			for (var i = 0; i < buckshotCount; i++){
+				parent.buckshotBullets[i] = fireBullet(object_index,bulletSpeed*1.6,0,damage,image_angle-buckshotSpread/2+buckshotSpread/buckshotCount*i,0,false,[["image_xscale",0.75],["image_yscale",0.75]])
+			}
+			death();
+		}
+		
+	}
 }
