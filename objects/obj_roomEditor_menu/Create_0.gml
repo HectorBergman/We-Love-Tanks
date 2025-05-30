@@ -1,7 +1,7 @@
 global.potentialObjects = {
-	Wall :  {object: obj_wall, _name: "Wall"},
-	Hole :  {object: obj_hole, _name: "Hole"},
-	Enemy : {object: obj_enemy, _name: "Enemy"},
+	Wall :  {object: obj_wall,  _name: "Wall",   editable:[]},
+	Hole :  {object: obj_hole,  _name: "Hole",   editable:[]},
+	Enemy : {object: obj_enemySpawner, _name: "Enemy",  editable:["enemyType"]},
 }
 
 enum editorMenuStates {
@@ -9,6 +9,7 @@ enum editorMenuStates {
 	notActive,
 	transition,
 }
+regularMask = mask_index;
 activating = false;
 notActiveX = 960;
 x = notActiveX
@@ -21,12 +22,10 @@ function activateDisplayObjects(){
 	for (var i = array_length(keys)-1; i >= 0; --i) {
 	    var k = keys[i];
 	    var v = global.potentialObjects[$ k];
-		summonObject(obj_roomEditor_dragable, [["x", 700+(i mod 3)*64], ["y", 100+(floor(i/3))*64], ["object", v.object], ["depth", depth-1], ["_name", v._name]]);
+		summonObject(obj_roomEditor_dragable, [["x", 700+(i mod 3)*64+sprite_get_xoffset(object_get_sprite(v.object))], ["y", 100+(floor(i/3))*64+sprite_get_yoffset(object_get_sprite(v.object))], ["object", v.object], ["depth", depth-1], ["_name", v._name], ["editable", v.editable]]);
 	    /* Use k and v here */
 	}
 }
 function deactivateDisplayObjects(){
-	for (var i = 0; i < instance_number(obj_roomEditor_dragable); i++){
-		instance_destroy(instance_find(obj_roomEditor_dragable,0))
-	}
+	with (obj_roomEditor_dragable) {instance_destroy();} 
 }

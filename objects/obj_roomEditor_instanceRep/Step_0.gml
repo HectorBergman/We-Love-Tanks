@@ -12,10 +12,12 @@ if held{
 	print(offset[1]);
 }
 
-if !held && mouse_check_button(mb_left){
+if !held && mouse_check_button_pressed(mb_right){
+	print("test");
 	if openDialogue{
 		openDialogue = false;
 	}else{
+		print("fucke");
 		openDialogue = true;
 	}
 }

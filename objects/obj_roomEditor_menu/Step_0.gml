@@ -24,8 +24,15 @@ switch (state){
 				tween = TweenFire(id,EaseOutQuad,0,false,0,30,"x",activeX,notActiveX);
 				activating = false;
 				state = editorMenuStates.transition;
+				deactivateDisplayObjects();
 			}
 		}
+		mask_index = spr_roomEditor_menu_hitbox;
+		var instance  = instance_place(x,y,obj_roomEditor_instanceRep)
+		if instance != noone && !instance.held {
+			instance_destroy(instance)
+		}
+		mask_index = regularMask
 	}break;
 		
 }

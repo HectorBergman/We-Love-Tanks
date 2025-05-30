@@ -8,3 +8,5 @@ function drop(){
 	held = false;
 	
 }
+
+dialogue = summonObject(obj_roomEditorDialogue, [["visible", false], ["parent", id]]);
