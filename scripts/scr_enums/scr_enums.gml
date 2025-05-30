@@ -26,6 +26,7 @@ function initializeEnums(){
 		tinyman,			//TBOI spider
 		stiffBuckshot,		//Doesn't move, shots spread after travelling
 	}
+	//for editor
 	
 	//body
 	

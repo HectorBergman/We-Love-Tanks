@@ -1,13 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"obj_roomEditorDialogue",
+  "%Name":"obj_roomEditor_dropdown",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_roomEditorDialogue",
+  "name":"obj_roomEditor_dropdown",
   "overriddenProperties":[],
   "parent":{
     "name":"editor",
@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_roomEditor_menu_edit",
-    "path":"sprites/spr_roomEditor_menu_edit/spr_roomEditor_menu_edit.yy",
+    "name":"spr_roomEditor_menu_dropdown",
+    "path":"sprites/spr_roomEditor_menu_dropdown/spr_roomEditor_menu_dropdown.yy",
   },
   "spriteMaskId":null,
   "visible":true,

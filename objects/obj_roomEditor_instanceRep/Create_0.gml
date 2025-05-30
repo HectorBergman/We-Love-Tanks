@@ -9,4 +9,4 @@ function drop(){
 	
 }
 
-dialogue = summonObject(obj_roomEditorDialogue, [["visible", false], ["parent", id]]);
+dialogue = summonObject(obj_roomEditorDialogue, [["visible", false], ["parent", id], ["editable", editable]]);
