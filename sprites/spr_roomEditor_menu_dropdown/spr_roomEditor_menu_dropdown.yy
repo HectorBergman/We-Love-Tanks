@@ -28,7 +28,7 @@
   "nineSlice":{
     "$GMNineSliceData":"",
     "bottom":2,
-    "enabled":false,
+    "enabled":true,
     "guideColour":[4294902015,4294902015,4294902015,4294902015,],
     "highlightColour":1728023040,
     "highlightStyle":0,
@@ -47,8 +47,8 @@
   },
   "origin":0,
   "parent":{
-    "name":"Sprites",
-    "path":"folders/Sprites.yy",
+    "name":"editor",
+    "path":"folders/Sprites/editor.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

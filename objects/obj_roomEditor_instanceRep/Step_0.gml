@@ -1,4 +1,4 @@
-
+justDropped--
 if held{
 	openDialogue = false;
 	print("lol");
@@ -12,7 +12,7 @@ if held{
 	print(offset[1]);
 }
 
-if !held && mouse_check_button_pressed(mb_right){
+if !held && mouse_check_button_pressed(mb_right) && place_meeting(x,y,obj_roomEditor_dragger){
 	print("test");
 	if openDialogue{
 		openDialogue = false;

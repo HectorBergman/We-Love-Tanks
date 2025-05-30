@@ -1,3 +1,5 @@
 held = noone;
-depth = -10;
+depth = -110;
+
+prevDepth = 0;
 

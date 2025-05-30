@@ -2,7 +2,7 @@
   "$GMSprite":"",
   "%Name":"spr_dragger",
   "bboxMode":2,
-  "bbox_bottom":3,
+  "bbox_bottom":1,
   "bbox_left":-1,
   "bbox_right":5,
   "bbox_top":1,
