@@ -7,7 +7,6 @@ largestWidth = 0;
 for (var i = 0; i < array_length(editable); i++){
 	text[i] = "[$eee7e7][scale,1][fnt_coolFont]" + editable[i][0]; 
 	toDraw[i] = scribble(text[i])
-	print(toDraw[i])
 	if toDraw[i].get_width() > largestWidth{
 		largestWidth = toDraw[i].get_width();
 	}

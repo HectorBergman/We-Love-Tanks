@@ -29,7 +29,6 @@ switch (state){
 		}
 		mask_index = spr_roomEditor_menu_hitbox;
 		var instance  = instance_place(x,y,obj_roomEditor_instanceRep)
-		instance.underMenu = true;
 		if instance != noone && !instance.held && instance.justDropped > 0 {
 			instance_destroy(instance)
 		}

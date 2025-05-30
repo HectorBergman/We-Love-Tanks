@@ -1,15 +1,14 @@
 {
   "$GMObject":"",
-  "%Name":"obj_roomEditor_instanceRep",
+  "%Name":"obj_roomEditor_instanceRep_highlightCorners",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":12,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":2,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_roomEditor_instanceRep",
+  "name":"obj_roomEditor_instanceRep_highlightCorners",
   "overriddenProperties":[],
   "parent":{
     "name":"editor",
@@ -35,7 +34,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_roomEditor_highlight_corner",
+    "path":"sprites/spr_roomEditor_highlight_corner/spr_roomEditor_highlight_corner.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }
