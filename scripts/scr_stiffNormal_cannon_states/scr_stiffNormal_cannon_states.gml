@@ -1,8 +1,8 @@
 function stiffNormal_cannon_firing(){
 	rapidCooldown--;
 	firingCooldown--
-	if !(collision_line(x, y, playerTank.x, playerTank.y, obj_solid, false, true)){
-		image_angle = point_direction(x,y,playerTank.x,playerTank.y)
+	if !(collision_line(x, y, obj_player.x, obj_player.y, obj_solid, false, true)){
+		image_angle = point_direction(x,y,obj_player.x,obj_player.y)
 
 	}else{
 		state = stiffNormal_cannon.scanning;
@@ -24,7 +24,7 @@ function stiffNormal_cannon_firing(){
 }
 
 function stiffNormal_cannon_scanning(){
-	if (collision_line(x, y, playerTank.x, playerTank.y, obj_solid, false, true)){
+	if (collision_line(x, y, obj_player.x, obj_player.y, obj_solid, false, true)){
 		if stepsTilSwitch > 0{
 			image_angle = radtodeg(degtorad(image_angle) + scanningDirection*scanningStep)
 		}else{
@@ -40,9 +40,9 @@ function stiffNormal_cannon_scanning(){
 }
 
 function stiffNormal_cannon_spotted(){
-	if (!collision_line(x, y, playerTank.x, playerTank.y, obj_solid, false, true)){
+	if (!collision_line(x, y, obj_player.x, obj_player.y, obj_solid, false, true)){
 
-		var goalDirection = point_direction(x,y,playerTank.x, playerTank.y)
+		var goalDirection = point_direction(x,y,obj_player.x, obj_player.y)
 		if (gradualPoint(goalDirection, 0.02)){
 			state = stiffNormal_cannon.firing;
 		}

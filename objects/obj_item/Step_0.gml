@@ -6,7 +6,7 @@ switch (state){
 			state = itemState.collected;
 			ds_list_add(itemHand.currentItems, itemId);
 			var _id = itemId
-			with playerTank{
+			with obj_player{
 				find_onPickup(_id);
 			}
 		}

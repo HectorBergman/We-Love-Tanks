@@ -9,7 +9,7 @@ function braveheartNormal_create_cannon(){
 
 	scanningArea = pi/2
 	scanningStep = (pi/2)/100
-	scanningPoint = degtorad(point_direction(x,y,playerTank.x,playerTank.y));
+	scanningPoint = degtorad(point_direction(x,y,obj_player.x,obj_player.y));
 
 	stepTilSwitchWhole = 200;
 	stepsTilSwitch = stepTilSwitchWhole/2;

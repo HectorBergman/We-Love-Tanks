@@ -14,8 +14,8 @@ function braveheartNormal_create(){
 	
 
 	distance = 0
-	distanceX = abs(playerTank.x - x);
-	distanceY = abs(playerTank.y - y);
+	distanceX = abs(obj_player.x - x);
+	distanceY = abs(obj_player.y - y);
 
 	playerSeen = false;
 	wallSeen = 0;

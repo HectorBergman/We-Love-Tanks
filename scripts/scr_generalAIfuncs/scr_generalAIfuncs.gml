@@ -2,7 +2,7 @@ function coordinateFormula(x1,y1,x2,y2,t){
 	return [x1+t*(x2-x1),y1+t*(y2-y1)]
 }
 function findNextCoordinate(stepSize, iteration, xOffset = 0, yOffset = 0){
-	return coordinateFormula(x+xOffset,y+yOffset,playerTank.x,playerTank.y,stepSize*iteration)
+	return coordinateFormula(x+xOffset,y+yOffset,obj_player.x,obj_player.y,stepSize*iteration)
 }
 
 
@@ -71,10 +71,10 @@ function findOptimizedPath() {
     for (var i = 0; i < ds_list_size(nearbyCrumbs); i++) {
         var crumb = nearbyCrumbs[| i];
         var distToCrumb = point_distance(x, y, crumb.x, crumb.y);
-        var distToPlayerFromCrumb = point_distance(crumb.x, crumb.y, playerTank.x, playerTank.y);
+        var distToPlayerFromCrumb = point_distance(crumb.x, crumb.y, obj_player.x, obj_player.y);
         
         // Prefer crumbs that are both close to us and lead toward player
-        if (distToCrumb < nearestDist && distToPlayerFromCrumb < point_distance(x, y, playerTank.x, playerTank.y)) {
+        if (distToCrumb < nearestDist && distToPlayerFromCrumb < point_distance(x, y, obj_player.x, obj_player.y)) {
             // Verify path to crumb isn't blocked
             if (!collision_line(x, y, crumb.x, crumb.y, obj_solid, false, true)) {
                 nearestCrumb = crumb;
@@ -104,8 +104,8 @@ function findAlternativePath(originalDir) {
         
         if (!place_meeting(testX, testY, obj_solid)) {
             // Score based on how close this gets us to player
-            var newDist = point_distance(testX, testY, playerTank.x, playerTank.y);
-            var currentDist = point_distance(x, y, playerTank.x, playerTank.y);
+            var newDist = point_distance(testX, testY, obj_player.x, obj_player.y);
+            var currentDist = point_distance(x, y, obj_player.x, obj_player.y);
             var _score = (currentDist - newDist) * 10; // Bonus for getting closer
             
             // Bonus for maintaining original direction

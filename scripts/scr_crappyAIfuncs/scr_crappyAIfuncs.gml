@@ -12,8 +12,8 @@ function findNearbyCrumbs(){
 		var reachable = true;
 		var vector = normalizedVector([x,y], [breadCrumb.x,breadCrumb.y]);
 		if reachable{
-			var crumbDistance = point_distance(playerTank.x, playerTank.y, breadCrumb.x, breadCrumb.y);
-			if (crumbDistance) < closestCrumbDistance && !collision_line(breadCrumb.x,breadCrumb.y,playerTank.x,playerTank.y,obj_solid,0,1){ //!collision_cone(breadCrumb.x,breadCrumb.y,playerTank.x,playerTank.y,45, 5, obj_wall){
+			var crumbDistance = point_distance(obj_player.x, obj_player.y, breadCrumb.x, breadCrumb.y);
+			if (crumbDistance) < closestCrumbDistance && !collision_line(breadCrumb.x,breadCrumb.y,obj_player.x,obj_player.y,obj_solid,0,1){ //!collision_cone(breadCrumb.x,breadCrumb.y,obj_player.x,obj_player.y,45, 5, obj_wall){
 				closestCrumb = breadCrumb
 				closestCrumbDistance = crumbDistance
 			}
@@ -32,7 +32,7 @@ function findNearbyCrumbs(){
 /// @returns {bool} True if it has locked onto targetAngle, else returns false
 
 function gradualPoint(targetAngle, turningSpeed){
-	//var goalDirection = point_direction(x,y,playerTank.x, playerTank.y) mod 360;
+	//var goalDirection = point_direction(x,y,obj_player.x, obj_player.y) mod 360;
 	var turnDirection = sign(angle_difference(targetAngle, image_angle))
 	
 	if (abs(angle_difference(targetAngle, image_angle)) < abs(radtodeg(turningSpeed*pi/2))*2){

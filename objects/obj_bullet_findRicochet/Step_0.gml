@@ -9,8 +9,8 @@ while collisionAngle == -1{
 		instance_destroy()
 		exit;
 	}
-	if !(collision_line(x,y,playerTank.x,playerTank.y, obj_solid, 0,0)){
-		var distance = point_distance(x+newCoords[0],y+newCoords[1], playerTank.x,playerTank.y)
+	if !(collision_line(x,y,obj_player.x,obj_player.y, obj_solid, 0,0)){
+		var distance = point_distance(x+newCoords[0],y+newCoords[1], obj_player.x,obj_player.y)
 		closestDistanceToPlayer = min(closestDistanceToPlayer,distance);
 	}
 	if collisionAngle != -1{

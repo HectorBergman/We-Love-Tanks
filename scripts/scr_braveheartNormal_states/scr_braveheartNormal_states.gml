@@ -20,7 +20,7 @@ function braveheartNormal_approaching(){
 	 
 	}
 	
-	if !collision_line(x,y,playerTank.x,playerTank.y, obj_impassable,0,1){
+	if !collision_line(x,y,obj_player.x,obj_player.y, obj_impassable,0,1){
 		state = braveheartNormal.spotted
 	}
 	var moveX = place_meeting(x + movementX(), y, [obj_impassable, obj_player, obj_enemy])
@@ -82,7 +82,7 @@ function braveheartNormal_approaching(){
 function braveheartNormal_patrolling(){
 
 	state = braveheartNormal.approaching
-	/*if !collision_line(x,y,playerTank.x,playerTank.y, obj_wall,0,1){
+	/*if !collision_line(x,y,obj_player.x,obj_player.y, obj_wall,0,1){
 		var arr = findNearbyCrumbs()
 		nearestCrumb = arr[0];
 		if (nearestCrumb == noone){
@@ -98,11 +98,11 @@ function braveheartNormal_patrolling(){
 
 function braveheartNormal_spotted(){
 	var width = 16;
-	var collisionLines = collision_line(x,y,playerTank.x,playerTank.y, obj_impassable,0,1) || 
-						 collision_line(x+width,y+width,playerTank.x+width,playerTank.y+width, obj_impassable,0,1) ||
-						 collision_line(x-width,y-width,playerTank.x-width,playerTank.y-width, obj_impassable,0,1)
+	var collisionLines = collision_line(x,y,obj_player.x,obj_player.y, obj_impassable,0,1) || 
+						 collision_line(x+width,y+width,obj_player.x+width,obj_player.y+width, obj_impassable,0,1) ||
+						 collision_line(x-width,y-width,obj_player.x-width,obj_player.y-width, obj_impassable,0,1)
 	if !collisionLines{
-		var dir = point_direction(x, y, playerTank.x, playerTank.y);
+		var dir = point_direction(x, y, obj_player.x, obj_player.y);
 		movementVector[0] = lengthdir_x(movementSpeed, dir);
 		movementVector[1] = lengthdir_y(movementSpeed, dir);
 	}else{

@@ -3,9 +3,9 @@ function stiffNormal_create(){
 
 	state = stiffNormal.normal
 
-	distance = point_distance(x, y, playerTank.x, playerTank.y);
-	distanceX = abs(playerTank.x - x);
-	distanceY = abs(playerTank.y - y);
+	distance = point_distance(x, y, obj_player.x, obj_player.y);
+	distanceX = abs(obj_player.x - x);
+	distanceY = abs(obj_player.y - y);
 	hp = 4;
 	playerSeen = false;
 	wallSeen = 0;
@@ -15,9 +15,9 @@ function stiffNormal_create(){
 }
 
 function stiffNormal_step(){
-	distance = point_distance(x, y, playerTank.x, playerTank.y);
-	distanceX = abs(playerTank.x - x);
-	distanceY = abs(playerTank.y - y);
+	distance = point_distance(x, y, obj_player.x, obj_player.y);
+	distanceX = abs(obj_player.x - x);
+	distanceY = abs(obj_player.y - y);
 	switch (state){
 		case stiffNormal.normal: stiffNormal_normal(); break;
 	}

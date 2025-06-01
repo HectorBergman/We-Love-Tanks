@@ -25,8 +25,8 @@ function enterNewRoom(xDirection, yDirection){
 		currentRoom = [-666,-666];
 		room_goto(rm_errorRoom);
 	}
-	playerTank.x = playerTank.x-room_width*xDirection+(playerTank.sprite_width+32)*xDirection 
-	playerTank.y = playerTank.y-room_height*yDirection+(playerTank.sprite_height+24)*yDirection 
+	obj_player.x = obj_player.x-room_width*xDirection+(obj_player.sprite_width+32)*xDirection 
+	obj_player.y = obj_player.y-room_height*yDirection+(obj_player.sprite_height+24)*yDirection 
 	isNewRoom = true;
 }
 

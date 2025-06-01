@@ -5,7 +5,7 @@ if (!instance_exists(parent)){
 if (place_meeting(x,y,obj_solid)){
 	parent.wallSeen++
 }
-if(place_meeting(x,y,playerTank)){
+if(place_meeting(x,y,obj_player)){
 	parent.playerSeen = true;
 }
 instance_destroy();

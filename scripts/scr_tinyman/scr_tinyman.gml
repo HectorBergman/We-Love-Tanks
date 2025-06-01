@@ -50,8 +50,8 @@ function tinyman_walking(){
 	var moveX = instance_place(x + movementX(), y, [obj_impassable, obj_player, obj_enemy])
 	var moveY = instance_place(x, y + movementY(), [obj_impassable, obj_player, obj_enemy])
 	if (moveX != noone){
-		if moveX == playerTank && !hitThisCycle{
-			with playerTank{
+		if moveX == obj_player && !hitThisCycle{
+			with obj_player{
 				decreaseHealth(1);
 			}
 			hitThisCycle = true;
@@ -62,8 +62,8 @@ function tinyman_walking(){
 		movementVector[0] = 0;
 	}
 	if (moveY != noone){
-		if moveY == playerTank && !hitThisCycle{
-			with playerTank{
+		if moveY == obj_player && !hitThisCycle{
+			with obj_player{
 				decreaseHealth(1);
 			}
 			hitThisCycle = true;
@@ -83,7 +83,7 @@ function tinyman_walking(){
 function tinyman_decideMove(){
 	var moveDir = 0;
 	if random(1) < 0.5{ //bias more towards the player, but slightly unpredictable
-		moveDir = point_direction(x,y,playerTank.x,playerTank.y) + irandom_range(-15,15);
+		moveDir = point_direction(x,y,obj_player.x,obj_player.y) + irandom_range(-15,15);
 	}else{
 		moveDir = irandom(360);
 	}
