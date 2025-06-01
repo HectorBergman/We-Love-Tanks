@@ -1,3 +1,4 @@
+PAUSE
 if hit >= 1{
 	if hit mod 5 == 0{
 		if color == c_white{

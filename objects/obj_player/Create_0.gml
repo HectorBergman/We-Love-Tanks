@@ -10,7 +10,9 @@ function movementX(){
 function movementY(){
 	return movementVector[1]*movementSpeed;
 }
-resetInputs() //same effect as initializing inputs
+
+activeBullets = [];
+
 cannon = summonObject(obj_player_cannon, [["parent", id], ["depth", depth-1]]);
 hitbox = summonObject(obj_player_visual, [["parent", id], ["cannon", cannon]]);
 

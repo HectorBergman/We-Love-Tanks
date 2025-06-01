@@ -77,7 +77,6 @@ function fireBullet(bulletObj, bulletSpeed, maxBounce, damage, angle, barrelLeng
 		array_insert(summonArray, summonLength+i, extraArgs[i])
 		
 	}
-	print(summonArray);
 	var bullet = summonObject(bulletObj, summonArray);
 	if increaseCount{
 		activeBullets++;
@@ -185,7 +184,6 @@ function findTags(){
 
 function engageTag(tag){
 	if tag == "buckshot"{
-		print("lol");
 		buckshotTime--
 		if buckshotTime < 1{
 			for (var i = 0; i < buckshotCount; i++){

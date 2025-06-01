@@ -1,3 +1,4 @@
+PAUSE
 ds_list_add(pathPoints, [x, y]);
 if lifeTime > 5{
 	depth = -99

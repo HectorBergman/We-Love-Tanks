@@ -1,3 +1,8 @@
+if !global.editorPause{
+	visible = false;
+	exit;
+}
+visible = true;
 visible = parent.openDialogue
 x = parent.x + parent.sprite_width + 32;
 y = parent.y - 32

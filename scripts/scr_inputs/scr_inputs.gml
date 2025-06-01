@@ -1,0 +1,47 @@
+function playerInput(){
+	if keyboard_check(ord("W"))
+	{
+		moveUp = true;
+	}
+	if keyboard_check(ord("S"))
+	{
+		moveDown = true;
+	}
+	if keyboard_check(ord("A"))
+	{
+		moveLeft = true;
+	}
+	if keyboard_check(ord("D"))
+	{
+		moveRight = true;
+	}
+	if mouse_check_button(mb_left)
+	{
+		fire = true;
+	}
+	if keyboard_check(vk_shift){
+		run = true;
+	}
+	if keyboard_check(ord("T")){
+		debugUnlockAndKill = true;
+	}
+	if keyboard_check(ord("G")){
+		debugUnlock = true;
+	}
+	if keyboard_check_pressed(vk_escape){
+		escape = true;
+	}
+	
+}
+
+function resetInputs(){
+	moveUp = false;
+	moveDown = false;
+	moveLeft = false;
+	moveRight = false;
+	fire = false;
+	run = false;
+	debugUnlockAndKill = false;
+	debugUnlock = false;
+	escape = false;
+}

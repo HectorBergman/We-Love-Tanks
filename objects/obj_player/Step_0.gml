@@ -1,4 +1,4 @@
-
+PAUSE
 checkForDeath();
 loop_onTick();
 if invincible{
@@ -9,7 +9,7 @@ if invincibilityFrames == 0{
 	invincible = false;
 }
 lol++
-if run{
+if obj_inputHandler.run{
 	movementSpeed = runSpeed
 }else{
 	movementSpeed = regularSpeed;
@@ -21,6 +21,8 @@ if run{
 		}
 	}
 }*/
+
+
 
 if keyboard_key_press(ord("E")){
 	movementSpeed += 0.1

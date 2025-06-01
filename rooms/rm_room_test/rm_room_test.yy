@@ -111,8 +111,8 @@
   ],
   "name":"rm_room_test",
   "parent":{
-    "name":"Rooms",
-    "path":"folders/Rooms.yy",
+    "name":"misc",
+    "path":"folders/Rooms/misc.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

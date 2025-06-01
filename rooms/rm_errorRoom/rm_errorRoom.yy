@@ -59,8 +59,8 @@
   ],
   "name":"rm_errorRoom",
   "parent":{
-    "name":"Rooms",
-    "path":"folders/Rooms.yy",
+    "name":"misc",
+    "path":"folders/Rooms/misc.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

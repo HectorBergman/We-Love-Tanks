@@ -85,8 +85,8 @@
   ],
   "name":"rm_startingRoom",
   "parent":{
-    "name":"Rooms",
-    "path":"folders/Rooms.yy",
+    "name":"basics",
+    "path":"folders/Rooms/basics.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

@@ -73,8 +73,8 @@
   ],
   "name":"rm_room_itemRoom_1",
   "parent":{
-    "name":"Rooms",
-    "path":"folders/Rooms.yy",
+    "name":"misc",
+    "path":"folders/Rooms/misc.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

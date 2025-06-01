@@ -1,3 +1,4 @@
+PAUSE
 hit--;
 
 switch(phase){

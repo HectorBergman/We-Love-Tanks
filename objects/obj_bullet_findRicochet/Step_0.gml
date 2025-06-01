@@ -1,4 +1,4 @@
-
+PAUSE
 
 
 var collisionAngle = collision_normal(x+movementX(),y+movementY(),obj_solid,2,1)

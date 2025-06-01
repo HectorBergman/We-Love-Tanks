@@ -1,3 +1,8 @@
+if !global.editorPause{
+	visible = false;
+	exit;
+}
+visible = true;
 
 x = parent.x + xoffset;
 y = parent.y + yoffset;

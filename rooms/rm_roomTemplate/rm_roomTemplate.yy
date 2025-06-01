@@ -71,8 +71,8 @@
   ],
   "name":"rm_roomTemplate",
   "parent":{
-    "name":"Rooms",
-    "path":"folders/Rooms.yy",
+    "name":"basics",
+    "path":"folders/Rooms/basics.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

@@ -1,3 +1,4 @@
+PAUSE
 switch(parent.phase){
 	case enemyPhase.startingUp:{
 	

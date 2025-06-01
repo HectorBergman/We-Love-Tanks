@@ -1,6 +1,6 @@
+PAUSE
 if (place_meeting(x,y,obj_player)){
 	if !colliding{
-		print("dolla");
 		//RoomLoader.unload(
 		if orientation == 0{
 			with roomHandler{

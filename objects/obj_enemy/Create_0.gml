@@ -9,13 +9,14 @@ angle = 0;
 hit = -99;
 collideable = true;
 
+
+
 //customizable probably
 createCannon = true;
 movementSpeed = 1;
 type = stringToEnum(enemyType);
 pointInMoveDir = true;
 hp = 3;
-print("welived");
 function movementX(){
 	return movementVector[0]*movementSpeed;
 }
@@ -40,10 +41,15 @@ hitbox = summonObject(obj_enemy_hitbox, [["parent", id]]);
 //todo: add code for selecting a sprite according to enemy type
 
 function death(){
+	print(object_index);
 	if createCannon{
-		instance_destroy(cannon);
+		with cannon{
+			id.death();
+		}
 	}
-	instance_destroy(hitbox);
+	with hitbox{
+		id.death();
+	}
 	instance_destroy();
 }
 

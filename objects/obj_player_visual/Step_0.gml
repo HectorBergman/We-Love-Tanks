@@ -1,3 +1,4 @@
+PAUSE
 if !(parent.movementVector[0] == 0 && parent.movementVector[1] == 0){
 	wheelturnTimer++
 	if wheelturnTimer mod ceil(20/parent.movementSpeed) == 0{

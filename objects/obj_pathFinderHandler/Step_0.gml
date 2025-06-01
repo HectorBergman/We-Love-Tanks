@@ -1,3 +1,4 @@
+PAUSE
 howOften--
 if cRoom != room{
 	ds_map_clear(gridMap);

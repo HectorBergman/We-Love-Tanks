@@ -8,7 +8,4 @@ if grabbed{
 	var rounded_ySc = ceil((mouse_y-origin[1])/32)+originScales[1];
 	parent.image_xscale = rounded_xSc;
 	parent.image_yscale = rounded_ySc;
-	print(rounded_xSc)
-	print(rounded_ySc)
-	print("lxd");
 }

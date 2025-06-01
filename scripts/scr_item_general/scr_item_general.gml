@@ -2,8 +2,8 @@
 //onBulletTravel as a parameter so lol
 
 function loop_onBulletTravel(){
-	for (var i = 0; i < ds_list_size(itemHand.currentItems); i++){
-		var item = ds_list_find_value(itemHand.currentItems, i);
+	for (var i = 0; i < ds_list_size(obj_itemHandler.currentItems); i++){
+		var item = ds_list_find_value(obj_itemHandler.currentItems, i);
         var itemData = variable_instance_get(global.items, item);
         
         // Check if itemData exists and has onHit property
@@ -16,8 +16,8 @@ function loop_onBulletTravel(){
 }
 
 function loop_onHit(){
-	for (var i = 0; i < ds_list_size(itemHand.currentItems); i++){
-		var item = ds_list_find_value(itemHand.currentItems, i);
+	for (var i = 0; i < ds_list_size(obj_itemHandler.currentItems); i++){
+		var item = ds_list_find_value(obj_itemHandler.currentItems, i);
         var itemData = variable_instance_get(global.items, item);
         
         // Check if itemData exists and has onHit property
@@ -30,8 +30,8 @@ function loop_onHit(){
 }
 
 function loop_onFire(fireInfo){
-	for (var i = 0; i < ds_list_size(itemHand.currentItems); i++){
-		var item = ds_list_find_value(itemHand.currentItems, i);
+	for (var i = 0; i < ds_list_size(obj_itemHandler.currentItems); i++){
+		var item = ds_list_find_value(obj_itemHandler.currentItems, i);
         var itemData = variable_instance_get(global.items, item);
         
         // Check if itemData exists and has onHit property
@@ -44,8 +44,8 @@ function loop_onFire(fireInfo){
 }
 
 function loop_onTick(){
-	for (var i = 0; i < ds_list_size(itemHand.currentItems); i++){
-		var item = ds_list_find_value(itemHand.currentItems, i);
+	for (var i = 0; i < ds_list_size(obj_itemHandler.currentItems); i++){
+		var item = ds_list_find_value(obj_itemHandler.currentItems, i);
         var itemData = variable_instance_get(global.items, item);
         
         // Check if itemData exists and has onHit property

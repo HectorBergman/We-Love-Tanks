@@ -33,7 +33,6 @@ function addNeighboursToQueue(node, queue, distance){
 	for (var i = 0; i < 3; i++){
 		for (var j = 0; j < 3; j++){
 			if (!(j == 1 && i == 1)){
-				print(node);
 				var point = {square : collision_point(node.x+32*(i-1),node.y+32*(j-1),obj_gridSquare,false,false),distance : distance + 1 }
 				if point.square != noone{
 					var mapEntry = ds_map_find_value(gridMap,point.square.squareNo)

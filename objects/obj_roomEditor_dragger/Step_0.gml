@@ -1,3 +1,8 @@
+if !global.editorPause{
+	visible = false;
+	exit;
+}
+visible = true;
 x = mouse_x
 y = mouse_y;
 //all this code sucks lol i should have used states

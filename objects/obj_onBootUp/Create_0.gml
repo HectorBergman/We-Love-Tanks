@@ -1,7 +1,7 @@
 //This will run every time game is booted, if some other object is needed on bootup,
 //please summon using this object.
 timer = 0;
-
+global.editorPause = false;
 print(randomize());
 //random_set_seed(744240049);
 window_set_cursor(cr_none); //hide pc cursorr
@@ -12,6 +12,7 @@ room_goto(rm_menuBum);
 var _string = buffer_read(buffer, buffer_string);
 global.roomList = json_parse(_string);
 print(global.roomList);*/
+#macro PAUSE if global.editorPause{exit;}
 
 global.roomList =  [
  {

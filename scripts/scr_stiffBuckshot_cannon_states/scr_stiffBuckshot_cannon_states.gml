@@ -13,7 +13,6 @@ function stiffBuckshot_cannon_firing(){
 	}
 	var hasbullets = false;
 	for (var i = 0; i < array_length(buckshotBullets); i++){
-		print("weinhere");
 		var bullet = buckshotBullets[i]
 		if instance_exists(buckshotBullets[i]){
 			hasbullets = true;
@@ -23,9 +22,6 @@ function stiffBuckshot_cannon_firing(){
 		}
 	}
 	if !place_meeting(x,y, obj_solid) && activeBullets < 1 && firingCooldown < 1 && !hasbullets{
-		print(point_direction(x,y,obj_player.x,obj_player.y))
-		print(image_angle);
-		print("penniiiis");
 		fireBullet(obj_bullet_enemy, 1.5, 3, 1,image_angle, 20,true, [["tags",["buckshot"]],["buckshotSpread", 45],["buckshotCount",4],["buckshotTime",30]])	
 
 	}

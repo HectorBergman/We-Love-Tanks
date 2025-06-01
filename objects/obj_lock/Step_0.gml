@@ -1,4 +1,4 @@
-
+PAUSE
 if currentRoomHandler.roomDoors[_direction] != 1{
 	
 	sprite_index = spr_wall;

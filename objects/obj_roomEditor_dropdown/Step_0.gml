@@ -1,3 +1,8 @@
+if !global.editorPause{
+	visible = false;
+	exit;
+}
+visible = true;
 if place_meeting(x,y,obj_roomEditor_dragger){
 	if last{
 		image_index = 3;

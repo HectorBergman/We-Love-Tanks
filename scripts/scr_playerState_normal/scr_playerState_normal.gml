@@ -1,11 +1,11 @@
 function playerState_normal(){
-	if moveDown || moveUp{
-		movementVector[1] = (moveDown-moveUp);
+	if obj_inputHandler.moveDown || obj_inputHandler.moveUp{
+		movementVector[1] = (obj_inputHandler.moveDown-obj_inputHandler.moveUp);
 	}else{
 		movementVector[1] = 0;
 	}
-	if moveLeft || moveRight{
-		movementVector[0] = (moveRight-moveLeft);
+	if obj_inputHandler.moveLeft || obj_inputHandler.moveRight{
+		movementVector[0] = (obj_inputHandler.moveRight-obj_inputHandler.moveLeft);
 	}else{
 		movementVector[0] = 0;
 	}

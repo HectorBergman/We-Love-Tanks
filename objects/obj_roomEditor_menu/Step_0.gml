@@ -1,3 +1,9 @@
+if !global.editorPause{
+	visible = false;
+	exit;
+}
+print(current_time);
+visible = true;
 switch (state){
 	case editorMenuStates.notActive:{
 		if place_meeting(x,y,obj_roomEditor_dragger){

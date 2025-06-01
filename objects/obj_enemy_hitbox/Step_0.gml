@@ -1,3 +1,4 @@
+PAUSE
 x = parent.x;
 y = parent.y;
 if parent.pointInMoveDir{

@@ -55,3 +55,12 @@ function gradualPointOverTime(targetAngle, steps){
 	var turnDirection = sign(angle_difference(targetAngle, image_angle))
 	return angle_difference(targetAngle, image_angle)/steps; 
 }
+
+
+function destroyAllBullets(list){
+	for (var i = 0; i < ds_list_size(list);i++){
+		var bullet = ds_list_find_value(list,0);
+		instance_destroy(bullet);
+		ds_list_delete(list,0);
+	}
+}
