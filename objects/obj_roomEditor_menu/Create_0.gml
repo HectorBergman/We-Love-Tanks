@@ -24,7 +24,11 @@ function activateDisplayObjects(){
 	for (var i = array_length(keys)-1; i >= 0; --i) {
 	    var k = keys[i];
 	    var v = global.potentialObjects[$ k];
-		summonObject(obj_roomEditor_dragable, [["x", 700+(i mod 3)*64+sprite_get_xoffset(object_get_sprite(v.object))], ["y", 100+(floor(i/3))*64+sprite_get_yoffset(object_get_sprite(v.object))], ["object", v.object], ["depth", depth-1], ["_name", v._name], ["editable", v.editable]]);
+		summonObject(obj_roomEditor_dragable, 
+		[["x", 700+(i mod 3)*64+sprite_get_xoffset(object_get_sprite(v.object))], 
+		["y", 100+(floor(i/3))*64+sprite_get_yoffset(object_get_sprite(v.object))], 
+		["object", v.object], ["depth", depth-1], ["_name", v._name], ["editable", v.editable]]);
+		
 	    /* Use k and v here */
 	}
 }

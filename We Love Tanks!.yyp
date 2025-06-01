@@ -96,6 +96,7 @@
     {"id":{"name":"obj_bullet_findRicochet","path":"objects/obj_bullet_findRicochet/obj_bullet_findRicochet.yy",},},
     {"id":{"name":"obj_bullet_player","path":"objects/obj_bullet_player/obj_bullet_player.yy",},},
     {"id":{"name":"obj_bullet","path":"objects/obj_bullet/obj_bullet.yy",},},
+    {"id":{"name":"obj_button","path":"objects/obj_button/obj_button.yy",},},
     {"id":{"name":"obj_cam","path":"objects/obj_cam/obj_cam.yy",},},
     {"id":{"name":"obj_crosshair","path":"objects/obj_crosshair/obj_crosshair.yy",},},
     {"id":{"name":"obj_currentRoomHandler","path":"objects/obj_currentRoomHandler/obj_currentRoomHandler.yy",},},
@@ -139,6 +140,7 @@
     {"id":{"name":"obj_wall_ricochetbbox","path":"objects/obj_wall_ricochetbbox/obj_wall_ricochetbbox.yy",},},
     {"id":{"name":"obj_wall","path":"objects/obj_wall/obj_wall.yy",},},
     {"id":{"name":"rm_errorRoom","path":"rooms/rm_errorRoom/rm_errorRoom.yy",},},
+    {"id":{"name":"rm_menuBum","path":"rooms/rm_menuBum/rm_menuBum.yy",},},
     {"id":{"name":"rm_room_itemRoom_1","path":"rooms/rm_room_itemRoom_1/rm_room_itemRoom_1.yy",},},
     {"id":{"name":"rm_room_test_2","path":"rooms/rm_room_test_2/rm_room_test_2.yy",},},
     {"id":{"name":"rm_room_test_3","path":"rooms/rm_room_test_3/rm_room_test_3.yy",},},
@@ -379,6 +381,7 @@
     {"roomId":{"name":"rm_room_itemRoom_1","path":"rooms/rm_room_itemRoom_1/rm_room_itemRoom_1.yy",},},
     {"roomId":{"name":"rm_room_test_4","path":"rooms/rm_room_test_4/rm_room_test_4.yy",},},
     {"roomId":{"name":"rm_roomEditor","path":"rooms/rm_roomEditor/rm_roomEditor.yy",},},
+    {"roomId":{"name":"rm_menuBum","path":"rooms/rm_menuBum/rm_menuBum.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

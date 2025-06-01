@@ -39,5 +39,5 @@
     "path":"sprites/spr_roomEditor_highlight_corner/spr_roomEditor_highlight_corner.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }

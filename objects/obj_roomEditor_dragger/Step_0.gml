@@ -32,17 +32,24 @@ switch (state){
 			if firstgrab != noone{
 				grabbedCorner = firstgrab;
 				grabbedCorner.grabbed = true;
-				grabbedCorner.origin = [ceil(x*16)/16,ceil(y*16)/16];
+				grabbedCorner.origin = [ceil(mouse_x*16)/16,ceil(mouse_y*16)/16];
+				grabbedCorner.originScales = [grabbedCorner.parent.image_xscale,grabbedCorner.parent.image_yscale]
 				
 				state = draggerState.enlargeningCorner;
 			}else if highlight != noone{
 				if highlight.object_index == obj_roomEditor_dragable{
-					held = summonObject(obj_roomEditor_instanceRep,[["x", highlight.x], ["y", highlight.y], ["object", global.potentialObjects[$ highlight._name].object], ["depth", depth+1],["editable",global.potentialObjects[$ highlight._name].editable]]);
+					var obj = global.potentialObjects[$ highlight._name].object
+					held = summonObject(obj_roomEditor_instanceRep,
+					[["x", highlight.x], ["y", highlight.y], 
+					["object", obj], 
+					["depth", depth+1],["editable",global.potentialObjects[$ highlight._name].editable],
+					["x_offset", sprite_get_xoffset(object_get_sprite(obj))],
+					["y_offset", sprite_get_yoffset(object_get_sprite(obj))]]);
 				}else{
 					held = highlight
 					held.offset = [held.x-mouse_x,held.y-mouse_y];
 				}
-				if highlighted != noone && instance_exists(highlighted){
+				if highlighted != noone && instance_exists(highlighted) && held != highlighted{
 					highlighted.selected = false;
 					highlighted.destroyCorners();
 				}
