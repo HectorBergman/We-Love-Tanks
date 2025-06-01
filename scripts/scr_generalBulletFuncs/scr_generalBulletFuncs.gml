@@ -187,7 +187,10 @@ function engageTag(tag){
 		buckshotTime--
 		if buckshotTime < 1{
 			for (var i = 0; i < buckshotCount; i++){
-				parent.buckshotBullets[i] = fireBullet(object_index,bulletSpeed*1.6,0,damage,image_angle-buckshotSpread/2+buckshotSpread/buckshotCount*i,0,false,[["image_xscale",0.75],["image_yscale",0.75]])
+				var firedBullet =  fireBullet(object_index,bulletSpeed*1.6,0,damage,image_angle-buckshotSpread/2+buckshotSpread/buckshotCount*i,0,false,[["image_xscale",0.75],["image_yscale",0.75]])
+				if instance_exists(parent){
+					parent.buckshotBullets[i] = firedBullet
+				}
 			}
 			death();
 		}

@@ -4,6 +4,7 @@ breadthQueue = ds_queue_create();
 cRoom = noone;
 howOften = 60;
 closestToPlayer = noone;
+timer = 5;
 
 function resetNodes(){
 	var first = ds_map_find_first(gridMap)

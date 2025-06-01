@@ -36,3 +36,7 @@ if obj_inputHandler.escape{
 		instance_destroy(obj_enemy_hitbox);
 	}
 }
+
+if !global.editorPause{
+	print("fugeXD");
+}

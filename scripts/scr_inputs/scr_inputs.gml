@@ -31,6 +31,13 @@ function playerInput(){
 	if keyboard_check_pressed(vk_escape){
 		escape = true;
 	}
+	if keyboard_check(vk_control){
+		control = true;
+	}
+	if keyboard_check(ord("C")){
+		cKey = true;
+	}
+	
 	
 }
 
@@ -44,4 +51,7 @@ function resetInputs(){
 	debugUnlockAndKill = false;
 	debugUnlock = false;
 	escape = false;
+	control = false;
+	cKey = false;
+	copy = false;
 }

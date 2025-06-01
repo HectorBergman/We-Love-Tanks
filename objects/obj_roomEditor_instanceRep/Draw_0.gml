@@ -1,4 +1,6 @@
 draw_self()
+
+
 if selected{
 	var xscale = image_xscale;
 	var yscale = image_yscale
@@ -9,5 +11,5 @@ if selected{
 		yscale = 0.2;
 	}
 		
-	draw_sprite_ext(spr_roomEditor_highlight,0,x-x_offset,y-y_offset,xscale,yscale,image_angle,c_white,image_alpha);
+	draw_sprite_ext(spr_roomEditor_highlight,0,x,y,xscale,yscale,image_angle,c_white,image_alpha);
 }

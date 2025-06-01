@@ -1,3 +1,8 @@
+if action == 3 && obj_gameSettingHandler.gameState == gameStates.editorTesting{
+	visible = false;
+	exit;
+}
+visible = true;
 try{
 	if (!instance_exists(parent)){
 		instance_destroy();
@@ -6,7 +11,6 @@ try{
 }
 var truthStatement = position_meeting(mouse_x, mouse_y, id)
 	
-
 if (truthStatement){ //hover over button
 	image_index = 1;
 	if (mouse_check_button_pressed(mb_left)){
@@ -17,6 +21,8 @@ if (truthStatement){ //hover over button
 		}else if action == 2{
 			obj_gameSettingHandler.gameState = gameStates.editorBuilding
 			room_goto(rm_roomEditor)
+		}else if action == 3{
+			obj_roomEditorHandler.saveRoom();
 		}
 	}
 }else{

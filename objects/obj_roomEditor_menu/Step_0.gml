@@ -2,7 +2,7 @@ if !global.editorPause{
 	visible = false;
 	exit;
 }
-print(current_time);
+
 visible = true;
 switch (state){
 	case editorMenuStates.notActive:{
@@ -34,11 +34,16 @@ switch (state){
 			}
 		}
 		mask_index = spr_roomEditor_menu_hitbox;
-		var instance  = instance_place(x,y,obj_roomEditor_instanceRep)
-		if instance != noone && !instance.held && instance.justDropped > 0 {
-			instance_destroy(instance)
+		var tempList = ds_list_create()
+		instance_place_list(x,y,obj_roomEditor_instanceRep,tempList,false)
+		for (var i = 0; i < ds_list_size(tempList); i++){
+			var instance = ds_list_find_value(tempList,i);
+			if instance != noone && !instance.held && instance.justDropped > 0 {
+				instance_destroy(instance)
+			}
 		}
 		mask_index = regularMask
+		ds_list_destroy(tempList);
 	}break;
 		
 }

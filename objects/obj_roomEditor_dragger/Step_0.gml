@@ -46,10 +46,8 @@ switch (state){
 					var obj = global.potentialObjects[$ highlight._name].object
 					held = summonObject(obj_roomEditor_instanceRep,
 					[["x", highlight.x], ["y", highlight.y], 
-					["object", obj], 
-					["depth", depth+1],["editable",global.potentialObjects[$ highlight._name].editable],
-					["x_offset", sprite_get_xoffset(object_get_sprite(obj))],
-					["y_offset", sprite_get_yoffset(object_get_sprite(obj))]]);
+					["object", obj], ["ownEditable", []],
+					["depth", depth+1],["editable",global.potentialObjects[$ highlight._name].editable]]);
 				}else{
 					held = highlight
 					held.offset = [held.x-mouse_x,held.y-mouse_y];

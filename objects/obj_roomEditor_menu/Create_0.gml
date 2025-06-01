@@ -2,7 +2,7 @@ global.enemyTypes = ["stiffNormal","braveheartNormal","stiffRicochet","tinyman",
 global.potentialObjects = {
 	Wall :  {object: obj_wall,  _name: "Wall",   editable:[]},
 	Hole :  {object: obj_hole,  _name: "Hole",   editable:[]},
-	Enemy : {object: obj_enemySpawner, _name: "Enemy",  editable:[["enemyType",global.enemyTypes,"tinyman"],["test","checkbox"]]},
+	Enemy : {object: obj_enemySpawner, _name: "Enemy",  editable:[["enemyType",global.enemyTypes],["Example","checkbox"]]},
 }
 depth = -100
 enum editorMenuStates {

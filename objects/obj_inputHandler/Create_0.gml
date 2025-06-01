@@ -1,1 +1,3 @@
 resetInputs();
+
+hasCopied = false;
