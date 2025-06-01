@@ -29,7 +29,19 @@ function destroyCorners(){
 }
 function createCorners(){
 	for (var i = 0; i < 4; i++){
-		corners[i] = summonObject(obj_roomEditor_instanceRep_highlightCorners, [["x", x+sprite_width/2] ,["y", y+sprite_height/2], ["image_angle", i*90], ["index",i], ["depth", depth-1], ["parent", id]])
+		var xscale = 1;
+		var yscale = 1;
+		if i == 1{
+			xscale = -1;
+		}
+		if i == 2{
+			xscale = -1;
+			yscale = -1;
+		}
+		if i == 3{
+			yscale = -1;
+		}
+		corners[i] = summonObject(obj_roomEditor_instanceRep_highlightCorners, [["x", x+sprite_width/2] ,["y", y+sprite_height/2], ["xscale", xscale], ["yscale", yscale], ["index",i], ["depth", depth-1], ["parent", id]])
 	}
 }
 dialogue = summonObject(obj_roomEditorDialogue, [["visible", false], ["parent", id], ["editable", editable]]);

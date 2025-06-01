@@ -40,6 +40,7 @@ switch (state){
 					held = summonObject(obj_roomEditor_instanceRep,[["x", highlight.x], ["y", highlight.y], ["object", global.potentialObjects[$ highlight._name].object], ["depth", depth+1],["editable",global.potentialObjects[$ highlight._name].editable]]);
 				}else{
 					held = highlight
+					held.offset = [held.x-mouse_x,held.y-mouse_y];
 				}
 				if highlighted != noone && instance_exists(highlighted){
 					highlighted.selected = false;

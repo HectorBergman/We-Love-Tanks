@@ -1,7 +1,7 @@
 x = parent.x+parent.sprite_width/2
 y = parent.y+parent.sprite_height/2
-image_xscale = parent.image_xscale;
-image_yscale = parent.image_yscale;
+image_xscale = parent.image_xscale*xscale;
+image_yscale = parent.image_yscale*yscale;
 
 if grabbed{
 	var rounded_xSc = ceil((mouse_x-origin[0])/32)+1;
