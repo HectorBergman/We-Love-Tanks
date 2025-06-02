@@ -5,7 +5,7 @@ enum editorHandlerStates {
 	pickingRoom,
 	inRoom,
 }
-chosenRoom = 0;
+chosenRoom = -1;
 state = editorHandlerStates.pickingRoom;
 availableRooms = [];
 instanceRepRealBoyList = ds_list_create();
@@ -20,12 +20,14 @@ function saveRoom(name){
 	for (var i = 0; i < instance_number(obj_roomEditor_instanceRep); i++){
 		var cInstance = instance_find(obj_roomEditor_instanceRep, i);
 		allInstances[i][0] = ["object", cInstance.object]
-		allInstances[i][1] = ["x", cInstance.x];
-		allInstances[i][2] = ["y", cInstance.y];
-		allInstances[i][3] = ["image_xscale", cInstance.image_xscale];
-		allInstances[i][4] = ["image_yscale", cInstance.image_yscale];
+		allInstances[i][1] = ["ownEditable", cInstance.ownEditable];
+		allInstances[i][2] = ["editable", cInstance.editable];
+		allInstances[i][3] = ["x", cInstance.x];
+		allInstances[i][4] = ["y", cInstance.y];
+		allInstances[i][5] = ["image_xscale", cInstance.image_xscale];
+		allInstances[i][6] = ["image_yscale", cInstance.image_yscale];
 		for (var j = 0; j < array_length(cInstance.ownEditable); j++){
-			allInstances[i][j+5] = cInstance.ownEditable[j]
+			allInstances[i][j+7] = cInstance.ownEditable[j]
 		}
 		
 		
@@ -53,7 +55,8 @@ function getAllRoomStrings(){
 		nextUp = ds_map_find_next(saveData, nextUp);
 	}
 }
-
+function summonInstanceReps(){
+}
 
 function loadInTheInstances(){
 	for (var i = 0; i < instance_number(obj_roomEditor_instanceRep); i++){

@@ -1,6 +1,6 @@
 sprite_index = object_get_sprite(object);
 offset = [x-mouse_x,y-mouse_y];
-held = true;
+held = false;
 
 justDropped = 0;
 selected = false;

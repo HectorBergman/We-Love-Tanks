@@ -48,7 +48,8 @@ switch (state){
 					held = summonObject(obj_roomEditor_instanceRep,
 					[["x", highlight.x], ["y", highlight.y], 
 					["object", obj], ["ownEditable", []],
-					["depth", depth+1],["editable",global.potentialObjects[$ highlight._name].editable]]);
+					["depth", depth+1],["editable",global.potentialObjects[$ highlight._name].editable],
+					["held", true]]);
 				}else{
 					held = highlight
 					held.offset = [held.x-mouse_x,held.y-mouse_y];
