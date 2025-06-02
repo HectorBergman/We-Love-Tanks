@@ -1,0 +1,20 @@
+function saveData(data, file){
+	var _string = json_stringify(data);
+	var _buffer = buffer_create(string_byte_length(_string) +1, buffer_fixed, 1)
+	buffer_write( _buffer, buffer_string, _string);
+	buffer_save( _buffer, file);
+	buffer_delete(_buffer)
+	print("Saved Data " + _string);
+	
+}
+
+function loadData(fileName){
+	var loadedData = [];
+	if file_exists(fileName){
+		var _buffer = buffer_load(fileName);
+		var _string = buffer_read(_buffer, buffer_string);
+		buffer_delete(_buffer);
+		loadedData = json_parse(_string);
+	}
+	return loadedData;
+}

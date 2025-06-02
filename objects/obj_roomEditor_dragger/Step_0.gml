@@ -5,12 +5,13 @@ if !global.editorPause{
 visible = true;
 x = mouse_x
 y = mouse_y;
-//all this code sucks lol i should have used states
+
 if mouse_check_button(mb_left){
 	image_index = 1;
 }else{
 	image_index = 0;
 }
+
 switch (state){
 	case draggerState.enlargeningCorner:{
 		if !mouse_check_button(mb_left){

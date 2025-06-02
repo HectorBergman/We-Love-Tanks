@@ -15,14 +15,18 @@ if (truthStatement){ //hover over button
 	image_index = 1;
 	if (mouse_check_button_pressed(mb_left)){
 		if (action == 0){ 
-		}else if action == 1{
+		}else if action == 1{//menu button to start game
 			obj_gameSettingHandler.gameState = gameStates.regular
 			room_goto(rm_startingRoom)
-		}else if action == 2{
+		}else if action == 2{//menu button to go to editor
 			obj_gameSettingHandler.gameState = gameStates.editorBuilding
-			room_goto(rm_roomEditor)
-		}else if action == 3{
-			obj_roomEditorHandler.saveRoom();
+			room_goto(rm_editorMenu)
+		}else if action == 3{ //save button for lvl editor
+			var name = "lol"
+			obj_roomEditorHandler.saveRoom(name);
+			
+		}else if action == 4{ //menu button to select room to edit
+			
 		}
 	}
 }else{

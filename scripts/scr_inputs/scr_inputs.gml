@@ -37,6 +37,15 @@ function playerInput(){
 	if keyboard_check(ord("C")){
 		cKey = true;
 	}
+	if keyboard_check_pressed(vk_up){
+		pressUp = true;
+	}
+	if keyboard_check_pressed(vk_down){
+		pressDown = true;
+	}
+	if keyboard_check_pressed(vk_enter){
+		confirm = true;
+	}
 	
 	
 }
@@ -54,4 +63,7 @@ function resetInputs(){
 	control = false;
 	cKey = false;
 	copy = false;
+	pressUp = false;
+	pressDown = false;
+	confirm = false;
 }
