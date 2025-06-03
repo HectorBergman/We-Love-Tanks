@@ -14,7 +14,7 @@ loadAllRoomData();
 maxRooms = array_length(availableRooms);
 loadInInstanceReps = false;
 
-function saveRoom(name){
+function saveRoom(name,type,difficulty){
 	
 	var allInstances = [];
 	for (var i = 0; i < instance_number(obj_roomEditor_instanceRep); i++){

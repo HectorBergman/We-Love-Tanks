@@ -1,10 +1,5 @@
 draw_self();
-var val = 0
-if specil{
-	val = parent.ownEditable[index][1];
-}else{
-	val = parent.parent.ownEditable[index][1];
-}
+var val = buffer;
 var text = "[$eee7e7][scale,1][fnt_coolFont]" + val; 
 var toDraw = scribble(text)
 

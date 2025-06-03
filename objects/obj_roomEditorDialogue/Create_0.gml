@@ -47,7 +47,7 @@ for (var i = 0; i < array_length(editable); i++){
 		dropDownArray[array_length(dropDownArray)] = 
 		summonObject(obj_roomEditor_dropdown_click, [["xoffset", 20+largestWidth], ["yoffset", 20*(i+0.5)], 
 													["parent", id], ["items",editable[i][1]], ["index", i],
-													["depth", depth-1], ["paddingNeeded", longestLongestLength]])
+													["depth", depth-1], ["paddingNeeded", longestLongestLength], ["specil", false]])
 	}else{
 		dropDownArray[array_length(dropDownArray)] = 
 		summonObject(obj_roomEditor_checkbox, [["xoffset", 20+largestWidth], ["yoffset", 20*(i+0.5)], 

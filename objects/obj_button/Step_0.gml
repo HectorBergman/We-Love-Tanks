@@ -23,10 +23,9 @@ if (truthStatement){ //hover over button
 			room_goto(rm_editorMenu)
 		}else if action == 3{ //save button for lvl editor
 			var name = "lol"
-			obj_roomEditorHandler.saveRoom(name);
+			summonObject(obj_roomEditorDialogue_prompt,[["x", 40],["y",50]]);
 			
 		}else if action == 4{ //menu button to select room to edit
-			
 		}
 	}
 }else{

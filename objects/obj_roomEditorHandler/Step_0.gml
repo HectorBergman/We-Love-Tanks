@@ -1,6 +1,5 @@
 switch (state){
 	case editorHandlerStates.pickingRoom:{
-		print(obj_inputHandler.pressUp-obj_inputHandler.pressDown)
 		var input = obj_inputHandler.pressDown-obj_inputHandler.pressUp
 		if input == 1 && chosenRoom == maxRooms-1{
 			chosenRoom = -1;
@@ -13,6 +12,7 @@ switch (state){
 			chosenRoom = -1
 		}
 		if obj_inputHandler.confirm{
+			print("hej");
 			loadInInstanceReps = true;
 			state = editorHandlerStates.inRoom;
 			room_goto(rm_roomEditor)

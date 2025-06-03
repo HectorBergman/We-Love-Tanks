@@ -1,4 +1,12 @@
+enum typerStates{
+	inactive,
+	active
+}
+
+state = typerStates.inactive;
 openItems = [];
+
+buffer = "";
 
 totalWidth = sprite_width+paddingNeeded+5;
 visible = false;
@@ -25,9 +33,5 @@ function close(returnValue){
 }
 
 function changeInstanceVal(newVal){
-	if !specil{
-		parent.parent.ownEditable[index][1] = newVal;
-	}else{
-		parent.ownEditable[index][1] = newVal;
-	}
+	parent.ownEditable[index][1] = newVal;
 }
