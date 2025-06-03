@@ -14,7 +14,7 @@ global.roomList = json_parse(_string);
 print(global.roomList);*/
 #macro PAUSE if global.editorPause{exit;}
 
-global.roomList =  [
+global.roomList =  [/*
  {
    "roomName": "rm_room_test",
    "type": "standard",
@@ -39,7 +39,7 @@ global.roomList =  [
    "roomName": "rm_room_itemRoom_1",
    "type": "item",
    "difficulty": "0"
- }
+ }*/
 ]
 window_set_size(display_get_width(),display_get_height());
 

@@ -8,7 +8,7 @@ function braveheartNormal_approaching(){
 			if targetSquare != noone{
 				targetSquare.lightUp = false;
 			}
-			targetSquare = pfHandler.getNearestNeighbour2(nearestSquare);
+			targetSquare = obj_pathFinderHandler.getNearestNeighbour2(nearestSquare);
 			targetSquare.lightUp = true;
 			timeSinceLastSquare = 0;
 		}

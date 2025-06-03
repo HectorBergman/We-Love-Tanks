@@ -8,6 +8,7 @@ roomList = ds_list_create();
 dungeon = generateDungeon();
 testEntity = noone;
 isNewRoom = false;
+nextInstances = [];
 
 
 
@@ -20,10 +21,10 @@ function enterNewRoom(xDirection, yDirection){
 		currentRoomHandler.roomDoors = newRoom.doors;
 		print(newRoom.doors);
 		print(newRoom._room)
-		room_goto(newRoom._room);
+		gotoRoom(newRoom._room);
 	}else{
 		currentRoom = [-666,-666];
-		room_goto(rm_errorRoom);
+		gotoRoom("error");
 	}
 	obj_player.x = obj_player.x-room_width*xDirection+(obj_player.sprite_width+32)*xDirection 
 	obj_player.y = obj_player.y-room_height*yDirection+(obj_player.sprite_height+24)*yDirection 
@@ -53,5 +54,21 @@ function storePreviousRoom(){
 	}
 }
 
+function gotoRoom(_room){
+	nextInstances = _room.instances;
+	room_goto(rm_roomTemplate);
+	//room_goto(rm_roomTemplate);
+	
+}
 
+function loadRoom(){
+	isNewRoom = true;
+	var insts = nextInstances
+	for (var i = 0; i < array_length(insts); i++){
+		print("---");
+		print(insts[i]);
+		summonObject(insts[i][0][1], insts[i]);
+	}
+}
 
+//{"instances":[[["object","@ref object(obj_wall)"],["ownEditable",[]],["editable",[]],["x",400.0],["y",16.0],["image_xscale",1.0],["image_yscale",6.0]]],"roomName":""}] 

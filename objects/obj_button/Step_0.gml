@@ -17,6 +17,7 @@ if (truthStatement){ //hover over button
 		if (action == 0){ 
 		}else if action == 1{//menu button to start game
 			obj_gameSettingHandler.gameState = gameStates.regular
+			global.roomList = loadData("savedRooms.sav");
 			room_goto(rm_startingRoom)
 		}else if action == 2{//menu button to go to editor
 			obj_gameSettingHandler.gameState = gameStates.editorBuilding

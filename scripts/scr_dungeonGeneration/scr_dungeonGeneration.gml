@@ -111,7 +111,7 @@ function createRoom(_x,_y){
 
 	var newRoom = noone;
 	if _x == 5 && _y == 5{ //todo: make this not hardcoded, i.e. make it depend on where the middle is based on stage
-		newRoom = {_room : rm_startingRoom, doors : [1,1,1,1], connectedToStart : true, edge: false,roomID : uniqueIDGiver, coords : [_x,_y], cleared: true, leftOverEntities: ds_list_create(),visited:true}
+		newRoom = {_room : {roomName: "home", instances:[],difficulty: "0"}, doors : [1,1,1,1], connectedToStart : true, edge: false,roomID : uniqueIDGiver, coords : [_x,_y], cleared: true, leftOverEntities: ds_list_create(),visited:true}
 	}else{
 		var adjacentDoors = checkAdjacentRooms(_x,_y)[0]
 		for (var i = 0; i < 3; i++){
@@ -121,7 +121,7 @@ function createRoom(_x,_y){
 		}
 		print("room created on " + string(_x) + "," + string(_y));
 		
-		newRoom = {_room : asset_get_index(pickRandomRoomByType(global.roomList,"standard").roomName), doors : adjacentDoors, connectedToStart : false, edge: isEdge(adjacentDoors),roomID : uniqueIDGiver, coords : [_x,_y], cleared: false, leftOverEntities: ds_list_create(),visited:false}
+		newRoom = {_room : pickRandomRoomByType(global.roomList,"standard"), doors : adjacentDoors, connectedToStart : false, edge: isEdge(adjacentDoors),roomID : uniqueIDGiver, coords : [_x,_y], cleared: false, leftOverEntities: ds_list_create(),visited:false}
 	}
 
 	ds_list_add(roomList, newRoom);

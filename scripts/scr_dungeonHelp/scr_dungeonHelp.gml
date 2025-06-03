@@ -69,6 +69,6 @@ function addIfEdge(list,index, toAdd){
 
 function crownItemRoom(edgeList){
 	var randomIndex = irandom(ds_list_size(edgeList)-1)
-	ds_list_find_value(edgeList,randomIndex)._room = asset_get_index(pickRandomRoomByType(global.roomList,"item").roomName)
+	ds_list_find_value(edgeList,randomIndex)._room = pickRandomRoomByType(global.roomList,"item")
 }
 

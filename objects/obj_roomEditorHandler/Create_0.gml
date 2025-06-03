@@ -14,7 +14,7 @@ loadAllRoomData();
 maxRooms = array_length(availableRooms);
 loadInInstanceReps = false;
 
-function saveRoom(name,type,difficulty){
+function saveRoom(name,rType,rDifficulty){
 	
 	var allInstances = [];
 	for (var i = 0; i < instance_number(obj_roomEditor_instanceRep); i++){
@@ -35,6 +35,8 @@ function saveRoom(name,type,difficulty){
 	var infoStruct = 
 		{	roomName : name,
 			instances : allInstances,
+			type : rType,
+			difficulty : rDifficulty,
 		 }
 	var existingRoom = roomExists(name)
 	if (existingRoom == -1) {

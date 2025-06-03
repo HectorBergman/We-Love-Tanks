@@ -1,6 +1,7 @@
 PAUSE
 checkForDeath();
 loop_onTick();
+
 if invincible{
 	invincibilityFrames--
 }

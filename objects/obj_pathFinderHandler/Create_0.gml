@@ -5,6 +5,13 @@ cRoom = noone;
 howOften = 60;
 closestToPlayer = noone;
 timer = 5;
+currentRoom = [-1,-1]
+
+editorException = false;
+if obj_gameSettingHandler.gameState == gameStates.editorBuilding{
+	print("fucke");
+	editorException = true;
+}
 
 function resetNodes(){
 	var first = ds_map_find_first(gridMap)
