@@ -6,7 +6,8 @@ enum typerStates{
 state = typerStates.inactive;
 openItems = [];
 
-buffer = "";
+
+buffer = items
 
 totalWidth = sprite_width+paddingNeeded+5;
 visible = false;

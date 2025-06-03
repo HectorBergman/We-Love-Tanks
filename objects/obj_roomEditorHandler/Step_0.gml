@@ -29,6 +29,7 @@ switch (state){
 					var inst = availableRooms[chosenRoom].instances;
 					summonObject(obj_roomEditor_instanceRep, inst[i]);
 				}
+				
 			}
 			loadInInstanceReps = false;
 		}

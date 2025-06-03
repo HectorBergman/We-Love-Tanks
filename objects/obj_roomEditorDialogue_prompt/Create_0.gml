@@ -3,9 +3,18 @@ dropDownArray = [];
 openDropDown = noone;
 text = [];
 toDraw = [];
+if (obj_roomEditorHandler.chosenRoom != -1){
+	var rName =  obj_roomEditorHandler.availableRooms[obj_roomEditorHandler.chosenRoom].roomName
+	var rType = obj_roomEditorHandler.availableRooms[obj_roomEditorHandler.chosenRoom].type
+	var rDiff = obj_roomEditorHandler.availableRooms[obj_roomEditorHandler.chosenRoom].difficulty
+	editable= [["roomName",rName], ["type", global.roomTypes], ["difficulty", rDiff]];
+	ownEditable = [["roomName", rName], ["type", rType], ["difficulty", rDiff]]
+}else{
+	editable= [["roomName", ""], ["type", global.roomTypes], ["difficulty", "1"]];
+	ownEditable = [["roomName", ""], ["type", "standard"], ["difficulty", "1"]]
+}
 largestWidth = 0;
-editable= [["roomName", [""]], ["type", global.roomTypes], ["difficulty", [""]]];
-ownEditable = [["roomName", ""], ["type", "standard"], ["difficulty", ""]]
+
 /*"roomName": "rm_room_test",
    "type": "standard",
    "difficulty": "1"
@@ -18,7 +27,7 @@ var _text = "";
 var _toDraw = 0;
 var _length = 0;
 for (var i = 0; i < array_length(editable); i++){
-	if editable[i][1][0]!= ""{
+	if is_array(editable[i][1]){
 		var longest = noone;
 		var longestLength = 0;
 		var str = "";
@@ -58,16 +67,19 @@ for (var i = 0; i < array_length(editable); i++){
 	}
 }
 for (var i = 0; i < array_length(editable); i++){
-
-	if editable[i][1][0] != ""{
+	print("loluL");
+	if is_array(editable[i][1]){
 		dropDownArray[array_length(dropDownArray)] = 
 		summonObject(obj_roomEditor_dropdown_click, [["xoffset", 20+largestWidth], ["yoffset", 20*(i+0.5)], 
 													["parent", id], ["items",editable[i][1]], ["index", i],
 													["depth", depth-1], ["paddingNeeded", longestLongestLength], ["specil", true]])
 	}else{
+		print("penus");
+		print(editable[i][1]);
+		print(obj_roomEditorHandler)
 		dropDownArray[array_length(dropDownArray)] = 
 		summonObject(obj_roomEditor_dropdown_type, [["xoffset", 20+largestWidth], ["yoffset", 20*(i+0.5)], 
-												["parent", id], ["items",editable[i][1]], ["index", i],
+												["parent", id], ["items", editable[i][1]], ["index", i],
 												["depth", depth-1], ["paddingNeeded", longestLongestLength]])
 	}
 }
@@ -83,7 +95,10 @@ function saveRoom(){
 	obj_roomEditorHandler.saveRoom(ownEditable[0][1],ownEditable[1][1],ownEditable[2][1]);
 }
 
-
+function close(){
+	active = false;
+	visible = false;
+}
 
 
 function openNewDropDown(newDropDown){
