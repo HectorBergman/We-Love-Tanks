@@ -1,6 +1,6 @@
 type = parent.type
 
-
+print("aaaaandcannon");
 function death(){
 	instance_destroy();
 }

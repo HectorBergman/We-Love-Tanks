@@ -12,7 +12,6 @@ switch (state){
 			chosenRoom = -1
 		}
 		if obj_inputHandler.confirm{
-			print("hej");
 			loadInInstanceReps = true;
 			state = editorHandlerStates.inRoom;
 			room_goto(rm_roomEditor)
@@ -24,12 +23,10 @@ switch (state){
 			if chosenRoom == -1{
 				ignore = true;
 			}
-			print(availableRooms);
 			if !ignore{
 				
 				for (var i = 0; i < array_length(availableRooms[chosenRoom].instances); i++){
 					var inst = availableRooms[chosenRoom].instances;
-					print(inst[i]);
 					summonObject(obj_roomEditor_instanceRep, inst[i]);
 				}
 			}

@@ -7,8 +7,8 @@ roomList = noone;
 roomList = ds_list_create();
 dungeon = generateDungeon();
 testEntity = noone;
-isNewRoom = false;
 nextInstances = [];
+
 
 
 
@@ -34,8 +34,25 @@ function enterNewRoom(xDirection, yDirection){
 function loadInPreviousObjects(){
 	var cRoom = ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1])
 	while !ds_list_empty(cRoom.leftOverEntities){
+
+		
 		var currentEnt = ds_list_find_value(cRoom.leftOverEntities,0);
-		var newEntity = summonObject(currentEnt.objIndex, [["x",currentEnt._x], ["y",currentEnt._y],["hp",currentEnt.hp],["enemyType",currentEnt.enemyType]])
+		var names = variable_struct_get_names(currentEnt);
+		print("LOADININOBJECTS<");
+		print(names)
+		for (var i = 0; i < array_length(names); i++){
+			
+			var name = names[i]
+			print(name)
+			names[i] = [name]
+			names[i][1] = variable_struct_get(currentEnt,name)
+			print(names[i][1]);
+			
+		}
+		print("heresthenames");
+		print(names);
+		print(currentEnt.objIndex);
+		var newEntity = summonObject(currentEnt.objIndex, names)
 		ds_list_delete(cRoom.leftOverEntities,0)
 		
 		
@@ -48,8 +65,13 @@ function storePreviousRoom(){
 	for (var i = 0; i < instance_number(obj_enemy); i++){
 
 		var currentInst = instance_find(obj_enemy,i);
-		var newEntry = {objIndex:currentInst.object_index,_x:currentInst.x,_y:currentInst.y,hp:currentInst.hp,enemyType:currentInst.enemyType}
-
+		var newEntry = {objIndex:currentInst.object_index,x:currentInst.x,y:currentInst.y,hp:currentInst.hp,enemyType:currentInst.enemyType}
+		ds_list_add(cRoom.leftOverEntities,newEntry);
+		
+	}
+	for (var i = 0; i < instance_number(obj_item); i++){
+		var currentInst = instance_find(obj_item,i);
+		var newEntry =  {objIndex:currentInst.object_index,x:currentInst.x,y:currentInst.y,itemId:currentInst.itemId}
 		ds_list_add(cRoom.leftOverEntities,newEntry);
 	}
 }

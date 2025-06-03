@@ -1,8 +1,24 @@
 usedPool = variable_global_get(pool + "Pool");
 
 
-var chosenIndex = irandom(array_length(usedPool)-1)
-var chosenOption = usedPool[chosenIndex]
+chosenIndex = irandom(array_length(usedPool)-1)
+chosenOption = usedPool[chosenIndex]
 
-summonObject(obj_item,[["itemId", chosenOption], ["x",x],["y",y]]);
-//array_delete(options, chosen_index, 1)
+
+depth = -200
+summoned = false;
+switch (obj_gameSettingHandler.gameState){
+	case gameStates.regular:{
+		if (ds_grid_get(roomHandler.dungeonGrid, roomHandler.currentRoom[0], roomHandler.currentRoom[1]).visited){
+			instance_destroy();
+	
+		}else{
+			visible = true;
+			sprite_index = spr_smoke
+		}
+	} break;
+	case gameStates.editorTesting:{
+		visible = true;
+		sprite_index = spr_smoke
+	}break;
+}

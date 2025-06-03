@@ -89,14 +89,7 @@ function loadInTheInstances(){
 		summonObjectArray[len+1] = ["y", instanceRep.y]
 		summonObjectArray[len+2] = ["image_xscale", instanceRep.image_xscale]
 		summonObjectArray[len+3] = ["image_yscale", instanceRep.image_yscale]
-		print(summonObjectArray);
-		print(instanceRep.ownEditable);
-		print(instanceRep.object);
-		print("pen15");
 		var realBoy = summonObject(asset_get_index(instanceRep.object), summonObjectArray);
-		print(instanceRep);
-		print(asset_get_index(instanceRep.object));
-		print(realBoy);
 		ds_list_add(instanceRepRealBoyList, realBoy);
 	}
 }

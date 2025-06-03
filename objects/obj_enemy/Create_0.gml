@@ -9,6 +9,8 @@ angle = 0;
 hit = -99;
 collideable = true;
 
+print("ilive");
+print(enemyType);
 
 
 //customizable probably
@@ -36,11 +38,12 @@ switch(type){
 if createCannon{
 	cannon = summonObject(obj_enemy_cannon, [["parent", id], ["depth", depth-1]]);
 }
-
+print(hp);
 hitbox = summonObject(obj_enemy_hitbox, [["parent", id]]);
 //todo: add code for selecting a sprite according to enemy type
 
 function death(){
+	print("idie");
 	print(object_index);
 	if createCannon{
 		with cannon{
@@ -62,7 +65,9 @@ function decreaseHealth(amount){
 }
 
 function checkForDeath(){
+	
 	if hp < 1{
+		print("wedeadaf");
 		death();
 	}
 }
