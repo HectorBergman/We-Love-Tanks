@@ -2,7 +2,7 @@ if !global.editorPause{
 	visible = false;
 	exit;
 }
-visible = true;
+visible = parent.visible
 if place_meeting(x,y,obj_roomEditor_dragger){
 	if last{
 		image_index = 3;

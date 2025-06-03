@@ -21,16 +21,18 @@ for (var i = 0; i < array_length(editable); i++){
 
 
 
+if active{
+	totalWidth = largestWidth+20+10+sprite_get_width(object_get_sprite(obj_roomEditor_dropdown_click))+5+longestLongestLength;
+	image_xscale = totalWidth/spriteWidth;
 
-totalWidth = largestWidth+20+10+sprite_get_width(object_get_sprite(obj_roomEditor_dropdown_click))+5+longestLongestLength;
-image_xscale = totalWidth/spriteWidth;
+	visible = true;
 
-visible = true;
-
-mask_index = spr_roomEditor_menu_edit_Xhitbox
-if place_meeting(x,y,obj_roomEditor_dragger){
-	if mouse_check_button_pressed(mb_left){
-		//add sumn here
+	mask_index = spr_roomEditor_menu_edit_Xhitbox
+	if place_meeting(x,y,obj_roomEditor_dragger){
+		if mouse_check_button_pressed(mb_left){
+			active = false;
+			visible = false;
+		}
 	}
+	mask_index = originalMask
 }
-mask_index = originalMask

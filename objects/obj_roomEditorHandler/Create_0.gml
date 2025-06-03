@@ -36,7 +36,15 @@ function saveRoom(name,type,difficulty){
 		{	roomName : name,
 			instances : allInstances,
 		 }
-	availableRooms[array_length(availableRooms)] = infoStruct;
+	var existingRoom = roomExists(name)
+	if (existingRoom == -1) {
+		availableRooms[array_length(availableRooms)] = infoStruct;
+	} else {
+	 
+		 availableRooms[existingRoom] = infoStruct;
+	}
+
+	
 	saveData(availableRooms, fileName)
 }
 
@@ -44,6 +52,16 @@ function loadAllRoomData(){
 	availableRooms = loadData(fileName);
 	
 }
+
+function roomExists(roomName) {
+    for (var i = 0; i < array_length(availableRooms); i++) {
+        if (availableRooms[i].roomName == roomName) {
+            return i; // Room found
+        }
+    }
+    return -1; // Room not found
+}
+
 
 
 

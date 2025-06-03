@@ -22,8 +22,13 @@ if (truthStatement){ //hover over button
 			obj_gameSettingHandler.gameState = gameStates.editorBuilding
 			room_goto(rm_editorMenu)
 		}else if action == 3{ //save button for lvl editor
-			var name = "lol"
-			summonObject(obj_roomEditorDialogue_prompt,[["x", 40],["y",50]]);
+			var inst = instance_find(obj_roomEditorDialogue_prompt,0)
+			if inst == noone{
+				summonObject(obj_roomEditorDialogue_prompt,[["x", 40],["y",50]]);
+			}else{
+				inst.active = true;
+				inst.visible = true;
+			}
 			
 		}else if action == 4{ //menu button to select room to edit
 		}

@@ -11,7 +11,7 @@ ownEditable = [["roomName", ""], ["type", "standard"], ["difficulty", ""]]
    "difficulty": "1"
   */
   spriteWidth = sprite_width;
-
+active = true;
 var longestLongest = noone;
 longestLongestLength = 0;
 var _text = "";
