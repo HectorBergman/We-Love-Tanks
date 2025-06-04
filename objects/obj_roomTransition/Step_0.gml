@@ -1,26 +1,10 @@
 PAUSE
 if (place_meeting(x,y,obj_player)){
 	if !colliding{
-		//RoomLoader.unload(
-		if orientation == 0{
-			with roomHandler{
-				enterNewRoom(1,0)
-			}
-		}else if orientation == 1{
-			with roomHandler{
-				enterNewRoom(0,-1)
-			}
-		}else if orientation == 2{
-			with roomHandler{
-				enterNewRoom(-1,0)
-			}
-		}else if orientation == 3{
-			with roomHandler{
-				enterNewRoom(0,1)
-			}
+		var diff = [xDiff,yDiff]
+		with obj_roomHandler{
+			enterNewRoom(diff[0],diff[1]);
 		}
-		orientation = (orientation + 2) mod 4
-		colliding = true;
 	}
 }else{
 	colliding = false;

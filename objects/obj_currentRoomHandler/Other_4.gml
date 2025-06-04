@@ -1,4 +1,3 @@
 _room = ds_grid_get(roomHandler.dungeonGrid, roomHandler.currentRoom[0], roomHandler.currentRoom[1])
 
 
-lock = !_room.cleared

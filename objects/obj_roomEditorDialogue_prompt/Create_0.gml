@@ -67,16 +67,13 @@ for (var i = 0; i < array_length(editable); i++){
 	}
 }
 for (var i = 0; i < array_length(editable); i++){
-	print("loluL");
+
 	if is_array(editable[i][1]){
 		dropDownArray[array_length(dropDownArray)] = 
 		summonObject(obj_roomEditor_dropdown_click, [["xoffset", 20+largestWidth], ["yoffset", 20*(i+0.5)], 
 													["parent", id], ["items",editable[i][1]], ["index", i],
 													["depth", depth-1], ["paddingNeeded", longestLongestLength], ["specil", true]])
 	}else{
-		print("penus");
-		print(editable[i][1]);
-		print(obj_roomEditorHandler)
 		dropDownArray[array_length(dropDownArray)] = 
 		summonObject(obj_roomEditor_dropdown_type, [["xoffset", 20+largestWidth], ["yoffset", 20*(i+0.5)], 
 												["parent", id], ["items", editable[i][1]], ["index", i],

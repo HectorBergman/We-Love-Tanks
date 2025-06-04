@@ -14,13 +14,19 @@ nextInstances = [];
 
 function enterNewRoom(xDirection, yDirection){
 	storePreviousRoom();
+	if instance_number(obj_enemy) == 0 && instance_number(obj_enemySpawner) == 0{
+		print("clear")
+		ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1]).cleared = true;
+	}else{
+		print("notclear");
+		ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1]).cleared = false;
+	}
 	currentRoom = [currentRoom[0]+xDirection,currentRoom[1]+yDirection];
 	var newRoom = ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1])
 	if inRange(currentRoom[0], 0, dungeonSize) && inRange(currentRoom[1],0,dungeonSize) && !is_undefined(newRoom) && newRoom != noone{
 		
 		currentRoomHandler.roomDoors = newRoom.doors;
 		print(newRoom.doors);
-		print(newRoom._room)
 		gotoRoom(newRoom._room);
 	}else{
 		currentRoom = [-666,-666];
@@ -38,20 +44,14 @@ function loadInPreviousObjects(){
 		
 		var currentEnt = ds_list_find_value(cRoom.leftOverEntities,0);
 		var names = variable_struct_get_names(currentEnt);
-		print("LOADININOBJECTS<");
-		print(names)
+
 		for (var i = 0; i < array_length(names); i++){
 			
 			var name = names[i]
-			print(name)
 			names[i] = [name]
 			names[i][1] = variable_struct_get(currentEnt,name)
-			print(names[i][1]);
 			
 		}
-		print("heresthenames");
-		print(names);
-		print(currentEnt.objIndex);
 		var newEntity = summonObject(currentEnt.objIndex, names)
 		ds_list_delete(cRoom.leftOverEntities,0)
 		

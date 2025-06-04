@@ -48,6 +48,5 @@ function createCorners(){
 		corners[i] = summonObject(obj_roomEditor_instanceRep_highlightCorners, [["x", x+sprite_width/2] ,["y", y+sprite_height/2], ["xscale", xscale], ["yscale", yscale], ["index",i], ["depth", depth-1], ["parent", id]])
 	}
 }
-print(ownEditable);
-print(editable);
+
 dialogue = summonObject(obj_roomEditorDialogue, [["visible", false], ["parent", id], ["editable", editable], ["ownEditable", ownEditable]]);

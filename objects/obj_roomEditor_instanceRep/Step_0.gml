@@ -17,7 +17,6 @@ if selected && obj_inputHandler.copy&& !held && obj_roomEditor_dragger.held == n
 	destroyCorners();
 	var ownEditableCopy = [];
 	array_copy(ownEditableCopy,0,ownEditable,0,array_length(ownEditable));
-	print(ownEditableCopy);
 	var newInst = summonObject(obj_roomEditor_instanceRep, 
 	[["x", x+32],["y", y], ["object", object], 
 	 ["depth", 4], ["editable",editable],["ownEditable",ownEditableCopy],
