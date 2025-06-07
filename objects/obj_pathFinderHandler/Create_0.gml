@@ -10,6 +10,7 @@ currentRoom = [-1,-1]
 
 editorException = false;
 if obj_gameSettingHandler.gameState == gameStates.editorBuilding{
+	print("exception1");
 	editorException = true;
 }
 

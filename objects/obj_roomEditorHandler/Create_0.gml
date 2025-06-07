@@ -95,7 +95,7 @@ function loadInTheInstances(){
 }
 
 function inRoomLogic(){
-	if obj_inputHandler.escape{
+	if obj_inputHandler.space{
 		if global.editorPause{
 			obj_gameSettingHandler.gameState = gameStates.editorTesting
 			global.editorPause = false;

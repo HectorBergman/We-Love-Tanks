@@ -46,7 +46,9 @@ function playerInput(){
 	if keyboard_check_pressed(vk_enter){
 		confirm = true;
 	}
-	
+	if keyboard_check_pressed(vk_space){
+		space = true;
+	}
 	
 }
 
@@ -66,4 +68,5 @@ function resetInputs(){
 	pressUp = false;
 	pressDown = false;
 	confirm = false;
+	space = false;
 }

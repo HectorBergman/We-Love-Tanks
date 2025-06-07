@@ -34,5 +34,13 @@ switch (state){
 			loadInInstanceReps = false;
 		}
 		inRoomLogic();
+		if obj_inputHandler.escape{
+			state = editorHandlerStates.pickingRoom;
+			instance_destroy(obj_pathFinderHandler);
+			instance_destroy(obj_itemHandler)
+			instance_destroy(obj_player);
+			instance_destroy(obj_crosshair);
+			room_goto(rm_editorMenu);
+		}
 	}break;
 }
