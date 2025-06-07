@@ -7,6 +7,7 @@ base_width = 32*scale;
 base_height = 32*scale;
 new_width = base_width *image_xscale/scale;
 new_height= base_height *image_yscale/scale;
+gridsGenerated = false;
 
 amountWidth = new_width/base_width;
 amountHeight = new_height/base_height;
@@ -14,8 +15,6 @@ waitForIt = false;
 
 if obj_gameSettingHandler.gameState == gameStates.editorBuilding{
 	waitForIt = true;
-}else{
-	generateGridSquares();
 }
 
 
@@ -32,6 +31,6 @@ function generateGridSquares(){
 			increase++
 		}
 	}
-	obj_pathFinderHandler.howOften = 5;
+	obj_pathFinderHandler.howOften = 10;
 }
 

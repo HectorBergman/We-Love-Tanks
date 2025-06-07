@@ -5,6 +5,7 @@ cRoom = noone;
 howOften = 60;
 closestToPlayer = noone;
 timer = 5;
+
 currentRoom = [-1,-1]
 
 editorException = false;

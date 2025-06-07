@@ -10,7 +10,7 @@ if editorException && timer < 1{
 	shallPass = currentRoom[0] != obj_roomHandler.currentRoom[0] && currentRoom[1] != obj_roomHandler.currentRoom[1] && timer < 1
 }
 if shallPass{
-	
+	print("wepassed");
 	ds_map_clear(gridMap);
 	for (var i = 0; i < instance_number(obj_gridSquare); i++){
 		var unit = instance_find(obj_gridSquare,i)

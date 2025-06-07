@@ -9,6 +9,8 @@ dungeon = generateDungeon();
 testEntity = noone;
 nextInstances = [];
 
+instancesLoaded = false;
+
 
 
 
@@ -39,10 +41,11 @@ function enterNewRoom(xDirection, yDirection){
 
 function loadInPreviousObjects(){
 	var cRoom = ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1])
-	while !ds_list_empty(cRoom.leftOverEntities){
+	print(cRoom);
+	while !ds_list_empty(cRoom.roomShapeInfo.leftOverEntities){
 
 		
-		var currentEnt = ds_list_find_value(cRoom.leftOverEntities,0);
+		var currentEnt = ds_list_find_value(cRoom.roomShapeInfo.leftOverEntities,0);
 		var names = variable_struct_get_names(currentEnt);
 
 		for (var i = 0; i < array_length(names); i++){
@@ -53,7 +56,7 @@ function loadInPreviousObjects(){
 			
 		}
 		var newEntity = summonObject(currentEnt.objIndex, names)
-		ds_list_delete(cRoom.leftOverEntities,0)
+		ds_list_delete(cRoom.roomShapeInfo.leftOverEntities,0)
 		
 		
 	}

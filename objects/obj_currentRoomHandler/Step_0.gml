@@ -7,6 +7,7 @@ if obj_inputHandler.debugUnlockAndKill{
 		enemy.death()
 	}
 	var cRoom = ds_grid_get(roomHandler.dungeonGrid, roomHandler.currentRoom[0], roomHandler.currentRoom[1])
+
 	cRoom.cleared = true;
 }
 if obj_inputHandler.debugUnlock{
