@@ -1,7 +1,7 @@
 PAUSE
 x = parent.x
 y = parent.y
-image_angle = point_direction(x,y,mouse_x,mouse_y) //
+image_angle = point_direction(x,y,obj_crosshair.x,obj_crosshair.y) //
 firingCooldown--
 
 if obj_inputHandler.fire && !place_meeting(x,y, obj_solid) && activeBullets < maxBullets && firingCooldown < 1{

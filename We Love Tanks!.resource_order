@@ -116,6 +116,7 @@
     {"name":"rm_room_test_4","order":6,"path":"rooms/rm_room_test_4/rm_room_test_4.yy",},
     {"name":"rm_room_test","order":3,"path":"rooms/rm_room_test/rm_room_test.yy",},
     {"name":"rm_roomEditor","order":2,"path":"rooms/rm_roomEditor/rm_roomEditor.yy",},
+    {"name":"rm_roomTemplate_tall","order":5,"path":"rooms/rm_roomTemplate_tall/rm_roomTemplate_tall.yy",},
     {"name":"rm_roomTemplate","order":4,"path":"rooms/rm_roomTemplate/rm_roomTemplate.yy",},
     {"name":"rm_startingRoom","order":1,"path":"rooms/rm_startingRoom/rm_startingRoom.yy",},
     {"name":"rm_test1","order":8,"path":"rooms/rm_test1/rm_test1.yy",},

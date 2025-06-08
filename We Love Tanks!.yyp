@@ -157,6 +157,7 @@
     {"id":{"name":"rm_room_test_4","path":"rooms/rm_room_test_4/rm_room_test_4.yy",},},
     {"id":{"name":"rm_room_test","path":"rooms/rm_room_test/rm_room_test.yy",},},
     {"id":{"name":"rm_roomEditor","path":"rooms/rm_roomEditor/rm_roomEditor.yy",},},
+    {"id":{"name":"rm_roomTemplate_tall","path":"rooms/rm_roomTemplate_tall/rm_roomTemplate_tall.yy",},},
     {"id":{"name":"rm_roomTemplate","path":"rooms/rm_roomTemplate/rm_roomTemplate.yy",},},
     {"id":{"name":"rm_startingRoom","path":"rooms/rm_startingRoom/rm_startingRoom.yy",},},
     {"id":{"name":"rm_startup","path":"rooms/rm_startup/rm_startup.yy",},},
@@ -397,6 +398,7 @@
     {"roomId":{"name":"rm_roomEditor","path":"rooms/rm_roomEditor/rm_roomEditor.yy",},},
     {"roomId":{"name":"rm_menuBum","path":"rooms/rm_menuBum/rm_menuBum.yy",},},
     {"roomId":{"name":"rm_editorMenu","path":"rooms/rm_editorMenu/rm_editorMenu.yy",},},
+    {"roomId":{"name":"rm_roomTemplate_tall","path":"rooms/rm_roomTemplate_tall/rm_roomTemplate_tall.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[
