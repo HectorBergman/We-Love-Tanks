@@ -3,21 +3,15 @@ enum doorTypes{//idk if this will be relevant
 	opened,
 	wideOpen
 }
-global.roomShapes = [ //this information is purely for knowing which room pool to generate from
-	"normal",
-	"long",
-	"tall",
-	"topLeftAbsent",
-	"topRightAbsent",
-	"bottomLeftAbsent",
-	"bottomRightAbsent",
-	"giant",
-]
+
 function generateDungeon(){
 	print("Generate dungeon: Start.");
 	var edges = ds_list_create() //store edges in case room not big enough
 	ds_grid_clear(dungeonGrid,noone)
 	dungeon_generate([5,5]);
+	room_amalgamate([[7,5],[8,5],[8,6]],"bottomLeftAbsent");
+	print(ds_grid_get(dungeonGrid,8,6)._room);
+	//create an array with this and do room amalgamate, but first i have to make a tall room
 	ds_list_destroy(edges);
 	print("Generate dungeon: End.")
 }
@@ -76,7 +70,7 @@ function room_generate(i,j,originXY){
 		edge: false, roomID : uniqueIDGiver, coords : [i,j], 
 		cleared: false,visited: true, originDir : getDir(originXY)}
 	}else{
-		newRoom = {_room : pickRandomRoomByType(global.roomList,"standard"), 
+		newRoom = {_room : pickRandomRoomByType(global.roomList,"standard", "normal"), 
 		roomShape:global.roomShapes[0], 
 		roomShapeInfo: {roomNo: 0,leftOverEntities: ds_list_create(),roommates: [],
 		doors : [doorTypes.opened,doorTypes.opened,doorTypes.opened,doorTypes.opened]}, 
@@ -166,13 +160,14 @@ function room_amalgamate(roomsArray,roomShape){
 	{
 		var arrLen = array_length(roomsArray)
 		if arrLen == 3{
-			
+			room_loopAmalgamate(roomsArray,roomShape,arrLen);
 		}else{
 			//error
 		}
 	}else if roomShape ==global.roomShapes[7]{
 		var arrLen = array_length(roomsArray)
 		if arrLen == 4{
+			room_loopAmalgamate(roomsArray,roomShape,arrLen);
 		}else{
 			//error
 		}
@@ -182,22 +177,33 @@ function room_amalgamate(roomsArray,roomShape){
 	}
 }
 function room_loopAmalgamate(roomsArray,roomShape, arrLen){
+	var roomShapeTable = getRoomShapeTable(roomShape);
+	print("amalgam");
 	var hasEdge = false;
 	for (var i = 0; i < arrLen; i++){
-		if roomsArray[i].edge{
+		if ds_grid_get(dungeonGrid,roomsArray[i][0],roomsArray[i][1]).edge{
 			hasEdge = true;
 			break;
 		}
 	}
-	for (var i = 0; i < arrLen; i++){
-		var curRoom = roomsArray[i]
+	var _room = pickRandomRoomByType(global.roomList,"standard",roomShape);
+	print("penus");
+	print(_room);
+	var fakeI = 0;
+	for (var i = 0; i < 4; i++){
+		if roomShapeTable[i] == 0{
+			continue;
+		}
+		var curRoom = ds_grid_get(dungeonGrid,roomsArray[fakeI][0],roomsArray[fakeI][1]);
 		
 		curRoom.roomShapeInfo = 
-		{roomNo: 0,leftOverEntities: curRoom.roomShapeInfo.leftOverEntities,
-		 roommates: roomsArray, doors : curRoom.roomShapeInfo.doors}
+		{roomNo: i,leftOverEntities: curRoom.roomShapeInfo.leftOverEntities,
+			roommates: roomsArray, doors : curRoom.roomShapeInfo.doors}
 		curRoom.roomShape = roomShape;
 		curRoom.edge = hasEdge;
-		curRoom._room = pickRandomRoomByType(global.roomList,roomShape)
+		curRoom._room = _room
+		ds_grid_set(dungeonGrid,roomsArray[fakeI][0],roomsArray[fakeI][1], curRoom);
+		fakeI++
 	}
 }
 

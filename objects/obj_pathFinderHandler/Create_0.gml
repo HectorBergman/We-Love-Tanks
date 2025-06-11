@@ -5,10 +5,12 @@ cRoom = noone;
 howOften = 60;
 closestToPlayer = noone;
 timer = 5;
-
+scale = 1;
 currentRoom = [-1,-1]
-
+visitNumber = 0;
+bfsFinish = false;
 editorException = false;
+isNewRoom = 2;
 if obj_gameSettingHandler.gameState == gameStates.editorBuilding{
 	print("exception1");
 	editorException = true;
@@ -17,7 +19,7 @@ if obj_gameSettingHandler.gameState == gameStates.editorBuilding{
 function resetNodes(){
 	var first = ds_map_find_first(gridMap)
 	ds_map_find_value(gridMap,first).visited = false;
-
+	
 	for (var i = 0; i < ds_map_size(gridMap)-1; i++){
 		first = ds_map_find_next(gridMap, first);
 		ds_map_find_value(gridMap,first).visited = false;
@@ -25,29 +27,48 @@ function resetNodes(){
 }
 
 function BFS(){
-	var first = ds_map_find_first(gridMap)
+	/*var first = ds_map_find_first(gridMap)
 	first = ds_map_find_next(gridMap,first)
 	if (ds_map_find_value(gridMap,first).visited){
 		resetNodes();
+	}*/
+	
+	visitNumber = (visitNumber+1) mod 2;
+	var closest = getClosestToPlayer();
+	if closest != noone && !is_undefined(closest){
+		print(closest);
+		addNeighboursToQueue(closest, breadthQueue,0)
 	}
-	addNeighboursToQueue(getClosestToPlayer(), breadthQueue,0)
-	while !ds_queue_empty(breadthQueue){
+	
+}
+
+function continueBFS(){
+	var maxPops = 50;
+	var currentPops = 0;
+	
+	while !ds_queue_empty(breadthQueue) && currentPops < maxPops{
 		popEntry(breadthQueue);
+		print(currentPops);
+		currentPops++;
 	}
 }
 
 
 
+
 function addNeighboursToQueue(node, queue, distance){
+	if distance > 20{
+		return
+	}
 	for (var i = 0; i < 3; i++){
 		for (var j = 0; j < 3; j++){
 			if (!(j == 1 && i == 1)){
-				var point = {square : collision_point(node.x+32*(i-1),node.y+32*(j-1),obj_gridSquare,false,false),distance : distance + 1 }
+				var point = {square : collision_point(node.x+32*(i-1)*scale,node.y+32*(j-1)*scale,obj_gridSquare,false,false),distance : distance + 1 }
 				if point.square != noone{
 					var mapEntry = ds_map_find_value(gridMap,point.square.squareNo)
-					if !mapEntry.visited && !point.square.isWall{
+					if !(mapEntry.visited == visitNumber) && !point.square.isWall{
 						ds_queue_enqueue(breadthQueue, point)
-						mapEntry.visited = true;
+						mapEntry.visited = visitNumber;
 						point.square.distance = distance+1
 						
 						
@@ -56,8 +77,8 @@ function addNeighboursToQueue(node, queue, distance){
 							
 							point.square.distance = distance+1
 						}
-					}else if point.square.isWall && !mapEntry.visited{
-						mapEntry.visited = true;
+					}else if point.square.isWall && !(mapEntry.visited == visitNumber){
+						mapEntry.visited = visitNumber;
 						point.square.distance = 999
 						node.hasWallNeigh = true;
 					}
@@ -79,7 +100,7 @@ function getClosestToPlayer(){
 function popEntry(queue){
 	var entry = ds_queue_dequeue(queue)
 	var entryInMap = ds_map_find_value(gridMap,entry.square.squareNo)
-	entryInMap.visited = true;
+	entryInMap.visited = visitNumber;
 	addNeighboursToQueue(entry.square,queue, entry.distance)
 }
 
@@ -88,7 +109,7 @@ function getMovementCandidates(middle) {
     for (var i = 0; i < 3; i++) {
         for (var j =  0; j < 3; j++) {
             if (!(j == 1 && i == 1)) { //ignore middle
-                var point = collision_point(middle.x+32*(i-1), middle.y+32*(j-1), obj_gridSquare, false, false);
+                var point = collision_point(middle.x+32*(i-1)*scale, middle.y+32*(j-1)*scale, obj_gridSquare, false, false);
                 if (point != noone && !point.isWall) {
                     array_push(candidates,({
                         point: point,
@@ -131,7 +152,6 @@ function selectBestMove(candidates,middle) {
 function getNearestNeighbour2(middle){
 	var candidates = getMovementCandidates(middle);
 	var target = selectBestMove(candidates,middle);
-	
 	return target;
 	
 }
@@ -141,7 +161,7 @@ function getNearestNeighbour(middle){
 	for (var i = 0; i < 3; i++){
 		for (var j = 0; j < 3; j++){
 			if (!(j == 1 && i == 1)){
-				var point = collision_point(middle.x+32*(i-1),middle.y+32*(j-1),obj_gridSquare,false,false)
+				var point = collision_circle(middle.x+32*(i-1)*scale,middle.y+32*(j-1)*scale, 32,obj_gridSquare,false,false)
 				if point != noone{
 					var dist = point.distance
 					if dist < minDistance && !point.isWall{
@@ -160,7 +180,7 @@ function hasWallNeighbour(middle){
 	for (var i = 0; i < 3; i++){
 		for (var j = 0; j < 3; j++){
 			if (!(j == 1 && i == 1)){
-				var point = collision_point(middle.x+32*(i-1),middle.y+32*(j-1),obj_gridSquare,false,false)
+				var point = collision_point(middle.x+32*(i-1)*scale,middle.y+32*(j-1)*scale,obj_gridSquare,false,false)
 				if point != noone{
 					if point.isWall{
 						return true
@@ -171,12 +191,3 @@ function hasWallNeighbour(middle){
 	}
 	return false;
 }
-
-function checkOne(node, distance){
-	if !node.square.isWall{
-		if node.visited{
-			
-		}
-	}
-}
-

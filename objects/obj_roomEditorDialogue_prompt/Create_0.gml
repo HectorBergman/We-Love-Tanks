@@ -7,11 +7,18 @@ if (obj_roomEditorHandler.chosenRoom != -1){
 	var rName =  obj_roomEditorHandler.availableRooms[obj_roomEditorHandler.chosenRoom].roomName
 	var rType = obj_roomEditorHandler.availableRooms[obj_roomEditorHandler.chosenRoom].type
 	var rDiff = obj_roomEditorHandler.availableRooms[obj_roomEditorHandler.chosenRoom].difficulty
-	editable= [["roomName",rName], ["type", global.roomTypes], ["difficulty", rDiff]];
-	ownEditable = [["roomName", rName], ["type", rType], ["difficulty", rDiff]]
+	var rShape = noone;
+	try{
+		rShape = obj_roomEditorHandler.availableRooms[obj_roomEditorHandler.chosenRoom].roomShape
+	}catch(e){
+		rShape = "normal";
+	}
+
+	editable= [["roomName",rName], ["type", global.roomTypes], ["difficulty", rDiff], ["roomShape", global.roomShapes]];
+	ownEditable = [["roomName", rName], ["type", rType], ["difficulty", rDiff], ["roomShape", rShape]];
 }else{
-	editable= [["roomName", ""], ["type", global.roomTypes], ["difficulty", "1"]];
-	ownEditable = [["roomName", ""], ["type", "standard"], ["difficulty", "1"]]
+	editable= [["roomName", ""], ["type", global.roomTypes], ["difficulty", "1"], ["roomShape", global.roomShapes]];
+	ownEditable = [["roomName", ""], ["type", "standard"], ["difficulty", "1"], ["roomShape", "normal"]]
 }
 largestWidth = 0;
 
@@ -89,7 +96,7 @@ summonObject(obj_roomEditorDialogue_prompt_confirm,
 totalWidth = largestWidth+20+10+sprite_get_width(object_get_sprite(obj_roomEditor_dropdown_click))+5;
 
 function saveRoom(){
-	obj_roomEditorHandler.saveRoom(ownEditable[0][1],ownEditable[1][1],ownEditable[2][1]);
+	obj_roomEditorHandler.saveRoom(ownEditable[0][1],ownEditable[1][1],ownEditable[2][1],ownEditable[3][1]);
 }
 
 function close(){

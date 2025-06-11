@@ -13,8 +13,11 @@ fileName = "savedRooms.sav"
 loadAllRoomData();
 maxRooms = array_length(availableRooms);
 loadInInstanceReps = false;
+currentShape = "normal";
 
-function saveRoom(name,rType,rDifficulty){
+spawnSpawner = false;
+
+function saveRoom(name,rType,rDifficulty, rShape = "normal"){
 	
 	var allInstances = [];
 	for (var i = 0; i < instance_number(obj_roomEditor_instanceRep); i++){
@@ -37,6 +40,7 @@ function saveRoom(name,rType,rDifficulty){
 			instances : allInstances,
 			type : rType,
 			difficulty : rDifficulty,
+			roomShape : rShape,
 		 }
 	var existingRoom = roomExists(name)
 	if (existingRoom == -1) {
@@ -116,6 +120,5 @@ function inRoomLogic(){
 	}
 
 	if !global.editorPause{
-		print("fugeXD");
 	}
 }

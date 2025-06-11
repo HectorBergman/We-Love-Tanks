@@ -3,3 +3,5 @@ if !global.editorPause{
 	exit;
 }
 visible = true;
+x = baseX + parent.x
+y = baseY + parent.y

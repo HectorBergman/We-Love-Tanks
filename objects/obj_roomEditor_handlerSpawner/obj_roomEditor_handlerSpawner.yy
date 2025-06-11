@@ -1,19 +1,19 @@
 {
   "$GMObject":"",
-  "%Name":"obj_roomEditor_menu",
+  "%Name":"obj_roomEditor_handlerSpawner",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_roomEditor_menu",
+  "name":"obj_roomEditor_handlerSpawner",
   "overriddenProperties":[],
   "parent":{
     "name":"editor",
     "path":"folders/Objects/editor.yy",
   },
   "parentObjectId":null,
-  "persistent":true,
+  "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
   "physicsFriction":0.2,
@@ -30,10 +30,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_roomEditor_menu",
-    "path":"sprites/spr_roomEditor_menu/spr_roomEditor_menu.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

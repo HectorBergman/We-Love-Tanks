@@ -100,8 +100,8 @@
   ],
   "name":"rm_roomTemplate_tall",
   "parent":{
-    "name":"basics",
-    "path":"folders/Rooms/basics.yy",
+    "name":"templates",
+    "path":"folders/Rooms/templates.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

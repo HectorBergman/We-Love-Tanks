@@ -8,7 +8,7 @@ switch (state){
 	case editorMenuStates.notActive:{
 		if place_meeting(x,y,obj_roomEditor_dragger){
 			if mouse_check_button_pressed(mb_left){
-				tween = TweenFire(id,EaseOutQuad,0,false,0,30,"x",notActiveX,activeX);
+				tween = TweenFire(id,EaseOutQuad,0,false,0,30,"baseX",notActiveX,activeX);
 				activating = true;
 				state = editorMenuStates.transition;
 			}
@@ -27,7 +27,7 @@ switch (state){
 	case editorMenuStates.active:{
 		if place_meeting(x,y,obj_roomEditor_dragger){
 			if  mouse_check_button_pressed(mb_left){
-				tween = TweenFire(id,EaseOutQuad,0,false,0,30,"x",activeX,notActiveX);
+				tween = TweenFire(id,EaseOutQuad,0,false,0,30,"baseX",activeX,notActiveX);
 				activating = false;
 				state = editorMenuStates.transition;
 				deactivateDisplayObjects();
@@ -47,3 +47,5 @@ switch (state){
 	}break;
 		
 }
+x = baseX + obj_cam.newX;
+y = baseY + obj_cam.newY;

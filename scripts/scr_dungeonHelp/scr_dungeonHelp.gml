@@ -27,15 +27,20 @@ function findRoomsByProperty(roomArray, propertyName, targetValue) {
 /// @param {string} roomType   Type to filter by (e.g., "fun", "boss")
 /// @returns {struct|undefined} Random room struct (or undefined if no matches)
 
-function pickRandomRoomByType(roomArray, roomType) {
+function pickRandomRoomByType(roomArray, roomType, roomShape) {
+	print("penis1");
+	print(roomArray);
     var matchingRooms = findRoomsByProperty(roomArray, "type", roomType);
     if (array_length(matchingRooms) == 0) {
         return undefined; // No matches found
     }
-    
+	print(matchingRooms);
+    var matchingRoomShapes = findRoomsByProperty(matchingRooms, "roomShape", roomShape);
+	print("shapes");
+	print(matchingRoomShapes);
     // Pick a random index from the filtered list
-    var randomIndex = irandom(array_length(matchingRooms) - 1);
-    return matchingRooms[randomIndex];
+    var randomIndex = irandom(array_length(matchingRoomShapes) - 1);
+    return matchingRoomShapes[randomIndex];
 }
 
 function isEdge(doors){
@@ -72,3 +77,24 @@ function crownItemRoom(edgeList){
 	ds_list_find_value(edgeList,randomIndex)._room = pickRandomRoomByType(global.roomList,"item")
 }
 
+function getRoomShapeTable(roomShape){
+	if roomShape == "normal"{
+		return [1,0,0,0];
+	}else if roomShape == "tall"{
+		return [1,0,1,0];
+	}else if roomShape == "long"{
+		return [1,1,0,0];
+	}else if roomShape == "topLeftAbsent"{
+		return [0,1,1,1];
+	}else if roomShape == "topRightAbsent"{
+		return [1,0,1,1];
+	}else if roomShape == "bottomLeftAbsent"{
+		return [1,1,0,1];
+	}else if roomShape == "bottomRightAbsent"{
+		return [1,1,1,0];
+	}else if roomShape == "giant"{
+		return [1,1,1,1];
+	}else{
+		return [1,0,0,0]
+	}
+}

@@ -3,11 +3,11 @@ howOften--
 timer--
 
 var shallPass = false;
-
+isNewRoom--
 if editorException && timer < 1{
 	shallPass = true
 }else if instance_exists(obj_roomHandler){
-	shallPass = currentRoom[0] != obj_roomHandler.currentRoom[0] && currentRoom[1] != obj_roomHandler.currentRoom[1] && timer < 1
+	shallPass = (isNewRoom == 0);
 }
 if shallPass{
 	print("wepassed");
@@ -29,6 +29,7 @@ if howOften < 0{
 	BFS();
 	//BFS2();
 }
+continueBFS();
 /*if currentRoom[0] != obj_roomHandler.currentRoom[0] && currentRoom[1] != obj_roomHandler.currentRoom[1] && timer < 1{
 	ds_map_clear(gridMap);
 	for (var i = 0; i < instance_number(obj_gridSquare); i++){
@@ -44,4 +45,7 @@ if howOften < 0{
 	howOften = 60;
 	BFS();
 	//BFS2();
-}
+}*/
+
+print("herecomesthesiiiize")
+print(ds_map_size(gridMap));

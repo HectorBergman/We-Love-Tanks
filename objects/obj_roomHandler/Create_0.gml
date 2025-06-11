@@ -9,12 +9,14 @@ dungeon = generateDungeon();
 testEntity = noone;
 nextInstances = [];
 
+enteredRoomNo = 0;
+
 instancesLoaded = false;
 
 
 
 
-function enterNewRoom(xDirection, yDirection){
+function enterNewRoom(xDirection, yDirection,doorNo){
 	storePreviousRoom();
 	if instance_number(obj_enemy) == 0 && instance_number(obj_enemySpawner) == 0{
 		print("clear")
@@ -23,13 +25,16 @@ function enterNewRoom(xDirection, yDirection){
 		print("notclear");
 		ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1]).cleared = false;
 	}
-	currentRoom = [currentRoom[0]+xDirection,currentRoom[1]+yDirection];
+	var extraDiff = getRoomDiff(enteredRoomNo,doorNo);
+	currentRoom = [currentRoom[0]+xDirection+extraDiff[0],currentRoom[1]+yDirection+extraDiff[1]];
 	var newRoom = ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1])
 	if inRange(currentRoom[0], 0, dungeonSize) && inRange(currentRoom[1],0,dungeonSize) && !is_undefined(newRoom) && newRoom != noone{
-		
+		print("lulznewroom");
 		currentRoomHandler.roomDoors = newRoom.doors;
 		print(newRoom.doors);
+		print(newRoom._room);
 		gotoRoom(newRoom._room);
+		enteredRoomNo = newRoom.roomShapeInfo.roomNo
 	}else{
 		currentRoom = [-666,-666];
 		gotoRoom("error");
@@ -37,6 +42,45 @@ function enterNewRoom(xDirection, yDirection){
 	obj_player.x = obj_player.x-room_width*xDirection+(obj_player.sprite_width+32)*xDirection 
 	obj_player.y = obj_player.y-room_height*yDirection+(obj_player.sprite_height+24)*yDirection 
 	isNewRoom = true;
+}
+
+function getRoomDiff(enterNo,exitNo){
+	if enterNo == exitNo{
+		return [0,0]
+	}
+	if enterNo == 0{
+		if exitNo == 1{
+			return [1,0]
+		}else if exitNo == 2{
+			return [0,1]
+		}else if exitNo == 3{
+			return [1,1]
+		}
+	}else if enterNo == 1{
+		if exitNo == 0{
+			return [-1,0]
+		}else if exitNo == 2{
+			return [-1,-1]
+		}else if exitNo == 3{
+			return [0,1]
+		}
+	}else if enterNo == 2{
+		if exitNo == 0{
+			return [0,-1]
+		}else if exitNo == 1{
+			return [-1,-1]
+		}else if exitNo == 3{
+			return [1,0]
+		}
+	}else if enterNo == 3{
+		if exitNo == 0{
+			return [-1,-1]
+		}else if exitNo == 1{
+			return [0,-1]
+		}else if exitNo == 2{
+			return [-1,0]
+		}
+	}
 }
 
 function loadInPreviousObjects(){
@@ -80,8 +124,12 @@ function storePreviousRoom(){
 }
 
 function gotoRoom(_room){
+	print(_room);
+
+	obj_pathFinderHandler.isNewRoom = 2;
 	nextInstances = _room.instances;
-	room_goto(rm_roomTemplate);
+	print(_room.roomShape);
+	room_goto(asset_get_index("rm_roomTemplate_" + _room.roomShape));
 	//room_goto(rm_roomTemplate);
 	
 }

@@ -1,4 +1,5 @@
 draw_self()
+
 if lightUp{
 	draw_rectangle(x-16,y-16,x+16,y+16,false)
 }

@@ -19,6 +19,8 @@ activating = false;
 notActiveX = 960;
 x = notActiveX
 activeX = 660;
+baseX = notActiveX;
+baseY = y;
 tween = noone;
 state = editorMenuStates.notActive
 
@@ -28,9 +30,10 @@ function activateDisplayObjects(){
 	    var k = keys[i];
 	    var v = global.potentialObjects[$ k];
 		summonObject(obj_roomEditor_dragable, 
-		[["x", 700+(i mod 3)*64+sprite_get_xoffset(object_get_sprite(v.object))], 
-		["y", 100+(floor(i/3))*64+sprite_get_yoffset(object_get_sprite(v.object))], 
-		["object", v.object], ["depth", depth-1], ["_name", v._name], ["editable", v.editable]]);
+		[["x", x-activeX+700+(i mod 3)*64+sprite_get_xoffset(object_get_sprite(v.object))], 
+		["y", y+100+(floor(i/3))*64+sprite_get_yoffset(object_get_sprite(v.object))], 
+		["object", v.object], ["depth", depth-1], ["_name", v._name], ["editable", v.editable],
+		["parent", id]]);
 		
 	    /* Use k and v here */
 	}

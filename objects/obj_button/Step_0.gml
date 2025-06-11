@@ -9,6 +9,7 @@ try{
 	}
 }catch(e){
 }
+
 var truthStatement = position_meeting(mouse_x, mouse_y, id)
 	
 if (truthStatement){ //hover over button

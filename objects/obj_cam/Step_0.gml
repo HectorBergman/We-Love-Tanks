@@ -1,22 +1,34 @@
-if point_distance(obj_player.x, 0, obj_crosshair.x, 0) > minDistForLerpX{
-	x = obj_player.x + (lerp(obj_player.x,obj_crosshair.x,pointerBodyRatio) 
-	  - obj_player.x+sign(obj_player.x-obj_crosshair.x)*(minDistForLerpX*pointerBodyRatio))
-}else{
-	x = obj_player.x
-}
+switch (obj_gameSettingHandler.gameState){
+	case gameStates.editorBuilding:{
+		x = x + (obj_inputHandler.moveRight-obj_inputHandler.moveLeft)*4
+		y = y + (obj_inputHandler.moveDown-obj_inputHandler.moveUp)*4
+		newX = clamp(x-(camWidth*0.5),0,room_width-(camWidth));
+		newY = clamp(y-(camHeight*0.5),0,room_height-(camHeight));
+		camera_set_view_pos(view_camera[0],newX,newY);
 
-if point_distance(0, obj_player.y, 0, obj_crosshair.y) > minDistForLerpY{
+	}break;
+	case gameStates.editorTesting:
+	case gameStates.regular:{
+		if point_distance(obj_player.x, 0, obj_crosshair.x, 0) > minDistForLerpX{
+			x = obj_player.x + (lerp(obj_player.x,obj_crosshair.x,pointerBodyRatio) 
+			  - obj_player.x+sign(obj_player.x-obj_crosshair.x)*(minDistForLerpX*pointerBodyRatio))
+		}else{
+			x = obj_player.x
+		}
+
+		if point_distance(0, obj_player.y, 0, obj_crosshair.y) > minDistForLerpY{
 	
-	y = obj_player.y + (lerp(obj_player.y,obj_crosshair.y,pointerBodyRatio) 
-	  - obj_player.y+sign(obj_player.y-obj_crosshair.y)*(minDistForLerpY*pointerBodyRatio))
-}else{
+			y = obj_player.y + (lerp(obj_player.y,obj_crosshair.y,pointerBodyRatio) 
+			  - obj_player.y+sign(obj_player.y-obj_crosshair.y)*(minDistForLerpY*pointerBodyRatio))
+		}else{
 
-	y = obj_player.y
+			y = obj_player.y
+		}
+
+		newX = clamp(x-(camWidth*0.5),0,room_width-(camWidth));
+		newY = clamp(y-(camHeight*0.5),0,room_height-(camHeight));
+
+
+		camera_set_view_pos(view_camera[0],newX,newY);
+	}break;
 }
-
-var newX = clamp(x-(camWidth*0.5),0,room_width-(camWidth));
-print(newX);
-var newY = clamp(y-(camHeight*0.5),0,room_height-(camHeight));
-
-
-camera_set_view_pos(view_camera[0],newX,newY);

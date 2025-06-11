@@ -14,6 +14,17 @@ global.roomList = json_parse(_string);
 print(global.roomList);*/
 #macro PAUSE if global.editorPause{exit;}
 
+global.roomShapes = [ //this information is purely for knowing which room pool to generate from
+	"normal",
+	"long",
+	"tall",
+	"topLeftAbsent",
+	"topRightAbsent",
+	"bottomLeftAbsent",
+	"bottomRightAbsent",
+	"giant",
+]
+
 global.roomList =  [/*
  {
    "roomName": "rm_room_test",

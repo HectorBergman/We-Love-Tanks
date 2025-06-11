@@ -1,3 +1,7 @@
+if spawnSpawner{
+	spawnSpawner = false;
+	summonObject(obj_roomEditor_handlerSpawner);
+}
 switch (state){
 	case editorHandlerStates.pickingRoom:{
 		var input = obj_inputHandler.pressDown-obj_inputHandler.pressUp
@@ -15,16 +19,23 @@ switch (state){
 			loadInInstanceReps = true;
 			state = editorHandlerStates.inRoom;
 			room_goto(rm_roomEditor)
+			spawnSpawner = true;
 		}
 	}break;
 	case editorHandlerStates.inRoom:{
+		if room_get_name(room) != "rm_roomTemplate_" + currentShape{
+			room_goto(asset_get_index("rm_roomTemplate_" + currentShape));
+			loadInInstanceReps = true;
+			spawnSpawner = true;
+		}
 		if loadInInstanceReps{
 			var ignore = false;
 			if chosenRoom == -1{
 				ignore = true;
+				currentShape = "normal";
 			}
 			if !ignore{
-				
+				currentShape = availableRooms[chosenRoom].roomShape;
 				for (var i = 0; i < array_length(availableRooms[chosenRoom].instances); i++){
 					var inst = availableRooms[chosenRoom].instances;
 					summonObject(obj_roomEditor_instanceRep, inst[i]);
@@ -34,7 +45,7 @@ switch (state){
 			loadInInstanceReps = false;
 		}
 		inRoomLogic();
-		if obj_inputHandler.escape{
+		if obj_inputHandler.escape && obj_gameSettingHandler.gameState == gameStates.editorBuilding{
 			state = editorHandlerStates.pickingRoom;
 			instance_destroy(obj_pathFinderHandler);
 			instance_destroy(obj_itemHandler)
