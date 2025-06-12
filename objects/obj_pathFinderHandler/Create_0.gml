@@ -36,7 +36,6 @@ function BFS(){
 	visitNumber = (visitNumber+1) mod 2;
 	var closest = getClosestToPlayer();
 	if closest != noone && !is_undefined(closest){
-		print(closest);
 		addNeighboursToQueue(closest, breadthQueue,0)
 	}
 	
@@ -48,7 +47,6 @@ function continueBFS(){
 	
 	while !ds_queue_empty(breadthQueue) && currentPops < maxPops{
 		popEntry(breadthQueue);
-		print(currentPops);
 		currentPops++;
 	}
 }

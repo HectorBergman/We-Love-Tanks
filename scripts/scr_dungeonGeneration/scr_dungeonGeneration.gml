@@ -63,7 +63,7 @@ function dungeon_popEntry(queue){
 function room_generate(i,j,originXY){
 	var newRoom = noone;
 	if originXY[0] == -2 && originXY[1] == -2{ 
-		newRoom = {_room : {roomName: "home", instances:[],difficulty: "0"}, 
+		newRoom = {_room : {roomName: "home", instances:[],difficulty: "0", roomShape: "normal"}, 
 		roomShape:global.roomShapes[0], 
 		roomShapeInfo: {roomNo: 0,leftOverEntities: ds_list_create(),roommates: [],
 		doors : [doorTypes.opened,doorTypes.opened,doorTypes.opened,doorTypes.opened]}, 

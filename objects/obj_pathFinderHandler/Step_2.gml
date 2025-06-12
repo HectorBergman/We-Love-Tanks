@@ -46,6 +46,3 @@ if howOften < 0{
 	BFS();
 	//BFS2();
 }*/
-
-print("herecomesthesiiiize")
-print(ds_map_size(gridMap));

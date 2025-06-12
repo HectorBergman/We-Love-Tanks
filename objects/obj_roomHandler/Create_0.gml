@@ -10,6 +10,7 @@ testEntity = noone;
 nextInstances = [];
 
 enteredRoomNo = 0;
+enteredDoorNo = 0;
 
 instancesLoaded = false;
 
@@ -17,6 +18,8 @@ instancesLoaded = false;
 
 
 function enterNewRoom(xDirection, yDirection,doorNo){
+	print("fucke");
+	print(doorNo);
 	storePreviousRoom();
 	if instance_number(obj_enemy) == 0 && instance_number(obj_enemySpawner) == 0{
 		print("clear")
@@ -25,7 +28,10 @@ function enterNewRoom(xDirection, yDirection,doorNo){
 		print("notclear");
 		ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1]).cleared = false;
 	}
+	print(enteredRoomNo);
 	var extraDiff = getRoomDiff(enteredRoomNo,doorNo);
+	print(extraDiff);
+	enteredDoorNo = doorNo;
 	currentRoom = [currentRoom[0]+xDirection+extraDiff[0],currentRoom[1]+yDirection+extraDiff[1]];
 	var newRoom = ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1])
 	if inRange(currentRoom[0], 0, dungeonSize) && inRange(currentRoom[1],0,dungeonSize) && !is_undefined(newRoom) && newRoom != noone{
@@ -38,6 +44,9 @@ function enterNewRoom(xDirection, yDirection,doorNo){
 	}else{
 		currentRoom = [-666,-666];
 		gotoRoom("error");
+		print(currentRoom)
+		print(newRoom);
+		print("incomingerror");
 	}
 	obj_player.x = obj_player.x-room_width*xDirection+(obj_player.sprite_width+32)*xDirection 
 	obj_player.y = obj_player.y-room_height*yDirection+(obj_player.sprite_height+24)*yDirection 
@@ -81,6 +90,7 @@ function getRoomDiff(enterNo,exitNo){
 			return [-1,0]
 		}
 	}
+	return [0,0]
 }
 
 function loadInPreviousObjects(){
@@ -124,13 +134,19 @@ function storePreviousRoom(){
 }
 
 function gotoRoom(_room){
+	obj_pathFinderHandler.isNewRoom = 2;
+	if _room == "error"{
+		room_goto(rm_errorRoom);
+	}else{
+	
 	print(_room);
 
-	obj_pathFinderHandler.isNewRoom = 2;
-	nextInstances = _room.instances;
-	print(_room.roomShape);
-	room_goto(asset_get_index("rm_roomTemplate_" + _room.roomShape));
+		
+		nextInstances = _room.instances;
+		print(_room.roomShape);
+		room_goto(asset_get_index("rm_roomTemplate_" + _room.roomShape));
 	//room_goto(rm_roomTemplate);
+	}
 	
 }
 
