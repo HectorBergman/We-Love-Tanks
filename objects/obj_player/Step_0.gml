@@ -24,12 +24,6 @@ if obj_inputHandler.run{
 }*/
 
 
-
-if keyboard_key_press(ord("E")){
-	movementSpeed += 0.1
-}else if keyboard_key_press(ord("Q")){
-	movementSpeed -= 0.1
-}
 switch (state){
     case playerStates.normal: playerState_normal(); break;
 }

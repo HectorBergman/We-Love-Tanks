@@ -1,6 +1,7 @@
 PAUSE
 if instance_exists(obj_currentRoomHandler){
-	if obj_currentRoomHandler.roomDoors[_direction] != 1{
+
+	if obj_currentRoomHandler.roomDoors[roomNo][_direction] != 1{
 	
 		sprite_index = spr_wall;
 	}else{
