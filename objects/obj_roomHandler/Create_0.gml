@@ -18,6 +18,10 @@ instancesLoaded = false;
 
 
 function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
+	print("NEWROOM!")
+	print(enteredDoorNo);
+	print("currentRoom: ");
+	print(string(currentRoom[0]) + " + " + string(currentRoom[1]));
 	print("fucke");
 	print(roomNo);
 	storePreviousRoom();
@@ -33,6 +37,7 @@ function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
 	print(extraDiff);
 	enteredDoorNo = doorNo;
 	currentRoom = [currentRoom[0]+xDirection+extraDiff[0],currentRoom[1]+yDirection+extraDiff[1]];
+	print(currentRoom);
 	var newRoom = ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1])
 	if inRange(currentRoom[0], 0, dungeonSize) && inRange(currentRoom[1],0,dungeonSize) && !is_undefined(newRoom) && newRoom != noone{
 		print("lulznewroom");
