@@ -19,7 +19,7 @@ function generateDungeon(){
 function random_amalgamate(){
 	var len = ds_list_size(roomCoordsList);
 	print(roomCoordsList);
-	var randomInt = irandom(len);
+	var randomInt = irandom(len-1);
 	var chosenRoomCoords = ds_list_find_value(roomCoordsList,randomInt)
 	print(chosenRoomCoords);
 	print("hello");
@@ -147,7 +147,7 @@ function determineLegalShapes(neighbourArr){
 	//0 3 6
 	//1 4 7
 	//2 5 8
-	print("dicked");
+	print("determineLegalShape");
 	var totalLegality = [false,false,false,false,false,false,false,false];
 	var fullArr = [];
 	for (var i = 0; i < 5; i++){
@@ -158,20 +158,25 @@ function determineLegalShapes(neighbourArr){
 		var arr = getCorrespondingNumbers(i);
 		var legalityArray = [false,false,false,false,false,false,false,false];
 		for (var j = 1; j < 8; j++){
-			print("yohooo");
-			var relIndex = getRelevantIndexes(j)
-			print(relIndex);
-			var relevant = getRelevantNumbers(arr,relIndex);
-			print(relevant);
+			var relIndex = getRelevantIndexes(j) //get an array of numbers corresponding to the rooms
+												 //that need to be available to get that shape
+			var relevant = getRelevantNumbers(arr,relIndex); //takes the numbers given from getCorr.Numb.
+															 //and removes the ones not relevant for the 
+															 //relindex shape
 			var isAcceptable = true;
 			print("neighbourArr:");
 			print(neighbourArr);
+			print("contenders:")
+			print(relevant);
 			for (var k = 0; k < array_length(relevant); k++){
-				
-				if neighbourArr[relevant[k]] == noone{
+				print("contender:");
+				print(relevant[k])
+				if neighbourArr[relevant[k]] == 0{
 					isAcceptable = false;
+					print("failed");
 					break;
 				}
+				print("passed");
 			}
 			legalityArray[j] = isAcceptable;
 			if isAcceptable{

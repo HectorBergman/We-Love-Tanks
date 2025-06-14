@@ -21,7 +21,6 @@ instancesLoaded = false;
 
 function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
 	print("NEWROOM!")
-	print(enteredDoorNo);
 	print("currentRoom: ");
 	print(string(currentRoom[0]) + " + " + string(currentRoom[1]));
 	print("fucke");
@@ -50,7 +49,7 @@ function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
 		gotoRoom(newRoom._room);
 		enteredRoomNo = newRoom.roomShapeInfo.roomNo
 	}else{
-		currentRoom = [-666,-666];
+		currentRoom = [-214,-214];
 		gotoRoom("error");
 		print(currentRoom)
 		print(newRoom);
@@ -75,7 +74,7 @@ function getRoomDiff(enterNo,exitNo){
 		if exitNo == 0{
 			return [-1,0]
 		}else if exitNo == 2{
-			return [-1,-1]
+			return [-1,1]
 		}else if exitNo == 3{
 			return [0,1]
 		}
@@ -83,7 +82,7 @@ function getRoomDiff(enterNo,exitNo){
 		if exitNo == 0{
 			return [0,-1]
 		}else if exitNo == 1{
-			return [-1,-1]
+			return [1,-1]
 		}else if exitNo == 3{
 			return [1,0]
 		}

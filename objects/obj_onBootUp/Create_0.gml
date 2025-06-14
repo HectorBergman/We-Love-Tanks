@@ -3,7 +3,7 @@
 timer = 0;
 global.editorPause = false;
 print(randomize());
-//random_set_seed(77777);
+//random_set_seed(3420517453);
 window_set_cursor(cr_none); //hide pc cursorr
 room_goto(rm_menuBum);
 //room_goto(rm_startingRoom);
