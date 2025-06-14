@@ -4,10 +4,12 @@ uniqueIDGiver = 0;
 dungeonGrid = ds_grid_create(dungeonSize, dungeonSize);
 allRooms = 0;
 roomList = noone;
+roomCoordsList = ds_list_create();
 roomList = ds_list_create();
 dungeon = generateDungeon();
 testEntity = noone;
 nextInstances = [];
+
 
 enteredRoomNo = 0;
 enteredDoorNo = 0;
