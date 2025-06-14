@@ -223,6 +223,7 @@
     {"id":{"name":"scr_braveheartNormal","path":"scripts/scr_braveheartNormal/scr_braveheartNormal.yy",},},
     {"id":{"name":"scr_crappyAIfuncs","path":"scripts/scr_crappyAIfuncs/scr_crappyAIfuncs.yy",},},
     {"id":{"name":"scr_death","path":"scripts/scr_death/scr_death.yy",},},
+    {"id":{"name":"scr_dungeonGeneration_amalgamate","path":"scripts/scr_dungeonGeneration_amalgamate/scr_dungeonGeneration_amalgamate.yy",},},
     {"id":{"name":"scr_dungeonGeneration","path":"scripts/scr_dungeonGeneration/scr_dungeonGeneration.yy",},},
     {"id":{"name":"scr_dungeonHelp","path":"scripts/scr_dungeonHelp/scr_dungeonHelp.yy",},},
     {"id":{"name":"scr_enums","path":"scripts/scr_enums/scr_enums.yy",},},

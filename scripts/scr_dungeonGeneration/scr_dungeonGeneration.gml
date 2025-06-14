@@ -10,6 +10,13 @@ function generateDungeon(){
 	ds_grid_clear(dungeonGrid,noone)
 	dungeon_generate([5,5]);
 	random_amalgamate();
+	random_amalgamate();
+	random_amalgamate();
+	random_amalgamate();
+	random_amalgamate();
+	random_amalgamate();
+	random_amalgamate();
+	random_amalgamate();
 
 	//room_amalgamate([[7,5],[8,5],[8,6]],"bottomLeftAbsent");
 
@@ -23,16 +30,12 @@ function random_amalgamate(){
 	var chosenRoomCoords = ds_list_find_value(roomCoordsList,randomInt)
 	print(chosenRoomCoords);
 	print("hello");
-	print(randomInt);
-	print(ds_list_find_index(roomCoordsList,0));
-	print(chosenRoomCoords);
 	var shapeAndOr = chooseShapeAndOrientation(chosenRoomCoords);
 	var startDir = amalgamate_getStart(chosenRoomCoords,shapeAndOr[1]);
 	var startPoint = [chosenRoomCoords[0]+startDir[0],chosenRoomCoords[1]+startDir[1]]
 	
 	var rooms = amalgamate_getSteps(startPoint,shapeAndOr[0]);
 	print(rooms);
-	print("dicke");
 	print(shapeAndOr[0]);
 	print(global.roomShapes[shapeAndOr[0]]);
 	room_amalgamate(rooms,global.roomShapes[shapeAndOr[0]])
@@ -176,6 +179,7 @@ function determineLegalShapes(neighbourArr){
 					print("failed");
 					break;
 				}
+				//todo add something here to detect rooms that already are amalgamated
 				print("passed");
 			}
 			legalityArray[j] = isAcceptable;
@@ -421,6 +425,40 @@ function room_loopAmalgamate(roomsArray,roomShape, arrLen){
 		ds_grid_set(dungeonGrid,roomsArray[i][0],roomsArray[i][1], curRoom);
 		fakeI++
 	}
+	for (var i = 0; i < array_length(roomsArray); i++){
+		if roomsArray[i] != [-214,-214]{
+			list_delete_by_array(roomCoordsList, roomsArray[i]);
+		}
+	}
+}
+/// @function list_delete_by_array(list, search_array)
+/// @description Deletes list entries that match either value in the search array
+/// @param {list} list_id The list to modify
+/// @param {array} search_array Array containing 2 values to search for
+/// @returns {real} Returns the number of entries deleted
+
+function list_delete_by_array(list_id, search_array) {
+    // Check if the search array has exactly 2 elements
+    if (!is_array(search_array) || array_length(search_array) != 2) {
+        show_debug_message("list_delete_by_array: search_array must be an array with exactly 2 elements");
+        return 0;
+    }
+    
+    var val1 = search_array[0];
+    var val2 = search_array[1];
+    var deleted_count = 0;
+    
+    // Work backwards through the list to avoid index issues when deleting
+    for (var i = ds_list_size(list_id) - 1; i >= 0; i--) {
+        var current_value = list_id[| i];
+        
+        if (current_value == val1 || current_value == val2) {
+            ds_list_delete(list_id, i);
+            deleted_count++;
+        }
+    }
+    
+    return deleted_count;
 }
 
 function room_getAllDoors(_room){
