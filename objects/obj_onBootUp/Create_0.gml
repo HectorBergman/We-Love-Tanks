@@ -2,8 +2,8 @@
 //please summon using this object.
 timer = 0;
 global.editorPause = false;
-print(randomize());
-//random_set_seed(3420517453);
+//print(randomize());
+random_set_seed(3619803427);
 window_set_cursor(cr_none); //hide pc cursorr
 room_goto(rm_menuBum);
 //room_goto(rm_startingRoom);
@@ -15,6 +15,7 @@ print(global.roomList);*/
 #macro PAUSE if global.editorPause{exit;}
 
 global.roomShapes = [ //this information is purely for knowing which room pool to generate from
+					  //me from the future: actually its used for other things too lol
 	"normal",
 	"long",
 	"tall",

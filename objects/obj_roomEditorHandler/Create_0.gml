@@ -3,9 +3,12 @@ global.editorPause = true;
 
 enum editorHandlerStates {
 	pickingRoom,
+	pickingSize,
 	inRoom,
 }
 chosenRoom = -1;
+chosenShape = 0;
+startShape = 0;
 state = editorHandlerStates.pickingRoom;
 availableRooms = [];
 instanceRepRealBoyList = ds_list_create();
@@ -43,15 +46,18 @@ function saveRoom(name,rType,rDifficulty, rShape = "normal"){
 			roomShape : rShape,
 		 }
 	var existingRoom = roomExists(name)
+	var len = 0
 	if (existingRoom == -1) {
+		len = array_length(availableRooms)
 		availableRooms[array_length(availableRooms)] = infoStruct;
 	} else {
-	 
-		 availableRooms[existingRoom] = infoStruct;
+		len = existingRoom;
+		availableRooms[existingRoom] = infoStruct;
 	}
 
 	
 	saveData(availableRooms, fileName)
+	return len;
 }
 
 function loadAllRoomData(){

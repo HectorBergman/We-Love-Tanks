@@ -60,7 +60,9 @@ function gradualPointOverTime(targetAngle, steps){
 function destroyAllBullets(list){
 	for (var i = 0; i < ds_list_size(list);i++){
 		var bullet = ds_list_find_value(list,0);
-		instance_destroy(bullet);
+		with bullet{
+			death();
+		}
 		ds_list_delete(list,0);
 	}
 }

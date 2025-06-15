@@ -1,7 +1,11 @@
 PAUSE
 checkForDeath();
 loop_onTick();
-
+if keyboard_check(vk_tab){
+	gothruwalls = true;
+}else{
+	gothruwalls = false;
+}
 if invincible{
 	invincibilityFrames--
 }
@@ -30,12 +34,12 @@ switch (state){
 var moveX = instance_place(x + movementX(), y, [obj_impassable, obj_enemy])
 var moveY = instance_place(x, y + movementY(), [obj_impassable, obj_enemy])
 //collision with walls
-if (moveX != noone && moveX.collideable){
+if (moveX != noone && moveX.collideable && !gothruwalls){
 	var _hStep = sign(movementX());
 	stepCollisionWhileWithFailCon([obj_impassable, obj_enemy], _hStep, true)
 	movementVector[0] = 0;
 }
-if (moveY != noone && moveY.collideable){
+if (moveY != noone && moveY.collideable && !gothruwalls){
 	var _vStep = sign(movementY());
 	stepCollisionWhileWithFailCon([obj_impassable, obj_enemy], _vStep, false)
 	movementVector[1] = 0;

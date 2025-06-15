@@ -74,7 +74,34 @@ function addIfEdge(list,index, toAdd){
 
 function crownItemRoom(edgeList){
 	var randomIndex = irandom(ds_list_size(edgeList)-1)
-	ds_list_find_value(edgeList,randomIndex)._room = pickRandomRoomByType(global.roomList,"item")
+	var newList = ds_list_create();
+	var finished = false;
+	ds_list_copy(newList, edgeList);
+	var chosenRoom = noone;
+	var newRoom = noone;
+	while !(finished || ds_list_empty(newList)){
+		chosenRoom = ds_list_find_value(newList,randomIndex)
+		var brandRoom = chosenRoom
+		print(chosenRoom);
+		print(pickRandomRoomByType(global.roomList,"item", "normal"));
+		if !chosenRoom.amalgamated{
+			newRoom = pickRandomRoomByType(global.roomList,"item", "normal")
+			brandRoom._room = newRoom;
+			var ind = ds_list_find_index(edgeList, chosenRoom);
+			ds_list_replace(edgeList, ind, brandRoom);
+			finished = true;
+		}else{
+			ds_list_delete(newList,randomIndex);
+		}
+	}
+	if !finished{
+		print("fuck,lol");
+	}else{
+		print("chosenROom")
+		print(chosenRoom);
+		print("newRoom");
+		print(newRoom);
+	}
 }
 
 function getRoomShapeTable(roomShape){

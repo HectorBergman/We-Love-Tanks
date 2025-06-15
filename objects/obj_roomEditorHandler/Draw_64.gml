@@ -20,4 +20,13 @@ switch (state){
 	}break;
 	case editorHandlerStates.inRoom:{
 	}break;
+	case editorHandlerStates.pickingSize:{
+		for (var i = 0; i < array_length(global.roomShapes); i++){
+			if i == chosenShape{
+				draw_text(20,80+i*60, global.roomShapes[i]);
+			}else{
+				draw_text(10,80+i*60, global.roomShapes[i]);
+			}
+		}
+	}break;
 }

@@ -3,11 +3,12 @@ global.roomTypes = ["standard","item"];
 global.itemPools = ["itemRoom", "bossItem"];
 global.potentialObjects = {
 	Wall :  {object: obj_wall,  _name: "Wall",   editable:[]},
+	CrumblingWall: {object: obj_wall_crumble, _name: "CrumblingWall", editable:[]},
 	Hole :  {object: obj_hole,  _name: "Hole",   editable:[]},
 	Enemy : {object: obj_enemySpawner, _name: "Enemy",  editable:[["enemyType",global.enemyTypes]]},
 	Item : {object: obj_itemSpawner, _name: "Item",  editable:[["itemPool",global.itemPools]]},
 }
-depth = -100
+depth = -195
 enum editorMenuStates {
 	active,
 	notActive,

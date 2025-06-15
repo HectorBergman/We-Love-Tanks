@@ -10,7 +10,7 @@ function movementX(){
 function movementY(){
 	return movementVector[1]*movementSpeed;
 }
-
+gothruwalls = false;
 activeBullets = [];
 
 cannon = summonObject(obj_player_cannon, [["parent", id], ["depth", depth-1]]);

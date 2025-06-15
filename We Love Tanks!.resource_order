@@ -110,6 +110,7 @@
     {"name":"obj_roomTransition","order":6,"path":"objects/obj_roomTransition/obj_roomTransition.yy",},
     {"name":"obj_saveable","order":9,"path":"objects/obj_saveable/obj_saveable.yy",},
     {"name":"obj_solid","order":2,"path":"objects/obj_solid/obj_solid.yy",},
+    {"name":"obj_wall_crumble","order":9,"path":"objects/obj_wall_crumble/obj_wall_crumble.yy",},
     {"name":"obj_wall_ricochetbbox","order":4,"path":"objects/obj_wall_ricochetbbox/obj_wall_ricochetbbox.yy",},
     {"name":"obj_wall","order":3,"path":"objects/obj_wall/obj_wall.yy",},
     {"name":"rm_editorMenu","order":1,"path":"rooms/rm_editorMenu/rm_editorMenu.yy",},
@@ -323,6 +324,7 @@
     {"name":"spr_tank_enemy","order":2,"path":"sprites/spr_tank_enemy/spr_tank_enemy.yy",},
     {"name":"spr_tank_hitbox_enemy","order":3,"path":"sprites/spr_tank_hitbox_enemy/spr_tank_hitbox_enemy.yy",},
     {"name":"spr_tinyman","order":4,"path":"sprites/spr_tinyman/spr_tinyman.yy",},
+    {"name":"spr_wall_crumblebox","order":10,"path":"sprites/spr_wall_crumblebox/spr_wall_crumblebox.yy",},
     {"name":"spr_wall","order":2,"path":"sprites/spr_wall/spr_wall.yy",},
   ],
 }

@@ -1,3 +1,3 @@
 image_alpha = 1
-depth = 99;
+depth = 30;
 collideable = true;

@@ -6,9 +6,10 @@ allRooms = 0;
 roomList = noone;
 roomCoordsList = ds_list_create();
 roomList = ds_list_create();
-dungeon = generateDungeon();
+
 testEntity = noone;
 nextInstances = [];
+edgeList = ds_list_create();
 
 
 enteredRoomNo = 0;
@@ -17,7 +18,7 @@ enteredDoorNo = 0;
 instancesLoaded = false;
 
 
-
+dungeon = generateDungeon();
 
 function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
 	print("NEWROOM!")
@@ -123,18 +124,20 @@ function loadInPreviousObjects(){
 
 function storePreviousRoom(){
 	var cRoom = ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1])
-
+	print(cRoom);
 	for (var i = 0; i < instance_number(obj_enemy); i++){
-
+		
 		var currentInst = instance_find(obj_enemy,i);
 		var newEntry = {objIndex:currentInst.object_index,x:currentInst.x,y:currentInst.y,hp:currentInst.hp,enemyType:currentInst.enemyType}
-		ds_list_add(cRoom.leftOverEntities,newEntry);
+		ds_list_add(cRoom.roomShapeInfo.leftOverEntities,newEntry);
 		
 	}
 	for (var i = 0; i < instance_number(obj_item); i++){
 		var currentInst = instance_find(obj_item,i);
-		var newEntry =  {objIndex:currentInst.object_index,x:currentInst.x,y:currentInst.y,itemId:currentInst.itemId}
-		ds_list_add(cRoom.leftOverEntities,newEntry);
+		if currentInst.state != itemState.collected{
+			var newEntry =  {objIndex:currentInst.object_index,x:currentInst.x,y:currentInst.y,itemId:currentInst.itemId}
+			ds_list_add(cRoom.roomShapeInfo.leftOverEntities,newEntry);
+		}
 	}
 }
 

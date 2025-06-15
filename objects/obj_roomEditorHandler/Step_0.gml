@@ -16,10 +16,31 @@ switch (state){
 			chosenRoom = -1
 		}
 		if obj_inputHandler.confirm{
+			if chosenRoom == -1{
+				state = editorHandlerStates.pickingSize;
+			}else{	
+				loadInInstanceReps = true;
+				state = editorHandlerStates.inRoom;
+				room_goto(rm_roomEditor)
+				spawnSpawner = true;
+			}
+		}
+	}break;
+	case editorHandlerStates.pickingSize:{
+		var input = obj_inputHandler.pressDown-obj_inputHandler.pressUp
+		if chosenShape == 0 && input == -1{
+			chosenShape = array_length(global.roomShapes)-1;
+		}else{
+			chosenShape = (chosenShape + input) mod array_length(global.roomShapes);
+		}
+		if obj_inputHandler.confirm{
+			
 			loadInInstanceReps = true;
 			state = editorHandlerStates.inRoom;
+			currentShape = global.roomShapes[chosenShape];
 			room_goto(rm_roomEditor)
 			spawnSpawner = true;
+			startShape = input;
 		}
 	}break;
 	case editorHandlerStates.inRoom:{
@@ -32,7 +53,8 @@ switch (state){
 			var ignore = false;
 			if chosenRoom == -1{
 				ignore = true;
-				currentShape = "normal";
+				currentShape = global.roomShapes[chosenShape];
+				chosenRoom = saveRoom("unnamed","standard","0", currentShape)
 			}
 			if !ignore{
 				currentShape = availableRooms[chosenRoom].roomShape;
