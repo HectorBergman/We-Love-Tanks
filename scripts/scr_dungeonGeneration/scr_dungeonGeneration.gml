@@ -5,20 +5,21 @@ enum doorTypes{//idk if this will be relevant
 }
 
 function generateDungeon(){
+	rememberThisPrick = noone;
 	print("Generate dungeon: Start.");
 	var edges = ds_list_create() //store edges in case room not big enough
 	ds_grid_clear(dungeonGrid,noone)
 	dungeon_generate([5,5]);
 	var lolRoom = ds_grid_get(dungeonGrid,8,1);
 	print("8,1,doors:");
-	print(lolRoom.doors);
+	//print(lolRoom.doors);
 	print(random_amalgamate());
 	print(random_amalgamate());
 	crownItemRoom(edgeList);
 
 	lolRoom = ds_grid_get(dungeonGrid,8,1);
 	print("8,1,doors:");
-	print(lolRoom.doors);
+	//print(lolRoom.doors);
 
 	ds_list_destroy(edges);
 	print("Generate dungeon: End.")
@@ -52,6 +53,7 @@ function dungeon_generate(startCoords){
 function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors = [-1,-1,-1,-1]){
 	//generate all doors and rooms. For each new room generated, iterate
 	print("GOHERE!");
+	print(rememberThisPrick);
 	print(roomCoords);
 	var doors = [0,0,0,0]
 	if forceDoors[0] == -1{
@@ -80,7 +82,9 @@ function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors 
 			print("Wegotin!");
 			var xy = getXY(i);
 			print(xy);
+			if array_equals([roomCoords[0]+xy[0],roomCoords[1]+xy[1]], [8,1]){print("yoswagassmoney")}
 			var adjacentRoom = ds_grid_get(dungeonGrid, roomCoords[0]+xy[0],roomCoords[1]+xy[1])
+			print(adjacentRoom);
 			lolRoom = ds_grid_get(dungeonGrid,8,1);
 	print("8,1,doors:");
 	if lolRoom != noone{
@@ -97,6 +101,8 @@ function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors 
 				print("addingnewCoords: " + string(roomCoords[0]) + " + " + string(xy[0]) + " & " + string(roomCoords[1]) + " + " + string(xy[1]));
 				print("AKA: " + string(roomCoords[0] + xy[0]) + " & " + string(roomCoords[1] +xy[1]));
 				var newRoom = room_generate(roomCoords[0]+xy[0],roomCoords[1]+xy[1],xy)
+				ds_grid_set(dungeonGrid,roomCoords[0]+xy[0],roomCoords[1]+xy[1],newRoom);
+				if array_equals([roomCoords[0]+xy[0],roomCoords[1]+xy[1]], [8,1]){rememberThisPrick = newRoom}
 				ds_list_add(roomCoordsList, [roomCoords[0]+xy[0],roomCoords[1]+xy[1]])
 				print(newRoom);
 				print(queue);
@@ -144,18 +150,19 @@ function doors_generate(roomCoords,incomingDirection,doorChance){
 	var noOtherDoors = true;
 	
 	print(incomingDirection);
-
+	if array_equals(roomCoords, [8,1]){print("Weherewithdadoors")}
 	if incomingDirection != -1{	
 		print("penis");
 		doors[incomingDirection] = 1;
 	}
 	for (var i = 0; i < 4; i++){
+		if array_equals(roomCoords, [8,1]){print("okhereweare");print(incomingDirection);}
 		if i != incomingDirection{
 			
 			var xy = getXY(i);
 			var nextX = roomCoords[0] + xy[0]
 			var nextY = roomCoords[1] + xy[1]
-			
+			if array_equals(roomCoords, [8,1]){print(xy);print(is_in_range(nextX,0,dungeonSize));print(is_in_range(nextY,0,dungeonSize));}	
 			if 
 			 is_in_range(nextX, 0, dungeonSize) && 
 			 is_in_range(nextY, 0, dungeonSize)
@@ -179,6 +186,7 @@ function doors_generate(roomCoords,incomingDirection,doorChance){
 				}
 			}
 		}
+		
 	}
 	var theRoom = ds_grid_get(dungeonGrid, roomCoords[0], roomCoords[1])
 	theRoom._room.isEdge = noOtherDoors;
