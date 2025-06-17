@@ -11,7 +11,7 @@ function random_amalgamate(){
 		return "amalgamatefailure";
 	}
 	var shapeAndOr = chooseShapeAndOrientation(chosenRoomCoords);
-	if shapeAndOr[0] == -214{
+	if shapeAndOr[0] == -229{
 		return "amalgamatefailure";
 	}
 	var startDir = amalgamate_getStart(chosenRoomCoords,shapeAndOr[1]);
@@ -82,7 +82,7 @@ function room_loopAmalgamate(roomsArray,roomShape, arrLen){
 	var fakeI = 0;
 	for (var i = 0; i < 4; i++){
 		if roomShapeTable[i] == 0{
-			array_insert(roomsArray, i, [-214,-214]);
+			array_insert(roomsArray, i, [-229,-229]);
 			continue;
 		}
 		var curRoom = ds_grid_get(dungeonGrid,roomsArray[i][0],roomsArray[i][1]);
@@ -98,7 +98,7 @@ function room_loopAmalgamate(roomsArray,roomShape, arrLen){
 		fakeI++
 	}
 	for (var i = 0; i < array_length(roomsArray); i++){
-		if roomsArray[i] != [-214,-214]{
+		if roomsArray[i] != [-229,-229]{
 			list_delete_by_array(roomCoordsList, roomsArray[i]);
 		}
 	}
@@ -113,7 +113,7 @@ function chooseShapeAndOrientation(coords){
 	var totalLegalShapes = legalShapes[1]
 	var trueShapes = get_true_indexes(totalLegalShapes);
 	if array_length(trueShapes)-1 < 0{
-		return[-214,-214]
+		return[-229,-229]
 	}
 	var chosenShape = trueShapes[irandom(array_length(trueShapes)-1)];
 	var hasShape = [];
@@ -205,7 +205,7 @@ function amalgamate_getSteps(startCoords, shape){
 	}else if shape == 7{
 		return [startCoords, [startCoords[0]+1, startCoords[1]],[startCoords[0],startCoords[1]+1],[startCoords[0]+1,startCoords[1]+1]];
 	}else{
-		return [[-214,-214]];
+		return [[-229,-229]];
 	}
 }
 //	0 = "normal",1 ="long",2 ="tall",3 = "topLeftAbsent",4 = "topRightAbsent",
