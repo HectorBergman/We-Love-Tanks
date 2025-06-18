@@ -2,6 +2,8 @@ switch (obj_gameSettingHandler.gameState){
 	case gameStates.editorBuilding:{
 		x = x + (obj_inputHandler.moveRight-obj_inputHandler.moveLeft)*4
 		y = y + (obj_inputHandler.moveDown-obj_inputHandler.moveUp)*4
+		x = clamp(x,camWidth*0.5,room_width-(camWidth*0.5));
+		y = clamp(y,camHeight*0.5,room_height-(camHeight*0.5));
 		newX = clamp(x-(camWidth*0.5),0,room_width-(camWidth));
 		newY = clamp(y-(camHeight*0.5),0,room_height-(camHeight));
 		camera_set_view_pos(view_camera[0],newX,newY);

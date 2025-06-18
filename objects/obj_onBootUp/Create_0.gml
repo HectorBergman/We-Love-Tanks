@@ -2,8 +2,8 @@
 //please summon using this object.
 timer = 0;
 global.editorPause = false;
-//print(randomize());
-random_set_seed(1391546381);
+print(randomize());
+//random_set_seed(1391546381);
 window_set_cursor(cr_none); //hide pc cursorr
 room_goto(rm_menuBum);
 //room_goto(rm_startingRoom);
@@ -26,33 +26,7 @@ global.roomShapes = [ //this information is purely for knowing which room pool t
 	"giant",
 ]
 
-global.roomList =  [/*
- {
-   "roomName": "rm_room_test",
-   "type": "standard",
-   "difficulty": "1"
- },
- {
-   "roomName": "rm_room_test_2",
-   "type": "standard",
-   "difficulty": "1"
- },
- {
-   "roomName": "rm_room_test_3",
-   "type": "standard",
-   "difficulty": "1"
- },
- {
-	 "roomName": "rm_room_test_4",
-	 "type": "standard",
-	 "difficulty": "1",
- },
- {
-   "roomName": "rm_room_itemRoom_1",
-   "type": "item",
-   "difficulty": "0"
- }*/
-]
+
 window_set_size(display_get_width(),display_get_height());
 
 

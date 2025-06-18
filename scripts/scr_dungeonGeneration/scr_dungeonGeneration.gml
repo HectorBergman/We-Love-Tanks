@@ -7,7 +7,8 @@ enum doorTypes{//idk if this will be relevant
 function generateDungeon(){
 	rememberThisPrick = noone;
 	roomAmount = 0;
-	minRoom = 30;
+	minRoom = 15;
+	maxRooms = 20;
 	print("Generate dungeon: Start.");
 	itemRoomEdges = ds_list_create() //store edges in case room not big enough
 	ds_grid_clear(dungeonGrid,noone)
@@ -26,7 +27,7 @@ function generateDungeon(){
 	print(random_amalgamate());
 	print(random_amalgamate());print(random_amalgamate());
 	//currently crowns non-edge;
-	crownItemRoom(itemRoomEdges);
+	//crownItemRoom(itemRoomEdges);
 	print(roomAmount);
 	print("Generate dungeon: End.")
 }
@@ -101,11 +102,15 @@ function dungeon_generate(startCoords){
 	var newRoom = room_generate(startCoords[0],startCoords[1],[-2,-2]);
 	ds_grid_set(dungeonGrid, startCoords[0],startCoords[1], newRoom);
 	dungeon_addNeighbours(startCoords, newRoom, -1,queue, [1,1,1,1])
-
 	
 	while !ds_queue_empty(queue){
-		print("pop!");
-		dungeon_popEntry(queue);
+		if roomAmount >= maxRooms{
+			var _room = ds_queue_dequeue(queue)
+			_room.doors[_room.reverseDir] = 1;
+		}else{
+			print("pop!");
+			dungeon_popEntry(queue);
+		}
 	}
 }
 function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors = [-1,-1,-1,-1]){
@@ -263,16 +268,8 @@ function getDirReverse(xy){
 	print("dir not found!");
 	return -1
 }
-/*if array_equals(xy,[ 1,0 ]){
-		return 0;
-	}else if array_equals(xy,[ 0,-1 ]){
-		return 1
-	}else if array_equals(xy,[ -1,0 ]){
-		return 2
-	}else if array_equals(xy,[ 0,1 ]){
-		return 3
-	}
-*/
+
+
 /// @function list_delete_by_array(list, search_array)
 /// @description Deletes list entries that match either value in the search array
 /// @param {list} list_id The list to modify
