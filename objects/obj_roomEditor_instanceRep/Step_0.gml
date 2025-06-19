@@ -29,12 +29,15 @@ if selected && obj_inputHandler.copy&& !held && obj_roomEditor_dragger.held == n
 	
 }
 if held{
+	depth = heldDepth;
 	openDialogue = false;
 	var rounded_x = ceil((mouse_x+offset[0])/16)*16;
 	var rounded_y = ceil((mouse_y+offset[1])/16)*16;
 	x = rounded_x;
 	y = rounded_y;
 
+}else{
+	depth = truDepth;
 }
 
 if !held && mouse_check_button_pressed(mb_right) && place_meeting(x,y,obj_roomEditor_dragger){

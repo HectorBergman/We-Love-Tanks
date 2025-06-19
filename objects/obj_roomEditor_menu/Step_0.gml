@@ -27,12 +27,13 @@ switch (state){
 	case editorMenuStates.active:{
 		if place_meeting(x,y,obj_roomEditor_dragger){
 			if  mouse_check_button_pressed(mb_left){
-				tween = TweenFire(id,EaseOutQuad,0,false,0,30,"baseX",activeX,notActiveX);
-				activating = false;
-				state = editorMenuStates.transition;
-				deactivateDisplayObjects();
+				deactivateMenu();
 			}
 		}
+		if mouse_check_button_pressed(mb_right){
+			deactivateMenu();
+		}
+		
 		mask_index = spr_roomEditor_menu_hitbox;
 		var tempList = ds_list_create()
 		instance_place_list(x,y,obj_roomEditor_instanceRep,tempList,false)

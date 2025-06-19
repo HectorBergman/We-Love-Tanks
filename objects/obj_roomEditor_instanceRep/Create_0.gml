@@ -23,7 +23,7 @@ openDialogue = false;
 function drop(){
 	held = false;
 	justDropped = 2;
-	
+	depth = truDepth;
 }
 function destroyCorners(){
 	for (var i = 0; i < 4; i++){

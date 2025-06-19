@@ -34,6 +34,7 @@ switch (state){
 	case draggerState.none:{
 		var firstgrab = instance_place(x,y,obj_roomEditor_instanceRep_highlightCorners);
 		var highlight = instance_place(x,y,[obj_roomEditor_instanceRep,obj_roomEditor_dragable]);
+		var player = instance_place(x,y,[obj_player]);
 		if mouse_check_button(mb_left){
 			if firstgrab != noone{
 				grabbedCorner = firstgrab;
@@ -48,7 +49,7 @@ switch (state){
 					held = summonObject(obj_roomEditor_instanceRep,
 					[["x", highlight.x], ["y", highlight.y], 
 					["object", obj], ["ownEditable", []],
-					["depth", depth+1],["editable",global.potentialObjects[$ highlight._name].editable],
+					["depth", depth+1], ["truDepth", -121], ["heldDepth", depth+1], ["editable",global.potentialObjects[$ highlight._name].editable],
 					["held", true]]);
 				}else{
 					held = highlight
@@ -69,7 +70,20 @@ switch (state){
 				held.depth = depth+1
 				state = draggerState.grabbingInstance;
 				
+			}else if player != noone && grabbedPlayer == noone{
+				grabbedPlayer = player;
+				grabbedPlayerDepth = player.depth;
+				grabbedPlayer.depth = -140;
 			}
+		}else{
+			if grabbedPlayer != noone{
+				grabbedPlayer.depth = grabbedPlayerDepth;
+				grabbedPlayer = noone;
+			}
+		}
+		if grabbedPlayer != noone{	
+			grabbedPlayer.x = mouse_x;
+			grabbedPlayer.y = mouse_y;
 		}
 	}break;
 }

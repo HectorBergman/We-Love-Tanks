@@ -24,6 +24,12 @@ baseX = notActiveX;
 baseY = y;
 tween = noone;
 state = editorMenuStates.notActive
+function deactivateMenu(){
+	tween = TweenFire(id,EaseOutQuad,0,false,0,30,"baseX",activeX,notActiveX);
+	activating = false;
+	state = editorMenuStates.transition;
+	deactivateDisplayObjects();
+}
 
 function activateDisplayObjects(){
 	var keys = variable_struct_get_names(global.potentialObjects);
