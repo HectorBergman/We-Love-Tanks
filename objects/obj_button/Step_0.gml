@@ -26,7 +26,7 @@ if (truthStatement){ //hover over button
 		}else if action == 3{ //save button for lvl editor
 			var inst = instance_find(obj_roomEditorDialogue_prompt,0)
 			if inst == noone{
-				summonObject(obj_roomEditorDialogue_prompt,[["x", 40],["y",50]]);
+				summonObject(obj_roomEditorDialogue_prompt,[["x", 40],["y",50], ["depth", -190]]);
 			}else{
 				inst.active = true;
 				inst.visible = true;

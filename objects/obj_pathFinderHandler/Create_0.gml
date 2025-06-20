@@ -189,3 +189,4 @@ function hasWallNeighbour(middle){
 	}
 	return false;
 }
+ds_queue_clear(breadthQueue);

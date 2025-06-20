@@ -20,7 +20,7 @@ if selected && obj_inputHandler.copy&& !held && obj_roomEditor_dragger.held == n
 	var newInst = summonObject(obj_roomEditor_instanceRep, 
 	[["x", x+32],["y", y], ["object", object], 
 	 ["depth", 4], ["editable",editable],["ownEditable",ownEditableCopy],
-	 ["image_xscale", image_xscale],["image_yscale", image_yscale]]);
+	 ["image_xscale", image_xscale],["image_yscale", image_yscale], ["truDepth", truDepth], ["heldDepth", heldDepth]]);
 	newInst.held = false
 	newInst.selected = true;
 			

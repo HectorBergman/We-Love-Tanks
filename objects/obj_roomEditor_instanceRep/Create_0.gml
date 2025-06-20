@@ -49,4 +49,4 @@ function createCorners(){
 	}
 }
 
-dialogue = summonObject(obj_roomEditorDialogue, [["visible", false], ["parent", id], ["editable", editable], ["ownEditable", ownEditable]]);
+dialogue = summonObject(obj_roomEditorDialogue, [["visible", false], ["parent", id], ["editable", editable], ["ownEditable", ownEditable], ["depth", -190]]);

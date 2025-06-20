@@ -31,6 +31,5 @@ function generateGridSquares(){
 			increase++
 		}
 	}
-	obj_pathFinderHandler.howOften = 10;
 }
 

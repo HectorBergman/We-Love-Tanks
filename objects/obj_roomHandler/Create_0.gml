@@ -168,4 +168,18 @@ function loadRoom(){
 	}
 }
 
+loadRoom();
+loadInPreviousObjects();
+instancesLoaded = true;
+var _room = ds_grid_get(obj_roomHandler.dungeonGrid, currentRoom[0], currentRoom[1])
+if !is_undefined(_room){
+	_room.visited = true;
+	if instance_number(obj_enemy) == 0 && instance_number(obj_enemySpawner) == 0{
+		_room.cleared = true;
+	}else{
+		_room.cleared = false;
+	}
+}
+
+
 //{"instances":[[["object","@ref object(obj_wall)"],["ownEditable",[]],["editable",[]],["x",400.0],["y",16.0],["image_xscale",1.0],["image_yscale",6.0]]],"roomName":""}] 

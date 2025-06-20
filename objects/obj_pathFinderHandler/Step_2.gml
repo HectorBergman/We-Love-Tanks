@@ -1,7 +1,7 @@
 PAUSE
 howOften--
 timer--
-
+print("unpenis");
 var shallPass = false;
 isNewRoom--
 if editorException && timer < 1{

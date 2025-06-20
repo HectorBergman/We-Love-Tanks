@@ -3,7 +3,7 @@ draw_self()
 if lightUp{
 	draw_rectangle(x-16,y-16,x+16,y+16,false)
 }
-/*
+
 // Draw Event
 // Convert value to hue (0=red, 120=green, 240=blue)
 var hue = lerp(240, 0, (distance - 0) / (15 - 0));

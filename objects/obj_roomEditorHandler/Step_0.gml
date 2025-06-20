@@ -1,6 +1,8 @@
 if spawnSpawner{
 	spawnSpawner = false;
-	summonObject(obj_roomEditor_handlerSpawner);
+	with handhand{
+		editorHandlers_summon();
+	}
 }
 switch (state){
 	case editorHandlerStates.pickingRoom:{
@@ -69,10 +71,9 @@ switch (state){
 		inRoomLogic();
 		if obj_inputHandler.escape && obj_gameSettingHandler.gameState == gameStates.editorBuilding{
 			state = editorHandlerStates.pickingRoom;
-			instance_destroy(obj_pathFinderHandler);
-			instance_destroy(obj_itemHandler)
-			instance_destroy(obj_player);
-			instance_destroy(obj_crosshair);
+			with handhand{
+				editorHandlers_delete();
+			}
 			room_goto(rm_editorMenu);
 		}
 	}break;
