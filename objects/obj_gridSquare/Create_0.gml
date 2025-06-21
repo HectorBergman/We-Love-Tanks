@@ -1,4 +1,4 @@
-depth = 99
+depth =10
 activeBreadcrumb = noone;
 
 breadCrumbTimer = 1;

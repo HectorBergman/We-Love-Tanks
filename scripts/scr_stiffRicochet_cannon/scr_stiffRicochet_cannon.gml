@@ -78,9 +78,7 @@ function findBestRicochetAngle(){
 function searchRicochetArray(){
 	
 	for (var i = startAngle; i < 360; i = i+angleInterval){
-		/*print("====____====")
-		print(i)
-		print(ricochetArray[i])*/
+
 		if ricochetArray[i] < closestDistanceToPlayer{
 			chosenAngle = i
 			closestDistanceToPlayer = ricochetArray[i]

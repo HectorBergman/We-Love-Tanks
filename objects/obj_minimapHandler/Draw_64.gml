@@ -4,7 +4,6 @@
 for (var i = 0; i < 5; i++){
 	for (var j = 0; j < 5; j++){
 		var grid = ds_grid_get(roomsToDisplay, i, j)
-		print(grid);
 		if grid != undefined && grid != noone && grid != 0{
 
 			var _x = x+i*(rectangleWidth+doorWidth)

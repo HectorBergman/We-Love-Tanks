@@ -1,6 +1,7 @@
 PAUSE
 checkForDeath();
 loop_onTick();
+pickupMoney();
 if keyboard_check(vk_tab){
 	gothruwalls = true;
 }else{
@@ -18,6 +19,12 @@ if obj_inputHandler.run{
 	movementSpeed = runSpeed
 }else{
 	movementSpeed = regularSpeed;
+}
+
+if keyboard_check_pressed(ord("M")){
+	summonObject(obj_dollar, [["x", x], ["y", y], 
+			["dir", random_range(0,360)], ["velocity", random_range(0.1,1.5)],
+			["zSpeed", random_range(-4,-8)],["value", 100]]);
 }
 /*for (var i = 0; i < breadCrumbRadius*2; i++){
 	for (var j = 0; j < breadCrumbRadius*2; j++){

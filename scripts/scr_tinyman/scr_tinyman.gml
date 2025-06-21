@@ -1,4 +1,5 @@
 function tinyman_create(){
+	valueRange = [0.1,0.5];
 	createCannon = false;
 	movementSpeed = 3;
 	hp = 1;

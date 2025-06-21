@@ -6,12 +6,7 @@ print(randomize());
 //random_set_seed(1391546381);
 window_set_cursor(cr_none); //hide pc cursorr
 room_goto(rm_menuBum);
-//room_goto(rm_startingRoom);
 
-/*var buffer =  buffer_load("roomData.json");
-var _string = buffer_read(buffer, buffer_string);
-global.roomList = json_parse(_string);
-print(global.roomList);*/
 #macro PAUSE if global.editorPause{exit;}
 
 global.roomShapes = [ //this information is purely for knowing which room pool to generate from

@@ -3,6 +3,7 @@ global.editorPause = true;
 
 enum editorHandlerStates {
 	pickingRoom,
+	deleteAreYouSure,
 	pickingSize,
 	inRoom,
 }

@@ -27,12 +27,12 @@ lifeTime = 0;
 pathPoints = ds_list_create();
 maxPathLength = 100
 
-   // CREATE EVENT
-pathSurface = -1; // Will store our surface;
+
+pathSurface = -1; 
 
 
 
-// Initial values (put these in Create Event)
+
 growth_factor = 1;
 initial_radius = 1; // Starting size
 rotation_speed = 3; // Degrees per frame
@@ -55,5 +55,4 @@ function death(){
 	}
 	instance_destroy()
 }
-
 

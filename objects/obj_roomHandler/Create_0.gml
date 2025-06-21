@@ -24,7 +24,6 @@ function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
 	print("NEWROOM!")
 	print("currentRoom: ");
 	print(string(currentRoom[0]) + " + " + string(currentRoom[1]));
-	print("fucke");
 	print(roomNo);
 	storePreviousRoom();
 	if instance_number(obj_enemy) == 0 && instance_number(obj_enemySpawner) == 0{
@@ -42,11 +41,9 @@ function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
 	print(currentRoom);
 	var newRoom = ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1])
 	if inRange(currentRoom[0], 0, dungeonSize) && inRange(currentRoom[1],0,dungeonSize) && !is_undefined(newRoom) && newRoom != noone{
-		print("lulznewroom");
 		obj_currentRoomHandler.roomDoors = room_getAllDoors(newRoom);
 		print(newRoom.doors);
 		print(newRoom._room);
-		print("fuckass");
 		gotoRoom(newRoom._room);
 		enteredRoomNo = newRoom.roomShapeInfo.roomNo
 	}else{

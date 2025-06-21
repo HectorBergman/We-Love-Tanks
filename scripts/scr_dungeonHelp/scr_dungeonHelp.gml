@@ -28,8 +28,6 @@ function findRoomsByProperty(roomArray, propertyName, targetValue) {
 /// @returns {struct|undefined} Random room struct (or undefined if no matches)
 
 function pickRandomRoomByType(roomArray, roomType, roomShape) {
-	print("penis1");
-	print(roomArray);
     var matchingRooms = findRoomsByProperty(roomArray, "type", roomType);
     if (array_length(matchingRooms) == 0) {
         return undefined; // No matches found

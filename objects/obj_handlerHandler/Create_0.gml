@@ -28,7 +28,6 @@ function prepSummon(){
 	normSummoned = true;
 }
 function normal_summon(){
-	print("penor");
 	normPF = summonObject(obj_pathFinderHandler);
 	normItemHand = summonObject(obj_itemHandler);
 	normPlayer = summonObject(obj_player, [["x", 960/2], ["y", 540/2]]);

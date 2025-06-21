@@ -49,7 +49,9 @@ function playerInput(){
 	if keyboard_check_pressed(vk_space){
 		space = true;
 	}
-	
+	if keyboard_check_pressed(vk_delete){
+		del = true;
+	}
 }
 
 function resetInputs(){
@@ -69,4 +71,5 @@ function resetInputs(){
 	pressDown = false;
 	confirm = false;
 	space = false;
+	del = false;
 }

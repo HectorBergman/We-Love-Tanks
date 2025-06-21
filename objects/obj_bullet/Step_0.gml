@@ -21,6 +21,7 @@ if !(inRange(x,-32,room_width+32) && inRange(y,-32,room_height+32)){
 if (slowmovin mod 60 == 0){
 	lifeTime++
 	if object_index == obj_bullet_player{
+		pickupMoney();
 		loop_onBulletTravel();
 	}
 	findTags();

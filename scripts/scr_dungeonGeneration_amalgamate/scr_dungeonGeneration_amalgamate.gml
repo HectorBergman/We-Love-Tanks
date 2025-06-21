@@ -77,7 +77,6 @@ function room_loopAmalgamate(roomsArray,roomShape, arrLen){
 		}
 	}
 	var _room = pickRandomRoomByType(global.roomList,"standard",roomShape);
-	print("penus");
 	print(_room);
 	var fakeI = 0;
 	for (var i = 0; i < 4; i++){

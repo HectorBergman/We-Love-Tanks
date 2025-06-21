@@ -27,6 +27,22 @@ switch (state){
 				spawnSpawner = true;
 			}
 		}
+		if obj_inputHandler.del && chosenRoom != -1{
+			state = editorHandlerStates.deleteAreYouSure
+		}
+			
+	}break;
+	case editorHandlerStates.deleteAreYouSure:{
+		if obj_inputHandler.del{
+		
+			array_delete(availableRooms,chosenRoom,1);
+			saveData(availableRooms, fileName)
+			maxRooms -= 1
+			chosenRoom = -1
+			state = editorHandlerStates.pickingRoom;
+		}else if keyboard_check_pressed(vk_anykey){
+			state = editorHandlerStates.pickingRoom;
+		}
 	}break;
 	case editorHandlerStates.pickingSize:{
 		var input = obj_inputHandler.pressDown-obj_inputHandler.pressUp

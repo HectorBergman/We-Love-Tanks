@@ -49,3 +49,4 @@ function checkForDeath(){
 		death();
 	}
 }
+

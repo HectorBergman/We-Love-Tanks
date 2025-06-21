@@ -54,7 +54,6 @@ function addMoreRooms(edgeList,minRoom){
 				
 			}else{
 				ds_list_delete(edgeList,randomIndex);
-				print("dolla");
 				return addMoreRooms(edgeList,minRoom);
 			}
 			

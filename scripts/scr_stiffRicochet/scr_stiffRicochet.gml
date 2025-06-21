@@ -1,4 +1,5 @@
 function stiffRicochet_create(){
+	valueRange = [4,6];
 	_health = 1;
 	state = stiffRicochet.normal;
 
