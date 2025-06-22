@@ -1,7 +1,7 @@
 function hitOpponent(ownObject){
 	var target = noone;
 	if ownObject == obj_bullet_player{
-		target = obj_enemy_hitbox
+		target = [obj_enemy_hitbox, obj_boss_hitbox]
 	}else if ownObject == obj_bullet_enemy{
 		target = obj_player_visual
 	}
@@ -17,7 +17,7 @@ function hitOpponent(ownObject){
 function hitOpponentBullet(ownObject){
 	var target = noone
 	if ownObject == obj_bullet_player{
-		target = obj_bullet_enemy;
+		target = [obj_bullet_enemy]//, obj_bullet_boss]
 	}else if ownObject == obj_bullet_enemy{
 		target = obj_bullet_player;	
 	}

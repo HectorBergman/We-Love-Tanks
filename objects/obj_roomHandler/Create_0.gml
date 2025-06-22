@@ -1,24 +1,39 @@
-dungeonSize = 10; 
-currentRoom = [dungeonSize/2,dungeonSize/2];
-uniqueIDGiver = 0;
-dungeonGrid = ds_grid_create(dungeonSize, dungeonSize);
-allRooms = 0;
-roomList = noone;
-roomCoordsList = ds_list_create();
-roomList = ds_list_create();
+function initiateRoomHandler(){
+	dungeonSize = 10; 
+	currentRoom = [dungeonSize/2,dungeonSize/2];
+	uniqueIDGiver = 0;
+	dungeonGrid = ds_grid_create(dungeonSize, dungeonSize);
+	allRooms = 0;
+	roomList = noone;
+	roomCoordsList = ds_list_create();
+	roomList = ds_list_create();
 
-testEntity = noone;
-nextInstances = [];
-edgeList = ds_list_create();
-
-
-enteredRoomNo = 0;
-enteredDoorNo = 0;
-
-instancesLoaded = false;
+	testEntity = noone;
+	nextInstances = [];
+	edgeList = ds_list_create();
 
 
-dungeon = generateDungeon();
+	enteredRoomNo = 0;
+	enteredDoorNo = 0;
+
+	instancesLoaded = false;
+
+
+	dungeon = generateDungeon();
+	loadRoom();
+	loadInPreviousObjects();
+	instancesLoaded = true;
+	var _room = ds_grid_get(obj_roomHandler.dungeonGrid, currentRoom[0], currentRoom[1])
+	if !is_undefined(_room){
+		_room.visited = true;
+		if instance_number(obj_enemy) == 0 && instance_number(obj_enemySpawner) == 0{
+			_room.cleared = true;
+		}else{
+			_room.cleared = false;
+		}
+	}
+}
+initiateRoomHandler();
 
 function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
 	print("NEWROOM!")
@@ -165,18 +180,7 @@ function loadRoom(){
 	}
 }
 
-loadRoom();
-loadInPreviousObjects();
-instancesLoaded = true;
-var _room = ds_grid_get(obj_roomHandler.dungeonGrid, currentRoom[0], currentRoom[1])
-if !is_undefined(_room){
-	_room.visited = true;
-	if instance_number(obj_enemy) == 0 && instance_number(obj_enemySpawner) == 0{
-		_room.cleared = true;
-	}else{
-		_room.cleared = false;
-	}
-}
+
 
 
 //{"instances":[[["object","@ref object(obj_wall)"],["ownEditable",[]],["editable",[]],["x",400.0],["y",16.0],["image_xscale",1.0],["image_yscale",6.0]]],"roomName":""}] 

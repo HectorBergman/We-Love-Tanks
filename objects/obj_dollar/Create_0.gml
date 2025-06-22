@@ -17,14 +17,20 @@ enum coinStates{
 	stopped,
 }
 fakeX = x;
+fakeY = y;
 coinState = coinStates.flyUp;
 dollarState = dollarStates.flyUp;
 type = moneyType.dollar;
+image_angle = random_range(0,360);
+rotation = random_range(-2,2);
 z = -15;
 movementVector = [lengthdir_x(1,dir),lengthdir_y(1,dir)];
+movementVectorSway = [0,0]
 scale = 1;
-sway = 0;
+swayX = 0;
+swayY = 0;
 timer = 0;
+
 if value < 1{
 	sprite_index = spr_coin;
 	if value == 0.01{
@@ -46,34 +52,34 @@ featherVelocity = random_range(0.8,1.2);
 function dollarLogic(){
 	switch (dollarState){
 		case(dollarStates.flyUp):{
+			image_angle += rotation
 			zSpeed += 0.3
 			if zSpeed >= 0{
 				zSpeed = 0
 				dollarState = dollarStates.descend;
+				movementVectorSway = [lengthdir_x(1,image_angle),lengthdir_y(1,image_angle)];
 				
 			}
 		}break;
 		case(dollarStates.descend):{
 			zSpeed = 0.2
 			timer++
-			sway = featherDir*sin(timer/30)*featherVelocity*70
+			swayX = featherDir*sin(timer/30)*featherVelocity*70*movementVectorSway[0]
+			swayY = featherDir*sin(timer/30)*featherVelocity*70*movementVectorSway[1]
 			featherVelocity *= 0.999
 			if z >= 0{
 				scale = 1;
 				z = 0;
 				zSpeed = 0;
 				dollarState = dollarStates.land;
-				var momentarySway = featherDir*sin((timer+1)/30)*featherVelocity*70 - sway
-				var lerpVal = velocity/abs(momentarySway)
-				var blended_x = lerp(movementVector[0], sign(momentarySway), 1-lerpVal);
-			    var blended_y = lerp(movementVector[1], 0, 1-lerpVal);
-				print(velocity)
-				print(momentarySway)
-				print(velocity/abs(momentarySway))
-				print(movementVector);
-				print([blended_x,blended_y])
+				var momentarySwayX = featherDir*sin((timer+1)/30)*featherVelocity*70*movementVectorSway[0] - swayX
+				var momentarySwayY = featherDir*sin((timer+1)/30)*featherVelocity*70*movementVectorSway[1] - swayY
+				var lerpValX = velocity/abs(momentarySwayX)
+				var lerpValY = velocity/abs(momentarySwayY)
+				var blended_x = lerp(movementVector[0], sign(momentarySwayX), 1-lerpValX);
+			    var blended_y = lerp(movementVector[1], sign(momentarySwayY), 1-lerpValY);
 				movementVector = [blended_x,blended_y]
-				velocity += abs(momentarySway)
+				velocity += abs(momentarySwayX)
 			}
 		}break;
 		case(dollarStates.land):{
@@ -104,14 +110,5 @@ function coinLogic(){
 		}break;
 		case(coinStates.stopped):{}break;
 	}
-	var collisionAngle = collision_normal(x+movementVector[0]*velocity,y+movementVector[1]*velocity,obj_solid,3,1)
-	
-	if collisionAngle != -1{
-		var dot = movementVector[0] * cos(degtorad(collisionAngle)) + movementVector[1] * sin(degtorad(collisionAngle));
-		var reflectedVector = [];
-		reflectedVector[0] = movementVector[0] - 2 * dot * cos(degtorad(collisionAngle));
-		reflectedVector[1] = movementVector[1] - 2 * dot * sin(degtorad(collisionAngle));
-		movementVector[0] = reflectedVector[0]
-		movementVector[1] = reflectedVector[1]
-	}
+	ricochet(movementVector, velocity);
 }

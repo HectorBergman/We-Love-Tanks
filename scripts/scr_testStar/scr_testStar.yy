@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_testStar",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_testStar",
+  "parent":{
+    "name":"testboss",
+    "path":"folders/Objects/enemy/bosses/testboss.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -4,7 +4,7 @@ onBulletTravelItems = ds_list_create();
 
 allItems = ds_list_create();
 
-global.itemRoomPool = ["cactus","spinnyBullet", "backJack","caseOfAces"];
+/*global.itemRoomPool = ["cactus","spinnyBullet", "backJack","caseOfAces"];
 
 
 //in the future, create seperate lists or w/e for items that

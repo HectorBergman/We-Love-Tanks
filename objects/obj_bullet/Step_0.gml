@@ -27,14 +27,7 @@ if (slowmovin mod 60 == 0){
 	findTags();
 	timeSinceBounce++
 	
-	var collisionAngle = collision_normal(x+movementX(),y+movementY(),obj_solid,3,1)
-	
-	if collisionAngle != -1{
-		var dot = movementVector[0] * cos(degtorad(collisionAngle)) + movementVector[1] * sin(degtorad(collisionAngle));
-		reflectedVector[0] = movementVector[0] - 2 * dot * cos(degtorad(collisionAngle));
-		reflectedVector[1] = movementVector[1] - 2 * dot * sin(degtorad(collisionAngle));
-		movementVector[0] = reflectedVector[0]
-		movementVector[1] = reflectedVector[1]
+	if ricochet(movementVector, bulletSpeed){
 		bulletBounce();
 	}
 	

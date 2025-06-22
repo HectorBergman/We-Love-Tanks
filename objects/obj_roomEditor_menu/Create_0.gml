@@ -1,5 +1,6 @@
 global.enemyTypes = ["stiffNormal","braveheartNormal","stiffRicochet","tinyman","stiffBuckshot"]
-global.roomTypes = ["standard","item"]; 
+global.bossTypes = ["testStar"]
+global.roomTypes = ["standard","item","boss"]; 
 global.itemPools = ["itemRoom", "bossItem"];
 global.potentialObjects = {
 	Wall :  {object: obj_wall,  _name: "Wall",   editable:[]},
@@ -7,6 +8,7 @@ global.potentialObjects = {
 	Hole :  {object: obj_hole,  _name: "Hole",   editable:[]},
 	Enemy : {object: obj_enemySpawner, _name: "Enemy",  editable:[["enemyType",global.enemyTypes]]},
 	Item : {object: obj_itemSpawner, _name: "Item",  editable:[["itemPool",global.itemPools]]},
+	Boss : {object: obj_bossSpawner, _name: "Boss",  editable:[["bossType",global.bossTypes]]},
 }
 depth = -195
 enum editorMenuStates {

@@ -19,6 +19,7 @@ normPlayer = noone;
 normMinimapHand = noone;
 normMoneyHand = noone;
 normRH = noone;
+normLevelH = noone;
 
 normSummoned = false;
 lethimcook = false;
@@ -36,6 +37,7 @@ function normal_summon(){
 	normCurrRoom = summonObject(obj_currentRoomHandler);
 	normMinimapHand = summonObject(obj_minimapHandler);
 	normMoneyHand = summonObject(obj_moneyHandler);
+	normLevelH = summonObject(obj_levelHandler);
 	normSummoned = true;
 }
 function normal_delete(){

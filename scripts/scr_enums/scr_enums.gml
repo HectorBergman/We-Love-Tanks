@@ -81,6 +81,7 @@ function stringToEnum(str) {
         case "stiffRicochet":   return enemyTypes.stiffRicochet;
 		case "tinyman": return enemyTypes.tinyman;
 		case "stiffBuckshot": return enemyTypes.stiffBuckshot;
+		case "testStar": return bossTypes.testStar;
         default: exception_unhandled_handler(str + " is not an existing enemy type!")
     }
 }

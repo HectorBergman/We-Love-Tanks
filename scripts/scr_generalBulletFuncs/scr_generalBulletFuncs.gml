@@ -216,3 +216,18 @@ function pickupMoney(){
 	}
 	ds_list_destroy(list);
 }
+
+function ricochet(movementVector, velocity, radius = 3, spacing = 1){
+	var collisionAngle = collision_normal(x+movementVector[0]*velocity,y+movementVector[1]*velocity,obj_solid,radius,spacing)
+	
+	if collisionAngle != -1{
+		var dot = movementVector[0] * cos(degtorad(collisionAngle)) + movementVector[1] * sin(degtorad(collisionAngle));
+		var reflectedVector = [];
+		reflectedVector[0] = movementVector[0] - 2 * dot * cos(degtorad(collisionAngle));
+		reflectedVector[1] = movementVector[1] - 2 * dot * sin(degtorad(collisionAngle));
+		movementVector[0] = reflectedVector[0]
+		movementVector[1] = reflectedVector[1]
+		return true;
+	}
+	return false;
+}

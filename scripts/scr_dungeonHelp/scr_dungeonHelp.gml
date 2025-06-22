@@ -102,6 +102,62 @@ function crownItemRoom(edgeList){
 	}
 }
 
+function crownBossRoom(edgeList){
+	var randomIndex = irandom(ds_list_size(edgeList)-1)
+	var newList = ds_list_create();
+	var finished = false;
+	ds_list_copy(newList, edgeList);
+	var chosenRoom = noone;
+	var newRoom = noone;
+	while !(finished || ds_list_empty(newList)){
+		chosenRoom = ds_list_find_value(newList,randomIndex)
+		var brandRoom = chosenRoom
+		print(chosenRoom);
+		print(pickRandomRoomByType(global.roomList,"boss", "normal"));
+		var emptyDoors = getEmptyDoors(chosenRoom.doors, false);
+		if !chosenRoom.amalgamated && array_length(emptyDoors) != 0{
+			newRoom = pickRandomRoomByType(global.roomList,"boss", "normal")
+			brandRoom._room = newRoom;
+			var doors = brandRoom.doors;
+			var index1 = irandom(array_length(emptyDoors)-1)
+			doors[index1] = 2;
+			brandRoom.doors = doors;
+			var ind = ds_list_find_index(edgeList, chosenRoom);
+			ds_list_replace(edgeList, ind, brandRoom);
+			finished = true;
+		}else{
+			ds_list_delete(newList,randomIndex);
+		}
+	}
+	if !finished{
+		print("fuck,lol");
+	}else{
+		print("chosenROom")
+		print(chosenRoom);
+		print("newRoom");
+		print(newRoom);
+	}
+}
+
+
+function getEmptyDoors(doors,amalgamated){
+	var returnArray = []
+	var index = 0;
+	for (var i = 0; i < 4; i++){
+		if amalgamated{
+			for (var j = 0; j < 4; j++){
+				if !doors[j][i]{
+				returnArray[index] = [j,i]
+				}
+			}
+		}else{
+			if !doors[i]{
+				returnArray[index] = [i]
+			}
+		}
+	}
+	return returnArray;
+}
 function getRoomShapeTable(roomShape){
 	if roomShape == "normal"{
 		return [1,0,0,0];

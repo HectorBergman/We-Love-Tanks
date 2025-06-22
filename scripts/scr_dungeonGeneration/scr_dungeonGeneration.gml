@@ -27,7 +27,8 @@ function generateDungeon(){
 	print(random_amalgamate());
 	print(random_amalgamate());print(random_amalgamate());
 	//currently crowns non-edge;
-	//crownItemRoom(itemRoomEdges);
+	crownItemRoom(itemRoomEdges);
+	crownBossRoom(itemRoomEdges);
 	print(roomAmount);
 	print("Generate dungeon: End.")
 }
@@ -167,13 +168,13 @@ function room_generate(i,j,originXY){
 		newRoom = {_room : {roomName: "home", instances:[],difficulty: "0", roomShape: "normal"}, 
 		roomShape:global.roomShapes[0], 
 		roomShapeInfo: {roomNo: 0,leftOverEntities: ds_list_create(),roommates: [[i,j],[-229,-229],[-229,-229],[-229,-229]]}, 
-		edge: false, roomID : uniqueIDGiver, coords : [i,j], doors : [1,1,1,1],
+		edge: false, roomID : uniqueIDGiver, coords : [i,j], doors : [1,1,1,1], bossBeaten : false,
 		cleared: false,visited: true, originDir : getDir(originXY), reverseDir: getDirReverse(originXY), amalgamated: false}
 	}else{
 		newRoom = {_room : pickRandomRoomByType(global.roomList,"standard", "normal"), 
 		roomShape:global.roomShapes[0], 
 		roomShapeInfo: {roomNo: 0,leftOverEntities: ds_list_create(),roommates: [[i,j],[-229,-229],[-229,-229],[-229,-229]]}, 
-		edge: false/*somesortofisedgehere*/, roomID : uniqueIDGiver, coords : [i,j], doors : [0,0,0,0],
+		edge: false/*somesortofisedgehere*/, roomID : uniqueIDGiver, coords : [i,j], doors : [0,0,0,0], bossBeaten : false,
 		cleared: false,visited: false, originDir : getDir(originXY), reverseDir: getDirReverse(originXY), amalgamated: false}
 	}
 	return newRoom;
