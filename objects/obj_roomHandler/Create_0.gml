@@ -36,10 +36,6 @@ function initiateRoomHandler(){
 initiateRoomHandler();
 
 function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
-	print("NEWROOM!")
-	print("currentRoom: ");
-	print(string(currentRoom[0]) + " + " + string(currentRoom[1]));
-	print(roomNo);
 	storePreviousRoom();
 	if instance_number(obj_enemy) == 0 && instance_number(obj_enemySpawner) == 0{
 		print("clear")

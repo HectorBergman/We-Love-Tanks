@@ -114,13 +114,14 @@ function crownBossRoom(edgeList){
 		var brandRoom = chosenRoom
 		print(chosenRoom);
 		print(pickRandomRoomByType(global.roomList,"boss", "normal"));
-		var emptyDoors = getEmptyDoors(chosenRoom.doors, false);
+		var emptyDoors = getEmptyDoors(chosenRoom);
 		if !chosenRoom.amalgamated && array_length(emptyDoors) != 0{
 			newRoom = pickRandomRoomByType(global.roomList,"boss", "normal")
 			brandRoom._room = newRoom;
 			var doors = brandRoom.doors;
 			var index1 = irandom(array_length(emptyDoors)-1)
-			doors[index1] = 2;
+			var newIndex = emptyDoors[index1] 
+			doors[newIndex] = 2;
 			brandRoom.doors = doors;
 			var ind = ds_list_find_index(edgeList, chosenRoom);
 			ds_list_replace(edgeList, ind, brandRoom);
@@ -140,22 +141,26 @@ function crownBossRoom(edgeList){
 }
 
 
-function getEmptyDoors(doors,amalgamated){
+function getEmptyDoors(_room){
 	var returnArray = []
 	var index = 0;
+	print("emptyDoors")
+	print(_room);
 	for (var i = 0; i < 4; i++){
-		if amalgamated{
-			for (var j = 0; j < 4; j++){
-				if !doors[j][i]{
-				returnArray[index] = [j,i]
-				}
-			}
-		}else{
-			if !doors[i]{
-				returnArray[index] = [i]
+		
+		if _room.doors[i] == 0{
+			var xy = getXY(i);
+			var adjacentRoom = ds_grid_get(dungeonGrid,_room.coords[0]+xy[0],_room.coords[1]+xy[1])
+			print(adjacentRoom)
+			if adjacentRoom == noone{
+				print("wegotpast");
+				returnArray[index] = i
+				index++
 			}
 		}
+		
 	}
+	print(returnArray);
 	return returnArray;
 }
 function getRoomShapeTable(roomShape){

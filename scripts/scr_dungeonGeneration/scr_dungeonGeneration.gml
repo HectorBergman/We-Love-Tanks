@@ -1,3 +1,8 @@
+/// @function           
+/// @param {type}  
+/// @param {type} 
+/// @returns {type}
+
 enum doorTypes{//idk if this will be relevant
 	closed,
 	opened,
@@ -5,7 +10,6 @@ enum doorTypes{//idk if this will be relevant
 }
 
 function generateDungeon(){
-	rememberThisPrick = noone;
 	roomAmount = 0;
 	minRoom = 15;
 	maxRooms = 20;
@@ -33,6 +37,13 @@ function generateDungeon(){
 	print("Generate dungeon: End.")
 }
 
+
+/// @function			addMoreRooms(edgeList,minRoom)   
+/// @description Extends the dungeon with more rooms if room count is equal to 
+///minRoom, adding additional rooms to the edges in edgeList.
+/// @param {list}		edgeList , A list of all edge rooms (dead-ends) available in the dungeon
+/// @param {integer}	minRoom	 , The minimum amount of rooms required for the dungeon
+/// @returns {room}		The room added
 function addMoreRooms(edgeList,minRoom){
 	print("addingRooms");
 	if roomAmount < minRoom{
@@ -67,6 +78,15 @@ function addMoreRooms(edgeList,minRoom){
 		return -1
 	}
 }
+
+/// @function			room_extend(originRoomCoords, newRoomCoords) 
+/// @description 
+/// Adds room at given coordinates and connects it to the room at the origin coordinates
+/// Assumes rooms are orthogonally adjacent, overwrites room at new room coordinates
+/// @param {array}		originRoomCoords , the coords of the room to be extended onto
+/// @param {array}		newRoomCoords , the coords where the new room will be
+/// @returns {room}		room created
+
 function room_extend(originRoomCoords, newRoomCoords){
 	var XY = [originRoomCoords[0]-newRoomCoords[0],originRoomCoords[1]-newRoomCoords[1]]
 	var newRoom = room_generate(newRoomCoords[0],newRoomCoords[1],XY)
@@ -83,6 +103,13 @@ function room_extend(originRoomCoords, newRoomCoords){
 	return newRoom;
 	
 }
+
+
+/// @function			room_getEmptyNeighbours(roomCoords)
+/// @description Given coordinates to a room, returns all orthogonally adjacent room positions that do not hold a room
+/// Note: No check for if room is outside grid, but should work anyways
+/// @param {array}		roomCoords , the coords of the room to check
+/// @returns {array<array<integer>>}	an array of coords (array of 2 integers) that are the positions of the empty room spaces
 function room_getEmptyNeighbours(roomCoords){
 	var resultArr = [];
 	for (var i = 0; i < 4; i++){
@@ -95,6 +122,10 @@ function room_getEmptyNeighbours(roomCoords){
 	}
 	return resultArr
 }
+
+/// @function			dungeon_generate(startCoords)
+/// @description Runs dungeon_popEntry until queue is empty, resulting in a breadth-first dungeon generation
+/// @param {array}		startCoords , the coords from which the dungeon generation starts
 
 function dungeon_generate(startCoords){
 	var queue = ds_queue_create();
@@ -113,11 +144,23 @@ function dungeon_generate(startCoords){
 		}
 	}
 }
+
+
+/// @function			dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors = [-1,-1,-1,-1])
+
+/// Given the coordinates to a room, assigns doors to that room using doors_generate, and creates rooms 
+/// based on new doors (not including already existing doors). New rooms are added to the queue to be popped
+/// by dungeon_generate and dungeon_popEntry
+/// Note: assumes room already exists
+/// @param {array}		roomCoords , the coords of the room to add neighbours to
+/// @param {room}		_room , the room itself (redundant...?)
+/// @param {array}		incomingDir , the direction from which the room was generated in
+/// @param {queue}		queue , the queue to add new rooms onto
+/// @param {array}		forceDoors , If you need to force the doors to be some certain values, leave empty for no forced doors
 function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors = [-1,-1,-1,-1]){
 	//generate all doors and rooms. For each new room generated, iterate
 	var doors = [0,0,0,0]
 	if forceDoors[0] == -1{
-		//i think this is causing the rror, double check with the 8,1,doors print tomorrow
 		doors = 
 		doors_generate( //generates an array of doors, rooms that lead to existing rooms will return 1
 			[roomCoords[0],roomCoords[1]],
@@ -145,7 +188,6 @@ function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors 
 				print("AKA: " + string(roomCoords[0] + xy[0]) + " & " + string(roomCoords[1] +xy[1]));
 				var newRoom = room_generate(roomCoords[0]+xy[0],roomCoords[1]+xy[1],xy)
 				ds_grid_set(dungeonGrid,roomCoords[0]+xy[0],roomCoords[1]+xy[1],newRoom);
-				if array_equals([roomCoords[0]+xy[0],roomCoords[1]+xy[1]], [8,1]){rememberThisPrick = newRoom}
 				ds_list_add(roomCoordsList, [roomCoords[0]+xy[0],roomCoords[1]+xy[1]])
 				ds_queue_enqueue(queue,newRoom)
 			}
@@ -156,11 +198,27 @@ function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors 
 		}
 	}
 }
+
+
+
+/// @function			dungeon_popEntry(queue)
+/// @description Given a queue, pops the latest entry, adds it to the grid, and runs dungeon_addNeighbours on it
+/// Note: assumes queue is not empty
+/// @param {queue}		queue , the queue to pop
+
 function dungeon_popEntry(queue){
 	var entry = ds_queue_dequeue(queue)
 	ds_grid_set(dungeonGrid, entry.coords[0],entry.coords[1], entry);
 	dungeon_addNeighbours(entry.coords,entry,entry.reverseDir, queue)
 }
+
+
+/// @function			room_generate(i,j,originXY)
+/// @description Given coords and an integer vector normal, generates a basic room at those coordinates
+/// @param {integer}	i	the x-coordinate of the new room
+/// @param {integer}	j	the y-coordinate of the new room
+/// @param {array}		originXY	the direction from which the room was extended on to
+/// @returns {room}		the room generated
 function room_generate(i,j,originXY){
 	var newRoom = noone;
 	roomAmount++
@@ -180,6 +238,13 @@ function room_generate(i,j,originXY){
 	return newRoom;
 }
 
+
+/// @function			doors_generate(roomCoords,incomingDirection,doorChance)
+/// @description Given coords to a room, the direction from which the room was spawned, and door odds, generates doors to that room.
+/// @param {array}		roomCoords , the coords to the room
+/// @param {integer}	incomingDirection , the direction from which the room was generated
+/// @param {real}		doorChance , chance of spawning a door at any direction, between 0 and 1
+/// @returns {array<integer>}	array of size 4 containing all doors (1 being a door there, 0 being no door)
 function doors_generate(roomCoords,incomingDirection,doorChance){
 	doors = [0,0,0,0]
 	var noOtherDoors = true;
@@ -226,6 +291,13 @@ function doors_generate(roomCoords,incomingDirection,doorChance){
 	return doors;
 }
 
+
+
+/// @function			getXY(dir)
+/// @description Given a number from 0 to 3, returns an integer vector normal
+/// Numbers outside 0 to 3 returns a vector of -2 , -2
+/// @param {integer}	dir , number from 0 to 3, 0 being 0 degrees, with the other numbers increasing by 90 degrees each
+/// @returns {array<integer>}	array of size 2 containing the integer vector normal
 function getXY(dir){
 	if dir == 0{
 		return [1,0];
@@ -238,6 +310,13 @@ function getXY(dir){
 	}
 	return [-2,-2]
 }
+
+
+/// @function			getDir(xy)
+/// @description Given an integer vector normal, returns a number from 0 to 3, 0 being 0 degrees, with the other numbers increasing by 90 degrees each
+/// Arrays that are not 2-dimensional integer vector normals returns -1
+/// @param {array}		xy , integer vector normal
+/// @returns {integer}	array of size 2 containing the integer vector normal
 function getDir(xy){
 	print("dir:");
 	print(xy);
@@ -253,6 +332,13 @@ function getDir(xy){
 	print("dir not found!");
 	return -1
 }
+
+
+/// @function			getDir(xy)
+/// @description Given an integer vector normal, returns the result of getDir, but rotated 180 degrees.
+/// Arrays that are not 2-dimensional integer vector normals returns -1
+/// @param {array}		xy , integer vector normal
+/// @returns {integer}	array of size 2 containing the integer vector normal rotated 180 degrees
 function getDirReverse(xy){
 	print("dir:");
 	print(xy);
@@ -300,6 +386,11 @@ function list_delete_by_array(list_id, search_array) {
     return deleted_count;
 }
 
+/// @function  room_getAllDoors(_room)
+/// @description retrieves all doors belonging to that room and it's roommates
+/// @param {room} _room , room to retrieve from
+/// @returns {array<integer>} The doors
+
 function room_getAllDoors(_room){
 	var roomiesArr = _room.roomShapeInfo.roommates;
 	var doorsArr = [];
@@ -320,6 +411,10 @@ function room_getAllDoors(_room){
 	return doorsArr;
 }
 
+/// @function  room_clear(_room)
+/// @description sets the room's cleared status to true, also does this to the room's roommates
+/// Note: cleared means the room has been visited and rid of all it's enemies
+/// @param {room} _room , the room to clear
 function room_clear(_room){
 	var roomies = _room.roomShapeInfo.roommates
 	var len = array_length(roomies)
@@ -333,6 +428,9 @@ function room_clear(_room){
 		}
 	}
 }
+/// @function  room_visit(_room)
+/// @description sets the room's visited status to true, also does this to the room's roommates
+/// @param {room} _room , the room to visit
 function room_visit(_room){
 	var roomies = _room.roomShapeInfo.roommates
 	var len = array_length(roomies)
@@ -345,12 +443,6 @@ function room_visit(_room){
 	}
 }
 
-function getDirIndex(i,j){
-	if i == 1 && j == 0{
-	}else if i == -1 && j == 0{
-	}else if i == 0 && j == -1{
-	}
-}
 
 
 
