@@ -1,4 +1,6 @@
 function initiateRoomHandler(){
+	global.currentSeed = global.dungeonSeed;
+	random_set_seed(global.currentSeed);
 	dungeonSize = 10; 
 	currentRoom = [dungeonSize/2,dungeonSize/2];
 	uniqueIDGiver = 0;
@@ -32,6 +34,9 @@ function initiateRoomHandler(){
 			_room.cleared = false;
 		}
 	}
+	global.dungeonSeed = random_range(0, 4294967295)
+	randomize();
+	global.currentSeed = random_get_seed();
 }
 initiateRoomHandler();
 

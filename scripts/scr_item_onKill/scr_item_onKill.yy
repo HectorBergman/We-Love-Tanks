@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_item_onKill",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_item_onKill",
+  "parent":{
+    "name":"items",
+    "path":"folders/Objects/items.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

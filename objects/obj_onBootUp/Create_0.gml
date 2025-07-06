@@ -2,8 +2,12 @@
 //please summon using this object.
 timer = 0;
 global.editorPause = false;
+
 //print(randomize());
-random_set_seed(2234161838);
+//223416234
+random_set_seed(223416234);
+global.dungeonSeed = random_get_seed();
+global.currentSeed = global.dungeonSeed;
 window_set_cursor(cr_none); //hide pc cursorr
 room_goto(rm_menuBum);
 
@@ -22,7 +26,7 @@ global.roomShapes = [ //this information is purely for knowing which room pool t
 ]
 
 
-global.itemRoomPool = ["cactus","spinnyBullet", "backJack","caseOfAces"];
+global.itemRoomPool = ["cactus","spinnyBullet", "backJack","caseOfAces", "fanfare", "fullMetalJacket"];
 
 
 //in the future, create seperate lists or w/e for items that
@@ -60,6 +64,20 @@ global.items = {
 		infoText: "+4 Luck",
 		sprite: spr_item_caseOfAces,
 		onPickup: caseOfAces_onPickup
+	},
+	fanfare: {
+		name:"Fanfare!",
+		pickupText: "Ta taaaah!!",
+		infoText: "Enemies explode in + upon kill",
+		sprite: spr_item_fanfare,
+		onKill: fanfare_onKill
+	},
+	fullMetalJacket: {
+		name:"Full Metal Jacket",
+		pickupText: "I AM. IN A WORLD. OF $#!@.",
+		infoText: "+1 durability",
+		sprite: spr_item_FMJ,
+		onPickup: fullMetalJacket_onPickup
 	}
 }
 

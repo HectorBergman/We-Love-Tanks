@@ -1,7 +1,10 @@
 function caseOfAces_onPickup(){
 	luck += 4;
 }
-
+function fullMetalJacket_onPickup(){
+	cannon.bulletDurability += 1;
+	cannon.fullMetalJacket = true;
+}
 function find_onPickup(item){
 	var itemData = variable_instance_get(global.items, item);
 	if variable_instance_exists(global.items, item) && 

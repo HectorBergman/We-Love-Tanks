@@ -71,7 +71,7 @@ function addIfEdge(list,index, toAdd){
 }
 
 function crownItemRoom(edgeList){
-	var randomIndex = irandom(ds_list_size(edgeList)-1)
+	var randomIndex = irandom(ds_list_size(edgeList)-2)
 	var newList = ds_list_create();
 	var finished = false;
 	ds_list_copy(newList, edgeList);
@@ -82,9 +82,13 @@ function crownItemRoom(edgeList){
 		var brandRoom = chosenRoom
 		print(chosenRoom);
 		print(pickRandomRoomByType(global.roomList,"item", "normal"));
+		print(ds_list_size(newList))
+		print(randomIndex);
 		if !chosenRoom.amalgamated{
 			newRoom = pickRandomRoomByType(global.roomList,"item", "normal")
+			
 			brandRoom._room = newRoom;
+			brandRoom.roomType = "item"
 			var ind = ds_list_find_index(edgeList, chosenRoom);
 			ds_list_replace(edgeList, ind, brandRoom);
 			finished = true;
@@ -115,9 +119,11 @@ function crownBossRoom(edgeList){
 		print(chosenRoom);
 		print(pickRandomRoomByType(global.roomList,"boss", "normal"));
 		var emptyDoors = getEmptyDoors(chosenRoom);
-		if !chosenRoom.amalgamated && array_length(emptyDoors) != 0{
+		if !chosenRoom.amalgamated && array_length(emptyDoors) != 0 && chosenRoom.roomType == "standard"{
 			newRoom = pickRandomRoomByType(global.roomList,"boss", "normal")
+			
 			brandRoom._room = newRoom;
+			brandRoom.roomType = "boss"
 			var doors = brandRoom.doors;
 			var index1 = irandom(array_length(emptyDoors)-1)
 			var newIndex = emptyDoors[index1] 

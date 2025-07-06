@@ -49,6 +49,10 @@ function death(){
 	with hitbox{
 		id.death();
 	}
+	var dinfo = getDeceasedInfo(id)
+	with obj_player{
+		loop_onKill(dinfo)
+	}
 	instance_destroy();
 }
 

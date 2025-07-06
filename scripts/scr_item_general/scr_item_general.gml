@@ -15,6 +15,21 @@ function loop_onBulletTravel(){
 	}
 }
 
+function loop_onBulletImpact(){
+	for (var i = 0; i < ds_list_size(obj_itemHandler.currentItems); i++){
+		var item = ds_list_find_value(obj_itemHandler.currentItems, i);
+        var itemData = variable_instance_get(global.items, item);
+        
+        // Check if itemData exists and has onHit property
+        if (variable_instance_exists(global.items, item) && 
+            variable_instance_exists(itemData, "onBulletImpact")) {
+            var func = itemData.onBulletImpact;
+            method_call(func);
+        }
+	}
+}
+
+
 function loop_onHit(){
 	for (var i = 0; i < ds_list_size(obj_itemHandler.currentItems); i++){
 		var item = ds_list_find_value(obj_itemHandler.currentItems, i);
@@ -39,6 +54,19 @@ function loop_onFire(fireInfo){
             variable_instance_exists(itemData, "onFire")) {
             var func = itemData.onFire;
             method_call(func, [fireInfo]);
+        }
+	}
+}
+function loop_onKill(deadEnemy){
+	for (var i = 0; i < ds_list_size(obj_itemHandler.currentItems); i++){
+		var item = ds_list_find_value(obj_itemHandler.currentItems, i);
+        var itemData = variable_instance_get(global.items, item);
+        
+        // Check if itemData exists and has onHit property
+        if (variable_instance_exists(global.items, item) && 
+            variable_instance_exists(itemData, "onKill")) {
+            var func = itemData.onKill;
+            method_call(func, [deadEnemy]);
         }
 	}
 }

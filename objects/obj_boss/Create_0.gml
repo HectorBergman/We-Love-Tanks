@@ -42,6 +42,10 @@ function death(){
 	with hitbox{
 		id.death();
 	}
+	var dinfo = getDeceasedInfo(id)
+	with obj_player{
+		loop_onKill(dinfo)
+	}
 	obj_currentRoomHandler._room.bossBeaten = true;
 	instance_destroy();
 }

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_item_onBulletImpact",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_item_onBulletImpact",
+  "parent":{
+    "name":"items",
+    "path":"folders/Objects/items.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

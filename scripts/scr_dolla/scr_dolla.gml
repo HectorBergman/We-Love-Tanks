@@ -31,7 +31,6 @@ function dropMoney(valueRange){
 		print(val)
 		print(amtArr[i])
 		for (var j = 0; j < (amtArr[i]); j++){
-			print("are we in");
 			var zSpeed = 0;
 			if val >= 1{
 				zSpeed = random_range(-3,-6);

@@ -4,8 +4,8 @@ function movementX(){
 function movementY(){
 	return movementVector[1]*bulletSpeed;
 }
-
-
+print(parent.object_index);
+print(durability);
 collisionVector = [0,0];
 
 prevVector = [noone, noone];
@@ -31,7 +31,7 @@ maxPathLength = 100
 pathSurface = -1; 
 
 
-
+ignoreList = ds_list_create()
 
 growth_factor = 1;
 initial_radius = 1; // Starting size
@@ -49,10 +49,47 @@ function bulletBounce(){
 	}
 }
 
+function collide(collideEntity, isBullet){
+	if ds_list_find_index(ignoreList, collideEntity) != -1{
+		print("chickalaulau");
+		exit;
+	}else{
+		ds_list_add(ignoreList,collideEntity);
+	}
+	if !isBullet{
+		var dmg = damage;
+		with collideEntity.parent{
+			decreaseHealth(dmg);
+		}
+		death();
+	}else{
+		print("dd");
+		print(collideEntity);
+		decreaseDurability(collideEntity);
+	}
+}
+function decreaseDurability(collidedEntity){
+	print(collidedEntity);
+	var dura = durability;
+	durability -= collidedEntity.durability;
+	collidedEntity.durability -= dura;
+	if durability <= 0{
+		death();
+	}
+	if collidedEntity.durability <= 0{
+		with collidedEntity{
+			id.death()
+		}
+	}
+}
 function death(){
+	print("IMUSTDIE");
 	if increaseCount && instance_exists(parent){
 		parent.activeBullets--;
 	}
+	loop_onBulletTravel();
+	
 	instance_destroy()
+	exit;
 }
 

@@ -1,5 +1,5 @@
 function backJack_onFire(fireInfo){
-	ds_list_add(backJackList, [60,fireInfo]);
+	ds_list_add(backJackList, [60,[fireInfo.obj,fireInfo.bulletSpeed,fireInfo.bulletDamage,fireInfo.bulletAngle, fireInfo.bulletDurability]]);
 	
 }
 

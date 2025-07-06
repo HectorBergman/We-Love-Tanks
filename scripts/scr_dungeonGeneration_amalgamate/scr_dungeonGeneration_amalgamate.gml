@@ -1,28 +1,36 @@
 
 function random_amalgamate(){
-	var len = ds_list_size(roomCoordsList);
-	print(roomCoordsList);
-	var randomInt = irandom(len-1);
-	var chosenRoomCoords = ds_list_find_value(roomCoordsList,randomInt)
-	print(chosenRoomCoords);
-	print("hello");
-	var _room = ds_grid_get(dungeonGrid, chosenRoomCoords[0], chosenRoomCoords[1]);
-	if _room.amalgamated{
-		return "amalgamatefailure";
+	var attempts = 0;
+	var success = false;
+	while !success && attempts > 10{
+		var len = ds_list_size(roomCoordsList);
+		print(roomCoordsList);
+		var randomInt = irandom(len-1);
+		var chosenRoomCoords = ds_list_find_value(roomCoordsList,randomInt)
+		print(chosenRoomCoords);
+		print("hello");
+		var _room = ds_grid_get(dungeonGrid, chosenRoomCoords[0], chosenRoomCoords[1]);
+		
+		//check if an elegible shape even exists before trying to amalgamate
+		var shapeAndOr = chooseShapeAndOrientation(chosenRoomCoords);
+		if _room.amalgamated || shapeAndOr[0] == -229{
+			success = false;
+		}else{
+			success = true;
+		}
+		if success{
+			var startDir = amalgamate_getStart(chosenRoomCoords,shapeAndOr[1]);
+			var startPoint = [chosenRoomCoords[0]+startDir[0],chosenRoomCoords[1]+startDir[1]]
+			
+			var rooms = amalgamate_getSteps(startPoint,shapeAndOr[0]);
+			print(rooms);
+			print(shapeAndOr[0]);
+			print(global.roomShapes[shapeAndOr[0]]);
+			room_amalgamate(rooms,global.roomShapes[shapeAndOr[0]])
+		}
 	}
-	var shapeAndOr = chooseShapeAndOrientation(chosenRoomCoords);
-	if shapeAndOr[0] == -229{
-		return "amalgamatefailure";
-	}
-	var startDir = amalgamate_getStart(chosenRoomCoords,shapeAndOr[1]);
-	var startPoint = [chosenRoomCoords[0]+startDir[0],chosenRoomCoords[1]+startDir[1]]
 	
-	var rooms = amalgamate_getSteps(startPoint,shapeAndOr[0]);
-	print(rooms);
-	print(shapeAndOr[0]);
-	print(global.roomShapes[shapeAndOr[0]]);
-	room_amalgamate(rooms,global.roomShapes[shapeAndOr[0]])
-	return "amalgamatesuccess";
+	return "amalgamatesuccess: " + string(success);
 	
 	
 }
@@ -106,8 +114,10 @@ function room_loopAmalgamate(roomsArray,roomShape, arrLen){
 function chooseShapeAndOrientation(coords){
 	var neighbours = room_getAmalgamateCandidates(coords);
 	var legalShapes = determineLegalShapes(neighbours);
+	
 	print("legalshapes:");
 	print(legalShapes);
+	
 	var shapesArrays = legalShapes[0]
 	var totalLegalShapes = legalShapes[1]
 	var trueShapes = get_true_indexes(totalLegalShapes);
@@ -123,10 +133,7 @@ function chooseShapeAndOrientation(coords){
 			index++;
 		}
 	}
-	print(hasShape);
-	print(array_length(hasShape));
 	var randomNo = irandom(array_length(hasShape)-1)
-	print(randomNo);
 	var chosenPos = hasShape[randomNo];
 	print("thisPos");
 	print(chosenPos);
@@ -151,8 +158,12 @@ function room_getAmalgamateCandidates(coords){
 		for (var j = -1; j < 2; j++){
 			var neighbour = ds_grid_get(dungeonGrid,coords[0]+i,coords[1]+j);
 			print(neighbour);
-			if neighbour != noone && !is_undefined(neighbour) && !(coords[0]+i == 5 && coords[1]+j == 5) && !neighbour.amalgamated{
-				//if room exists and is not home room, its ok to amalgamate
+			if neighbour != noone && !is_undefined(neighbour) && !(coords[0]+i == 5 && coords[1]+j == 5)
+			&& !neighbour.amalgamated && neighbour.roomType == "standard" && !neighbour.edge{
+				//if room exists and is not home room, 
+				//non-standard room (e.g. item or boss),
+				//or edge,
+				//its ok to amalgamate
 				neighbourArr[index] = true
 			}else{
 				print("coord not allowed: [" + string(coords[0]+i) + "," + string(coords[1]+j) + "]");

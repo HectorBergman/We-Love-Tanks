@@ -1,0 +1,4 @@
+
+function hollowPoint_onBulletImpact(){
+
+}

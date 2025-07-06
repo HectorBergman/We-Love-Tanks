@@ -55,7 +55,7 @@ function stiffRicochet_step_cannon(){
 		stepAngle = gradualPointOverTime(chosenAngle, timeFromCalculationToFire-10) //no instant snap
 	}else if (shotCooldown mod shotCooldownTime == 0){
 		image_angle = chosenAngle;
-		fireBullet(obj_bullet_enemy, bulletSpeed, maxBounces,1,image_angle,20,true)
+		fireBullet(obj_bullet_enemy, bulletSpeed, maxBounces,1,image_angle,20,true, 1)
 		chosenAngle = -1;
 		closestDistanceToPlayer = 999999;
 	}else if(shotCooldown mod shotCooldownTime > shotCooldownTime-timeFromCalculationToFire+10){

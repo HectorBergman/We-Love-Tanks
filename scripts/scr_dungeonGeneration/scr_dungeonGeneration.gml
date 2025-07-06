@@ -1,4 +1,4 @@
-/// @function           
+	/// @function           
 /// @param {type}  
 /// @param {type} 
 /// @returns {type}
@@ -20,11 +20,6 @@ function generateDungeon(){
 
 	ds_list_copy(itemRoomEdges, edgeList)
 	
-	print("edgelist");
-	print(ds_list_size(edgeList));
-	for (var i = 0; i < ds_list_size(edgeList); i++){
-		print(ds_list_find_value(edgeList,i));
-	}
 	while roomAmount < minRoom{
 		addMoreRooms(edgeList,minRoom);
 	}
@@ -79,6 +74,18 @@ function addMoreRooms(edgeList,minRoom){
 	}
 }
 
+function reEdge(edgeList, oldRoom, newRoom){
+	oldRoom.edge = false;
+	newRoom.edge = true;
+	ds_list_delete(edgeList,ds_list_find_index(edgeList,oldRoom));
+	ds_list_add(edgeList,newRoom);
+}
+
+function deEdge(edgeList, _room){
+	_room.edge = false;
+	ds_list_delete(edgeList,ds_list_find_index(edgeList,_room));
+}
+
 /// @function			room_extend(originRoomCoords, newRoomCoords) 
 /// @description 
 /// Adds room at given coordinates and connects it to the room at the origin coordinates
@@ -94,10 +101,7 @@ function room_extend(originRoomCoords, newRoomCoords){
 	var dir = getDir(XY);
 	var revDir = getDirReverse(XY);
 	oldRoom.doors[revDir] = 1;
-	oldRoom.edge = false;
-	newRoom.edge = true;
-	ds_list_delete(edgeList,ds_list_find_index(edgeList,oldRoom));
-	ds_list_add(edgeList,newRoom);
+	reEdge(edgeList, oldRoom, newRoom)
 	newRoom.doors[dir] = 1;
 	ds_grid_set(dungeonGrid, newRoomCoords[0],newRoomCoords[1],newRoom);
 	return newRoom;
@@ -173,6 +177,13 @@ function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors 
 	_room.doors = doors
 	print("oneRun");
 	print(incomingDir);
+	var edgeDoors = [0,0,0,0]
+	if sign(incomingDir) != -1{
+		edgeDoors[incomingDir] = 1;
+	}
+	if !(array_equals(_room.doors, edgeDoors)){
+		deEdge(edgeList, _room);
+	}
 	for (var i = 0; i < 4; i++){
 		if i != incomingDir && doors[i]{
 			print("Wegotin!");
@@ -187,6 +198,7 @@ function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors 
 				print("addingnewCoords: " + string(roomCoords[0]) + " + " + string(xy[0]) + " & " + string(roomCoords[1]) + " + " + string(xy[1]));
 				print("AKA: " + string(roomCoords[0] + xy[0]) + " & " + string(roomCoords[1] +xy[1]));
 				var newRoom = room_generate(roomCoords[0]+xy[0],roomCoords[1]+xy[1],xy)
+				reEdge(edgeList, _room, newRoom)
 				ds_grid_set(dungeonGrid,roomCoords[0]+xy[0],roomCoords[1]+xy[1],newRoom);
 				ds_list_add(roomCoordsList, [roomCoords[0]+xy[0],roomCoords[1]+xy[1]])
 				ds_queue_enqueue(queue,newRoom)
@@ -224,13 +236,13 @@ function room_generate(i,j,originXY){
 	roomAmount++
 	if originXY[0] == -2 && originXY[1] == -2{ 
 		newRoom = {_room : {roomName: "home", instances:[],difficulty: "0", roomShape: "normal"}, 
-		roomShape:global.roomShapes[0], 
+		roomShape:global.roomShapes[0], roomType : "standard",
 		roomShapeInfo: {roomNo: 0,leftOverEntities: ds_list_create(),roommates: [[i,j],[-229,-229],[-229,-229],[-229,-229]]}, 
 		edge: false, roomID : uniqueIDGiver, coords : [i,j], doors : [1,1,1,1], bossBeaten : false,
 		cleared: false,visited: true, originDir : getDir(originXY), reverseDir: getDirReverse(originXY), amalgamated: false}
 	}else{
 		newRoom = {_room : pickRandomRoomByType(global.roomList,"standard", "normal"), 
-		roomShape:global.roomShapes[0], 
+		roomShape:global.roomShapes[0], roomType : "standard",
 		roomShapeInfo: {roomNo: 0,leftOverEntities: ds_list_create(),roommates: [[i,j],[-229,-229],[-229,-229],[-229,-229]]}, 
 		edge: false/*somesortofisedgehere*/, roomID : uniqueIDGiver, coords : [i,j], doors : [0,0,0,0], bossBeaten : false,
 		cleared: false,visited: false, originDir : getDir(originXY), reverseDir: getDirReverse(originXY), amalgamated: false}
