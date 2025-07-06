@@ -1,4 +1,7 @@
 PAUSE
+if keyboard_check_pressed(ord("J")) || keyboard_check_pressed(ord("K")){
+	summonObject(obj_levelTransition, [["x", x], ["y", y]]);
+}
 checkForDeath();
 loop_onTick();
 pickupMoney();

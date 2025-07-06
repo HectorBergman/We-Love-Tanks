@@ -11,7 +11,7 @@ enum doorTypes{//idk if this will be relevant
 
 function generateDungeon(){
 	roomAmount = 0;
-	minRoom = 15;
+	minRoom = 0;
 	maxRooms = 20;
 	print("Generate dungeon: Start.");
 	itemRoomEdges = ds_list_create() //store edges in case room not big enough
@@ -23,11 +23,20 @@ function generateDungeon(){
 	while roomAmount < minRoom{
 		addMoreRooms(edgeList,minRoom);
 	}
+	
 	print(random_amalgamate());
 	print(random_amalgamate());print(random_amalgamate());
 	//currently crowns non-edge;
 	crownItemRoom(itemRoomEdges);
 	crownBossRoom(itemRoomEdges);
+	print("itemRoomEdges:")
+	for (var i = 0; i < ds_list_size(itemRoomEdges); i++){
+		print(ds_list_find_value(edgeList,i));
+	}
+	print("edgelist:");
+	for (var i = 0; i < ds_list_size(edgeList); i++){
+		print(ds_list_find_value(edgeList,i));
+	}
 	print(roomAmount);
 	print("Generate dungeon: End.")
 }
@@ -75,13 +84,21 @@ function addMoreRooms(edgeList,minRoom){
 }
 
 function reEdge(edgeList, oldRoom, newRoom){
+	print("reedging");
+	print(oldRoom.coords)
+	print(newRoom.coords);
+	print("---");
 	oldRoom.edge = false;
 	newRoom.edge = true;
 	ds_list_delete(edgeList,ds_list_find_index(edgeList,oldRoom));
-	ds_list_add(edgeList,newRoom);
+	if (findRoomIndexByCoords(edgeList, newRoom.coords) == -1){
+		ds_list_add(edgeList, newRoom);
+	}
 }
 
 function deEdge(edgeList, _room){
+	print("deedging");
+	print(_room.coords);
 	_room.edge = false;
 	ds_list_delete(edgeList,ds_list_find_index(edgeList,_room));
 }
@@ -298,7 +315,9 @@ function doors_generate(roomCoords,incomingDirection,doorChance){
 	theRoom._room.isEdge = noOtherDoors;
 	if noOtherDoors{
 		print("noOtherDoors")
-		ds_list_add(edgeList, theRoom);
+		if (findRoomIndexByCoords(edgeList, theRoom.coords) == -1){
+			ds_list_add(edgeList, theRoom);
+		}
 	}
 	return doors;
 }
@@ -456,6 +475,36 @@ function room_visit(_room){
 }
 
 
+/// @function findRoomIndexByCoords(room_list, target_coords)
+/// @param {ds_list} room_list The array of room data structures to search through
+/// @param {array} target_coords The [x,y] coordinates to search for (e.g., [2,2])
+/// @returns {real} The index of the matching room, or -1 if not found
+
+function findRoomIndexByCoords(room_list, target_coords) {
+    print("----\nfRIBC:");
+    var target_x = target_coords[0];
+    var target_y = target_coords[1];
+    print(target_coords);
+    // Loop through all rooms in the list
+    for (var i = 0; i < ds_list_size(room_list); i++) {
+		print(string(i) + ": ");
+        var _room = ds_list_find_value(room_list,i);
+        print(_room);
+        // Check if this room has the matching coordinates
+        if (variable_struct_exists(_room, "coords")) {
+            var room_coords = _room.coords;
+            
+            if (is_array(room_coords) && array_length(room_coords) >= 2) {
+                if (room_coords[0] == target_x && room_coords[1] == target_y) {
+					print("match found!");
+                    return i; // Found matching room
+                }
+            }
+        }
+    }
+    print("-----");
+    return -1; // No matching room found
+}
 
 
 

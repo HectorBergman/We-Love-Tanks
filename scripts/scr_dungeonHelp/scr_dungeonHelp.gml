@@ -90,6 +90,8 @@ function crownItemRoom(edgeList){
 			brandRoom._room = newRoom;
 			brandRoom.roomType = "item"
 			var ind = ds_list_find_index(edgeList, chosenRoom);
+			print("roomReplaced:");
+			print(ds_list_find_value(edgeList, ind).coords);
 			ds_list_replace(edgeList, ind, brandRoom);
 			finished = true;
 		}else{
@@ -107,7 +109,12 @@ function crownItemRoom(edgeList){
 }
 
 function crownBossRoom(edgeList){
-	var randomIndex = irandom(ds_list_size(edgeList)-1)
+	print("edgeliste:")
+	print("----------");
+	for (var i = 0; i < ds_list_size(edgeList)-1; i++){
+		print(ds_list_find_value(edgeList,i));
+	}
+	var randomIndex = irandom(ds_list_size(edgeList)-2)
 	var newList = ds_list_create();
 	var finished = false;
 	ds_list_copy(newList, edgeList);
@@ -116,6 +123,9 @@ function crownBossRoom(edgeList){
 	while !(finished || ds_list_empty(newList)){
 		chosenRoom = ds_list_find_value(newList,randomIndex)
 		var brandRoom = chosenRoom
+		print("-----");
+		print(ds_list_size(newList));
+		print(randomIndex)
 		print(chosenRoom);
 		print(pickRandomRoomByType(global.roomList,"boss", "normal"));
 		var emptyDoors = getEmptyDoors(chosenRoom);
@@ -130,6 +140,8 @@ function crownBossRoom(edgeList){
 			doors[newIndex] = 2;
 			brandRoom.doors = doors;
 			var ind = ds_list_find_index(edgeList, chosenRoom);
+			print("roomReplaced:");
+			print(ds_list_find_value(edgeList, ind).coords);
 			ds_list_replace(edgeList, ind, brandRoom);
 			finished = true;
 		}else{
