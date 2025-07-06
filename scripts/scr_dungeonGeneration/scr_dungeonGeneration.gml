@@ -11,18 +11,21 @@ enum doorTypes{//idk if this will be relevant
 
 function generateDungeon(){
 	roomAmount = 0;
-	minRoom = 15;
-	maxRooms = 20;
+	minRoom = 20;
+	maxRooms = 30;
 	print("Generate dungeon: Start.");
 	itemRoomEdges = ds_list_create() //store edges in case room not big enough
 	ds_grid_clear(dungeonGrid,noone)
 	dungeon_generate([5,5]);
 
-	ds_list_copy(itemRoomEdges, edgeList)
 	
+	if roomAmount < minRoom{
+		print("moreRoomsNeeded");
+	}
 	while roomAmount < minRoom{
 		addMoreRooms(edgeList,minRoom);
 	}
+	ds_list_copy(itemRoomEdges, edgeList)
 	print(random_amalgamate());
 	print(random_amalgamate());print(random_amalgamate());
 	//currently crowns non-edge;
@@ -43,12 +46,11 @@ function addMoreRooms(edgeList,minRoom){
 	print("addingRooms");
 	if roomAmount < minRoom{
 		var len = ds_list_size(edgeList);
-		print(len);
 		if len > 1{
-			print("wein");
+
 			var randomIndex = irandom(len-1);
 			var roomCandidate = ds_list_find_value(edgeList,randomIndex);
-			print(roomCandidate);
+
 			var emptyNeighboursArr = room_getEmptyNeighbours(roomCandidate.coords);
 			len = array_length(emptyNeighboursArr)
 			if len > 0{
@@ -75,9 +77,17 @@ function addMoreRooms(edgeList,minRoom){
 }
 
 function reEdge(edgeList, oldRoom, newRoom){
+	print("reedge")
+	
+	var index = find_room_index_by_coords(edgeList,oldRoom.coords)
+	if index == -1{
+		if !array_equals(oldRoom.coords, [5,5]) && oldRoom.edge{
+			print("Index is -1, we are so fucked lol");
+		}
+	}
+	ds_list_delete(edgeList,index);
 	oldRoom.edge = false;
 	newRoom.edge = true;
-	ds_list_delete(edgeList,ds_list_find_index(edgeList,oldRoom));
 	ds_list_add(edgeList,newRoom);
 }
 
@@ -104,6 +114,7 @@ function room_extend(originRoomCoords, newRoomCoords){
 	reEdge(edgeList, oldRoom, newRoom)
 	newRoom.doors[dir] = 1;
 	ds_grid_set(dungeonGrid, newRoomCoords[0],newRoomCoords[1],newRoom);
+	ds_grid_set(dungeonGrid, originRoomCoords[0], originRoomCoords[0], oldRoom);
 	return newRoom;
 	
 }
@@ -169,14 +180,13 @@ function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors 
 		doors_generate( //generates an array of doors, rooms that lead to existing rooms will return 1
 			[roomCoords[0],roomCoords[1]],
 			incomingDir,
-			0.33
+			0.1
 		)
 	}else{
 		doors = forceDoors;
 	}
 	_room.doors = doors
-	print("oneRun");
-	print(incomingDir);
+
 	var edgeDoors = [0,0,0,0]
 	if sign(incomingDir) != -1{
 		edgeDoors[incomingDir] = 1;
@@ -186,15 +196,14 @@ function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors 
 	}
 	for (var i = 0; i < 4; i++){
 		if i != incomingDir && doors[i]{
-			print("Wegotin!");
+		
 			var xy = getXY(i);
-			print(xy);
+
 			var adjacentRoom = ds_grid_get(dungeonGrid, roomCoords[0]+xy[0],roomCoords[1]+xy[1])
 			print(adjacentRoom);
 			if adjacentRoom == noone{ //Skip if room already exists
 				print("THESEARETHEROOMCOORDS:");
 				print(roomCoords);
-				print(_room);
 				print("addingnewCoords: " + string(roomCoords[0]) + " + " + string(xy[0]) + " & " + string(roomCoords[1]) + " + " + string(xy[1]));
 				print("AKA: " + string(roomCoords[0] + xy[0]) + " & " + string(roomCoords[1] +xy[1]));
 				var newRoom = room_generate(roomCoords[0]+xy[0],roomCoords[1]+xy[1],xy)
@@ -407,13 +416,13 @@ function room_getAllDoors(_room){
 	var roomiesArr = _room.roomShapeInfo.roommates;
 	var doorsArr = [];
 	for (var i = 0; i < 4; i++){
-		print(roomiesArr);
+
 		if roomiesArr[i][0] != -229{
 			var cRoom = ds_grid_get(dungeonGrid, roomiesArr[i][0], roomiesArr[i][1])
 			print("roomie: " + string(roomiesArr[i][0]) + " n " + string(roomiesArr[i][1]));
 		
 			print("hello");
-			print(cRoom);
+
 			doorsArr[i] = cRoom.doors;
 		}else{
 			doorsArr[i] = [0,0,0,0];

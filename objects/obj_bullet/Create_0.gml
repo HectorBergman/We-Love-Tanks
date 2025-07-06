@@ -4,8 +4,7 @@ function movementX(){
 function movementY(){
 	return movementVector[1]*bulletSpeed;
 }
-print(parent.object_index);
-print(durability);
+
 collisionVector = [0,0];
 
 prevVector = [noone, noone];
@@ -51,7 +50,7 @@ function bulletBounce(){
 
 function collide(collideEntity, isBullet){
 	if ds_list_find_index(ignoreList, collideEntity) != -1{
-		print("chickalaulau");
+
 		exit;
 	}else{
 		ds_list_add(ignoreList,collideEntity);
@@ -63,13 +62,12 @@ function collide(collideEntity, isBullet){
 		}
 		death();
 	}else{
-		print("dd");
-		print(collideEntity);
+
 		decreaseDurability(collideEntity);
 	}
 }
 function decreaseDurability(collidedEntity){
-	print(collidedEntity);
+
 	var dura = durability;
 	durability -= collidedEntity.durability;
 	collidedEntity.durability -= dura;
@@ -83,7 +81,7 @@ function decreaseDurability(collidedEntity){
 	}
 }
 function death(){
-	print("IMUSTDIE");
+
 	if increaseCount && instance_exists(parent){
 		parent.activeBullets--;
 	}

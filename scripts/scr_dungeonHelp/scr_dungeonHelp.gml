@@ -32,10 +32,9 @@ function pickRandomRoomByType(roomArray, roomType, roomShape) {
     if (array_length(matchingRooms) == 0) {
         return undefined; // No matches found
     }
-	print(matchingRooms);
+
     var matchingRoomShapes = findRoomsByProperty(matchingRooms, "roomShape", roomShape);
-	print("shapes");
-	print(matchingRoomShapes);
+
     // Pick a random index from the filtered list
     var randomIndex = irandom(array_length(matchingRoomShapes) - 1);
     return matchingRoomShapes[randomIndex];
@@ -71,7 +70,32 @@ function addIfEdge(list,index, toAdd){
 }
 
 function crownItemRoom(edgeList){
-	var randomIndex = irandom(ds_list_size(edgeList)-2)
+	print("running: crownItemRoom");
+	print("All items in edgeList: ")
+	for (var i = 0; i < ds_list_size(edgeList); i++){
+		var item = ds_list_find_value(edgeList,i);
+		print("item number " + string(i) + ":");
+		print(item)
+		if item.edge != 1{
+			print(item.edge)
+			print("NOT AN EDGE IN EDGELIST!!!");
+			print("NOT AN EDGE IN EDGELIST!!!");
+			print("NOT AN EDGE IN EDGELIST!!!");
+			print("NOT AN EDGE IN EDGELIST!!!");
+			print("NOT AN EDGE IN EDGELIST!!!");
+			print("NOT AN EDGE IN EDGELIST!!!");
+			print("NOT AN EDGE IN EDGELIST!!!");
+			print("NOT AN EDGE IN EDGELIST!!!");
+			print("NOT AN EDGE IN EDGELIST!!!");
+			print("NOT AN EDGE IN EDGELIST!!!");
+			print("NOT AN EDGE IN EDGELIST!!!");
+			print("NOT AN EDGE IN EDGELIST!!!");
+			ds_list_delete(edgeList, find_room_index_by_coords(edgeList, item.coords));
+			exit;
+		}
+		
+	}
+	var randomIndex = irandom(ds_list_size(edgeList)-1)
 	var newList = ds_list_create();
 	var finished = false;
 	ds_list_copy(newList, edgeList);
@@ -80,11 +104,7 @@ function crownItemRoom(edgeList){
 	while !(finished || ds_list_empty(newList)){
 		chosenRoom = ds_list_find_value(newList,randomIndex)
 		var brandRoom = chosenRoom
-		print(chosenRoom);
-		print(pickRandomRoomByType(global.roomList,"item", "normal"));
-		print(ds_list_size(newList))
-		print(randomIndex);
-		if !chosenRoom.amalgamated{
+		if !chosenRoom.amalgamated && chosenRoom.edge{
 			newRoom = pickRandomRoomByType(global.roomList,"item", "normal")
 			
 			brandRoom._room = newRoom;
@@ -92,6 +112,8 @@ function crownItemRoom(edgeList){
 			var ind = ds_list_find_index(edgeList, chosenRoom);
 			ds_list_replace(edgeList, ind, brandRoom);
 			finished = true;
+			print("itemCoords:")
+			print(brandRoom.coords);
 		}else{
 			ds_list_delete(newList,randomIndex);
 		}
@@ -116,10 +138,8 @@ function crownBossRoom(edgeList){
 	while !(finished || ds_list_empty(newList)){
 		chosenRoom = ds_list_find_value(newList,randomIndex)
 		var brandRoom = chosenRoom
-		print(chosenRoom);
-		print(pickRandomRoomByType(global.roomList,"boss", "normal"));
 		var emptyDoors = getEmptyDoors(chosenRoom);
-		if !chosenRoom.amalgamated && array_length(emptyDoors) != 0 && chosenRoom.roomType == "standard"{
+		if !chosenRoom.amalgamated && array_length(emptyDoors) != 0 && chosenRoom.roomType == "standard" && chosenRoom.edge{
 			newRoom = pickRandomRoomByType(global.roomList,"boss", "normal")
 			
 			brandRoom._room = newRoom;
@@ -131,6 +151,8 @@ function crownBossRoom(edgeList){
 			brandRoom.doors = doors;
 			var ind = ds_list_find_index(edgeList, chosenRoom);
 			ds_list_replace(edgeList, ind, brandRoom);
+			print("bossCoords:")
+			print(brandRoom.coords);
 			finished = true;
 		}else{
 			ds_list_delete(newList,randomIndex);
@@ -150,23 +172,21 @@ function crownBossRoom(edgeList){
 function getEmptyDoors(_room){
 	var returnArray = []
 	var index = 0;
-	print("emptyDoors")
-	print(_room);
 	for (var i = 0; i < 4; i++){
 		
 		if _room.doors[i] == 0{
 			var xy = getXY(i);
 			var adjacentRoom = ds_grid_get(dungeonGrid,_room.coords[0]+xy[0],_room.coords[1]+xy[1])
-			print(adjacentRoom)
+
 			if adjacentRoom == noone{
-				print("wegotpast");
+
 				returnArray[index] = i
 				index++
 			}
 		}
 		
 	}
-	print(returnArray);
+
 	return returnArray;
 }
 function getRoomShapeTable(roomShape){
@@ -189,4 +209,33 @@ function getRoomShapeTable(roomShape){
 	}else{
 		return [1,0,0,0]
 	}
+}
+
+/// @function find_room_index_by_coords(room_list, target_coords)
+/// @param {ds_list} room_list The list of room data structures to search through
+/// @param {array} target_coords The [x,y] coordinates to search for (e.g., [2,2])
+/// @returns {real} The index of the matching room, or -1 if not found
+
+function find_room_index_by_coords(room_list, target_coords) {
+	print("findroomindexbycoords:")
+    var target_x = target_coords[0];
+    var target_y = target_coords[1];
+    print(target_coords);
+	print("---");
+    // Loop through all rooms in the list
+    for (var i = 0; i < ds_list_size(room_list); i++) {
+        var _room = ds_list_find_value(edgeList,i);
+    
+        var room_coords = _room.coords;
+		print(room_coords);
+            
+ 
+        if (room_coords[0] == target_x && room_coords[1] == target_y) {
+			print("w");
+            return i; // Found matching room
+        }
+        
+    }
+    print("fail");
+    return -1; // No matching room found
 }
