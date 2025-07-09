@@ -89,7 +89,7 @@ function room_loopAmalgamate(roomsArray,roomShape, arrLen){
 	var fakeI = 0;
 	for (var i = 0; i < 4; i++){
 		if roomShapeTable[i] == 0{
-			array_insert(roomsArray, i, [-229,-229]);
+			array_insert(roomsArray, i, undefinedCoords);
 			continue;
 		}
 		var curRoom = ds_grid_get(dungeonGrid,roomsArray[i][0],roomsArray[i][1]);
@@ -105,7 +105,7 @@ function room_loopAmalgamate(roomsArray,roomShape, arrLen){
 		fakeI++
 	}
 	for (var i = 0; i < array_length(roomsArray); i++){
-		if roomsArray[i] != [-229,-229]{
+		if roomsArray[i] != undefinedCoords{
 			list_delete_by_array(roomCoordsList, roomsArray[i]);
 		}
 	}
@@ -122,7 +122,7 @@ function chooseShapeAndOrientation(coords){
 	var totalLegalShapes = legalShapes[1]
 	var trueShapes = get_true_indexes(totalLegalShapes);
 	if array_length(trueShapes)-1 < 0{
-		return[-229,-229]
+		return undefinedCoords
 	}
 	var chosenShape = trueShapes[irandom(array_length(trueShapes)-1)];
 	var hasShape = [];
@@ -215,7 +215,7 @@ function amalgamate_getSteps(startCoords, shape){
 	}else if shape == 7{
 		return [startCoords, [startCoords[0]+1, startCoords[1]],[startCoords[0],startCoords[1]+1],[startCoords[0]+1,startCoords[1]+1]];
 	}else{
-		return [[-229,-229]];
+		return [undefinedCoords];
 	}
 }
 //	0 = "normal",1 ="long",2 ="tall",3 = "topLeftAbsent",4 = "topRightAbsent",

@@ -65,7 +65,7 @@ function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
 		gotoRoom(newRoom._room);
 		enteredRoomNo = newRoom.roomShapeInfo.roomNo
 	}else{
-		currentRoom = [-229,-229];
+		currentRoom = undefinedCoords;
 		gotoRoom("error");
 		print(currentRoom)
 		print(newRoom);

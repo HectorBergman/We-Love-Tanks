@@ -3,6 +3,9 @@
 /// @param {type} 
 /// @returns {type}
 
+#macro undefinedDir [-2,-2]
+#macro undefinedCoords [-229,-229]
+
 enum doorTypes{//idk if this will be relevant
 	closed,
 	opened,
@@ -11,21 +14,25 @@ enum doorTypes{//idk if this will be relevant
 
 function generateDungeon(){
 	roomAmount = 0;
-	minRoom = 0;
-	maxRooms = 20;
+	minRoom = 30;
+	maxRooms = 40;
 	print("Generate dungeon: Start.");
 	itemRoomEdges = ds_list_create() //store edges in case room not big enough
 	ds_grid_clear(dungeonGrid,noone)
 	dungeon_generate([5,5]);
 
-	ds_list_copy(itemRoomEdges, edgeList)
+
 	
 	while roomAmount < minRoom{
 		addMoreRooms(edgeList,minRoom);
 	}
-	
+		ds_list_copy(itemRoomEdges, edgeList)
 	print(random_amalgamate());
 	print(random_amalgamate());print(random_amalgamate());
+	print("Edgesss:")
+	for (var i = 0; i < ds_list_size(edgeList); i++){
+		print(ds_list_find_value(edgeList,i).coords);
+	}
 	//currently crowns non-edge;
 	crownItemRoom(itemRoomEdges);
 	crownBossRoom(itemRoomEdges);
@@ -47,21 +54,21 @@ function generateDungeon(){
 ///minRoom, adding additional rooms to the edges in edgeList.
 /// @param {list}		edgeList , A list of all edge rooms (dead-ends) available in the dungeon
 /// @param {integer}	minRoom	 , The minimum amount of rooms required for the dungeon
-/// @returns {room}		The room added
+/// @returns {struct}		The room added
 function addMoreRooms(edgeList,minRoom){
 	print("addingRooms");
-	if roomAmount < minRoom{
-		var len = ds_list_size(edgeList);
-		print(len);
-		if len > 1{
+	if roomAmount < minRoom{ //add another room
+		var edgeListLength = ds_list_size(edgeList);
+		
+		if edgeListLength > 0{
 			print("wein");
-			var randomIndex = irandom(len-1);
+			var randomIndex = irandom(edgeListLength-1);
 			var roomCandidate = ds_list_find_value(edgeList,randomIndex);
 			print(roomCandidate);
 			var emptyNeighboursArr = room_getEmptyNeighbours(roomCandidate.coords);
-			len = array_length(emptyNeighboursArr)
-			if len > 0{
-				var randomIndexCR = irandom(len-1);
+			var emptyNeighboursAmt = array_length(emptyNeighboursArr)
+			if emptyNeighboursAmt > 0{
+				var randomIndexCR = irandom(emptyNeighboursAmt-1);
 				var chosenRoomCoords = emptyNeighboursArr[randomIndexCR]
 
 				print("generating... at coords: " + string(chosenRoomCoords));
@@ -74,12 +81,13 @@ function addMoreRooms(edgeList,minRoom){
 			}
 			
 		}else{
+			//couldnt find any edges to extend
 			var lol = noone;
 			lol.fail = 1;
 		}
-	}else{
+	}else{ //dont add another room
 		print("unnecessary");
-		return -1
+		return {fail:-1}
 	}
 }
 
@@ -90,6 +98,8 @@ function reEdge(edgeList, oldRoom, newRoom){
 	print("---");
 	oldRoom.edge = false;
 	newRoom.edge = true;
+	print("fuckeeadad")
+	print(ds_list_find_index(edgeList,oldRoom));
 	ds_list_delete(edgeList,ds_list_find_index(edgeList,oldRoom));
 	if (findRoomIndexByCoords(edgeList, newRoom.coords) == -1){
 		ds_list_add(edgeList, newRoom);
@@ -109,7 +119,7 @@ function deEdge(edgeList, _room){
 /// Assumes rooms are orthogonally adjacent, overwrites room at new room coordinates
 /// @param {array}		originRoomCoords , the coords of the room to be extended onto
 /// @param {array}		newRoomCoords , the coords where the new room will be
-/// @returns {room}		room created
+/// @returns {struct}	room created
 
 function room_extend(originRoomCoords, newRoomCoords){
 	var XY = [originRoomCoords[0]-newRoomCoords[0],originRoomCoords[1]-newRoomCoords[1]]
@@ -117,9 +127,11 @@ function room_extend(originRoomCoords, newRoomCoords){
 	var oldRoom = ds_grid_get(dungeonGrid,originRoomCoords[0],originRoomCoords[1]);
 	var dir = getDir(XY);
 	var revDir = getDirReverse(XY);
+	//Ensure path is open between both rooms
 	oldRoom.doors[revDir] = 1;
 	reEdge(edgeList, oldRoom, newRoom)
 	newRoom.doors[dir] = 1;
+	
 	ds_grid_set(dungeonGrid, newRoomCoords[0],newRoomCoords[1],newRoom);
 	return newRoom;
 	
@@ -151,7 +163,7 @@ function room_getEmptyNeighbours(roomCoords){
 function dungeon_generate(startCoords){
 	var queue = ds_queue_create();
 	//start the breadth-first generation to generate rooms
-	var newRoom = room_generate(startCoords[0],startCoords[1],[-2,-2]);
+	var newRoom = room_generate(startCoords[0],startCoords[1],undefinedDir);
 	ds_grid_set(dungeonGrid, startCoords[0],startCoords[1], newRoom);
 	dungeon_addNeighbours(startCoords, newRoom, -1,queue, [1,1,1,1])
 	
@@ -254,13 +266,13 @@ function room_generate(i,j,originXY){
 	if originXY[0] == -2 && originXY[1] == -2{ 
 		newRoom = {_room : {roomName: "home", instances:[],difficulty: "0", roomShape: "normal"}, 
 		roomShape:global.roomShapes[0], roomType : "standard",
-		roomShapeInfo: {roomNo: 0,leftOverEntities: ds_list_create(),roommates: [[i,j],[-229,-229],[-229,-229],[-229,-229]]}, 
+		roomShapeInfo: {roomNo: 0,leftOverEntities: ds_list_create(),roommates: [[i,j],undefinedCoords,undefinedCoords,undefinedCoords]}, 
 		edge: false, roomID : uniqueIDGiver, coords : [i,j], doors : [1,1,1,1], bossBeaten : false,
 		cleared: false,visited: true, originDir : getDir(originXY), reverseDir: getDirReverse(originXY), amalgamated: false}
 	}else{
 		newRoom = {_room : pickRandomRoomByType(global.roomList,"standard", "normal"), 
 		roomShape:global.roomShapes[0], roomType : "standard",
-		roomShapeInfo: {roomNo: 0,leftOverEntities: ds_list_create(),roommates: [[i,j],[-229,-229],[-229,-229],[-229,-229]]}, 
+		roomShapeInfo: {roomNo: 0,leftOverEntities: ds_list_create(),roommates: [[i,j],undefinedCoords,undefinedCoords,undefinedCoords]}, 
 		edge: false/*somesortofisedgehere*/, roomID : uniqueIDGiver, coords : [i,j], doors : [0,0,0,0], bossBeaten : false,
 		cleared: false,visited: false, originDir : getDir(originXY), reverseDir: getDirReverse(originXY), amalgamated: false}
 	}
@@ -339,7 +351,7 @@ function getXY(dir){
 	}else if dir == 3{
 		return [0,1]
 	}
-	return [-2,-2]
+	return undefinedDir
 }
 
 
