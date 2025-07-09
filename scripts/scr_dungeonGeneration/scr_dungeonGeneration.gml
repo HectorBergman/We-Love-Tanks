@@ -26,24 +26,20 @@ function generateDungeon(){
 	while roomAmount < minRoom{
 		addMoreRooms(edgeList,minRoom);
 	}
-		ds_list_copy(itemRoomEdges, edgeList)
+	
+	
+	//crash at seed 1711476497
 	print(random_amalgamate());
 	print(random_amalgamate());print(random_amalgamate());
 	print("Edgesss:")
 	for (var i = 0; i < ds_list_size(edgeList); i++){
 		print(ds_list_find_value(edgeList,i).coords);
 	}
-	//currently crowns non-edge;
+	
+	ds_list_copy(itemRoomEdges, edgeList)
 	crownItemRoom(itemRoomEdges);
 	crownBossRoom(itemRoomEdges);
-	print("itemRoomEdges:")
-	for (var i = 0; i < ds_list_size(itemRoomEdges); i++){
-		print(ds_list_find_value(edgeList,i));
-	}
-	print("edgelist:");
-	for (var i = 0; i < ds_list_size(edgeList); i++){
-		print(ds_list_find_value(edgeList,i));
-	}
+	
 	print(roomAmount);
 	print("Generate dungeon: End.")
 }
@@ -98,8 +94,6 @@ function reEdge(edgeList, oldRoom, newRoom){
 	print("---");
 	oldRoom.edge = false;
 	newRoom.edge = true;
-	print("fuckeeadad")
-	print(ds_list_find_index(edgeList,oldRoom));
 	ds_list_delete(edgeList,ds_list_find_index(edgeList,oldRoom));
 	if (findRoomIndexByCoords(edgeList, newRoom.coords) == -1){
 		ds_list_add(edgeList, newRoom);
