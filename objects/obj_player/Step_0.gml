@@ -1,5 +1,5 @@
 PAUSE
-if keyboard_check_pressed(ord("J")) || keyboard_check_pressed(ord("K")){
+if keyboard_check(ord("J")) || keyboard_check_pressed(ord("K")){
 	summonObject(obj_levelTransition, [["x", x], ["y", y]]);
 }
 checkForDeath();

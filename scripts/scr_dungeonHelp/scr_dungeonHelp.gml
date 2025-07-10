@@ -1,9 +1,11 @@
+#macro dungeonLimits [0,9]
+
 /// @function findRoomsByProperty(roomArray, propertyName, targetValue)
 /// @description Returns array of room names where the specified property matches targetValue
 /// @param {array} roomArray     Array of room structs
 /// @param {string} propertyName Property to check (e.g. "Type", "Difficulty")
 /// @param {any} targetValue     Value to match (e.g. "undefined", "boss")
-/// @returns {array} Matching room names
+/// @returns {array<struct>} Matching room names
 
 function findRoomsByProperty(roomArray, propertyName, targetValue) {
     var foundRooms = [];
@@ -71,7 +73,7 @@ function addIfEdge(list,index, toAdd){
 }
 
 function crownItemRoom(edgeList){
-	var randomIndex = irandom(ds_list_size(edgeList)-2)
+	var randomIndex = irandom(ds_list_size(edgeList)-1)
 	var newList = ds_list_create();
 	var finished = false;
 	ds_list_copy(newList, edgeList);
@@ -92,7 +94,7 @@ function crownItemRoom(edgeList){
 			var ind = ds_list_find_index(edgeList, chosenRoom);
 			print("roomReplaced:");
 			print(ds_list_find_value(edgeList, ind).coords);
-			ds_list_replace(edgeList, ind, brandRoom);
+			ds_list_delete(edgeList, ind);
 			finished = true;
 		}else{
 			ds_list_delete(newList,randomIndex);
@@ -109,18 +111,19 @@ function crownItemRoom(edgeList){
 }
 
 function crownBossRoom(edgeList){
-	print("edgeliste:")
-	print("----------");
-	for (var i = 0; i < ds_list_size(edgeList)-1; i++){
-		print(ds_list_find_value(edgeList,i));
-	}
-	var randomIndex = irandom(ds_list_size(edgeList)-2)
-	var newList = ds_list_create();
+	
+	var randomIndex = 0
 	var finished = false;
-	ds_list_copy(newList, edgeList);
+	var newList = edgeList;
 	var chosenRoom = noone;
 	var newRoom = noone;
 	while !(finished || ds_list_empty(newList)){
+		print("edgeliste:")
+		print("----------");
+		for (var i = 0; i < ds_list_size(edgeList); i++){
+			print(ds_list_find_value(edgeList,i));
+		}
+		randomIndex = irandom(ds_list_size(newList)-1)
 		chosenRoom = ds_list_find_value(newList,randomIndex)
 		var brandRoom = chosenRoom
 		print("-----");

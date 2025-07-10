@@ -5,7 +5,7 @@ global.editorPause = false;
 
 //print(randomize());
 //223416234
-random_set_seed(168739167);
+random_set_seed(3305809835);
 global.dungeonSeed = random_get_seed();
 global.currentSeed = global.dungeonSeed;
 window_set_cursor(cr_none); //hide pc cursorr

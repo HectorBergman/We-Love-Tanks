@@ -29,8 +29,8 @@ function generateDungeon(){
 	
 	
 	//crash at seed 1711476497
-	print(random_amalgamate());
-	print(random_amalgamate());print(random_amalgamate());
+	//print(random_amalgamate());
+	//print(random_amalgamate());print(random_amalgamate());
 	print("Edgesss:")
 	for (var i = 0; i < ds_list_size(edgeList); i++){
 		print(ds_list_find_value(edgeList,i).coords);
@@ -39,6 +39,8 @@ function generateDungeon(){
 	ds_list_copy(itemRoomEdges, edgeList)
 	crownItemRoom(itemRoomEdges);
 	crownBossRoom(itemRoomEdges);
+
+	//crownItemRoom(itemRoomEdges);
 	
 	print(roomAmount);
 	print("Generate dungeon: End.")
@@ -66,7 +68,6 @@ function addMoreRooms(edgeList,minRoom){
 			if emptyNeighboursAmt > 0{
 				var randomIndexCR = irandom(emptyNeighboursAmt-1);
 				var chosenRoomCoords = emptyNeighboursArr[randomIndexCR]
-
 				print("generating... at coords: " + string(chosenRoomCoords));
 				print([roomCandidate.coords[0]-chosenRoomCoords[0],roomCandidate.coords[1]-chosenRoomCoords[1]]);
 				return room_extend(roomCandidate.coords, chosenRoomCoords)
