@@ -14,22 +14,32 @@ enum doorTypes{//idk if this will be relevant
 
 function generateDungeon(){
 	roomAmount = 0;
-	minRoom = 30;
-	maxRooms = 40;
+	//Minrooms affects how many rooms the dungeon need to have at LEAST,
+	//if the dungeon naturally generates an amount of rooms below minRooms,
+	//it will create new rooms connected to edge rooms until it's hit the minRooms No
+	//This will result in rooms exhibiting snake-like formations.
+	//Maybe fix to make it not so obvious?
+	minRooms = 20;
+	maxRooms = 30;
 	print("Generate dungeon: Start.");
 	itemRoomEdges = ds_list_create() //store edges in case room not big enough
 	ds_grid_clear(dungeonGrid,noone)
 	dungeon_generate([5,5]);
-
-
+	var addMoreRoomsList = ds_list_create();
 	
-	while roomAmount < minRoom{
-		addMoreRooms(edgeList,minRoom);
+	
+	while roomAmount < minRooms{
+		ds_list_copy(addMoreRoomsList, edgeList);
+		addMoreRooms(addMoreRoomsList,edgeList,minRooms);
 	}
 	
 	
 	//crash at seed 1711476497
-	//print(random_amalgamate());
+	print(random_amalgamate());
+	print(random_amalgamate());
+	print(random_amalgamate());
+	
+
 	//print(random_amalgamate());print(random_amalgamate());
 	print("Edgesss:")
 	for (var i = 0; i < ds_list_size(edgeList); i++){
@@ -53,10 +63,10 @@ function generateDungeon(){
 /// @param {list}		edgeList , A list of all edge rooms (dead-ends) available in the dungeon
 /// @param {integer}	minRoom	 , The minimum amount of rooms required for the dungeon
 /// @returns {struct}		The room added
-function addMoreRooms(edgeList,minRoom){
+function addMoreRooms(addMoreRoomList,edgeList,minRoom){
 	print("addingRooms");
 	if roomAmount < minRoom{ //add another room
-		var edgeListLength = ds_list_size(edgeList);
+		var edgeListLength = ds_list_size(addMoreRoomList);
 		
 		if edgeListLength > 0{
 			print("wein");
@@ -73,14 +83,14 @@ function addMoreRooms(edgeList,minRoom){
 				return room_extend(roomCandidate.coords, chosenRoomCoords)
 				
 			}else{
-				ds_list_delete(edgeList,randomIndex);
-				return addMoreRooms(edgeList,minRoom);
+				print("fuckass");
+				ds_list_delete(addMoreRoomList,randomIndex);
+				return addMoreRooms(addMoreRoomList, edgeList,minRoom);
 			}
 			
 		}else{
 			//couldnt find any edges to extend
-			var lol = noone;
-			lol.fail = 1;
+			minRooms = roomAmount
 		}
 	}else{ //dont add another room
 		print("unnecessary");
@@ -224,7 +234,6 @@ function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors 
 				var newRoom = room_generate(roomCoords[0]+xy[0],roomCoords[1]+xy[1],xy)
 				reEdge(edgeList, _room, newRoom)
 				ds_grid_set(dungeonGrid,roomCoords[0]+xy[0],roomCoords[1]+xy[1],newRoom);
-				ds_list_add(roomCoordsList, [roomCoords[0]+xy[0],roomCoords[1]+xy[1]])
 				ds_queue_enqueue(queue,newRoom)
 			}
 		}else{
@@ -270,7 +279,10 @@ function room_generate(i,j,originXY){
 		roomShapeInfo: {roomNo: 0,leftOverEntities: ds_list_create(),roommates: [[i,j],undefinedCoords,undefinedCoords,undefinedCoords]}, 
 		edge: false/*somesortofisedgehere*/, roomID : uniqueIDGiver, coords : [i,j], doors : [0,0,0,0], bossBeaten : false,
 		cleared: false,visited: false, originDir : getDir(originXY), reverseDir: getDirReverse(originXY), amalgamated: false}
+		
+		ds_list_add(roomCoordsList, newRoom.coords)
 	}
+	
 	return newRoom;
 }
 

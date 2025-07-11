@@ -13,7 +13,10 @@ for (var i = 0; i < 5; i++){
 			if grid.roomType == "item"{
 				roomColor = c_yellow;
 			}
-			if grid.edge{
+			if grid.amalgamated{
+				borderColor = c_blue;
+			}
+			else if grid.edge{
 				borderColor = c_red;
 			}
 			var _x = x+i*(rectangleWidth+doorWidth)

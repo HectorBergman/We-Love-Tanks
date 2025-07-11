@@ -1,14 +1,13 @@
 
 function random_amalgamate(){
+	print("Amalgamate: START!");
 	var attempts = 0;
 	var success = false;
-	while !success && attempts > 10{
+	while !success && attempts < 10{
 		var len = ds_list_size(roomCoordsList);
 		print(roomCoordsList);
 		var randomInt = irandom(len-1);
 		var chosenRoomCoords = ds_list_find_value(roomCoordsList,randomInt)
-		print(chosenRoomCoords);
-		print("hello");
 		var _room = ds_grid_get(dungeonGrid, chosenRoomCoords[0], chosenRoomCoords[1]);
 		
 		//check if an elegible shape even exists before trying to amalgamate
@@ -28,6 +27,7 @@ function random_amalgamate(){
 			print(global.roomShapes[shapeAndOr[0]]);
 			room_amalgamate(rooms,global.roomShapes[shapeAndOr[0]])
 		}
+		attempts++;
 	}
 	
 	return "amalgamatesuccess: " + string(success);
