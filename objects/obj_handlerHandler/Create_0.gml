@@ -6,8 +6,11 @@ rePF = noone;
 reItemHand = noone;
 reCrosshair = noone;
 reCam = noone;
+reParticle = noone;
+
 reSummoned = false;
 reSummon = false; 
+
 
 
 normCam = noone;
@@ -20,6 +23,7 @@ normMinimapHand = noone;
 normMoneyHand = noone;
 normRH = noone;
 normLevelH = noone;
+normParticle = noone;
 
 normSummoned = false;
 lethimcook = false;
@@ -38,6 +42,7 @@ function normal_summon(){
 	normMinimapHand = summonObject(obj_minimapHandler);
 	normMoneyHand = summonObject(obj_moneyHandler);
 	normLevelH = summonObject(obj_levelHandler);
+	normParticle = summonObject(obj_particleHandler);
 	normSummoned = true;
 }
 function normal_delete(){
@@ -59,6 +64,7 @@ function editorHandlers_summon(){
 	if instance_number(obj_button) == 0{summonObject(obj_button, [["x", 0], ["y", 0],["action", 3]]);}
 	if instance_number(obj_crosshair) == 0{reCrosshair = summonObject(obj_crosshair, [["x", 960/2], ["y", 540/2]]);}
 	if instance_number(obj_cam) == 0{reCam = summonObject(obj_cam);}
+	if instance_number(obj_particleHandler) == 0{reParticle = summonObject(obj_particleHandler);}
 	reSummoned = true;
 }
 

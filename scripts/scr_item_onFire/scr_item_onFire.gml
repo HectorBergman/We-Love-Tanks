@@ -1,6 +1,6 @@
 function backJack_onFire(fireInfo){
-	ds_list_add(backJackList, [60,[fireInfo.obj,fireInfo.bulletSpeed,fireInfo.bulletDamage,fireInfo.bulletAngle, fireInfo.bulletDurability]]);
-	
+	ds_list_add(backJackList, [60,fireInfo]);
+	//fireInfo.obj,fireInfo.bulletSpeed,fireInfo.bulletBounces, fireInfo.bulletDamage,  fireInfo.bulletAngle, fireInfo.bulletDurability
 }
 
 /*// Golden Ratio (φ ≈ 1.618) and Golden Angle (≈137.508°)

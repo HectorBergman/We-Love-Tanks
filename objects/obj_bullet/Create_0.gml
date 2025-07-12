@@ -4,10 +4,9 @@ function movementX(){
 function movementY(){
 	return movementVector[1]*bulletSpeed;
 }
-print(parent.object_index);
-print(durability);
+image_alpha = 0.1;
 collisionVector = [0,0];
-
+summonObject(obj_bulletTrail, [["parent", id]]);
 prevVector = [noone, noone];
 timeSinceBounce = 0;
 

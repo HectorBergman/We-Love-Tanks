@@ -1,3 +1,4 @@
+global.newRoom = true;
 function initiateRoomHandler(){
 	global.currentSeed = global.dungeonSeed;
 	random_set_seed(global.currentSeed);
@@ -43,6 +44,8 @@ function initiateRoomHandler(){
 initiateRoomHandler();
 
 function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
+	SignalSend("new room");
+	global.newRoom = true;
 	storePreviousRoom();
 	if instance_number(obj_enemy) == 0 && instance_number(obj_enemySpawner) == 0{
 		print("clear")

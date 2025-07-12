@@ -3,6 +3,8 @@
 timer = 0;
 global.editorPause = false;
 
+global.__signals = new SignalController();
+
 //print(randomize());
 //223416234
 random_set_seed(3305809835);

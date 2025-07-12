@@ -12,7 +12,7 @@ function spinnyBullet_onBulletTravel(){
 		_angle = (_angle + _golden_angle*_radius) mod 360;
 
 		// Update movement vector (preserve speed)
-		bulletDamage += 0.005
+		damage += (0.005*parent.bulletSpeed);
 		bulletSpeed *= 0.999999
 		
 		// Update movement vector
