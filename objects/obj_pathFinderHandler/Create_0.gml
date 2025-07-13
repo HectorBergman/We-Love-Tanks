@@ -1,3 +1,4 @@
+pauseMode = pM.pauseMenu;
 gridMap = ds_map_create();
 
 breadthQueue = ds_queue_create();

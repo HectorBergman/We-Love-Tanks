@@ -1,5 +1,5 @@
-loadRoom();
 loadInPreviousObjects();
+loadRoom();
 instancesLoaded = true;
 var _room = ds_grid_get(obj_roomHandler.dungeonGrid, currentRoom[0], currentRoom[1])
 if !is_undefined(_room){
@@ -10,5 +10,4 @@ if !is_undefined(_room){
 		_room.cleared = false;
 	}
 }
-
 

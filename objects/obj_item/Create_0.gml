@@ -1,3 +1,4 @@
+pauseMode = pM.all;
 floatingValue = 0;
 floatingAdd = 0.03;
 

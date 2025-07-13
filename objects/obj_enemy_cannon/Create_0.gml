@@ -1,3 +1,4 @@
+pauseMode = parent.pauseMode;
 type = parent.type
 
 

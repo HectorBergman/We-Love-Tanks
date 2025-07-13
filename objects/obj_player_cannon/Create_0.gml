@@ -1,3 +1,4 @@
+pauseMode = pM.all;
 x = parent.x
 y = parent.y
 activeBullets = 0;

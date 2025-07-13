@@ -1,3 +1,4 @@
+display_set_gui_size(camWidth, camHeight);
 switch (obj_gameSettingHandler.gameState){
 	case gameStates.editorBuilding:{
 		x = x + (obj_inputHandler.moveRight-obj_inputHandler.moveLeft)*4

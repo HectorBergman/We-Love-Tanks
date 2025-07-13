@@ -1,6 +1,10 @@
 PAUSE
+
 if keyboard_check(ord("J")) || keyboard_check_pressed(ord("K")){
 	summonObject(obj_levelTransition, [["x", x], ["y", y]]);
+}
+if keyboard_check_pressed(ord("P")){
+	global.pause = true;
 }
 checkForDeath();
 loop_onTick();

@@ -71,6 +71,17 @@ function initializeEnums(){
 		walking,
 		waiting,
 	}
+	
+	enum pM{
+		none,
+		editor,
+		pauseMenu,
+		transition,
+		editor_pauseMenu,
+		editor_transition,
+		pauseMenu_transition,
+		all,
+	}
 }
 
 

@@ -24,6 +24,7 @@ normMoneyHand = noone;
 normRH = noone;
 normLevelH = noone;
 normParticle = noone;
+normTransition = noone;
 
 normSummoned = false;
 lethimcook = false;
@@ -43,6 +44,7 @@ function normal_summon(){
 	normMoneyHand = summonObject(obj_moneyHandler);
 	normLevelH = summonObject(obj_levelHandler);
 	normParticle = summonObject(obj_particleHandler);
+	normTransition = summonObject(obj_transitionHandler);
 	normSummoned = true;
 }
 function normal_delete(){

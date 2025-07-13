@@ -2,6 +2,8 @@
 //please summon using this object.
 timer = 0;
 global.editorPause = false;
+global.transitionPause = false;
+global.pause = false;
 
 global.__signals = new SignalController();
 
@@ -13,7 +15,7 @@ global.currentSeed = global.dungeonSeed;
 window_set_cursor(cr_none); //hide pc cursorr
 room_goto(rm_menuBum);
 
-#macro PAUSE if global.editorPause{exit;}
+#macro PAUSE if pause(pauseMode){exit;}
 
 global.roomShapes = [ //this information is purely for knowing which room pool to generate from
 					  //me from the future: actually its used for other things too lol

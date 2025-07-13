@@ -19,8 +19,10 @@ for (var i = 0; i < 5; i++){
 			else if grid.edge{
 				borderColor = c_red;
 			}
-			var _x = x+i*(rectangleWidth+doorWidth)
-			var _y = y+j*(rectangleHeight+doorHeight)
+			var _x = x+i*(rectangleWidth+doorWidth)*(1/scale)
+			var _y = y+j*(rectangleHeight+doorHeight)*(1/scale)
+			_x *= scale;
+			_y *= scale;
 			draw_rectangle_color(_x,_y,_x+rectangleWidth,_y+rectangleHeight, borderColor,borderColor,borderColor,borderColor, true)
 			draw_rectangle_color(_x,_y,_x+rectangleWidth,_y+rectangleHeight, roomColor,roomColor, roomColor, roomColor, false)
 			if grid.doors[0] == 1{
@@ -36,7 +38,9 @@ for (var i = 0; i < 5; i++){
 		}
 	}
 }
-var _x = x+2*(rectangleWidth+doorWidth)
-var _y = y+2*(rectangleHeight+doorHeight)
-draw_rectangle_color(_x+rectangleWidth/2-4,_y+rectangleHeight/2-4,_x+rectangleWidth/2+4,_y+rectangleHeight/2+4, c_red,c_red,c_red,c_red, false)
+var _x = x+2*(rectangleWidth+doorWidth)* 1/scale;
+var _y = y+2*(rectangleHeight+doorHeight)* 1/scale;
+_x *= scale;
+_y *= scale;
+draw_rectangle_color(_x+rectangleWidth/2-2,_y+rectangleHeight/2-2,_x+rectangleWidth/2+2,_y+rectangleHeight/2+2, c_red,c_red,c_red,c_red, false)
 //35 18

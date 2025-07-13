@@ -1,4 +1,4 @@
-
+pauseMode = pM.all;
 luck = 1;
 enum playerStates{
 	normal,

@@ -1,3 +1,4 @@
+pauseMode = pM.all;
 function movementX(){
 	return movementVector[0]*bulletSpeed;
 }

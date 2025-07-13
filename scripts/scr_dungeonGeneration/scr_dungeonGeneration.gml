@@ -19,8 +19,8 @@ function generateDungeon(){
 	//it will create new rooms connected to edge rooms until it's hit the minRooms No
 	//This will result in rooms exhibiting snake-like formations.
 	//Maybe fix to make it not so obvious?
-	minRooms = 4;
-	maxRooms = 4;
+	minRooms = 16;
+	maxRooms = 32;
 	print("Generate dungeon: Start.");
 	itemRoomEdges = ds_list_create() //store edges in case room not big enough
 	ds_grid_clear(dungeonGrid,noone)

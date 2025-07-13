@@ -1,3 +1,4 @@
+pauseMode = pM.all;
 enum bossPhase {
 	startingUp,
 	active

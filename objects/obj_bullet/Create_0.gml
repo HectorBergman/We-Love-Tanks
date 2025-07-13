@@ -1,10 +1,10 @@
+pauseMode = pM.all;
 function movementX(){
 	return movementVector[0]*bulletSpeed;
 }
 function movementY(){
 	return movementVector[1]*bulletSpeed;
 }
-image_alpha = 0.1;
 collisionVector = [0,0];
 summonObject(obj_bulletTrail, [["parent", id]]);
 prevVector = [noone, noone];
@@ -86,7 +86,6 @@ function death(){
 	if increaseCount && instance_exists(parent){
 		parent.activeBullets--;
 	}
-	loop_onBulletTravel();
 	
 	instance_destroy()
 	exit;

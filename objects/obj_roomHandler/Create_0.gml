@@ -1,3 +1,4 @@
+pauseMode = pM.pauseMenu;
 global.newRoom = true;
 function initiateRoomHandler(){
 	global.currentSeed = global.dungeonSeed;
@@ -43,8 +44,14 @@ function initiateRoomHandler(){
 }
 initiateRoomHandler();
 
+SignalSubscribe(id,"transportRoom",function(arg){
+	print("lole");
+	print(arg);
+	enterNewRoom(arg[0],arg[1],arg[2],arg[3]);
+});
+
+
 function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
-	SignalSend("new room");
 	global.newRoom = true;
 	storePreviousRoom();
 	if instance_number(obj_enemy) == 0 && instance_number(obj_enemySpawner) == 0{

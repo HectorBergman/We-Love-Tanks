@@ -1,3 +1,4 @@
+pauseMode = pM.all;
 colliding=false;
 print("door:")
 try{

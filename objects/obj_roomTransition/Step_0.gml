@@ -4,9 +4,8 @@ if (place_meeting(x,y,obj_player)){
 		var diff = [xDiff,yDiff]
 		var rNo = roomNo;
 		var dNo = doorNo
-		with obj_roomHandler{
-			enterNewRoom(diff[0],diff[1],rNo,dNo);
-		}
+		SignalSend("transitionRoom", [diff[0],diff[1],rNo,dNo, obj_player.movementVector])
+		instance_destroy();
 	}
 }else{
 	colliding = false;

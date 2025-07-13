@@ -79,7 +79,7 @@ function SignalController() constructor {
         }
         return signal_returns.LST_REMOVED_COMPLETELY;
     }
-
+	//Signal data is any extra information sent, will be passed as an argument for the callback
     static __signal_send = function(_signal, _signal_data) {
         if (!struct_exists(__listeners, _signal)) {
             return signal_returns.SGL_NOT_SENT_NO_SGL;
