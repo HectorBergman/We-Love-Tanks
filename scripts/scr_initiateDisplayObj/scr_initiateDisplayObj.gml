@@ -13,8 +13,7 @@ function initiateDisplayObjInfo(){
 		arguments : 
 		[{argumentName: "itemPool", argumentType: "options", argumentChoices: global.itemPools},
 		 {argumentName: "itemPool", argumentType: "checkbox", argumentChoices: global.itemPools},
-		 {argumentName: "itemPool", argumentType: "freeText", argumentChoices: global.itemPools},
-		 {argumentName: "itemPool", argumentType: "options", argumentChoices: global.itemPools}]
+		 {argumentName: "itemPool", argumentType: "freeText", argumentChoices: global.itemPools}]
 	}
 	]
 	for (var i = 0; i < array_length(objs); i++){
