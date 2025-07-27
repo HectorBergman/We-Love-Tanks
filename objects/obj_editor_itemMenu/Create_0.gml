@@ -1,0 +1,118 @@
+depth = -250
+enum editorMenuStates2 {
+	active,
+	inactive,
+	transitionToActive,
+	transitionToInactive
+}
+state = editorMenuStates2.inactive;
+regularHitbox = mask_index;
+
+actionsOrder = ds_queue_create();
+function tweeningVariables(){
+	notActiveX = 960;
+	x = notActiveX
+	activeX = 660;
+	baseX = notActiveX;
+	tween = noone;
+	tweenTime = 30;
+	transitionDestination = -1; //going to active state or inactive state?
+	baseY = 0;
+}
+tweeningVariables();
+//editor_pointer sends this signal out when it has clicked the item menu button
+SignalSubscribe(id, "editor_pointer: clicked itemMenu", function(){transitionQueue();});
+SignalSubscribe(id, "itemInstance: dropped", function(arg){purgeInstances(arg[0])});
+initiateDisplayObjInfo(); //initialize the info saying which objects we have available to place
+initiateDisplayObjects(); //initialize the instances used to display the objects available to the user
+
+
+function transitionMenu(){
+	switch (state){
+		case editorMenuStates2.inactive:{
+			popActionsQueue();
+		}break;
+		case editorMenuStates2.active:{
+			popActionsQueue();
+		}break;
+		default:{
+		}break;
+	}
+}
+
+
+function waitForTransitionEnd(){
+	if !TweenIsActive(tween){
+		state = transitionDestination;
+		if transitionDestination == editorMenuStates2.active{
+			activateDisplayObjects()
+		}
+	}
+}
+function popActionsQueue(){
+	//deactivate and activate cancel eachother out, so if queue exceeds two entries, only keep the head for simplicity
+	if !ds_queue_empty(actionsOrder){
+		var dq = ds_queue_dequeue(actionsOrder)
+		print(dq);
+		dq()
+	}
+}
+
+function transitionQueue(){
+	if ds_queue_size(actionsOrder) <= 1{
+		switch (state){
+			case editorMenuStates2.active:{ds_queue_enqueue(actionsOrder, deactivateMenu);
+			}break;
+			case editorMenuStates2.inactive:{ds_queue_enqueue(actionsOrder, activateMenu);
+			}break;
+		}
+	}else{
+		//Since an activate and a deactivate cancel eachother out, if queue has more than 2 entries,
+		//just keep the head
+		var head = ds_queue_head(actionsOrder);
+		ds_queue_clear(actionsOrder);
+		ds_queue_enqueue(actionsOrder, head);
+	}
+}
+function deactivateMenu(){
+	tween = TweenFire(id,EaseOutQuad,0,false,0,tweenTime,"baseX",x,notActiveX);
+	state = editorMenuStates2.transitionToInactive;
+	//deactivateDisplayObjects();
+	transitionDestination = editorMenuStates2.inactive;
+}
+function activateMenu(){
+	tween = TweenFire(id,EaseOutQuad,0,false,0,tweenTime,"baseX",x,activeX);
+	state = editorMenuStates2.transitionToActive;
+	transitionDestination = editorMenuStates2.active;
+}
+
+function initiateDisplayObjects(){
+	for (var i = 0; i < ds_list_size(displayObjList); i++) {
+	    var currentDisplayObject = ds_list_find_value(displayObjList,i);
+		print(currentDisplayObject);
+		print(currentDisplayObject.arguments);
+		summonObject(obj_editor_displayObjects, 
+		[["xOffset", 32+(i mod 4)*64], 
+		["yOffset", 64+(floor(i/4))], 
+		["object", currentDisplayObject.objectIndex], ["depth", depth-1], 
+		["objectName", currentDisplayObject.name], 
+		["objectArguments", currentDisplayObject.arguments],
+		["parent", id]]);
+	}
+}
+function activateDisplayObjects(){
+	SignalSend("editorMenu: displayObjects_activate");
+}
+
+function deactivateDisplayObjects(){
+	SignalSend("editorMenu: displayObjects_deactivate");
+}
+
+
+function purgeInstances(_id){
+	mask_index = spr_roomEditor_menu_hitbox;
+	if place_meeting(x,y,_id){
+		instance_destroy(_id);
+	}
+	mask_index = regularHitbox
+}

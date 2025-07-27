@@ -1,7 +1,4 @@
-global.enemyTypes = ["stiffNormal","braveheartNormal","stiffRicochet","tinyman","stiffBuckshot"]
-global.bossTypes = ["testStar"]
-global.roomTypes = ["standard","item","boss"]; 
-global.itemPools = ["itemRoom", "bossItem"];
+
 global.potentialObjects = {
 	Wall :  {object: obj_wall,  _name: "Wall",   editable:[]},
 	CrumblingWall: {object: obj_wall_crumble, _name: "CrumblingWall", editable:[]},
@@ -27,7 +24,7 @@ baseY = y;
 tween = noone;
 state = editorMenuStates.notActive
 function deactivateMenu(){
-	tween = TweenFire(id,EaseOutQuad,0,false,0,30,"baseX",activeX,notActiveX);
+	tween = TweenFire(id,EaseOutQuad,0,false,0,30,"baseX",x,notActiveX);
 	activating = false;
 	state = editorMenuStates.transition;
 	deactivateDisplayObjects();

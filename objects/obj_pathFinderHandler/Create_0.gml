@@ -1,4 +1,4 @@
-pauseMode = pM.pauseMenu;
+pauseMode = pM.editor_pauseMenu
 gridMap = ds_map_create();
 
 breadthQueue = ds_queue_create();
@@ -12,8 +12,8 @@ visitNumber = 0;
 bfsFinish = false;
 editorException = false;
 isNewRoom = 2;
+
 if obj_gameSettingHandler.gameState == gameStates.editorBuilding{
-	print("exception1");
 	editorException = true;
 }
 

@@ -72,7 +72,7 @@ switch (state){
 			if chosenRoom == -1{
 				ignore = true;
 				currentShape = global.roomShapes[chosenShape];
-				chosenRoom = saveRoom("unnamed","standard","0", currentShape)
+				chosenRoom = saveRoom("unnamed","standard","0", currentShape, 0)
 			}
 			if !ignore{
 				currentShape = availableRooms[chosenRoom].roomShape;
@@ -86,6 +86,7 @@ switch (state){
 		}
 		inRoomLogic();
 		if obj_inputHandler.escape && obj_gameSettingHandler.gameState == gameStates.editorBuilding{
+			items = 0;
 			state = editorHandlerStates.pickingRoom;
 			with handhand{
 				editorHandlers_delete();

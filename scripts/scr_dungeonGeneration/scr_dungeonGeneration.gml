@@ -12,48 +12,54 @@ enum doorTypes{//idk if this will be relevant
 	wideOpen
 }
 
-function generateDungeon(){
-	roomAmount = 0;
-	//Minrooms affects how many rooms the dungeon need to have at LEAST,
-	//if the dungeon naturally generates an amount of rooms below minRooms,
-	//it will create new rooms connected to edge rooms until it's hit the minRooms No
-	//This will result in rooms exhibiting snake-like formations.
-	//Maybe fix to make it not so obvious?
-	minRooms = 16;
-	maxRooms = 32;
-	print("Generate dungeon: Start.");
-	itemRoomEdges = ds_list_create() //store edges in case room not big enough
-	ds_grid_clear(dungeonGrid,noone)
-	dungeon_generate([5,5]);
-	var addMoreRoomsList = ds_list_create();
+function generateDungeon(minRooms = 16, maxRooms = 32, floors = 1, bossFloors = [true]){
+	var floorCount = 0;
+	var dungeonArr = [];
+	while floorCount < floors{
+		roomAmount = 0;
+		//Minrooms affects how many rooms the dungeon need to have at LEAST,
+		//if the dungeon naturally generates an amount of rooms below minRooms,
+		//it will create new rooms connected to edge rooms until it's hit the minRooms No
+		//This will result in rooms exhibiting snake-like formations.
+		//Maybe fix to make it not so obvious?
+		print("Generate dungeon: Start.");
+		itemRoomEdges = ds_list_create() //store edges in case room not big enough
+		ds_grid_clear(dungeonGrid,noone)
+		dungeon_generate([5,5]);
+		var addMoreRoomsList = ds_list_create();
 	
 	
-	while roomAmount < minRooms{
-		ds_list_copy(addMoreRoomsList, edgeList);
-		addMoreRooms(addMoreRoomsList,edgeList,minRooms);
-	}
+		while roomAmount < minRooms{
+			ds_list_copy(addMoreRoomsList, edgeList);
+			addMoreRooms(addMoreRoomsList,edgeList,minRooms);
+		}
 	
 	
-	//crash at seed 1711476497
-	print(random_amalgamate());
-	print(random_amalgamate());
-	print(random_amalgamate());
+		//crash at seed 1711476497
+		print(random_amalgamate());
+		print(random_amalgamate());
+		print(random_amalgamate());
 	
 
-	//print(random_amalgamate());print(random_amalgamate());
-	print("Edgesss:")
-	for (var i = 0; i < ds_list_size(edgeList); i++){
-		print(ds_list_find_value(edgeList,i).coords);
-	}
+		//print(random_amalgamate());print(random_amalgamate());
+		print("Edgesss:")
+		for (var i = 0; i < ds_list_size(edgeList); i++){
+			print(ds_list_find_value(edgeList,i).coords);
+		}
 	
-	ds_list_copy(itemRoomEdges, edgeList)
-	crownItemRoom(itemRoomEdges);
-	crownBossRoom(itemRoomEdges);
+		ds_list_copy(itemRoomEdges, edgeList)
+		crownItemRoom(itemRoomEdges);
+		crownBossRoom(itemRoomEdges);
 
-	//crownItemRoom(itemRoomEdges);
+		//crownItemRoom(itemRoomEdges);
 	
-	print(roomAmount);
-	print("Generate dungeon: End.")
+		print(roomAmount);
+		print("Generate dungeon: End.")
+		dungeonArr[floorCount] = ds_grid_create(dungeonSize, dungeonSize);
+		ds_grid_copy(dungeonArr[floorCount], dungeonGrid);
+		floorCount++
+	}
+	totalDungeon = dungeonArr;
 }
 
 

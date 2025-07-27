@@ -1,5 +1,5 @@
 draw_self();
-for (var i = 0; i < array_length(editable); i++){
+for (var i = 0; i < array_length(instanceRepParent_infoAvailableForEditing); i++){
 	
 	toDraw[i].draw(x+10, y+20*(i+0.5));
 }

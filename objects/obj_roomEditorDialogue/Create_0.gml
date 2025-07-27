@@ -4,8 +4,8 @@ openDropDown = noone;
 text = [];
 toDraw = [];
 largestWidth = 0;
-for (var i = 0; i < array_length(editable); i++){
-	text[i] = "[$eee7e7][scale,1][fnt_coolFont]" + editable[i][0]; 
+for (var i = 0; i < array_length(instanceRepParent_infoAvailableForEditing); i++){
+	text[i] = "[$eee7e7][scale,1][fnt_coolFont]" + instanceRepParent_infoAvailableForEditing[i][0]; 
 	toDraw[i] = scribble(text[i])
 	if toDraw[i].get_width() > largestWidth{
 		largestWidth = toDraw[i].get_width();
@@ -17,13 +17,13 @@ longestLongestLength = 0;
 var _text = "";
 var _toDraw = 0;
 var _length = 0;
-for (var i = 0; i < array_length(editable); i++){
-	if editable[i][1] != "checkbox"{
+for (var i = 0; i < array_length(instanceRepParent_infoAvailableForEditing); i++){
+	if instanceRepParent_infoAvailableForEditing[i][1] != "checkbox"{
 		var longest = noone;
 		var longestLength = 0;
 		var str = "";
-		for (var j = 0; j < array_length(editable[i][1]); j++;){
-			str = editable[i][1][j];
+		for (var j = 0; j < array_length(instanceRepParent_infoAvailableForEditing[i][1]); j++;){
+			str = instanceRepParent_infoAvailableForEditing[i][1][j];
 			
 			_text = "[$eee7e7][scale,1][fnt_coolFont]" + str; 
 			_toDraw = scribble(_text)
@@ -42,16 +42,16 @@ for (var i = 0; i < array_length(editable); i++){
 	}
 }
 
-for (var i = 0; i < array_length(editable); i++){
-	if editable[i][1] != "checkbox"{
+for (var i = 0; i < array_length(instanceRepParent_infoAvailableForEditing); i++){
+	if instanceRepParent_infoAvailableForEditing[i][1] != "checkbox"{
 		dropDownArray[array_length(dropDownArray)] = 
 		summonObject(obj_roomEditor_dropdown_click, [["xoffset", 20+largestWidth], ["yoffset", 20*(i+0.5)], 
-													["parent", id], ["items",editable[i][1]], ["index", i],
+													["parent", id], ["items",instanceRepParent_infoAvailableForEditing[i][1]], ["index", i],
 													["depth", depth-1], ["paddingNeeded", longestLongestLength], ["specil", false]])
 	}else{
 		dropDownArray[array_length(dropDownArray)] = 
 		summonObject(obj_roomEditor_checkbox, [["xoffset", 20+largestWidth], ["yoffset", 20*(i+0.5)], 
-												["parent", id], ["items",editable[i][1]], ["index", i],
+												["parent", id], ["items",instanceRepParent_infoAvailableForEditing[i][1]], ["index", i],
 												["depth", depth-1], ["paddingNeeded", longestLongestLength]])
 	}
 }

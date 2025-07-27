@@ -8,7 +8,7 @@ switch (state){
 	case editorMenuStates.notActive:{
 		if place_meeting(x,y,obj_roomEditor_dragger){
 			if mouse_check_button_pressed(mb_left){
-				tween = TweenFire(id,EaseOutQuad,0,false,0,30,"baseX",notActiveX,activeX);
+				tween = TweenFire(id,EaseOutQuad,0,false,0,30,"baseX",x,activeX);
 				activating = true;
 				state = editorMenuStates.transition;
 			}

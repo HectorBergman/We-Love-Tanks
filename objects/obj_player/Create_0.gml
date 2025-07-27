@@ -1,4 +1,4 @@
-pauseMode = pM.all;
+pauseMode = pM.pauseMenu_transition;
 luck = 1;
 enum playerStates{
 	normal,

@@ -48,8 +48,8 @@ switch (state){
 					var obj = global.potentialObjects[$ highlight._name].object
 					held = summonObject(obj_roomEditor_instanceRep,
 					[["x", highlight.x], ["y", highlight.y], 
-					["object", obj], ["ownEditable", []],
-					["depth", depth+1], ["truDepth", -121], ["heldDepth", depth+1], ["editable",global.potentialObjects[$ highlight._name].editable],
+					["object", obj], ["instanceInfo", []],
+					["depth", depth+1], ["truDepth", -121], ["heldDepth", depth+1], ["infoAvailableForEditing",global.potentialObjects[$ highlight._name].editable],
 					["held", true]]);
 				}else{
 					held = highlight

@@ -1,20 +1,23 @@
 sprite_index = object_get_sprite(object);
 offset = [x-mouse_x,y-mouse_y];
 held = false;
+if object == obj_itemSpawner{
+	obj_roomEditorHandler.items++;
+}
 
 justDropped = 0;
 selected = false;
 
 corners = [noone,noone,noone,noone]
-if array_length(ownEditable) == 0{
-	for (var i = 0; i < array_length(editable); i++){
-		ownEditable[i] = [];
-		if editable[i][1] != "checkbox"{
-			ownEditable[i][0] = editable[i][0]; 
-			ownEditable[i][1] = editable[i][1][0];
+if array_length(instanceInfo) == 0{
+	for (var i = 0; i < array_length(infoAvailableForEditing); i++){
+		instanceInfo[i] = [];
+		if infoAvailableForEditing[i][1] != "checkbox"{
+			instanceInfo[i][0] = infoAvailableForEditing[i][0]; 
+			instanceInfo[i][1] = infoAvailableForEditing[i][1][0];
 		}else{
-			ownEditable[i][0] = editable[i][0]; 
-			ownEditable[i][1] = false;
+			instanceInfo[i][0] = infoAvailableForEditing[i][0]; 
+			instanceInfo[i][1] = false;
 		}
 	}
 }
@@ -49,4 +52,4 @@ function createCorners(){
 	}
 }
 
-dialogue = summonObject(obj_roomEditorDialogue, [["visible", false], ["parent", id], ["editable", editable], ["ownEditable", ownEditable], ["depth", -190]]);
+dialogue = summonObject(obj_roomEditorDialogue, [["visible", false], ["parent", id], ["instanceRepParent_infoAvailableForEditing", infoAvailableForEditing], ["instanceRepParent_instanceInfo", instanceInfo], ["depth", -190]]);

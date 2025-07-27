@@ -85,6 +85,11 @@ global.items = {
 	}
 }
 
+global.enemyTypes = ["stiffNormal","braveheartNormal","stiffRicochet","tinyman","stiffBuckshot"]
+global.bossTypes = ["testStar"]
+global.roomTypes = ["standard","item","boss","nextFloor"]; 
+global.itemPools = ["itemRoom", "bossItem"];
+
 window_set_size(display_get_width(),display_get_height());
 
 

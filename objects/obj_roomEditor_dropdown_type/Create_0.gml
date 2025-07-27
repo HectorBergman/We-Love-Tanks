@@ -34,5 +34,5 @@ function close(returnValue){
 }
 
 function changeInstanceVal(newVal){
-	parent.ownEditable[index][1] = newVal;
+	parent.instanceInfo[index][1] = newVal;
 }

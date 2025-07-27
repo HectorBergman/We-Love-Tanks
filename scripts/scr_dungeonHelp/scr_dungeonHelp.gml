@@ -111,7 +111,10 @@ function crownItemRoom(edgeList){
 }
 
 function crownBossRoom(edgeList){
-	
+	var roomType = "boss"
+	if bossFloors[floorCount]{
+		roomType = "nextFloor"
+	}
 	var randomIndex = 0
 	var finished = false;
 	var newList = edgeList;
@@ -130,13 +133,13 @@ function crownBossRoom(edgeList){
 		print(ds_list_size(newList));
 		print(randomIndex)
 		print(chosenRoom);
-		print(pickRandomRoomByType(global.roomList,"boss", "normal"));
+		print(pickRandomRoomByType(global.roomList,roomType, "normal"));
 		var emptyDoors = getEmptyDoors(chosenRoom);
 		if !chosenRoom.amalgamated && array_length(emptyDoors) != 0 && chosenRoom.roomType == "standard"{
-			newRoom = pickRandomRoomByType(global.roomList,"boss", "normal")
+			newRoom = pickRandomRoomByType(global.roomList,roomType, "normal")
 			
 			brandRoom._room = newRoom;
-			brandRoom.roomType = "boss"
+			brandRoom.roomType = roomType
 			var doors = brandRoom.doors;
 			var index1 = irandom(array_length(emptyDoors)-1)
 			var newIndex = emptyDoors[index1] 

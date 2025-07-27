@@ -1,6 +1,7 @@
 pauseMode = pM.pauseMenu;
 global.newRoom = true;
 function initiateRoomHandler(){
+	totalDungeon = [];
 	global.currentSeed = global.dungeonSeed;
 	random_set_seed(global.currentSeed);
 	print("GENERATING NEW DUNGEON...")

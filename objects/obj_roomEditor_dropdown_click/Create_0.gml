@@ -25,8 +25,9 @@ function close(returnValue){
 }
 
 function changeInstanceVal(newVal){
+
 	if !specil{
-		parent.parent.ownEditable[index][1] = newVal;
+		parent.parent.instanceInfo[index][1] = newVal;
 	}else{
 		parent.ownEditable[index][1] = newVal;
 	}

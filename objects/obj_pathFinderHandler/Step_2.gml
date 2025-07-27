@@ -10,8 +10,8 @@ if editorException && timer < 1{
 	shallPass = (isNewRoom == 0);
 }
 if shallPass{
-	print("wepassed");
 	ds_map_clear(gridMap);
+	print(instance_number(obj_gridSquare));
 	for (var i = 0; i < instance_number(obj_gridSquare); i++){
 		var unit = instance_find(obj_gridSquare,i)
 		ds_map_add(gridMap, unit.squareNo, {square: unit, visited: false, distance: 0, visitedTwo: false})

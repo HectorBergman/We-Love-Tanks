@@ -19,6 +19,14 @@ function playerInput(){
 	{
 		fire = true;
 	}
+	if mouse_check_button_pressed(mb_left)
+	{
+		click = true;
+	}
+	if mouse_check_button_pressed(mb_right)
+	{
+		rightClick = true;
+	}
 	if keyboard_check(vk_shift){
 		run = true;
 	}
@@ -60,6 +68,7 @@ function resetInputs(){
 	moveLeft = false;
 	moveRight = false;
 	fire = false;
+	click = false;
 	run = false;
 	debugUnlockAndKill = false;
 	debugUnlock = false;
@@ -72,4 +81,5 @@ function resetInputs(){
 	confirm = false;
 	space = false;
 	del = false;
+	rightClick = false;
 }
