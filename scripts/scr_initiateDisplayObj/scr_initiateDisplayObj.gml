@@ -11,9 +11,9 @@ function initiateDisplayObjInfo(){
 		objectIndex : obj_itemSpawner,
 		additionalGraphics : [spr_item_caseOfAces,{}],
 		arguments : 
-		[{argumentName: "itemPool", argumentType: "options", argumentChoices: global.itemPools},
-		 {argumentName: "itemPool", argumentType: "checkbox", argumentChoices: global.itemPools},
-		 {argumentName: "itemPool", argumentType: "freeText", argumentChoices: global.itemPools}]
+		[{argumentName: "itemPool", argumentType: "options", argumentChoices: ["itemPool", "bossRoom", "lolMode", "testguy"]},//global.itemPools},
+		 {argumentName: "itemPoolCheckbox", argumentType: "checkbox", argumentChoices: [false]},
+		 {argumentName: "itemPoolText", argumentType: "freeText", argumentChoices: [""]}]
 	}
 	]
 	for (var i = 0; i < array_length(objs); i++){

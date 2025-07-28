@@ -27,6 +27,10 @@ function playerInput(){
 	{
 		rightClick = true;
 	}
+	if mouse_check_button_released(mb_left)
+	{
+		clickRelease = true;
+	}
 	if keyboard_check(vk_shift){
 		run = true;
 	}
@@ -82,4 +86,5 @@ function resetInputs(){
 	space = false;
 	del = false;
 	rightClick = false;
+	clickRelease = false;
 }

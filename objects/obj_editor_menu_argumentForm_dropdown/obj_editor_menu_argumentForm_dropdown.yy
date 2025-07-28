@@ -14,7 +14,10 @@
     "name":"instanceMenu",
     "path":"folders/Objects/editor_2/instanceMenu.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_editor_clickable",
+    "path":"objects/obj_editor_clickable/obj_editor_clickable.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

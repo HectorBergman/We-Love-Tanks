@@ -8,11 +8,11 @@ function close(){
 function summonOptions(){
 	print(instanceArgumentsChoices);
 	for (var i = 0; i < array_length(objectArguments); i++){
-		
+		print(instanceArgumentsChoices[i]);
 		summonObject(obj_editor_menu_argumentForm,[["x",x+8],["y",y+i*24+8], 
 		["type", objectArguments[i].argumentType], ["depth", depth-1],
 		["instanceId", instanceId], ["argumentIndex", i], 
-		["argumentChoice",instanceArgumentsChoices[0]],
+		["argumentChoice",instanceArgumentsChoices[i]],
 		["allArgumentChoices",objectArguments[i].argumentChoices]]);
 		
 	}

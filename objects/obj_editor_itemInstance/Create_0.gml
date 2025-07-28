@@ -2,11 +2,9 @@
 held = true;
 instanceArgumentsChoices = []
 setInstanceArgumentsChoices();
-print("penis!");
-print(instanceArgumentsChoices);
 menu = noone;
 
-SignalSubscribe(id, "updateInstance: " + string(id), function(arg){updateInstanceArgumentChoices(arg[0],arg[1])});
+SignalSubscribe(id, "updateInstance: " + string(id), function(arg){updateInstanceArgumentChoices(arg[0],arg[1], arg[2])});
 
 function toggleMenu(){
 	if menu == noone{
@@ -28,8 +26,21 @@ function closeMenu(){
 		close()
 	}
 }
-function updateInstanceArgumentChoices(instanceIndex,choiceIndex){
-	instanceArgumentsChoices[instanceIndex] = objectArguments[instanceIndex].argumentChoices[choiceIndex];
+function updateInstanceArgumentChoices(argumentType,instanceIndex,choiceInfo){
+	print("haii");
+	switch (argumentType){
+		case "options":{ //choiceInfo is the number of the argument
+			instanceArgumentsChoices[instanceIndex] = objectArguments[instanceIndex].argumentChoices[choiceInfo];
+		}break;
+		case "checkbox":{ //choiceInfo ignored
+			print("letsgo");
+			instanceArgumentsChoices[instanceIndex] = !instanceArgumentsChoices[instanceIndex];
+		}break;
+		case "freeText":{ //choiceInfo is free text
+			argumentChoice = choiceInfo;
+		}break;
+	}
+	
 }
 function dropped(){
 	depth = -10;
