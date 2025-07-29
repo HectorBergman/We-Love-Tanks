@@ -15,6 +15,7 @@ function summonEditorObjects(){
 	summonObject(obj_editor_pointer);
 	summonObject(obj_cam);
 	summonObject(obj_editor_itemMenu);
+	summonObject(obj_editor_player_standIn, [["x", room_width/2], ["y", room_height/2]]);
 }
 summonEditorObjects();
 

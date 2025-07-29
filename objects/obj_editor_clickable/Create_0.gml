@@ -1,1 +1,0 @@
-SignalSubscribe(id, "editor_clicked: " + string(id), function(){clickedLogic()});

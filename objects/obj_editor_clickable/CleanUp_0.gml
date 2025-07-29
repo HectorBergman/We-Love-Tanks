@@ -1,1 +1,0 @@
-SignalUnsubscribe(id, "editor_clicked: " + string(id));

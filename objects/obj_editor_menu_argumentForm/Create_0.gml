@@ -8,6 +8,19 @@ isOpen = false; //dropdown
 isChecked = argumentChoice; //checkbox
 isActive = false; //freetext
 buffer = "";
+switch (type){
+	case "options":{
+		searchForClick(openDropdown)
+	}break;
+	case "checkbox":{
+		image_index = argumentChoice
+		searchForClick(toggleCheckbox)
+	}break;
+	case "freeText":{
+		buffer = argumentChoice
+		searchForClick(function(){SignalSend("textbox: selected", [id])})
+	}break;
+}
 
 
 function updateArgumentChoice(argumentType, index, choiceInfo){
@@ -49,8 +62,8 @@ function openDropdown(){
 		for (var i = 0; i < array_length(allArgumentChoices); i++){
 			summonObject(obj_editor_menu_argumentForm_dropdown, 
 				[["isLast", i == array_length(allArgumentChoices)-1], 
-				["value", allArgumentChoices[i]], ["x", x], 
-				["y", y+sprite_height+(sprite_height-2)*i], 
+				["value", allArgumentChoices[i]], 
+				["coordsOffset", [0+coordsOffset[0], sprite_height+(sprite_height-2)*i+coordsOffset[1]]],
 				["argumentIndex", argumentIndex], ["index", i],
 				["image_xscale", image_xscale], ["instanceId", instanceId],
 				["depth", depth]])

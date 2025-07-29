@@ -1,0 +1,3 @@
+cleanUpSearchForClick()
+cleanUpSearchForRelease()
+cleanUpSearchForRightClick()

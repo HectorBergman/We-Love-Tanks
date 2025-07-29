@@ -3,6 +3,9 @@ held = true;
 instanceArgumentsChoices = []
 setInstanceArgumentsChoices();
 menu = noone;
+dragItemInstance();
+searchForClick(dragItemInstance)
+searchForRightClick(toggleMenu)
 
 SignalSubscribe(id, "updateInstance: " + string(id), function(arg){updateInstanceArgumentChoices(arg[0],arg[1], arg[2])});
 
@@ -15,7 +18,7 @@ function toggleMenu(){
 }
 
 function openMenu(){
-	menu = summonObject(obj_editor_instanceMenu, [["x", x],["y",y], 
+	menu = summonObject(obj_editor_instanceMenu, [["coordsOffset", [sprite_width,0]], 
 	["depth", depth-1], ["instanceId", id], 
 	["instanceArgumentsChoices", instanceArgumentsChoices],
 	["objectArguments", objectArguments]]);
@@ -37,16 +40,12 @@ function updateInstanceArgumentChoices(argumentType,instanceIndex,choiceInfo){
 			instanceArgumentsChoices[instanceIndex] = !instanceArgumentsChoices[instanceIndex];
 		}break;
 		case "freeText":{ //choiceInfo is free text
-			argumentChoice = choiceInfo;
+			instanceArgumentsChoices[instanceIndex] = choiceInfo;
 		}break;
 	}
 	
 }
-function dropped(){
-	depth = -10;
-	held = false;
-	SignalSend("itemInstance: dropped", [id]);
-}
+
 
 function setInstanceArgumentsChoices(){
 	//objectArguments is for what parameters and options an object can have,

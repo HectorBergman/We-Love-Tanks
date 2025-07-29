@@ -21,11 +21,11 @@ function tweeningVariables(){
 }
 tweeningVariables();
 //editor_pointer sends this signal out when it has clicked the item menu button
-SignalSubscribe(id, "editor_pointer: clicked itemMenu", function(){transitionQueue();});
+
 SignalSubscribe(id, "itemInstance: dropped", function(arg){purgeInstances(arg[0])});
 initiateDisplayObjInfo(); //initialize the info saying which objects we have available to place
 initiateDisplayObjects(); //initialize the instances used to display the objects available to the user
-
+searchForClick(transitionQueue);
 
 function transitionMenu(){
 	switch (state){
@@ -92,8 +92,7 @@ function initiateDisplayObjects(){
 		print(currentDisplayObject);
 		print(currentDisplayObject.arguments);
 		summonObject(obj_editor_displayObjects, 
-		[["xOffset", 32+(i mod 4)*64], 
-		["yOffset", 64+(floor(i/4))], 
+		[["coordsOffset", [32+(i mod 4)*64,64+(floor(i/4))]], 
 		["object", currentDisplayObject.objectIndex], ["depth", depth-1], 
 		["objectName", currentDisplayObject.name], 
 		["objectArguments", currentDisplayObject.arguments],

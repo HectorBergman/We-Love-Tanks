@@ -1,11 +1,11 @@
 function searchForClick(clickFunction){
-	SignalSubscribe(id, "editor_clicked: " + string(id), function(){clickFunction()});
+	SignalSubscribe(id, "editor_clicked: " + string(id), clickFunction);
 }
 function searchForRightClick(rightClickFunction){
-	SignalSubscribe(id, "editor_rightClicked: " + string(id), function(){rightClickFunction()});
+	SignalSubscribe(id, "editor_rightClicked: " + string(id), rightClickFunction);
 }
 function searchForRelease(releaseFunction){
-	SignalSubscribe(id, "editor_released", function(){releaseFunction()});
+	SignalSubscribe(id, "editor_released", releaseFunction);
 }
 
 function cleanUpSearchForClick(){

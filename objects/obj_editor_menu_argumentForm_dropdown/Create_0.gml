@@ -5,6 +5,7 @@ function updateInstance(){
 	SignalSend("updateInstance: " + string(instanceId), ["options",argumentIndex,index]);
 	SignalSend("closeDropdown: " + string(instanceId) + string(argumentIndex))
 }
+searchForClick(updateInstance);
 
 function close(){
 	print("goodbyyyee");
