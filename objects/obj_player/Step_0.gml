@@ -6,6 +6,7 @@ if keyboard_check(ord("J")) || keyboard_check_pressed(ord("K")){
 if keyboard_check_pressed(ord("P")){
 	global.pause = true;
 }
+
 checkForDeath();
 loop_onTick();
 pickupMoney();

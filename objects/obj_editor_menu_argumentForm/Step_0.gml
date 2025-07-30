@@ -1,10 +1,10 @@
 
 switch (type){
-	case "options":{
+	case  argumentTypes.options:{
 	}break;
-	case "checkbox":{
+	case  argumentTypes.checkbox:{
 	}break;
-	case "freeText":{
+	case  argumentTypes.freetext:{
 		if isActive{
 			activeTextboxLogic()
 		}

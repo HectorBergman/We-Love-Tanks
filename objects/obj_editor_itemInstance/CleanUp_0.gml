@@ -1,3 +1,5 @@
 cleanUpSearchForClick()
 cleanUpSearchForRelease()
 cleanUpSearchForRightClick()
+
+cleanUpAwaitToggle();

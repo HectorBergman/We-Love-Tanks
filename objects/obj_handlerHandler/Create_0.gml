@@ -26,6 +26,8 @@ normLevelH = noone;
 normParticle = noone;
 normTransition = noone;
 
+alwaysParticle = noone;
+
 normSummoned = false;
 lethimcook = false;
 function prepSummon(){
@@ -33,9 +35,12 @@ function prepSummon(){
 	lethimcook = true;
 	normSummoned = true;
 }
+function always_summon(){
+	alwaysParticle = summonObject(obj_particleHandler);
+}
 function normal_summon(){
 	normPF = summonObject(obj_pathFinderHandler);
-	normItemHand = summonObject(obj_itemHandler);
+	//normItemHand = summonObject(obj_itemHandler);
 	normPlayer = summonObject(obj_player, [["x", 960/2], ["y", 540/2]]);
 	normCrossHair = summonObject(obj_crosshair, [["x", 960/2], ["y", 540/2]]);
 	normCam = summonObject(obj_cam);
@@ -43,7 +48,7 @@ function normal_summon(){
 	normMinimapHand = summonObject(obj_minimapHandler);
 	normMoneyHand = summonObject(obj_moneyHandler);
 	normLevelH = summonObject(obj_levelHandler);
-	normParticle = summonObject(obj_particleHandler);
+	
 	normTransition = summonObject(obj_transitionHandler);
 	normSummoned = true;
 }
@@ -54,7 +59,7 @@ function normal_delete(){
 	instance_destroy(normCrossHair);
 	instance_destroy(normMinimapHand);
 	instance_destroy(normCurrRoom);
-	instance_destroy(normItemHand);
+	//instance_destroy(normItemHand);
 	normSummoned = false;
 }
 function editorHandlers_summon(){
@@ -80,3 +85,4 @@ function editorHandlers_delete(){
 	instance_destroy(reCam);
 	reSummoned = false;
 }
+always_summon();

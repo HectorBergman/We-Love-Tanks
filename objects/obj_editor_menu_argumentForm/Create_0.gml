@@ -8,34 +8,82 @@ isOpen = false; //dropdown
 isChecked = argumentChoice; //checkbox
 isActive = false; //freetext
 buffer = "";
+
+
 switch (type){
-	case "options":{
+	case  argumentTypes.options:{
 		searchForClick(openDropdown)
 	}break;
-	case "checkbox":{
+	case argumentTypes.checkbox:{
 		image_index = argumentChoice
 		searchForClick(toggleCheckbox)
 	}break;
-	case "freeText":{
+	case argumentTypes.freetext:{
 		buffer = argumentChoice
 		searchForClick(function(){SignalSend("textbox: selected", [id])})
 	}break;
 }
 
 
+function updateArgumentText(){
+	text = "";
+	switch (type){
+		case argumentTypes.options:{
+			text = "[$eee7e7][scale,1][fnt_coolFont]" + argumentChoice; 
+			toDraw = scribble(text)
+		}break;
+		case argumentTypes.checkbox:{
+		}break;
+		case argumentTypes.freetext:{
+			var val = buffer;
+			text = "[$eee7e7][scale,1][fnt_coolFont]" + val; 
+		}break;
+	}
+	toDraw = scribble(text)
+}
+function getTextWidestTextPotential(){
+	var tempText = ""
+	var tempToDraw = noone;
+	var widest = 0;
+	switch (type){
+		case argumentTypes.options:{
+			for (var i = 0; i < array_length(allArgumentChoices); i++){
+				tempText = "[$eee7e7][scale,1][fnt_coolFont]" + allArgumentChoices[i]; 
+				tempToDraw = scribble(tempText)
+				var width = tempToDraw.get_width();
+				if width > widest{
+					widest = width;
+				}
+			}
+		}break;
+		case argumentTypes.checkbox:{
+		}break;
+		case argumentTypes.freetext:{
+			var val = buffer;
+			tempText = "[$eee7e7][scale,1][fnt_coolFont]" + val; 
+			tempToDraw = scribble(tempText)
+			widest = tempToDraw.get_width();
+		}break;
+	}
+	return widest;
+}
+updateArgumentText();
+
+
+
 function updateArgumentChoice(argumentType, index, choiceInfo){
 	if index == argumentIndex{
 		switch (argumentType){
-			case "options":{ //choiceInfo is the number of the argument
+			case argumentTypes.options:{ //choiceInfo is the number of the argument
 				if argumentIndex == index{ //if the index sent from the updateInstance signal matches our argumentIndex
 					argumentChoice = allArgumentChoices[choiceInfo]
 				}
 			}break;
-			case "checkbox":{ //choiceInfo ignored
+			case argumentTypes.checkbox:{ //choiceInfo ignored
 				print("letsgo");
 				argumentChoice = !argumentChoice;
 			}break;
-			case "freeText":{ //choiceInfo is free text
+			case argumentTypes.freetext:{ //choiceInfo is free text
 				argumentChoice = choiceInfo;
 			}break;
 		}
@@ -52,7 +100,7 @@ function closeDropdown(){
 
 function toggleCheckbox(){
 	image_index = (image_index+1) mod 2
-	SignalSend("updateInstance: " + string(instanceId), ["checkbox",argumentIndex,!isChecked])
+	SignalSend("updateInstance: " + string(instanceId), [argumentTypes.checkbox,argumentIndex,!isChecked])
 	isChecked = true;
 }
 
@@ -86,6 +134,14 @@ function deactivateTextbox(){
 	isActive = false;
 }
 
+/*function getWidest(widthToReach){
+	
+	if toDraw.get_width() > widthToReach{
+		widthToReach = toDraw.get_width();
+	}
+	return widthToReach;
+}*/
+
 function activeTextboxLogic(){
 	var preBuffer = buffer;
 	var _key = keyboard_lastchar;
@@ -95,21 +151,21 @@ function activeTextboxLogic(){
 	if keyboard_check_pressed(vk_backspace){
 		buffer = string_delete(buffer,string_length(buffer),1);
 	}else{
-		if keyboard_check_pressed(ord(string_upper(_key))){
+		if string_length(buffer) < 256 && keyboard_check_pressed(ord(string_upper(_key))){
 			buffer += _key;
 		}
 	}
 	if buffer != preBuffer{
-		SignalSend("updateInstance: " + string(instanceId), ["freeText",argumentIndex,buffer]);
+		SignalSend("updateInstance: " + string(instanceId), [argumentTypes.freetext,argumentIndex,buffer]);
 	}
 }
 function start(){
 	switch (type){
-		case "options":{
+		case argumentTypes.options:{
 		}break;
-		case "checkbox":{
+		case argumentTypes.checkbox:{
 		}break;
-		case "freeText":{
+		case argumentTypes.freetext:{
 			SignalSubscribe(id, "textbox: selected", function(arg){textboxSelectedAction(arg)})
 		}break;
 	}
@@ -117,13 +173,13 @@ function start(){
 start();
 function getSprite(){
 	switch (type){
-		case "options":{
+		case argumentTypes.options:{
 			sprite_index = spr_roomEditor_menu_dropdown_click;
 		}break;
-		case "checkbox":{
+		case argumentTypes.checkbox:{
 			sprite_index = spr_roomEditor_checkbox
 		}break;
-		case "freeText":{
+		case argumentTypes.freetext:{
 			sprite_index = spr_roomEditor_menu_dropdown_type;
 		}break;
 	}

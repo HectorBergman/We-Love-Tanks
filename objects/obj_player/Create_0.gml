@@ -1,5 +1,6 @@
 pauseMode = pM.pauseMenu_transition;
 luck = 1;
+
 enum playerStates{
 	normal,
 }
@@ -13,8 +14,13 @@ function movementY(){
 gothruwalls = false;
 activeBullets = [];
 
-cannon = summonObject(obj_player_cannon, [["parent", id], ["depth", depth-1]]);
-hitbox = summonObject(obj_player_visual, [["parent", id], ["cannon", cannon]]);
+function summonEssentials(){
+	cannon = summonObject(obj_player_cannon, [["parent", id], ["depth", depth-1]]);
+	hitbox = summonObject(obj_player_visual, [["parent", id], ["cannon", cannon]]);
+	crosshair = summonObject(obj_crosshair);
+	itemHandler = summonObject(obj_itemHandler);
+}
+summonEssentials();
 
 //initialize a bunch of variables
 playerVariables_movement()

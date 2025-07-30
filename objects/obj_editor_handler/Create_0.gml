@@ -21,15 +21,20 @@ summonEditorObjects();
 
 
 function checkForModeSwitchRequest(){
-	if obj_inputHandler.escape{
+	if obj_inputHandler.space{
 		switch (editorMode){
 			case editorModes.editing:{
+				obj_gameSettingHandler.gameState = gameStates.editorTesting
 				SignalSend("editorMode: testing_start")
 				editorMode = editorModes.testing;
 			}break;
 			case editorModes.testing:{
+				obj_gameSettingHandler.gameState = gameStates.editorBuilding
 				SignalSend("editorMode: editing_start")
 				editorMode = editorModes.editing;
+				instance_destroy(obj_bullet);
+				instance_destroy(obj_item);
+				instance_destroy(obj_enemy);
 			}break;
 		}
 		return true;

@@ -12,5 +12,6 @@ function dropped(){
 	
 function spawnItemInstance(){
 	summonObject(obj_editor_itemInstance, 
-	[["sprite_index", sprite_index], ["offset", [0,0]], ["depth", -260], ["objectArguments", objectArguments]]);
+	[["sprite_index", sprite_index], ["offset", [0,0]], ["depth", -260], ["objectArguments", objectArguments],
+	["object", object]]);
 }

@@ -11,14 +11,26 @@ function initiateDisplayObjInfo(){
 		objectIndex : obj_itemSpawner,
 		additionalGraphics : [spr_item_caseOfAces,{}],
 		arguments : 
-		[{argumentName: "itemPool", argumentType: "options", argumentChoices: ["itemPool", "bossRoom", "lolMode", "testguy"]},//global.itemPools},
-		 {argumentName: "itemPoolCheckbox", argumentType: "checkbox", argumentChoices: [false]},
-		 {argumentName: "itemPoolText", argumentType: "freeText", argumentChoices: [""]}]
+		[{argumentName: "itemPool", argumentType: argumentTypes.options, argumentChoices: global.itemPools},
+		 {argumentName: "itemPoolCheckbox", argumentType: argumentTypes.checkbox, argumentChoices: [false]},
+		 {argumentName: "itemPoolText", argumentType: argumentTypes.freetext, argumentChoices: [""]}]
+	},
+	{
+		name : "Enemy",
+		objectIndex : obj_enemySpawner,
+		additionalGraphics : [],
+		arguments : 
+		[{argumentName: "enemyType", argumentType: argumentTypes.options, argumentChoices: global.enemyTypes}]
 	}
 	]
 	for (var i = 0; i < array_length(objs); i++){
 		ds_list_add(displayObjList,objs[i]);
 	}
+}
+enum argumentTypes{
+	options,
+	checkbox,
+	freetext
 }
 
 	/*Wall :  {object: obj_wall,  _name: "Wall",   editable:[]},

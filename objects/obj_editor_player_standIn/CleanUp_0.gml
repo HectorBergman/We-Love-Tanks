@@ -1,2 +1,4 @@
 cleanUpSearchForClick()
 cleanUpSearchForRelease()
+
+cleanUpAwaitToggle()

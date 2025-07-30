@@ -34,6 +34,7 @@ if (truthStatement){ //hover over button
 			
 		}else if action == 4{ //menu button to select room to edit
 		}else if action == 5{
+			obj_gameSettingHandler.gameState = gameStates.editorBuilding
 			room_goto(rm_editorRoom_test);
 		}
 	}

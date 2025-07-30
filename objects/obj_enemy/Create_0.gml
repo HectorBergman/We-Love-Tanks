@@ -33,6 +33,7 @@ switch(type){
 	case enemyTypes.stiffBuckshot: stiffBuckshot_create(); break; 
 	case enemyTypes.tinyman: tinyman_create(); break;
 }
+cannon = noone;
 if createCannon{
 	cannon = summonObject(obj_enemy_cannon, [["parent", id], ["depth", depth-1]]);
 }

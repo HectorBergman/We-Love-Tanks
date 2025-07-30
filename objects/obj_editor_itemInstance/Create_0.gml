@@ -3,9 +3,28 @@ held = true;
 instanceArgumentsChoices = []
 setInstanceArgumentsChoices();
 menu = noone;
+instance = noone;
 dragItemInstance();
 searchForClick(dragItemInstance)
 searchForRightClick(toggleMenu)
+initiateToggleSignal(summonInstance,unsummonInstance)
+
+function summonInstance(){
+	dropped();
+	visible = false;
+	var summonArr = []
+	var objArgArrLen = array_length(objectArguments)
+	for (var i = 0; i < objArgArrLen; i++){
+		summonArr[i] = [objectArguments[i].argumentName, instanceArgumentsChoices[i]];
+	}//add all the variables we've added to the itemInstance to the instance itself in testing (and in-game)
+	summonArr[objArgArrLen]   = ["x", x];
+	summonArr[objArgArrLen+1] = ["y", y];
+	instance = summonObject(object, summonArr);
+}
+function unsummonInstance(){
+	visible = true;
+	instance_destroy(instance);
+}
 
 SignalSubscribe(id, "updateInstance: " + string(id), function(arg){updateInstanceArgumentChoices(arg[0],arg[1], arg[2])});
 
@@ -32,14 +51,14 @@ function closeMenu(){
 function updateInstanceArgumentChoices(argumentType,instanceIndex,choiceInfo){
 	print("haii");
 	switch (argumentType){
-		case "options":{ //choiceInfo is the number of the argument
+		case argumentTypes.options:{ //choiceInfo is the number of the argument
 			instanceArgumentsChoices[instanceIndex] = objectArguments[instanceIndex].argumentChoices[choiceInfo];
 		}break;
-		case "checkbox":{ //choiceInfo ignored
+		case argumentTypes.checkbox:{ //choiceInfo ignored
 			print("letsgo");
 			instanceArgumentsChoices[instanceIndex] = !instanceArgumentsChoices[instanceIndex];
 		}break;
-		case "freeText":{ //choiceInfo is free text
+		case argumentTypes.freetext:{ //choiceInfo is free text
 			instanceArgumentsChoices[instanceIndex] = choiceInfo;
 		}break;
 	}
@@ -53,7 +72,7 @@ function setInstanceArgumentsChoices(){
 	
 	//example: 
 	
-	//objectArguments: {argumentName: "itemPool", argumentType: "options", 
+	//objectArguments: {argumentName: "itemPool", argumentType:  argumentTypes.options, 
 	//argumentChoices: ["itemPool", "bossPool"]}
 	//instanceArguments: "itemPool"
 	
