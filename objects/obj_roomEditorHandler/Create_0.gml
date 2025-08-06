@@ -125,6 +125,7 @@ function inRoomLogic(){
 			instance_destroy(obj_enemy)
 			instance_destroy(obj_enemy_cannon);
 			instance_destroy(obj_enemy_hitbox);
+			instance_destroy(obj_dollar);
 		}
 	}
 

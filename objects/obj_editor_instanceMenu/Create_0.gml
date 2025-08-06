@@ -1,4 +1,6 @@
 //["instanceId", id]]
+
+searchForClick(close)
 function close(){
 	SignalSend("closeMenu: " + string(instanceId))
 	instance_destroy()
@@ -19,10 +21,7 @@ function summonOptions(){
 		}
 	
 	}
-	print(sprite_width);
-	print(image_xscale);
 	image_xscale = (widestWidthArgumentChoices+widestWidth+48)/sprite_width;
-	print(image_xscale);
 	for (var i = 0; i < array_length(objectArguments); i++){
 		print(instanceArgumentsChoices[i]);
 		
@@ -31,7 +30,7 @@ function summonOptions(){
 			["type", objectArguments[i].argumentType], ["depth", depth-1],
 			["instanceId", instanceId], ["argumentIndex", i], ["name", objectArguments[i].argumentName],
 			["argumentChoice",instanceArgumentsChoices[i]],
-			["allArgumentChoices",objectArguments[i].argumentChoices],]
+			["allArgumentChoices",objectArguments[i].argumentChoices], ["width", widestWidthArgumentChoices]]
 		);
 		
 	}

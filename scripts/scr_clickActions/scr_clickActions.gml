@@ -1,6 +1,9 @@
 function searchForClick(clickFunction){
 	SignalSubscribe(id, "editor_clicked: " + string(id), clickFunction);
 }
+function searchForClick_general(clickFunction){
+	SignalSubscribe(id, "editor_clicked: general", clickFunction);
+}
 function searchForRightClick(rightClickFunction){
 	SignalSubscribe(id, "editor_rightClicked: " + string(id), rightClickFunction);
 }
@@ -10,6 +13,9 @@ function searchForRelease(releaseFunction){
 
 function cleanUpSearchForClick(){
 	SignalUnsubscribe(id, "editor_clicked: " + string(id));
+}
+function cleanUpSearchForClick_general(){
+	SignalUnsubscribe(id, "editor_clicked: general");
 }
 function cleanUpSearchForRightClick(){
 	SignalUnsubscribe(id, "editor_rigthClicked: " + string(id));

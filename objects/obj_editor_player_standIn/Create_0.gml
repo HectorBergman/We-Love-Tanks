@@ -2,6 +2,7 @@ held = false;
 offset = [0,0]
 liftOffCoord = [room_width/2,room_height/2]
 player = noone;
+depth = -150;
 searchForClick(function(){liftOffCoord = [x,y]; dragItemInstance(dropped_pStandIn)})
 initiateToggleSignal(summonPlayer,unsummonPlayer)
 
@@ -15,7 +16,7 @@ function unsummonPlayer(){
 	instance_destroy(player);
 }
 function dropped_pStandIn(){
-	depth = -10;
+	depth = -150;
 	held = false;
 	if place_meeting(x,y,obj_wall) || !inRange(x, 0, room_width) || !inRange(y, 0, room_height){
 		x = liftOffCoord[0];
@@ -23,4 +24,6 @@ function dropped_pStandIn(){
 	}else{
 		liftOffCoord = [x,y];
 	}
+}
+function toggleHighlight(){
 }

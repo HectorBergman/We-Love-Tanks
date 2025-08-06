@@ -1,15 +1,33 @@
 //SignalSubscribe(id, "editor_pointer: dropped heldObject", function(){held = false});
-held = true;
-instanceArgumentsChoices = []
-setInstanceArgumentsChoices();
+print(objectActions);
+objectActions(appearanceTypes.appear)
 menu = noone;
 instance = noone;
+highlight = noone;
+menuOffset = [0,0]
+function toggleHighlight(){
+	if highlight == noone{
+		highlight = summonHighlight();
+		SignalSubscribe(id, "itemInstance: unhighlight", toggleHighlight);
+	}else{
+		SignalUnsubscribe(id, "itemInstance: unhighlight");
+		with highlight{
+			destroy();
+		}
+		highlight = noone;
+	}
+}
 dragItemInstance();
 searchForClick(dragItemInstance)
 searchForRightClick(toggleMenu)
 initiateToggleSignal(summonInstance,unsummonInstance)
 
+
+function summonHighlight(){
+	return summonObject(obj_editor_itemInstance_highlight, [["parent", id], ["canResize", canResize]])
+}
 function summonInstance(){
+	closeMenu()
 	dropped();
 	visible = false;
 	var summonArr = []
@@ -17,66 +35,22 @@ function summonInstance(){
 	for (var i = 0; i < objArgArrLen; i++){
 		summonArr[i] = [objectArguments[i].argumentName, instanceArgumentsChoices[i]];
 	}//add all the variables we've added to the itemInstance to the instance itself in testing (and in-game)
-	summonArr[objArgArrLen]   = ["x", x];
-	summonArr[objArgArrLen+1] = ["y", y];
+	var extraArguments = [["x", x],["y", y],["image_xscale", image_xscale],["image_yscale", image_yscale]];
+	addToSummonStruct(summonArr,extraArguments)
+	
+	
 	instance = summonObject(object, summonArr);
 }
 function unsummonInstance(){
 	visible = true;
 	instance_destroy(instance);
 }
+function dismantle(){
+	objectArguments.appearanceAction(appearanceTypes.disappear)
+	instance_destroy();
+}
 
 SignalSubscribe(id, "updateInstance: " + string(id), function(arg){updateInstanceArgumentChoices(arg[0],arg[1], arg[2])});
 
-function toggleMenu(){
-	if menu == noone{
-		openMenu();
-	}else{
-		closeMenu();
-	}
-}
-
-function openMenu(){
-	menu = summonObject(obj_editor_instanceMenu, [["coordsOffset", [sprite_width,0]], 
-	["depth", depth-1], ["instanceId", id], 
-	["instanceArgumentsChoices", instanceArgumentsChoices],
-	["objectArguments", objectArguments]]);
-	
-}
-function closeMenu(){
-	with menu{
-		close()
-	}
-}
-function updateInstanceArgumentChoices(argumentType,instanceIndex,choiceInfo){
-	print("haii");
-	switch (argumentType){
-		case argumentTypes.options:{ //choiceInfo is the number of the argument
-			instanceArgumentsChoices[instanceIndex] = objectArguments[instanceIndex].argumentChoices[choiceInfo];
-		}break;
-		case argumentTypes.checkbox:{ //choiceInfo ignored
-			print("letsgo");
-			instanceArgumentsChoices[instanceIndex] = !instanceArgumentsChoices[instanceIndex];
-		}break;
-		case argumentTypes.freetext:{ //choiceInfo is free text
-			instanceArgumentsChoices[instanceIndex] = choiceInfo;
-		}break;
-	}
-	
-}
 
 
-function setInstanceArgumentsChoices(){
-	//objectArguments is for what parameters and options an object can have,
-	//instanceArguments is what those parameters are for that specific instance
-	
-	//example: 
-	
-	//objectArguments: {argumentName: "itemPool", argumentType:  argumentTypes.options, 
-	//argumentChoices: ["itemPool", "bossPool"]}
-	//instanceArguments: "itemPool"
-	
-	for (var i = 0; i < array_length(objectArguments); i++){
-		instanceArgumentsChoices[i] = objectArguments[i].argumentChoices[0]
-	}
-}

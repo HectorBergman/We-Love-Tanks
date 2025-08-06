@@ -1,13 +1,19 @@
 isActive = true;
 depth = -300;
+
+	
 enum clickTypes{
 	click,
 	rClick,
 	release
 }
 function sendClickSignal(clickType, instanceClicked){
+	print("signaling!:");
+	print(clickType);
+	print(instanceClicked);
 	switch (clickType){
-		case clickTypes.click:{SignalSend("editor_clicked: " + string(instanceClicked))}break;
+		case clickTypes.click:{SignalSend("editor_clicked: " + string(instanceClicked))
+							   SignalSend("editor_clicked: general")}break;
 		case clickTypes.rClick:{SignalSend("editor_rightClicked: " + string(instanceClicked))}break;
 		case clickTypes.release:{SignalSend("editor_released: " + string(instanceClicked))}break;
 	}
@@ -44,9 +50,12 @@ function clickingLogic(){
 	var rClick = obj_inputHandler.rightClick
 	var release = obj_inputHandler.clickRelease;
 	var priorityOrder = createPriorityOrder([
+		[clickTypes.click, obj_editor_saveRoomButton],
 		[clickTypes.click, obj_editor_displayObjects],
 		[clickTypes.click, obj_editor_itemMenu],
 		[clickTypes.rClick, obj_editor_itemInstance],
+		[clickTypes.click, obj_editor_instanceMenu],
+		[clickTypes.click, obj_editor_itemInstance_highlight],
 		[clickTypes.click, obj_editor_menu_argumentForm_dropdown],
 		[clickTypes.click, obj_editor_menu_argumentForm], 
 		[clickTypes.click, obj_editor_player_standIn],

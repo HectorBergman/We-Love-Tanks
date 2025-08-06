@@ -172,10 +172,7 @@ function gotoRoom(_room){
 	if _room == "error"{
 		room_goto(rm_errorRoom);
 	}else{
-	
-	print(_room);
-
-		
+		print(_room);
 		nextInstances = _room.instances;
 		print(_room.roomShape);
 		room_goto(asset_get_index("rm_roomTemplate_" + _room.roomShape));

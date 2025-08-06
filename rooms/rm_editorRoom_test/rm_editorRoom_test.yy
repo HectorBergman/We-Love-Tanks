@@ -31,7 +31,6 @@
     {"name":"inst_16D973F7_1","path":"rooms/rm_editorRoom_test/rm_editorRoom_test.yy",},
     {"name":"inst_7799D69C_1","path":"rooms/rm_editorRoom_test/rm_editorRoom_test.yy",},
     {"name":"inst_6D5348EB_1","path":"rooms/rm_editorRoom_test/rm_editorRoom_test.yy",},
-    {"name":"inst_66086C31","path":"rooms/rm_editorRoom_test/rm_editorRoom_test.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -92,7 +91,6 @@
         {"$GMRInstance":"v2","%Name":"inst_6D5348EB_1","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6D5348EB_1","objectId":{"name":"obj_roomEntrance","path":"objects/obj_roomEntrance/obj_roomEntrance.yy",},"properties":[
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_roomEntrance","path":"objects/obj_roomEntrance/obj_roomEntrance.yy",},"propertyId":{"name":"entranceDoor","path":"objects/obj_roomEntrance/obj_roomEntrance.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"2",},
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.3615361,"scaleX":1.0,"scaleY":3.0,"x":48.0,"y":272.0,},
-        {"$GMRInstance":"v2","%Name":"inst_66086C31","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_66086C31","objectId":{"name":"obj_editor_handler","path":"objects/obj_editor_handler/obj_editor_handler.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":544.0,"y":-160.0,},
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":30.0,"animationSpeedType":0,"colour":4294967295,"depth":80,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":true,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":{"name":"spr_bg_temp","path":"sprites/spr_bg_temp/spr_bg_temp.yy",},"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":true,"x":0,"y":0,},
   ],

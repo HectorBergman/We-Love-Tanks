@@ -4,3 +4,7 @@ if held{
 	x = rounded_x;
 	y = rounded_y;
 }
+if !held && place_meeting(x,y,obj_wall) || !inRange(x, 0, room_width) || !inRange(y, 0, room_height){
+		x = room_width/2;
+		y = room_height/2;
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_generalNeeded",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_generalNeeded",
+  "parent":{
+    "name":"editor_2",
+    "path":"folders/Objects/editor_2.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

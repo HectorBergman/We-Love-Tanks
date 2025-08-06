@@ -1,10 +1,10 @@
 {
   "$GMSprite":"",
   "%Name":"spr_enemySpawner",
-  "bboxMode":0,
-  "bbox_bottom":15,
+  "bboxMode":1,
+  "bbox_bottom":31,
   "bbox_left":0,
-  "bbox_right":15,
+  "bbox_right":31,
   "bbox_top":0,
   "collisionKind":1,
   "collisionTolerance":0,

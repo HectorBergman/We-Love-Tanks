@@ -1,18 +1,33 @@
 SignalSubscribe(id, "closeMenu: " + string(instanceId), function(){close()});
 SignalSubscribe(id, "updateInstance: " + string(instanceId), function(arg){updateArgumentChoice(arg[0],arg[1],arg[2])});
-SignalSubscribe(id, "closeDropdown: " + string(instanceId) + string(argumentIndex), function(){isOpen = false;})
+SignalSubscribe(id, "closeDropdownFromDD: " + string(instanceId) + string(argumentIndex), function(){toggleDropdown();})
+SignalSubscribe(id, "openDropdown: " + string(instanceId), function(arg){if arg[0] != id && isOpen{ toggleDropdown();}})
 print("newone")
 print(argumentChoice);
 print("done");
-isOpen = false; //dropdown
-isChecked = argumentChoice; //checkbox
-isActive = false; //freetext
+//dropdown
+isOpen = false; 
+//checkbox
+isChecked = argumentChoice;
+//freetext
+isActive = false; 
 buffer = "";
+maxLetters =getMaxVisibleLetters()
+backSpaceStartTime = 10;
+backSpaceTimer = 0;
+backSpaceHoldTime = 3;
 
+function getMaxVisibleLetters(){
+	var val = "a"
+	tempText = "[$eee7e7][scale,1][fnt_coolFont]" + val; 
+	tempToDraw = scribble(tempText)
+	var width1 = tempToDraw.get_width();
+	return floor(width/width1);
+}
 
 switch (type){
 	case  argumentTypes.options:{
-		searchForClick(openDropdown)
+		searchForClick(toggleDropdown)
 	}break;
 	case argumentTypes.checkbox:{
 		image_index = argumentChoice
@@ -36,6 +51,10 @@ function updateArgumentText(){
 		}break;
 		case argumentTypes.freetext:{
 			var val = buffer;
+			var lengthDiff =  maxLetters- string_length(val) 
+			if lengthDiff < 0{
+				val = string_delete(val, 0, -lengthDiff);
+			}
 			text = "[$eee7e7][scale,1][fnt_coolFont]" + val; 
 		}break;
 	}
@@ -105,8 +124,10 @@ function toggleCheckbox(){
 }
 
 
-function openDropdown(){
+function toggleDropdown(){
 	if !isOpen{
+		SignalSend("openDropdown: " + string(instanceId), [id]);
+		image_index = 1;
 		for (var i = 0; i < array_length(allArgumentChoices); i++){
 			summonObject(obj_editor_menu_argumentForm_dropdown, 
 				[["isLast", i == array_length(allArgumentChoices)-1], 
@@ -117,6 +138,10 @@ function openDropdown(){
 				["depth", depth]])
 		}
 		isOpen = true;
+	}else{
+		image_index = 0;
+		closeDropdown();
+		isOpen = false;
 	}
 }
 function textboxSelectedAction(arg){
@@ -128,9 +153,11 @@ function textboxSelectedAction(arg){
 	}
 }
 function activateTextbox(){
+	image_index = 1;
 	isActive = true;
 }
 function deactivateTextbox(){
+	image_index = 0;
 	isActive = false;
 }
 
@@ -148,8 +175,12 @@ function activeTextboxLogic(){
 	print(_key);
 	print(string_upper(_key));
 	print(keyboard_check_pressed(ord(string_upper(_key))));
-	if keyboard_check_pressed(vk_backspace){
-		buffer = string_delete(buffer,string_length(buffer),1);
+	if keyboard_check(vk_backspace){
+		if keyboard_check_pressed(vk_backspace){
+			buffer = string_delete(buffer,string_length(buffer),1);
+		}else{
+			
+		}
 	}else{
 		if string_length(buffer) < 256 && keyboard_check_pressed(ord(string_upper(_key))){
 			buffer += _key;
@@ -175,12 +206,14 @@ function getSprite(){
 	switch (type){
 		case argumentTypes.options:{
 			sprite_index = spr_roomEditor_menu_dropdown_click;
+			image_xscale = (width+16)/sprite_width;
 		}break;
 		case argumentTypes.checkbox:{
 			sprite_index = spr_roomEditor_checkbox
 		}break;
 		case argumentTypes.freetext:{
 			sprite_index = spr_roomEditor_menu_dropdown_type;
+			image_xscale = (width+16)/sprite_width;
 		}break;
 	}
 }

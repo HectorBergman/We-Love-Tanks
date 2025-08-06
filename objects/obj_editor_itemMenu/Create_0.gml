@@ -5,9 +5,10 @@ enum editorMenuStates2 {
 	transitionToActive,
 	transitionToInactive
 }
+currentDisplayObject = noone //because var scopes suck dickkk!!!
 state = editorMenuStates2.inactive;
 regularHitbox = mask_index;
-
+initiateToggleSignal(deactivateMenu, function(){});
 actionsOrder = ds_queue_create();
 function tweeningVariables(){
 	notActiveX = 960;
@@ -88,17 +89,21 @@ function activateMenu(){
 
 function initiateDisplayObjects(){
 	for (var i = 0; i < ds_list_size(displayObjList); i++) {
-	    var currentDisplayObject = ds_list_find_value(displayObjList,i);
+	    currentDisplayObject = ds_list_find_value(displayObjList,i);
 		print(currentDisplayObject);
 		print(currentDisplayObject.arguments);
-		summonObject(obj_editor_displayObjects, 
-		[["coordsOffset", [32+(i mod 4)*64,64+(floor(i/4))]], 
-		["object", currentDisplayObject.objectIndex], ["depth", depth-1], 
-		["objectName", currentDisplayObject.name], 
-		["objectArguments", currentDisplayObject.arguments],
-		["parent", id]]);
+	
+		var summonStruct = 
+			[["coordsOffset", [32+(i mod 4)*64,64+(floor(i/4)*64)]], 
+			["depth", depth-1],
+			["parent", id], 
+			["canResize", currentDisplayObject.canResize]]
+		addObjectVariablesToSummonStruct(summonStruct, true);
+		summonObject(obj_editor_displayObjects, summonStruct
+		);
 	}
 }
+
 function activateDisplayObjects(){
 	SignalSend("editorMenu: displayObjects_activate");
 }
@@ -111,7 +116,8 @@ function deactivateDisplayObjects(){
 function purgeInstances(_id){
 	mask_index = spr_roomEditor_menu_hitbox;
 	if place_meeting(x,y,_id){
-		instance_destroy(_id);
+		with _id{closeMenu()};
+		dismantle(_id);
 	}
 	mask_index = regularHitbox
 }
