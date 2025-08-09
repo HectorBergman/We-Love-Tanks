@@ -1,6 +1,5 @@
 //SignalSubscribe(id, "editor_pointer: dropped heldObject", function(){held = false});
-print(objectActions);
-objectActions(appearanceTypes.appear)
+objectActions.appearanceAction(appearanceTypes.appear)
 menu = noone;
 instance = noone;
 highlight = noone;
@@ -30,23 +29,18 @@ function summonInstance(){
 	closeMenu()
 	dropped();
 	visible = false;
-	var summonArr = []
-	var objArgArrLen = array_length(objectArguments)
-	for (var i = 0; i < objArgArrLen; i++){
-		summonArr[i] = [objectArguments[i].argumentName, instanceArgumentsChoices[i]];
-	}//add all the variables we've added to the itemInstance to the instance itself in testing (and in-game)
-	var extraArguments = [["x", x],["y", y],["image_xscale", image_xscale],["image_yscale", image_yscale]];
-	addToSummonStruct(summonArr,extraArguments)
+	var summonArr = getActualInstanceSummonArr(id);
 	
 	
-	instance = summonObject(object, summonArr);
+	instance = summonObject(summonArr[0], summonArr[1]);
 }
 function unsummonInstance(){
 	visible = true;
 	instance_destroy(instance);
 }
 function dismantle(){
-	objectArguments.appearanceAction(appearanceTypes.disappear)
+	print(objectActions);
+	objectActions.disappearanceAction()
 	instance_destroy();
 }
 

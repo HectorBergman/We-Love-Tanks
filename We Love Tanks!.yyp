@@ -288,6 +288,7 @@
     {"id":{"name":"scr_playerState_normal","path":"scripts/scr_playerState_normal/scr_playerState_normal.yy",},},
     {"id":{"name":"scr_playerVariables_movement","path":"scripts/scr_playerVariables_movement/scr_playerVariables_movement.yy",},},
     {"id":{"name":"scr_save","path":"scripts/scr_save/scr_save.yy",},},
+    {"id":{"name":"scr_savingRoomsFuncs","path":"scripts/scr_savingRoomsFuncs/scr_savingRoomsFuncs.yy",},},
     {"id":{"name":"scr_signal","path":"scripts/scr_signal/scr_signal.yy",},},
     {"id":{"name":"scr_stiffBuckshot_cannon_states","path":"scripts/scr_stiffBuckshot_cannon_states/scr_stiffBuckshot_cannon_states.yy",},},
     {"id":{"name":"scr_stiffBuckshot_cannon","path":"scripts/scr_stiffBuckshot_cannon/scr_stiffBuckshot_cannon.yy",},},

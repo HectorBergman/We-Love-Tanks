@@ -16,13 +16,14 @@ enum childTypes{
 	parent,
 	grandchild
 }
-function allObjectVariables(childType){
+function allObjectVariables(isParent){
 	var newArr = [];
-	switch (childType){
+	switch (isParent){
 		case true:{
-			var action = function(){};
-			if variable_struct_exists(currentDisplayObject, "appearanceAction"){
-				action = currentDisplayObject.appearanceAction
+			var action =  createActions();
+			print(currentDisplayObject);
+			if variable_struct_exists(currentDisplayObject, "actions"){
+				action = currentDisplayObject.actions
 			}
 			newArr = 
 				[["object", currentDisplayObject.objectIndex],
@@ -40,4 +41,19 @@ function allObjectVariables(childType){
 		}break;
 	}
 	return newArr;
+}
+
+function getActualInstanceSummonArr(itemInstance){
+	var summonArr = []
+	var objArgArrLen = array_length(itemInstance.objectArguments)
+	for (var i = 0; i < objArgArrLen; i++){
+		summonArr[i] = [itemInstance.objectArguments[i].argumentName, itemInstance.instanceArgumentsChoices[i]];
+	}//add all the variables we've added to the itemInstance to the instance itself in testing (and in-game)
+	var extraArguments = 
+		[["x", itemInstance.x],["y", itemInstance.y],
+		["image_xscale", itemInstance.image_xscale],
+		["image_yscale", itemInstance.image_yscale]];
+	addToSummonStruct(summonArr,extraArguments)
+	summonArr = [itemInstance.object, summonArr];
+	return summonArr;
 }

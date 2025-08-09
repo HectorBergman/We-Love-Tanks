@@ -36,6 +36,7 @@ if (truthStatement){ //hover over button
 		}else if action == 5{
 			obj_gameSettingHandler.gameState = gameStates.editorBuilding
 			room_goto(rm_editor_menu);
+			summonObject(obj_editor_handler);
 			//room_goto(rm_editorRoom_test);
 		}
 	}

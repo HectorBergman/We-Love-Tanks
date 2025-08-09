@@ -11,7 +11,6 @@ switch (held){
 if highlight != noone{
 	if obj_inputHandler.copy{
 		SignalSend("itemInstance: unhighlight");
-		print("a copy of a copy of a copy");
 		var iAC = [];
 		var hOffset = [];
 		array_copy(iAC, 0, instanceArgumentsChoices, 0, array_length(instanceArgumentsChoices))

@@ -37,6 +37,9 @@ switch (type){
 		buffer = argumentChoice
 		searchForClick(function(){SignalSend("textbox: selected", [id])})
 	}break;
+	case argumentTypes.button:{
+		searchForClick(function(){SignalSend("button: clicked", [instanceId])})
+	}break;
 }
 
 
@@ -172,9 +175,6 @@ function deactivateTextbox(){
 function activeTextboxLogic(){
 	var preBuffer = buffer;
 	var _key = keyboard_lastchar;
-	print(_key);
-	print(string_upper(_key));
-	print(keyboard_check_pressed(ord(string_upper(_key))));
 	if keyboard_check(vk_backspace){
 		if keyboard_check_pressed(vk_backspace){
 			buffer = string_delete(buffer,string_length(buffer),1);
@@ -213,6 +213,10 @@ function getSprite(){
 		}break;
 		case argumentTypes.freetext:{
 			sprite_index = spr_roomEditor_menu_dropdown_type;
+			image_xscale = (width+16)/sprite_width;
+		}break;
+		case argumentTypes.button:{
+			sprite_index = spr_roomEditor_menu_dropdown_confirm
 			image_xscale = (width+16)/sprite_width;
 		}break;
 	}

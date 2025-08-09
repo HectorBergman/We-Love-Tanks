@@ -8,7 +8,6 @@ if canResize{
 }
 
 function enterResizing(){
-	print("yeahbaby");
 	searchForRelease(exitResizing)
 
 	originalScale = [parent.image_xscale,parent.image_yscale]

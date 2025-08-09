@@ -230,6 +230,7 @@
     {"name":"scr_parentChildFunctions","order":8,"path":"scripts/scr_parentChildFunctions/scr_parentChildFunctions.yy",},
     {"name":"scr_pause","order":13,"path":"scripts/scr_pause/scr_pause.yy",},
     {"name":"scr_save","order":9,"path":"scripts/scr_save/scr_save.yy",},
+    {"name":"scr_savingRoomsFuncs","order":14,"path":"scripts/scr_savingRoomsFuncs/scr_savingRoomsFuncs.yy",},
     {"name":"scr_signal","order":12,"path":"scripts/scr_signal/scr_signal.yy",},
     {"name":"scr_stiffBuckshot_cannon_states","order":1,"path":"scripts/scr_stiffBuckshot_cannon_states/scr_stiffBuckshot_cannon_states.yy",},
     {"name":"scr_stiffBuckshot_states","order":3,"path":"scripts/scr_stiffBuckshot_states/scr_stiffBuckshot_states.yy",},

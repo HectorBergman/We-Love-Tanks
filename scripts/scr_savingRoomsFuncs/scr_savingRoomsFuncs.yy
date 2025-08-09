@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_savingRoomsFuncs",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_savingRoomsFuncs",
+  "parent":{
+    "name":"editor_2",
+    "path":"folders/Objects/editor_2.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

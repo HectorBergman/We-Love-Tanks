@@ -15,6 +15,14 @@ function playerInput(){
 	{
 		moveRight = true;
 	}
+	if keyboard_check_pressed(ord("W"))
+	{
+		moveUpClick = true;
+	}
+	if keyboard_check_pressed(ord("S"))
+	{
+		moveDownClick = true;
+	}
 	if mouse_check_button(mb_left)
 	{
 		fire = true;
@@ -71,6 +79,8 @@ function resetInputs(){
 	moveDown = false;
 	moveLeft = false;
 	moveRight = false;
+	moveUpClick = false;
+	moveDownClick = false;
 	fire = false;
 	click = false;
 	run = false;

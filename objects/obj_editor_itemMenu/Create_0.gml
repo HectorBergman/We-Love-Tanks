@@ -54,7 +54,6 @@ function popActionsQueue(){
 	//deactivate and activate cancel eachother out, so if queue exceeds two entries, only keep the head for simplicity
 	if !ds_queue_empty(actionsOrder){
 		var dq = ds_queue_dequeue(actionsOrder)
-		print(dq);
 		dq()
 	}
 }
@@ -90,8 +89,6 @@ function activateMenu(){
 function initiateDisplayObjects(){
 	for (var i = 0; i < ds_list_size(displayObjList); i++) {
 	    currentDisplayObject = ds_list_find_value(displayObjList,i);
-		print(currentDisplayObject);
-		print(currentDisplayObject.arguments);
 	
 		var summonStruct = 
 			[["coordsOffset", [32+(i mod 4)*64,64+(floor(i/4)*64)]], 
@@ -116,8 +113,8 @@ function deactivateDisplayObjects(){
 function purgeInstances(_id){
 	mask_index = spr_roomEditor_menu_hitbox;
 	if place_meeting(x,y,_id){
-		with _id{closeMenu()};
-		dismantle(_id);
+		with _id{closeMenu();dismantle(self);};
+		
 	}
 	mask_index = regularHitbox
 }

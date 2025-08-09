@@ -8,7 +8,6 @@ function close(){
 }
 toDrawArr = [];
 function summonOptions(){
-	print(instanceArgumentsChoices);
 	widestWidthNameText = 0;
 	widestWidthArgumentText = 0;
 	var widestWidth = getWidestText(objectArguments, function(arg, i){ var s = string(arg.argumentName)+ ":"; toDrawArr[i] = scribble(s); return s;});
@@ -23,8 +22,6 @@ function summonOptions(){
 	}
 	image_xscale = (widestWidthArgumentChoices+widestWidth+48)/sprite_width;
 	for (var i = 0; i < array_length(objectArguments); i++){
-		print(instanceArgumentsChoices[i]);
-		
 		summonObject(obj_editor_menu_argumentForm,
 			[["coordsOffset",[16+widestWidth+coordsOffset[0], i*24+8+coordsOffset[1]]], 
 			["type", objectArguments[i].argumentType], ["depth", depth-1],
@@ -36,8 +33,6 @@ function summonOptions(){
 	}
 }
 function getWidestText(textArray, extractNameFunc){
-	print("new")
-	print(textArray);
 	var widestWidth = 0;
 	for (var i = 0; i < array_length(textArray); i++){
 		text = "";

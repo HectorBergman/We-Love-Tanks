@@ -1,21 +1,27 @@
-//Does not handle menus outside of the room being edited, that changes noW!
 
 fileName = "savedRooms2.sav"
-roomsData = noone;
+roomsPosition = 0;
+roomsData = [];
+toDrawArray = [];
+justexited = false;
+SignalSubscribe(id, "saved room", function(arg){ saveRoom(arg)})
 loadAllRoomData();
-
-function loadAllRoomData(){
-	roomsData = loadData(fileName);
+function updateToDrawArray(){
+	toDrawArray = [];
+	var text = ""
+	var roomsDataLen = array_length(roomsData);
+	for (var i = roomsPosition; i < roomsPosition+5; i++){
+		if i == 0{
+			text = "[$eee7e7][scale,1][fnt_coolFont]NEW"
+		}else if (i-1) < roomsDataLen{
+			text = "[$eee7e7][scale,1][fnt_coolFont]" + roomsData[i-1].roomName;
+		}else{
+			break;
+		}
+		toDrawArray[i-roomsPosition] = scribble(text);
+	}
 }
-roomsData[array_length(roomsData)] = newRoom()
-
-function newRoom(){
-	var r = [{
-		roomName : "",
-		roomShape : "normal",
-		roomType : "standard",
-	}, {}];
-}
+updateToDrawArray();
 enum editorMenuModes {
 	selectingRoom,
 	editingRoom,
@@ -41,6 +47,15 @@ function summonEditorObjects(){
 	summonObject(obj_editor_player_standIn, [["x", room_width/2], ["y", room_height/2]]);
 	summonObject(obj_editor_saveRoomButton, [["x", 0],["y", 0]]);
 }
+
+function destroyEditorObjects(){
+	instance_destroy(obj_cam);
+	instance_destroy(obj_editor_itemMenu);
+	instance_destroy(obj_editor_player_standIn);
+	instance_destroy(obj_editor_saveRoomButton);
+	instance_destroy(obj_editor_itemInstance);
+}
+
 summonMenuObjects();
 
 
@@ -78,3 +93,4 @@ function editingRoomLogic(){
 		}break;
 	}
 }
+

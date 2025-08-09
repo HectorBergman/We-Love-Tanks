@@ -29,7 +29,7 @@ function initiateDisplayObjInfo(){
 		canResize: false,
 		arguments : 
 		[createArgument("itemPool",argumentTypes.options,global.itemPools)],
-		appearanceAction : function(arg){randomized_appearanceActions(arg, 1)}
+		actions : createActions(function(){},function(){}, function(){savedAction_addRandom(1)})
 	},
 	{
 		name : "Enemy",
@@ -38,7 +38,7 @@ function initiateDisplayObjInfo(){
 		canResize: false,
 		arguments : 
 		[createArgument("enemyType",argumentTypes.options,global.enemyTypes)],
-		appearanceAction : function(arg){randomized_appearanceActions(arg, 1)}
+		actions : createActions(function(){},function(){}, function(){savedAction_addRandom(1)})
 		
 	},
 	{
@@ -48,7 +48,7 @@ function initiateDisplayObjInfo(){
 		canResize: false,
 		arguments : 
 		[createArgument("bossType",argumentTypes.options,global.bossTypes)],
-		appearanceAction : function(arg){randomized_appearanceActions(arg, 1)}
+		actions : createActions(function(){},function(){}, function(){savedAction_addRandom(1)})
 	}
 	
 	]
@@ -59,7 +59,8 @@ function initiateDisplayObjInfo(){
 enum argumentTypes{
 	options,
 	checkbox,
-	freetext
+	freetext,
+	button
 }
 
 enum appearanceTypes{
@@ -71,15 +72,21 @@ function createArgument(name,type,choices = [""]){
 	return {argumentName: name, argumentType: type, argumentChoices: choices}
 }
 
-function randomized_appearanceActions(appearanceType, randomAmt){
-	switch appearanceType{
-		case appearanceTypes.appear:{
-			SignalSend("editor_handler: +random", randomAmt);
-		}break;
-		case appearanceTypes.disappear:{
-			SignalSend("editor_handler: -random", randomAmt);
-		}break;
-	}
+function randomized_appearanceAction(randomAmt){
+	SignalSend("editor_handler: +random", randomAmt);
+		
+}
+function randomized_disappearanceAction(randomAmt){
+	SignalSend("editor_handler: -random", randomAmt);	
+}
+
+function savedAction_addRandom(randomAmt){
+	SignalSend("saved: addRandom", randomAmt);
+}
+
+
+function createActions(appearanceAction = function(arg){}, disappearanceAction = function(arg){}, savedAction = function(arg){}){
+	return  {appearanceAction : appearanceAction, disappearanceAction : disappearanceAction, savedAction : savedAction}
 }
 
 	/*Wall :  {object: obj_wall,  _name: "Wall",   editable:[]},
