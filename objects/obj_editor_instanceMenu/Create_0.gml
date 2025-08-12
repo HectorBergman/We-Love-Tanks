@@ -1,4 +1,7 @@
 //["instanceId", id]]
+if (variable_instance_exists(id,"DOindex")){
+	getDisplayObjectInfo(DOindex)
+}
 
 searchForClick(close)
 function close(){
@@ -21,6 +24,8 @@ function summonOptions(){
 	
 	}
 	image_xscale = (widestWidthArgumentChoices+widestWidth+48)/sprite_width;
+	
+	var heightNeeded = 32;
 	for (var i = 0; i < array_length(objectArguments); i++){
 		summonObject(obj_editor_menu_argumentForm,
 			[["coordsOffset",[16+widestWidth+coordsOffset[0], i*24+8+coordsOffset[1]]], 
@@ -29,8 +34,10 @@ function summonOptions(){
 			["argumentChoice",instanceArgumentsChoices[i]],
 			["allArgumentChoices",objectArguments[i].argumentChoices], ["width", widestWidthArgumentChoices]]
 		);
+		heightNeeded += 24;
 		
 	}
+	image_yscale = (heightNeeded)/sprite_height;
 }
 function getWidestText(textArray, extractNameFunc){
 	var widestWidth = 0;
@@ -42,6 +49,9 @@ function getWidestText(textArray, extractNameFunc){
 		if width > widestWidth{
 			widestWidth = width;
 		}
+	}
+	if widestWidth < 64{
+		widestWidth = 64
 	}
 	return widestWidth;
 }

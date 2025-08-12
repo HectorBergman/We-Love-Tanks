@@ -24,7 +24,7 @@ tweeningVariables();
 //editor_pointer sends this signal out when it has clicked the item menu button
 
 SignalSubscribe(id, "itemInstance: dropped", function(arg){purgeInstances(arg[0])});
-initiateDisplayObjInfo(); //initialize the info saying which objects we have available to place
+
 initiateDisplayObjects(); //initialize the instances used to display the objects available to the user
 searchForClick(transitionQueue);
 
@@ -87,9 +87,10 @@ function activateMenu(){
 }
 
 function initiateDisplayObjects(){
-	for (var i = 0; i < ds_list_size(displayObjList); i++) {
-	    currentDisplayObject = ds_list_find_value(displayObjList,i);
-	
+	print(ds_list_size(global.displayObjects));
+	for (var i = 0; i < ds_list_size(global.displayObjects); i++) {
+	    currentDisplayObject = ds_list_find_value(global.displayObjects,i);
+		print(currentDisplayObject);
 		var summonStruct = 
 			[["coordsOffset", [32+(i mod 4)*64,64+(floor(i/4)*64)]], 
 			["depth", depth-1],

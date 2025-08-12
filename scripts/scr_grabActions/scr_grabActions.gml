@@ -18,7 +18,8 @@ function spawnItemInstance(){
 		[["sprite_index", sprite_index], 
 		["heldOffset", [0,0]], 
 		["depth", -260],
-		["canResize", canResize]]
+		["canResize", canResize],
+		["isFromDisplayObj", true]]
 	addObjectVariablesToSummonStruct(summonStruct, false);
 	var iInstance = summonObject(obj_editor_itemInstance, summonStruct
 	);
@@ -37,8 +38,9 @@ function setInstanceArgumentsChoices(){
 	//objectArguments: {argumentName: "itemPool", argumentType:  argumentTypes.options, 
 	//argumentChoices: ["itemPool", "bossPool"]}
 	//instanceArguments: "itemPool"
-	
+	print(objectArguments);
 	for (var i = 0; i < array_length(objectArguments); i++){
+		
 		instanceArgumentsChoices[i] = objectArguments[i].argumentChoices[0]
 	}
 }

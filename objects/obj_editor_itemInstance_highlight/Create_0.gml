@@ -1,3 +1,5 @@
+
+
 resizing = false;
 mask_index = spr_roomEditor_highlight_corner;
 

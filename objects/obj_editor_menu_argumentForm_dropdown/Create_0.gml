@@ -1,4 +1,7 @@
-print("helloo");
+if (variable_instance_exists(id,"DOindex")){
+	getDisplayObjectInfo(DOindex)
+}
+
 SignalSubscribe(id, "closeMenu: " + string(instanceId), function(){close()});
 SignalSubscribe(id, "closeDropdown: " + string(instanceId) + string(argumentIndex), function(){close()})
 function updateInstance(){

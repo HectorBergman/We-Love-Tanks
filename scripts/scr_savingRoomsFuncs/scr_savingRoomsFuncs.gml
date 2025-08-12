@@ -6,8 +6,8 @@ enum closestStringReturns{
 
 function saveRoom(roomSaved){
 	insertRoomInArr(roomsData, roomSaved);
+	print(roomsData);
 	saveData(roomsData, fileName);
-	
 }
 function insertRoomInArr(arr, _room){
 	var currentPos = 0;

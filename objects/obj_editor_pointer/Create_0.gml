@@ -12,8 +12,9 @@ function sendClickSignal(clickType, instanceClicked){
 	print(clickType);
 	print(instanceClicked);
 	switch (clickType){
-		case clickTypes.click:{SignalSend("editor_clicked: " + string(instanceClicked))
-							   SignalSend("editor_clicked: general")}break;
+		case clickTypes.click:{SignalSend("editor_clicked", instanceClicked);
+							   SignalSend("editor_clicked: " + string(instanceClicked))
+		}break;
 		case clickTypes.rClick:{SignalSend("editor_rightClicked: " + string(instanceClicked))}break;
 		case clickTypes.release:{SignalSend("editor_released: " + string(instanceClicked))}break;
 	}
@@ -61,6 +62,7 @@ function clickingLogic(){
 		[clickTypes.click, obj_editor_player_standIn],
 		[clickTypes.click, obj_editor_itemInstance]
 	]);
+	var clickFound = false;
 	for (var i = 0; i < array_length(priorityOrder); i++){
 		var isInputted = false;
 		switch (priorityOrder[i][0]){
@@ -70,11 +72,19 @@ function clickingLogic(){
 		}
 		if isInputted && priorityOrder[i][1]{
 			sendClickSignal(priorityOrder[i][0],priorityOrder[i][1])
+			clickFound = true;
 			break;
+		}
+	}
+	if !clickFound{
+		if click{
+			SignalSend("editor_clicked", noone);
 		}
 	}
 	if obj_inputHandler.clickRelease{
 		SignalSend("editor_released");
 	}
 }
+
+
 

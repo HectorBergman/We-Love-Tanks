@@ -1,4 +1,6 @@
 //SignalSubscribe(id, "editor_pointer: dropped heldObject", function(){held = false});
+
+getDisplayObjectInfo(DOindex)
 objectActions.appearanceAction(appearanceTypes.appear)
 menu = noone;
 instance = noone;
@@ -16,7 +18,11 @@ function toggleHighlight(){
 		highlight = noone;
 	}
 }
-dragItemInstance();
+if (variable_instance_exists(id, "isFromDisplayObj")){
+	if isFromDisplayObj{
+		dragItemInstance();
+	}
+}
 searchForClick(dragItemInstance)
 searchForRightClick(toggleMenu)
 initiateToggleSignal(summonInstance,unsummonInstance)
@@ -29,17 +35,18 @@ function summonInstance(){
 	closeMenu()
 	dropped();
 	visible = false;
-	var summonArr = getActualInstanceSummonArr(id);
+	var instanceInfo = getActualInstanceSummonArr(id);
+	var summonArr = []
+	array_copy(summonArr, 0, instanceInfo.instanceArguments,0,array_length(instanceInfo.instanceArguments));
 	
-	
-	instance = summonObject(summonArr[0], summonArr[1]);
+	addToSummonStruct(summonArr,instanceInfo.additionalSummonArgs)
+	instance = summonObject(instanceInfo.objectIndex, summonArr);
 }
 function unsummonInstance(){
 	visible = true;
 	instance_destroy(instance);
 }
 function dismantle(){
-	print(objectActions);
 	objectActions.disappearanceAction()
 	instance_destroy();
 }

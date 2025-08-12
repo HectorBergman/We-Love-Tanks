@@ -5,13 +5,17 @@ switch (menuMode){
 	case editorMenuModes.selectingRoom:{
 		
 		var move = obj_inputHandler.moveDownClick-obj_inputHandler.moveUpClick
+		roomsPosition = (roomsPosition+move) mod (array_length(searchArray)+1);
 		if move != 0{
-			roomsPosition = (roomsPosition+move) mod (array_length(roomsData)+1);
+			
 			if roomsPosition < 0{
-				roomsPosition += array_length(roomsData)+1;
+				roomsPosition += array_length(searchArray)+1;
 			}
 			updateToDrawArray();
 			print(roomsPosition);
+		}
+		if menu == noone{
+			toggleMenu()
 		}
 	}break;
 	case editorMenuModes.editingRoom:{
@@ -24,22 +28,31 @@ switch (menuMode){
 }
 
 function toggleInRoom(){
-	if obj_inputHandler.escape && !justexited{
-		switch (menuMode){
-			case editorMenuModes.selectingRoom:{
-				room_goto(rm_roomTemplate_normal);
+	switch (menuMode){
+		case editorMenuModes.selectingRoom:{
+			if obj_inputHandler.confirm{
+				if roomsPosition != 0{
+					var chosenRoom = searchArray[roomsPosition-1]
+					room_goto(asset_get_index("rm_roomTemplate_" + chosenRoom.roomShape));
+				}else{
+					room_goto(rm_roomTemplate_normal);
+				}
 				summonEditObj = true;
 				menuMode = editorMenuModes.editingRoom;
 				justexited = true;
+				if menu != noone{
+					toggleMenu()
+				}
 			}
-			break;
-			case editorMenuModes.editingRoom:{
+		}
+		break;
+		case editorMenuModes.editingRoom:{
+			if obj_inputHandler.escape{
 				room_goto(rm_editor_menu);
 				menuMode = editorMenuModes.selectingRoom;
 				justexited = true;
 				destroyEditorObjects();
 			}
 		}
-		obj_inputHandler.escape = false;
-	}
+	}	
 }

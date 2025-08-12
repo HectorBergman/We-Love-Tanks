@@ -1,3 +1,7 @@
+if (variable_instance_exists(id,"DOindex")){
+	getDisplayObjectInfo(DOindex)
+}
+
 SignalSubscribe(id, "closeMenu: " + string(instanceId), function(){close()});
 SignalSubscribe(id, "updateInstance: " + string(instanceId), function(arg){updateArgumentChoice(arg[0],arg[1],arg[2])});
 SignalSubscribe(id, "closeDropdownFromDD: " + string(instanceId) + string(argumentIndex), function(){toggleDropdown();})
@@ -36,6 +40,7 @@ switch (type){
 	case argumentTypes.freetext:{
 		buffer = argumentChoice
 		searchForClick(function(){SignalSend("textbox: selected", [id])})
+		SignalSubscribe(id,"editor_clicked", function(arg){if arg != id{ deactivateTextbox()}});
 	}break;
 	case argumentTypes.button:{
 		searchForClick(function(){SignalSend("button: clicked", [instanceId])})
@@ -163,7 +168,10 @@ function deactivateTextbox(){
 	image_index = 0;
 	isActive = false;
 }
-
+print("lol")
+print(string_upper("-"));
+print(ord(string_upper("-")));
+print(ord("-"));
 /*function getWidest(widthToReach){
 	
 	if toDraw.get_width() > widthToReach{
@@ -182,13 +190,14 @@ function activeTextboxLogic(){
 			
 		}
 	}else{
-		if string_length(buffer) < 256 && keyboard_check_pressed(ord(string_upper(_key))){
+		if string_length(buffer) < 256{
 			buffer += _key;
 		}
 	}
 	if buffer != preBuffer{
 		SignalSend("updateInstance: " + string(instanceId), [argumentTypes.freetext,argumentIndex,buffer]);
 	}
+	keyboard_lastchar = "";
 }
 function start(){
 	switch (type){

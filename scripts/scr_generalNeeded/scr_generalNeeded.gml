@@ -14,8 +14,9 @@ function addObjectVariablesToSummonStruct(summonStruct, isItemMenu){
 enum childTypes{
 	child,
 	parent,
-	grandchild
+	jankfix
 }
+
 function allObjectVariables(isParent){
 	var newArr = [];
 	switch (isParent){
@@ -26,22 +27,19 @@ function allObjectVariables(isParent){
 				action = currentDisplayObject.actions
 			}
 			newArr = 
-				[["object", currentDisplayObject.objectIndex],
-				["objectName", currentDisplayObject.name], 
-				["objectArguments", currentDisplayObject.arguments],
-				["objectActions", action]]
+				[["DOindex", currentDisplayObject.DOindex]]
 			print(newArr);
 		}break;
 		case false:{
 			newArr = 
-				[["object", object],
-				["objectName", objectName], 
-				["objectArguments", objectArguments],
-				["objectActions", objectActions]]
+				[["DOindex", DOindex]]
+		}break;
+		case childTypes.jankfix:{
 		}break;
 	}
 	return newArr;
 }
+
 
 function getActualInstanceSummonArr(itemInstance){
 	var summonArr = []
@@ -53,7 +51,7 @@ function getActualInstanceSummonArr(itemInstance){
 		[["x", itemInstance.x],["y", itemInstance.y],
 		["image_xscale", itemInstance.image_xscale],
 		["image_yscale", itemInstance.image_yscale]];
-	addToSummonStruct(summonArr,extraArguments)
-	summonArr = [itemInstance.object, summonArr];
+	//addToSummonStruct(summonArr,extraArguments)
+	summonArr = {objectIndex : itemInstance.object, objectName : itemInstance.objectName, instanceArguments : summonArr, additionalSummonArgs : extraArguments};
 	return summonArr;
 }
