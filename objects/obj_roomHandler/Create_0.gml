@@ -46,8 +46,6 @@ function initiateRoomHandler(){
 initiateRoomHandler();
 
 SignalSubscribe(id,"transportRoom",function(arg){
-	print("lole");
-	print(arg);
 	enterNewRoom(arg[0],arg[1],arg[2],arg[3]);
 });
 
@@ -71,7 +69,6 @@ function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
 	var newRoom = ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1])
 	if inRange(currentRoom[0], 0, dungeonSize) && inRange(currentRoom[1],0,dungeonSize) && !is_undefined(newRoom) && newRoom != noone{
 		obj_currentRoomHandler.roomDoors = room_getAllDoors(newRoom);
-		print(newRoom.doors);
 		print(newRoom._room);
 		gotoRoom(newRoom._room);
 		enteredRoomNo = newRoom.roomShapeInfo.roomNo
@@ -126,6 +123,7 @@ function getRoomDiff(enterNo,exitNo){
 }
 
 function loadInPreviousObjects(){
+	print("loadInpreviousobj");
 	var cRoom = ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1])
 	print(cRoom);
 	while !ds_list_empty(cRoom.roomShapeInfo.leftOverEntities){
@@ -187,11 +185,24 @@ function loadRoom(){
 	for (var i = 0; i < array_length(insts); i++){
 		print("---");
 		print(insts[i]);
-		summonObject(insts[i][0][1], insts[i]);
+		summonObject(insts[i].objectIndex, insts[i].summonArray);
 	}
 }
 
 
-
+function transitionEndLogic(){
+	loadInPreviousObjects();
+	loadRoom();
+	instancesLoaded = true;
+	var _room = ds_grid_get(obj_roomHandler.dungeonGrid, currentRoom[0], currentRoom[1])
+	if !is_undefined(_room){
+		_room.visited = true;
+		if instance_number(obj_enemy) == 0 && instance_number(obj_enemySpawner) == 0{
+			_room.cleared = true;
+		}else{
+			_room.cleared = false;
+		}
+	}
+}
 
 //{"instances":[[["object","@ref object(obj_wall)"],["ownEditable",[]],["editable",[]],["x",400.0],["y",16.0],["image_xscale",1.0],["image_yscale",6.0]]],"roomName":""}] 

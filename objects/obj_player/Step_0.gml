@@ -24,9 +24,17 @@ if invincibilityFrames == 0{
 }
 lol++
 if obj_inputHandler.run{
-	movementSpeed = runSpeed
+	if movementSpeed < runSpeed{
+		movementSpeed += runSpeedStep
+	}else{
+		movementSpeed = runSpeed;
+	}
 }else{
-	movementSpeed = regularSpeed;
+	if movementSpeed > regularSpeed{
+		movementSpeed -= runSpeedStep
+	}else{
+		movementSpeed = regularSpeed;
+	}
 }
 
 if keyboard_check_pressed(ord("M")){
@@ -46,33 +54,37 @@ if keyboard_check_pressed(ord("M")){
 switch (state){
     case playerStates.normal: playerState_normal(); break;
 }
-var moveX = instance_place(x + movementX(), y, [obj_impassable, obj_enemy])
-var moveY = instance_place(x, y + movementY(), [obj_impassable, obj_enemy])
-//collision with walls
-if (moveX != noone && moveX.collideable && !gothruwalls){
-	var _hStep = sign(movementX());
-	stepCollisionWhileWithFailCon([obj_impassable, obj_enemy], _hStep, true)
-	movementVector[0] = 0;
+if abs(inputVector[0]-movementVector[0]) < 0.05{
+	movementVector[0] = inputVector[0]
+}else{
+	movementVector[0] += sign(inputVector[0]-movementVector[0])*movementVectorStep
 }
-if (moveY != noone && moveY.collideable && !gothruwalls){
-	var _vStep = sign(movementY());
-	stepCollisionWhileWithFailCon([obj_impassable, obj_enemy], _vStep, false)
-	movementVector[1] = 0;
+if abs(inputVector[1]-movementVector[1]) < 0.05{
+	movementVector[1] = inputVector[1]
+}else{
+	movementVector[1] += sign(inputVector[1]-movementVector[1])*movementVectorStep
 }
 
-//attempt to make you unable to get stuck in wall
+
 if (movementVector[0] != 0 || movementVector[1] != 0){
-	var tempAngle = hitbox.image_angle;
-	hitbox.image_angle = point_direction(x,y,x + movementVector[0]*movementSpeed, y + movementVector[1]*movementSpeed)
-	angle = point_direction(x,y,x + movementVector[0]*movementSpeed, y + movementVector[1]*movementSpeed)
-	if (place_meeting(x,y, obj_impassable) && !(hitbox.image_angle == 90 || hitbox.image_angle == 180 || hitbox.image_angle == 270 || hitbox.image_angle == 0)){
-		hitbox.image_angle = tempAngle;
+	if wallBonkCooldown == 0{
+		//hitbox.image_angle
+		var goalAngle = point_direction(x,y,x + movementVector[0]*movementSpeed, y + movementVector[1]*movementSpeed)
+		hitbox.image_angle = gradualPoint(goalAngle, hitbox.image_angle, turningSpeed);
+		angle = hitbox.image_angle
+	}else{
+		wallBonkCooldown--
 	}
-}else{
-	
 }
+
+player_handleWallCollision()
+
+//attempt to make you unable to get stuck in wall
+
 
 x += movementVector[0]*movementSpeed;
 y += movementVector[1]*movementSpeed;
+
+
 
 

@@ -3,7 +3,15 @@ ds_list_add(pathPoints, [x, y]);
 if lifeTime > 5{
 	depth = -99
 }
+image_xscale = scale;
+image_yscale = scale;
 
+if canGrow && scale != bulletGrowthEnd{
+	scale += bulletGrowthRate;
+	if sign(bulletGrowthRate)*scale >= bulletGrowthEnd{
+		scale = bulletGrowthEnd;
+	}
+}
 // Trim path if too long
 if (ds_list_size(pathPoints) > maxPathLength) {
     ds_list_delete(pathPoints, 0); // Remove oldest point

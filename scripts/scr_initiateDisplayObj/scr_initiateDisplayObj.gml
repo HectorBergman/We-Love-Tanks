@@ -57,6 +57,15 @@ function initiateDisplayObjInfo(){
 		]
 	)
 }
+
+function getSummonArrFromChoices(DOindex, instanceArgChoices){
+	var obj = ds_list_find_value(global.displayObjects,DOindex);
+	var newArr = [];
+	for (var i = 0; i < array_length(obj.arguments); i++){
+		newArr[i] = [obj.arguments[i].argumentName, instanceArgChoices[i]];
+	}
+	return newArr
+}
 function getDisplayObjectInfo(DOindex){
 	var obj = ds_list_find_value(global.displayObjects,DOindex);
 	object = obj.objectIndex

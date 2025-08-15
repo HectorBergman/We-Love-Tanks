@@ -29,17 +29,17 @@ function findNearbyCrumbs(){
 /// @description Gradually changes image_angle to target angle instead of snapping
 /// @param {real} targetAngle Target angle, given in degrees
 /// @param {real} turningSpeed Rate of turning, turningSpeed = 1 means spinning pi/2 per tick. So try to keep it below 1, preferably even below 0.1
-/// @returns {bool} True if it has locked onto targetAngle, else returns false
+/// @returns {real} True if it has locked onto targetAngle, else returns false
 
-function gradualPoint(targetAngle, turningSpeed){
+function gradualPoint(targetAngle, currentAngle, turningSpeed){
 	//var goalDirection = point_direction(x,y,obj_player.x, obj_player.y) mod 360;
-	var turnDirection = sign(angle_difference(targetAngle, image_angle))
+	var turnDirection = sign(angle_difference(targetAngle, currentAngle))
 	
-	if (abs(angle_difference(targetAngle, image_angle)) < abs(radtodeg(turningSpeed*pi/2))*2){
-		return true; 
+	if (abs(angle_difference(targetAngle, currentAngle)) < abs(radtodeg(turningSpeed*pi/2))*2){
+		return targetAngle;
 	}else{
-		image_angle = (image_angle + radtodeg(turnDirection*pi/2*turningSpeed))
-		return false;
+		var angle = (currentAngle + radtodeg(turnDirection*pi/2*turningSpeed))
+		return angle
 	}
 	
 	

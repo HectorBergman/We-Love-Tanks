@@ -6,7 +6,9 @@ image_angle = point_direction(x,y,obj_crosshair.x,obj_crosshair.y) //
 firingCooldown--
 
 if obj_inputHandler.fire && !place_meeting(x,y, obj_solid) && activeBullets < maxBullets && firingCooldown < 1{
-	fireBullet(obj_bullet_player,bulletSpeed,bulletBounces,bulletDamage,image_angle, 34, true, bulletDurability);
+	fireBullet(obj_bullet_player,bulletSpeed,bulletBounces,bulletDamage,image_angle, 15, true, bulletDurability, 
+		[["bulletGrowthStart", 0.3], ["bulletGrowthEnd", 1], ["bulletGrowthRate", 0.05]]
+	);
 	var angle = image_angle
 	var b_Sp = bulletSpeed
 	var b_Bnc = bulletBounces

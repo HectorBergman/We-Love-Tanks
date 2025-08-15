@@ -15,6 +15,7 @@ global.currentSeed = global.dungeonSeed;
 window_set_cursor(cr_none); //hide pc cursorr
 room_goto(rm_menuBum);
 
+
 #macro PAUSE if pause(pauseMode){exit;}
 
 global.roomShapes = [ //this information is purely for knowing which room pool to generate from
@@ -89,6 +90,8 @@ global.enemyTypes = ["stiffNormal","braveheartNormal","stiffRicochet","tinyman",
 global.bossTypes = ["testStar"]
 global.roomTypes = ["standard","item","boss","nextFloor"]; 
 global.itemPools = ["itemRoom", "bossItem"];
+
+initiateDisplayObjInfo();
 
 window_set_size(display_get_width(),display_get_height());
 

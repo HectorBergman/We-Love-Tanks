@@ -10,7 +10,8 @@ menu = noone;
 menuOffset = [600,32];
 SignalSubscribe(id, "saved room", function(arg){ saveRoom(arg)})
 loadAllRoomData();
-initiateDisplayObjInfo();
+
+
 
 var shapesArr = createShapeArguments("canHaveShape", global.roomShapes);
 var typesArr = createShapeArguments("canBeRoomType", global.roomTypes);
@@ -220,3 +221,5 @@ function editingRoomLogic(){
 	}
 }
 
+updateSearchArray();
+updateToDrawArray();

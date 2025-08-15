@@ -9,16 +9,19 @@
 
 function findRoomsByProperty(roomArray, propertyName, targetValue) {
     var foundRooms = [];
+	print("findRoomsByProperty");
     
     for (var i = 0; i < array_length(roomArray); i++) {
         var _room = roomArray[i];
+		print("room number " + string(i));
+		print(_room);
         // Check if property exists AND matches targetValue
         if (variable_struct_exists(_room, propertyName) 
         && (variable_struct_get(_room, propertyName) == targetValue)) {
             array_push(foundRooms, _room); // If key is "Room_Name"
         }
     }
-    
+    print("foundROoms: " + string(foundRooms));
     return foundRooms;
 }
 
@@ -30,17 +33,74 @@ function findRoomsByProperty(roomArray, propertyName, targetValue) {
 /// @returns {struct|undefined} Random room struct (or undefined if no matches)
 
 function pickRandomRoomByType(roomArray, roomType, roomShape) {
-    var matchingRooms = findRoomsByProperty(roomArray, "type", roomType);
+	print("roomarr")
+	print(roomArray);
+    var matchingRooms = findRoomsByProperty(roomArray, "roomType", roomType);
     if (array_length(matchingRooms) == 0) {
         return undefined; // No matches found
     }
-	print(matchingRooms);
     var matchingRoomShapes = findRoomsByProperty(matchingRooms, "roomShape", roomShape);
-	print("shapes");
-	print(matchingRoomShapes);
+
     // Pick a random index from the filtered list
     var randomIndex = irandom(array_length(matchingRoomShapes) - 1);
-    return matchingRoomShapes[randomIndex];
+	var newInstances = sanitizeRoomFromRoomData(matchingRoomShapes[randomIndex])
+	print("newinstances")
+	print(newInstances);
+	matchingRoomShapes[randomIndex].instances = newInstances;
+	print("therooM");
+	print(matchingRoomShapes[randomIndex]);
+	return matchingRoomShapes[randomIndex];
+}
+/*[{"instances":
+	[{"summonArr":
+		[["image_xscale",1.0],
+		["image_yscale",1.0],["x",368.0],["y",96.0],
+		["sprite_index","@ref sprite(spr_enemySpawner)"],
+		["heldOffset",[0.0,0.0]],["depth",-260.0],["canResize",false],
+		["held",false]],"displayObjIndex":4.0,
+		"instanceArgumentsChoices":["stiffRicochet"]},
+	{"summonArr":
+		[["image_xscale",1.0],["image_yscale",1.0],
+		 ["x",336.0],["y",96.0],["sprite_index","@ref sprite(spr_enemySpawner)"],
+		 ["heldOffset",[0.0,0.0]],["depth",-260.0],
+		 ["canResize",false],["held",false]],
+		 "displayObjIndex":4.0,"instanceArgumentsChoices":["stiffNormal"]},
+"roomShape":"normal",
+"roomType":"standard",
+"savedRandomsNeeded":5.0,
+"roomName":"balls"}*/
+
+function sanitizeRoomFromRoomData(_room, index){
+	print("test");
+	print(_room);
+	var newInstancesArr = [];
+	if variable_struct_exists(_room,"sanitized"){
+		print("passed")
+		return _room.instances;
+	}
+	print("nopass");
+	for (var i = 0; i < array_length(_room.instances); i++){
+		print("togo");
+		print(_room.instances);
+		var inst = _room.instances[i];
+		print("lol");
+		print(inst);
+		var summonArr = getSummonArrFromChoices(inst.displayObjIndex, inst.instanceArgumentsChoices);
+		print("fuckyase");
+		print(summonArr)
+		print("--");
+		var newSummonArr = array_concat(inst.summonArr,summonArr);
+		print(newSummonArr);
+		var newInst = {objectIndex : ds_list_find_value(global.displayObjects,inst.displayObjIndex).objectIndex,
+					   summonArray : newSummonArr}
+		newInstancesArr[i] = newInst;
+						
+		//insts[i] = 
+	}
+	print("sanitized")
+	_room.sanitized = true;
+	//insts[i][0][1], insts[i]
+	return newInstancesArr;
 }
 
 function isEdge(doors){
@@ -112,9 +172,6 @@ function crownItemRoom(edgeList){
 
 function crownBossRoom(edgeList){
 	var roomType = "boss"
-	if bossFloors[floorCount]{
-		roomType = "nextFloor"
-	}
 	var randomIndex = 0
 	var finished = false;
 	var newList = edgeList;

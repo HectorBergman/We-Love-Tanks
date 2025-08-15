@@ -20,9 +20,8 @@ function braveheartNormal_scanning_cannon(){
 	if (collision_line(x, y, obj_player.x, obj_player.y, obj_solid, false, true)){
 		if (parent.movementVector[0] != 0 || parent.movementVector[1] != 0){
 			var goalDirection = point_direction(x,y,x+parent.movementVector[0], y+parent.movementVector[1])
-			if (gradualPoint(goalDirection, 0.05)){
-				image_angle = goalDirection;
-			}
+			var gradPoint = gradualPoint(goalDirection,image_angle, 0.05);
+			image_angle = gradPoint;
 		}
 	}else{
 		state = braveheartNormal_cannon.spotted;
@@ -34,8 +33,9 @@ function braveheartNormal_spotted_cannon(){
 		
 	
 		var goalDirection = point_direction(x,y,obj_player.x, obj_player.y)
-		if (gradualPoint(goalDirection, 0.05)){
-			image_angle = goalDirection;
+		var gradPoint = gradualPoint(goalDirection,image_angle, 0.05);
+		image_angle = gradPoint;
+		if (gradPoint == goalDirection){
 			state = braveheartNormal_cannon.firing;
 		}
 	

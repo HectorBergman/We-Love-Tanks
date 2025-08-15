@@ -1,15 +1,15 @@
 function playerState_normal(){
 	if obj_inputHandler.moveDown || obj_inputHandler.moveUp{
-		movementVector[1] = (obj_inputHandler.moveDown-obj_inputHandler.moveUp);
+		inputVector[1] = (obj_inputHandler.moveDown-obj_inputHandler.moveUp);
 	}else{
-		movementVector[1] = 0;
+		inputVector[1] = 0;
 	}
 	if obj_inputHandler.moveLeft || obj_inputHandler.moveRight{
-		movementVector[0] = (obj_inputHandler.moveRight-obj_inputHandler.moveLeft);
+		inputVector[0] = (obj_inputHandler.moveRight-obj_inputHandler.moveLeft);
 	}else{
-		movementVector[0] = 0;
+		inputVector[0] = 0;
 	}
-	movementVector = normalizeVector(movementVector);
+	inputVector = normalizeVector(inputVector);
 }
 
 function normalizeVector(vector){

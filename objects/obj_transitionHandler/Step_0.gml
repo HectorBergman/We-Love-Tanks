@@ -1,4 +1,4 @@
-print(tP);
+if tP != 0{print(tP);}
 switch (tP){
 	case transitionPhase.start:
 		var startOffset = [32,-32]

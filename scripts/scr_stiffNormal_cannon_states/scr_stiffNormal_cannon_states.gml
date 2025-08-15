@@ -43,7 +43,9 @@ function stiffNormal_cannon_spotted(){
 	if (!collision_line(x, y, obj_player.x, obj_player.y, obj_solid, false, true)){
 
 		var goalDirection = point_direction(x,y,obj_player.x, obj_player.y)
-		if (gradualPoint(goalDirection, 0.02)){
+		var gradPoint = gradualPoint(goalDirection,image_angle, 0.02);
+		image_angle = gradPoint;
+		if (gradPoint == goalDirection){
 			state = stiffNormal_cannon.firing;
 		}
 	}else{

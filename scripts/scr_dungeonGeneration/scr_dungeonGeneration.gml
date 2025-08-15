@@ -15,6 +15,7 @@ enum doorTypes{//idk if this will be relevant
 function generateDungeon(minRooms = 16, maxRooms = 32, floors = 1, bossFloors = [true]){
 	var floorCount = 0;
 	var dungeonArr = [];
+	maxRoomAmount = maxRooms;
 	while floorCount < floors{
 		roomAmount = 0;
 		//Minrooms affects how many rooms the dungeon need to have at LEAST,
@@ -179,7 +180,7 @@ function dungeon_generate(startCoords){
 	dungeon_addNeighbours(startCoords, newRoom, -1,queue, [1,1,1,1])
 	
 	while !ds_queue_empty(queue){
-		if roomAmount >= maxRooms{
+		if roomAmount >= maxRoomAmount{
 			var _room = ds_queue_dequeue(queue)
 			_room.doors[_room.reverseDir] = 1;
 		}else{
@@ -337,6 +338,7 @@ function doors_generate(roomCoords,incomingDirection,doorChance){
 		
 	}
 	var theRoom = ds_grid_get(dungeonGrid, roomCoords[0], roomCoords[1])
+	print(theRoom);
 	theRoom._room.isEdge = noOtherDoors;
 	if noOtherDoors{
 		print("noOtherDoors")

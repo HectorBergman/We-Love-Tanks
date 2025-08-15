@@ -5,8 +5,16 @@ function movementX(){
 function movementY(){
 	return movementVector[1]*bulletSpeed;
 }
+scale = 1;
+canGrow = false;
+if variable_instance_exists(id, "bulletGrowthStart"){
+	canGrow = true;
+	scale = bulletGrowthStart;
+}
+image_xscale = scale;
+image_yscale = scale;
 collisionVector = [0,0];
-summonObject(obj_bulletTrail, [["parent", id]]);
+//summonObject(obj_bulletTrail, [["parent", id]]);
 prevVector = [noone, noone];
 timeSinceBounce = 0;
 
