@@ -7,9 +7,20 @@ function movementY(){
 }
 scale = 1;
 canGrow = false;
+timeWhenExitBarrel = 0
+if barrelLength > 0{
+	print(barrelLength)
+	print(bulletSpeed);
+	timeWhenExitBarrel = ceil(barrelLength/bulletSpeed)+1;
+}
 if variable_instance_exists(id, "bulletGrowthStart"){
 	canGrow = true;
 	scale = bulletGrowthStart;
+}
+followCannon = 0;
+if object_index == obj_bullet_player{
+	extraMovement = 0
+	followCannon = timeWhenExitBarrel;
 }
 image_xscale = scale;
 image_yscale = scale;

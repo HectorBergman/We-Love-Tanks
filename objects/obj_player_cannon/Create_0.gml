@@ -1,3 +1,4 @@
+global.playerBarrelLength = 27;
 pauseMode = pM.all;
 x = parent.x
 y = parent.y

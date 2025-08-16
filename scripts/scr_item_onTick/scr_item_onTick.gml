@@ -6,7 +6,7 @@ function backJack_onTick(){
 		}else{
 			with cannon{
 				fireBullet(index[1].obj,index[1].bulletSpeed,index[1].bulletBounces,index[1].bulletDamage,
-				image_angle,34,false, index[1].bulletDurability);
+				image_angle,global.playerBarrelLength,false, index[1].bulletDurability, index[1].extraInfo);
 			}
 			ds_list_delete(backJackList,i)
 		}

@@ -39,4 +39,4 @@ draw_surface_ext(pathSurface, 0, 0, 1, 1, 0, c_white, 0.7);*/
 
 draw_self();
 
-draw_text(x+20,y+20,damage);
+draw_text(x+20,y+20,lifeTime);

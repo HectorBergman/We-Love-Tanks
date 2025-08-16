@@ -142,9 +142,6 @@ function crownItemRoom(edgeList){
 	while !(finished || ds_list_empty(newList)){
 		chosenRoom = ds_list_find_value(newList,randomIndex)
 		var brandRoom = chosenRoom
-		print(chosenRoom);
-		print(pickRandomRoomByType(global.roomList,"item", "normal"));
-		print(ds_list_size(newList))
 		print(randomIndex);
 		if !chosenRoom.amalgamated{
 			newRoom = pickRandomRoomByType(global.roomList,"item", "normal")
@@ -152,8 +149,6 @@ function crownItemRoom(edgeList){
 			brandRoom._room = newRoom;
 			brandRoom.roomType = "item"
 			var ind = ds_list_find_index(edgeList, chosenRoom);
-			print("roomReplaced:");
-			print(ds_list_find_value(edgeList, ind).coords);
 			ds_list_delete(edgeList, ind);
 			finished = true;
 		}else{
@@ -161,12 +156,9 @@ function crownItemRoom(edgeList){
 		}
 	}
 	if !finished{
-		print("fuck,lol");
+		print("failed finding ITEM ROOM");
 	}else{
-		print("chosenROom")
-		print(chosenRoom);
-		print("newRoom");
-		print(newRoom);
+
 	}
 }
 
@@ -178,19 +170,9 @@ function crownBossRoom(edgeList){
 	var chosenRoom = noone;
 	var newRoom = noone;
 	while !(finished || ds_list_empty(newList)){
-		print("edgeliste:")
-		print("----------");
-		for (var i = 0; i < ds_list_size(edgeList); i++){
-			print(ds_list_find_value(edgeList,i));
-		}
 		randomIndex = irandom(ds_list_size(newList)-1)
 		chosenRoom = ds_list_find_value(newList,randomIndex)
 		var brandRoom = chosenRoom
-		print("-----");
-		print(ds_list_size(newList));
-		print(randomIndex)
-		print(chosenRoom);
-		print(pickRandomRoomByType(global.roomList,roomType, "normal"));
 		var emptyDoors = getEmptyDoors(chosenRoom);
 		if !chosenRoom.amalgamated && array_length(emptyDoors) != 0 && chosenRoom.roomType == "standard"{
 			newRoom = pickRandomRoomByType(global.roomList,roomType, "normal")
@@ -212,15 +194,13 @@ function crownBossRoom(edgeList){
 		}
 	}
 	if !finished{
-		print("fuck,lol");
+		print("failed finding BOSS ROOM");
 	}else{
-		print("chosenROom")
-		print(chosenRoom);
-		print("newRoom");
-		print(newRoom);
 	}
 }
 
+function createShop(edgeList){
+}
 
 function getEmptyDoors(_room){
 	var returnArray = []

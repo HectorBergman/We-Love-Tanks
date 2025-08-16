@@ -50,8 +50,9 @@ function generateDungeon(minRooms = 16, maxRooms = 32, floors = 1, bossFloors = 
 	
 		ds_list_copy(itemRoomEdges, edgeList)
 		crownItemRoom(itemRoomEdges);
+		createShop(itemRoomEdges);
 		crownBossRoom(itemRoomEdges);
-
+		
 		//crownItemRoom(itemRoomEdges);
 	
 		print(roomAmount);
