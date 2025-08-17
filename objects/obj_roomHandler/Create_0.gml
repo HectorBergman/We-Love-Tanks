@@ -1,5 +1,9 @@
-pauseMode = pM.pauseMenu;
+pauseMode = [pM.pauseMenu];
 global.newRoom = true;
+
+SignalSubscribe(id, "roomEnter: newRoom", roomEnterLogic);
+SignalSubscribe(id, "roomEnter: shop", shopEnterLogic);
+SignalSubscribe(id, "roomExit: shop", shopExitLogic);
 function initiateRoomHandler(){
 	totalDungeon = [];
 	global.currentSeed = global.dungeonSeed;
@@ -49,8 +53,18 @@ SignalSubscribe(id,"transportRoom",function(arg){
 	enterNewRoom(arg[0],arg[1],arg[2],arg[3]);
 });
 
+SignalSubscribe(id, "transportShop", function(arg){
+	enterShop();
+});
+function enterShop(){
+	print("enterShoP!");
+	storePreviousRoom();
+	room_goto(rm_menu_shop);
+}
+
 
 function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
+	print("enterRoom!");
 	global.newRoom = true;
 	storePreviousRoom();
 	if instance_number(obj_enemy) == 0 && instance_number(obj_enemySpawner) == 0{
@@ -190,7 +204,7 @@ function loadRoom(){
 }
 
 
-function transitionEndLogic(){
+function roomEnterLogic(){
 	loadInPreviousObjects();
 	loadRoom();
 	instancesLoaded = true;
@@ -203,6 +217,15 @@ function transitionEndLogic(){
 			_room.cleared = false;
 		}
 	}
+}
+
+function shopEnterLogic(){
+	global.shop = true;
+	print("inShop!!!!=)");
+}
+function shopExitLogic(){
+	print("exitingshop..");
+	global.shop = false;
 }
 
 //{"instances":[[["object","@ref object(obj_wall)"],["ownEditable",[]],["editable",[]],["x",400.0],["y",16.0],["image_xscale",1.0],["image_yscale",6.0]]],"roomName":""}] 

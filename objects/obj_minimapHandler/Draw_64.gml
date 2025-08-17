@@ -25,12 +25,12 @@ for (var i = 0; i < 5; i++){
 			_y *= scale;
 			draw_rectangle_color(_x,_y,_x+rectangleWidth,_y+rectangleHeight, borderColor,borderColor,borderColor,borderColor, true)
 			draw_rectangle_color(_x,_y,_x+rectangleWidth,_y+rectangleHeight, roomColor,roomColor, roomColor, roomColor, false)
-			if grid.doors[0] == 1{
+			if grid.doors[0] == doorValues.open{
 				var specialY = _y+rectangleHeight/2-doorHeight/2
 				draw_rectangle_color(_x + rectangleWidth,specialY,_x+rectangleWidth+doorWidth ,specialY+doorHeight, c_black,c_black,c_black,c_black, true)
 				draw_rectangle(_x + rectangleWidth,specialY,_x+rectangleWidth+doorWidth ,specialY+doorHeight, false)
 			}
-			if grid.doors[3] == 1{
+			if grid.doors[3] == doorValues.open{
 				var specialX = _x + rectangleWidth/2-doorWidth/2
 				draw_rectangle_color(specialX,_y+rectangleHeight,specialX+doorWidth ,_y+rectangleHeight+doorHeight, c_black,c_black,c_black,c_black, true)
 				draw_rectangle(specialX,_y+rectangleHeight,specialX+doorWidth ,_y+rectangleHeight+doorHeight, false)

@@ -1,5 +1,5 @@
 global.playerBarrelLength = 27;
-pauseMode = pM.all;
+pauseMode = parent.pauseMode
 x = parent.x
 y = parent.y
 activeBullets = 0;

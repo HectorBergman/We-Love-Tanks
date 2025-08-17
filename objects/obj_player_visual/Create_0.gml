@@ -1,4 +1,4 @@
-pauseMode = pM.all;
+pauseMode = parent.pauseMode
 prevFrame = 0
 wheelturnTimer = 0;
 currentWheelFrame = 0;

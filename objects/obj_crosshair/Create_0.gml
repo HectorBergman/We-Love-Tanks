@@ -1,2 +1,2 @@
-pauseMode = pM.all;
+pauseMode = allPause;
 depth = -999

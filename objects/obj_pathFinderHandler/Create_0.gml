@@ -1,4 +1,4 @@
-pauseMode = pM.editor_pauseMenu
+pauseMode = [pM.editor, pM.pauseMenu]
 gridMap = ds_map_create();
 
 breadthQueue = ds_queue_create();

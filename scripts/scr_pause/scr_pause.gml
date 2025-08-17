@@ -1,14 +1,23 @@
 function pause(mode) {
-    switch (mode) {
-        case pM.none: return false;
-        case pM.editor: return global.editorPause;
-        case pM.pauseMenu: return global.pause;
-        case pM.transition: return global.transitionPause;
-        case pM.editor_pauseMenu: return global.editorPause || global.pause;
-        case pM.editor_transition: return global.editorPause || global.transitionPause;
-        case pM.pauseMenu_transition: return global.pause || global.transitionPause;
-        case pM.all: return global.editorPause || global.pause || global.transitionPause;
-        default: return false;
-    }
+	var paused = false;
+	for (var i = 0; i < array_length(mode); i++){
+		var pauseRestriction = mode[i];
+		switch (pauseRestriction){
+			case pM.editor: paused = global.editorPause; break;
+			case pM.pauseMenu: paused = global.pause; break;
+			case pM.transition: paused = global.transitionPause; break;
+			case pM.shop: paused = global.shop; break;
+			default: paused = false; break;
+		}
+		if (object_index == obj_player){
+			print("---");
+			print(pauseRestriction);
+			print(paused);
+		}
+		if paused{
+			return true;
+		}
+	}
+	return false;
 }
 

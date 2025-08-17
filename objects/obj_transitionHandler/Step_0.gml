@@ -1,4 +1,4 @@
-if tP != 0{print(tP);}
+
 switch (tP){
 	case transitionPhase.start:
 		var startOffset = [32,-32]
@@ -74,7 +74,9 @@ switch (tP){
 		SignalSubscribe(id,"lastBannerFinishedStart", function(){
 			SignalUnsubscribe(id,"lastBannerFinishedStart");
 			tP = transitionPhase.wait2; 
-			SignalSend("transportRoom", tRoomArr);
+			ds_list_add(delayNewRoom, "general")
+			transitionSignal();
+			SignalSend("transport");
 			SignalSubscribe(id,"lastBannerFinishedEnd", function(){
 					SignalSend("transitionEnd", [count]);
 					SignalUnsubscribe(id,"lastBannerFinishedEnd");

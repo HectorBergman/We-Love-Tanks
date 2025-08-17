@@ -1,4 +1,4 @@
-pauseMode = pM.all;
+pauseMode = allPause;
 floatingValue = 0;
 floatingAdd = 0.03;
 

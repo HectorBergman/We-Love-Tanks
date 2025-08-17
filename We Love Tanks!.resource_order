@@ -144,6 +144,8 @@
     {"name":"rm_editor_menu","order":2,"path":"rooms/rm_editor_menu/rm_editor_menu.yy",},
     {"name":"rm_editorMenu","order":1,"path":"rooms/rm_editorMenu/rm_editorMenu.yy",},
     {"name":"rm_editorRoom_test","order":4,"path":"rooms/rm_editorRoom_test/rm_editorRoom_test.yy",},
+    {"name":"rm_itemRoom","order":3,"path":"rooms/rm_itemRoom/rm_itemRoom.yy",},
+    {"name":"rm_menu_shop","order":4,"path":"rooms/rm_menu_shop/rm_menu_shop.yy",},
     {"name":"rm_room_itemRoom_1","order":2,"path":"rooms/rm_room_itemRoom_1/rm_room_itemRoom_1.yy",},
     {"name":"rm_room_test_2","order":4,"path":"rooms/rm_room_test_2/rm_room_test_2.yy",},
     {"name":"rm_room_test_3","order":5,"path":"rooms/rm_room_test_3/rm_room_test_3.yy",},

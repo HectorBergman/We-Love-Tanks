@@ -73,17 +73,13 @@ function initializeEnums(){
 	}
 	
 	enum pM{
-		none,
 		editor,
 		pauseMenu,
 		transition,
-		editor_pauseMenu,
-		editor_transition,
-		pauseMenu_transition,
-		all,
+		shop,
 	}
 }
-
+#macro allPause [pM.editor, pM.pauseMenu, pM.transition, pM.shop]
 
 function stringToEnum(str) {
     switch (str) {

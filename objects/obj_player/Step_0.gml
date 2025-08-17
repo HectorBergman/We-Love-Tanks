@@ -1,3 +1,4 @@
+if pause(pauseMode){print("exit");}
 PAUSE
 
 if keyboard_check(ord("J")) || keyboard_check_pressed(ord("K")){

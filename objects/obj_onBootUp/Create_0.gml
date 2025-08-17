@@ -4,6 +4,7 @@ timer = 0;
 global.editorPause = false;
 global.transitionPause = false;
 global.pause = false;
+global.shop = false;
 
 global.__signals = new SignalController();
 

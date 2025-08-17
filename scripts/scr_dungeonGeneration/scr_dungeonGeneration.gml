@@ -6,11 +6,6 @@
 #macro undefinedDir [-2,-2]
 #macro undefinedCoords [-229,-229]
 
-enum doorTypes{//idk if this will be relevant
-	closed,
-	opened,
-	wideOpen
-}
 
 function generateDungeon(minRooms = 16, maxRooms = 32, floors = 1, bossFloors = [true]){
 	var floorCount = 0;
@@ -50,9 +45,8 @@ function generateDungeon(minRooms = 16, maxRooms = 32, floors = 1, bossFloors = 
 	
 		ds_list_copy(itemRoomEdges, edgeList)
 		crownItemRoom(itemRoomEdges);
-		createShop(itemRoomEdges);
 		crownBossRoom(itemRoomEdges);
-		
+		crownShopRoom(itemRoomEdges);
 		//crownItemRoom(itemRoomEdges);
 	
 		print(roomAmount);
@@ -141,9 +135,9 @@ function room_extend(originRoomCoords, newRoomCoords){
 	var dir = getDir(XY);
 	var revDir = getDirReverse(XY);
 	//Ensure path is open between both rooms
-	oldRoom.doors[revDir] = 1;
+	oldRoom.doors[revDir] = doorValues.open;
 	reEdge(edgeList, oldRoom, newRoom)
-	newRoom.doors[dir] = 1;
+	newRoom.doors[dir] = doorValues.open;
 	
 	ds_grid_set(dungeonGrid, newRoomCoords[0],newRoomCoords[1],newRoom);
 	return newRoom;
@@ -183,7 +177,7 @@ function dungeon_generate(startCoords){
 	while !ds_queue_empty(queue){
 		if roomAmount >= maxRoomAmount{
 			var _room = ds_queue_dequeue(queue)
-			_room.doors[_room.reverseDir] = 1;
+			_room.doors[_room.reverseDir] = doorValues.open;
 		}else{
 			print("pop!");
 			dungeon_popEntry(queue);
@@ -205,7 +199,7 @@ function dungeon_generate(startCoords){
 /// @param {array}		forceDoors , If you need to force the doors to be some certain values, leave empty for no forced doors
 function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors = [-1,-1,-1,-1]){
 	//generate all doors and rooms. For each new room generated, iterate
-	var doors = [0,0,0,0]
+	var doors = [doorValues.closed,doorValues.closed,doorValues.closed,doorValues.closed]
 	if forceDoors[0] == -1{
 		doors = 
 		doors_generate( //generates an array of doors, rooms that lead to existing rooms will return 1
@@ -219,7 +213,7 @@ function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors 
 	_room.doors = doors
 	print("oneRun");
 	print(incomingDir);
-	var edgeDoors = [0,0,0,0]
+	var edgeDoors = [doorValues.closed,doorValues.closed,doorValues.closed,doorValues.closed]
 	if sign(incomingDir) != -1{
 		edgeDoors[incomingDir] = 1;
 	}
@@ -305,7 +299,7 @@ function doors_generate(roomCoords,incomingDirection,doorChance){
 	doors = [0,0,0,0]
 	var noOtherDoors = true;
 	if incomingDirection != -1{	
-		doors[incomingDirection] = 1;
+		doors[incomingDirection] = doorValues.open;
 	}
 	for (var i = 0; i < 4; i++){
 		if i != incomingDirection{
@@ -463,7 +457,7 @@ function room_getAllDoors(_room){
 			print(cRoom);
 			doorsArr[i] = cRoom.doors;
 		}else{
-			doorsArr[i] = [0,0,0,0];
+			doorsArr[i] = [doorValues.closed,doorValues.closed,doorValues.closed,doorValues.closed];
 		}
 	}
 	print("getDoorsdone");
@@ -538,9 +532,19 @@ function findRoomIndexByCoords(room_list, target_coords) {
 
 
 
+/*enum doorValues{
+	closed,
+	anotherRoom,
+	anotherStage,
+	shop
+}*/
 
-
-
+enum doorValues{
+	closed,
+	open,
+	openToNewStage,
+	openToShop
+}
 
 
 

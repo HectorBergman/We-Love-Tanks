@@ -1,4 +1,4 @@
-pauseMode = pM.all;
+pauseMode = allPause;
 depth =10
 activeBreadcrumb = noone;
 

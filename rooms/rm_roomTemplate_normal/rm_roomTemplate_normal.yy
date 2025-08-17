@@ -6,6 +6,7 @@
   "inheritCreationOrder":false,
   "inheritLayers":false,
   "instanceCreationOrder":[
+    {"name":"inst_3CC8E492_2","path":"rooms/rm_roomTemplate_normal/rm_roomTemplate_normal.yy",},
     {"name":"inst_3145FAD8_1","path":"rooms/rm_roomTemplate_normal/rm_roomTemplate_normal.yy",},
     {"name":"inst_2B1321A2_2","path":"rooms/rm_roomTemplate_normal/rm_roomTemplate_normal.yy",},
     {"name":"inst_C8EE71D_1","path":"rooms/rm_roomTemplate_normal/rm_roomTemplate_normal.yy",},
@@ -13,7 +14,6 @@
     {"name":"inst_25BD1B71_1","path":"rooms/rm_roomTemplate_normal/rm_roomTemplate_normal.yy",},
     {"name":"inst_4C63AE91_1","path":"rooms/rm_roomTemplate_normal/rm_roomTemplate_normal.yy",},
     {"name":"inst_1EA33134_1","path":"rooms/rm_roomTemplate_normal/rm_roomTemplate_normal.yy",},
-    {"name":"inst_3CC8E492_2","path":"rooms/rm_roomTemplate_normal/rm_roomTemplate_normal.yy",},
     {"name":"inst_75C2D0EB_1","path":"rooms/rm_roomTemplate_normal/rm_roomTemplate_normal.yy",},
     {"name":"inst_6F653748_1","path":"rooms/rm_roomTemplate_normal/rm_roomTemplate_normal.yy",},
     {"name":"inst_31875EFA_1","path":"rooms/rm_roomTemplate_normal/rm_roomTemplate_normal.yy",},

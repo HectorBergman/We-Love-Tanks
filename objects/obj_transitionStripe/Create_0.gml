@@ -12,7 +12,7 @@ if !isBlue{
 	ease = EaseLinear;
 }
 sentSignal = false;
-SignalSubscribe(id,"transportRoom", function(){
+SignalSubscribe(id,"transport", function(){
 		phase = tD_phase.start
 	})
 SignalSubscribe(id,"transitionEnd", function(arg){ if arg[0] == count{instance_destroy()}})

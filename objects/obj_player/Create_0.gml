@@ -1,4 +1,4 @@
-pauseMode = pM.pauseMenu_transition;
+pauseMode = [pM.pauseMenu, pM.transition, pM.shop]
 luck = 1;
 
 wallBonkCooldownTime = 10;

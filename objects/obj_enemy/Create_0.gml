@@ -1,4 +1,4 @@
-pauseMode = pM.all;
+pauseMode = allPause;
 enum enemyPhase {
 	startingUp,
 	active

@@ -1,2 +1,2 @@
-pauseMode = pM.pauseMenu;
+pauseMode = [pM.pauseMenu];
 colliding=false;

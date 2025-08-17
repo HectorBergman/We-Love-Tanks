@@ -182,7 +182,7 @@ function crownBossRoom(edgeList){
 			var doors = brandRoom.doors;
 			var index1 = irandom(array_length(emptyDoors)-1)
 			var newIndex = emptyDoors[index1] 
-			doors[newIndex] = 2;
+			doors[newIndex] = doorValues.openToNewStage;
 			brandRoom.doors = doors;
 			var ind = ds_list_find_index(edgeList, chosenRoom);
 			print("roomReplaced:");
@@ -199,7 +199,34 @@ function crownBossRoom(edgeList){
 	}
 }
 
-function createShop(edgeList){
+function crownShopRoom(edgeList){
+	var randomIndex = 0
+	var finished = false;
+	var newList = edgeList;
+	var chosenRoom = noone;
+	var newRoom = noone;
+	while !(finished || ds_list_empty(newList)){
+		randomIndex = irandom(ds_list_size(newList)-1)
+		chosenRoom = ds_list_find_value(newList,randomIndex)
+		var brandRoom = chosenRoom
+		var emptyDoors = getEmptyDoors(chosenRoom);
+		if array_length(emptyDoors) != 0 && chosenRoom.roomType == "standard"{//todo: amalgamte
+			var doors = brandRoom.doors;
+			var index1 = irandom(array_length(emptyDoors)-1)
+			var newIndex = emptyDoors[index1] 
+			doors[newIndex] = doorValues.openToShop;
+			var ind = ds_list_find_index(edgeList, chosenRoom);
+			print("addedShop");
+			print(chosenRoom);
+			print(ds_list_find_value(edgeList, ind).coords);
+			finished = true;
+		}else{
+			ds_list_delete(newList,randomIndex);
+		}
+	}
+	if !finished{
+		print("failed finding SHOP");
+	}
 }
 
 function getEmptyDoors(_room){
