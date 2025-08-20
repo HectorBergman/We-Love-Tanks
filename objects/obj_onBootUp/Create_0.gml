@@ -5,6 +5,7 @@ global.editorPause = false;
 global.transitionPause = false;
 global.pause = false;
 global.shop = false;
+global.disablePrints = false;
 
 global.__signals = new SignalController();
 

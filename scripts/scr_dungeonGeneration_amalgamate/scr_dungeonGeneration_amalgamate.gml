@@ -5,7 +5,6 @@ function random_amalgamate(){
 	var success = false;
 	while !success && attempts < 10{
 		var len = ds_list_size(roomCoordsList);
-		print(roomCoordsList);
 		var randomInt = irandom(len-1);
 		var chosenRoomCoords = ds_list_find_value(roomCoordsList,randomInt)
 		var _room = ds_grid_get(dungeonGrid, chosenRoomCoords[0], chosenRoomCoords[1]);
@@ -22,9 +21,6 @@ function random_amalgamate(){
 			var startPoint = [chosenRoomCoords[0]+startDir[0],chosenRoomCoords[1]+startDir[1]]
 			
 			var rooms = amalgamate_getSteps(startPoint,shapeAndOr[0]);
-			print(rooms);
-			print(shapeAndOr[0]);
-			print(global.roomShapes[shapeAndOr[0]]);
 			room_amalgamate(rooms,global.roomShapes[shapeAndOr[0]])
 		}
 		attempts++;
@@ -71,21 +67,15 @@ function room_amalgamate(roomsArray,roomShape){
 	}
 }
 function room_loopAmalgamate(roomsArray,roomShape, arrLen){
-	print(arrLen);
 	var roomShapeTable = getRoomShapeTable(roomShape);
-	print("amalgam");
 	var hasEdge = false;
 	for (var i = 0; i < arrLen; i++){
-		print(roomsArray[i][0])
-		print(roomsArray[i][1]);
-		print(roomShape);
 		if ds_grid_get(dungeonGrid,roomsArray[i][0],roomsArray[i][1]).edge{
 			hasEdge = true;
 			break;
 		}
 	}
 	var _room = pickRandomRoomByType(global.roomList,"standard",roomShape);
-	print(_room);
 	var fakeI = 0;
 	for (var i = 0; i < 4; i++){
 		if roomShapeTable[i] == 0{
@@ -115,9 +105,6 @@ function chooseShapeAndOrientation(coords){
 	var neighbours = room_getAmalgamateCandidates(coords);
 	var legalShapes = determineLegalShapes(neighbours);
 	
-	print("legalshapes:");
-	print(legalShapes);
-	
 	var shapesArrays = legalShapes[0]
 	var totalLegalShapes = legalShapes[1]
 	var trueShapes = get_true_indexes(totalLegalShapes);
@@ -135,8 +122,6 @@ function chooseShapeAndOrientation(coords){
 	}
 	var randomNo = irandom(array_length(hasShape)-1)
 	var chosenPos = hasShape[randomNo];
-	print("thisPos");
-	print(chosenPos);
 	return [chosenShape,chosenPos]
 }
 function get_true_indexes(_array) {
@@ -150,14 +135,11 @@ function get_true_indexes(_array) {
 }
 
 function room_getAmalgamateCandidates(coords){
-	print("weee");
 	var index = 0;
 	var neighbourArr = [];
-	print(coords);
 	for (var i = -1; i < 2; i++){
 		for (var j = -1; j < 2; j++){
 			var neighbour = ds_grid_get(dungeonGrid,coords[0]+i,coords[1]+j);
-			print(neighbour);
 			if neighbour != noone && !is_undefined(neighbour) && !(coords[0]+i == 5 && coords[1]+j == 5)
 			&& !neighbour.amalgamated && neighbour.roomType == "standard" && !neighbour.edge{
 				//if room exists and is not home room, 
@@ -225,7 +207,6 @@ function determineLegalShapes(neighbourArr){
 	//0 3 6
 	//1 4 7
 	//2 5 8
-	print("determineLegalShape");
 	var totalLegality = [false,false,false,false,false,false,false,false];
 	var fullArr = [];
 	for (var i = 0; i < 5; i++){
@@ -242,20 +223,12 @@ function determineLegalShapes(neighbourArr){
 															 //and removes the ones not relevant for the 
 															 //relindex shape
 			var isAcceptable = true;
-			print("neighbourArr:");
-			print(neighbourArr);
-			print("contenders:")
-			print(relevant);
 			for (var k = 0; k < array_length(relevant); k++){
-				print("contender:");
-				print(relevant[k])
 				if neighbourArr[relevant[k]] == 0{
 					isAcceptable = false;
-					print("failed");
 					break;
 				}
 				//todo add something here to detect rooms that already are amalgamated
-				print("passed");
 			}
 			legalityArray[j] = isAcceptable;
 			if isAcceptable{

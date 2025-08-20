@@ -1,3 +1,3 @@
-SignalUnsubscribe(id, "roomEnter: newRoom");
-SignalUnsubscribe(id, "roomEnter: shop");
+SignalUnsubscribe(id, "roomEntered: newRoom");
+SignalUnsubscribe(id, "roomEntered: shop");
 SignalUnsubscribe(id, "roomExit: shop");

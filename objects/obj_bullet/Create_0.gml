@@ -9,8 +9,6 @@ scale = 1;
 canGrow = false;
 timeWhenExitBarrel = 0
 if barrelLength > 0{
-	print(barrelLength)
-	print(bulletSpeed);
 	timeWhenExitBarrel = ceil(barrelLength/bulletSpeed)+1;
 }
 if variable_instance_exists(id, "bulletGrowthStart"){
@@ -69,7 +67,6 @@ function bulletBounce(){
 
 function collide(collideEntity, isBullet){
 	if ds_list_find_index(ignoreList, collideEntity) != -1{
-		print("chickalaulau");
 		exit;
 	}else{
 		ds_list_add(ignoreList,collideEntity);
@@ -81,13 +78,10 @@ function collide(collideEntity, isBullet){
 		}
 		death();
 	}else{
-		print("dd");
-		print(collideEntity);
 		decreaseDurability(collideEntity);
 	}
 }
 function decreaseDurability(collidedEntity){
-	print(collidedEntity);
 	var dura = durability;
 	durability -= collidedEntity.durability;
 	collidedEntity.durability -= dura;
@@ -101,7 +95,6 @@ function decreaseDurability(collidedEntity){
 	}
 }
 function death(){
-	print("IMUSTDIE");
 	if increaseCount && instance_exists(parent){
 		parent.activeBullets--;
 	}

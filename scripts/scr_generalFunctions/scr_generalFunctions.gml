@@ -65,7 +65,9 @@ function ds_map_to_struct(dsMap) {
 
 //this is way better
 function print(text){
-	show_debug_message(text);
+	if !global.disablePrints{
+		show_debug_message(text);
+	}
 }
 
 

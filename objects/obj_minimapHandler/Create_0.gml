@@ -11,8 +11,7 @@ doorWidth = 4*scale;
 doorHeight = 4*scale;
 
 processRoomCell = function(i, j) {
-    createRoom(i, j);     
-    uniqueIDGiver++;        
+    createRoom(i, j);         
 };
 
 

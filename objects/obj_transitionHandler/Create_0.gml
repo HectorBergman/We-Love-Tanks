@@ -23,18 +23,18 @@ delayNewRoom = ds_list_create();
 
 prevRoom = "";
 
-SignalSubscribe(id, "roomEnter: general", function(){
+SignalSubscribe(id, "roomEntered: general", function(){
 	var _str = "roomExit" + ": "
 	SignalSend(_str + prevRoom);
 })
 
-SignalSubscribe(id, "roomEnter: newRoom", function(){
+SignalSubscribe(id, "roomEntered: newRoom", function(){
 	prevRoom = "newRoom";
 })
-SignalSubscribe(id, "roomEnter: shop", function(){
+SignalSubscribe(id, "roomEntered: shop", function(){
 	prevRoom = "shop";
 })
-SignalSubscribe(id, "roomEnter: nextStage", function(){
+SignalSubscribe(id, "roomEntered: nextStage", function(){
 	prevRoom = "nextStage";
 })
 

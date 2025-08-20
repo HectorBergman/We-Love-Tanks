@@ -31,5 +31,6 @@ function generateGridSquares(){
 			increase++
 		}
 	}
+	SignalSend("grid: newGridSpawned");
 }
 

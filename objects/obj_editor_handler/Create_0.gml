@@ -46,12 +46,8 @@ SignalSubscribe(id, "updateInstance: " + string(id), function(arg){updateSearch(
 function updateSearch(arg){ 
 	updateInstanceArgumentChoices(arg[0],arg[1], arg[2])
 	var str = objectArguments[arg[1]].argumentName
-	print("updatesearch");
-	print(str)
-	print(string_last_pos("canHaveShape", str));
 	if string_last_pos("canHaveShape", str) == 1{
 		var roomShape = string_copy(str,14,string_length(str)-13)
-		print(roomShape);
 		var aprvShapes = approvedRooms.approvedShapes
 		var index = array_find_index(aprvShapes, method({shape: roomShape}, function(_val) { return _val == shape; }));
 		if index != -1{
@@ -155,8 +151,6 @@ function initiateRoom(){
 		SignalSend("editor_handler: enterRoom", searchArray[roomsPosition-1]);
 		for (var i = 0; i < array_length(searchArray[roomsPosition-1].instances); i++){
 			var item = searchArray[roomsPosition-1].instances[i]
-			print("load")
-			print(item);
 			var itemInstanceArray = 
 				[["DOindex", item.displayObjIndex],
 				["instanceArgumentsChoices", item.instanceArgumentsChoices]]

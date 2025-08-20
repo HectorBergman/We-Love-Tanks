@@ -4,7 +4,7 @@ lock = true;
 roomDoors = [[1,1,1,1],noDoors,noDoors,noDoors];
 
 _room = noone;
-SignalSubscribe(id, "roomEnter: newRoom", findRoom);
+SignalSubscribe(id, "roomEntered: newRoom", findRoom);
 
 function findRoom(){
 

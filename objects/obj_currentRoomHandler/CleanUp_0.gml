@@ -1,1 +1,1 @@
-SignalUnsubscribe(id, "roomEnter: newRoom");
+SignalUnsubscribe(id, "roomEntered: newRoom");

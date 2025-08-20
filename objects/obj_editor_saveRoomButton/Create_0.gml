@@ -42,14 +42,11 @@ function button_saveRoom(){
 	SignalSubscribe(id, "saved: addRandom", function(randomAmt){totalRandoms += randomAmt});
 	var iIamt = instance_number(obj_editor_itemInstance) 
 	if iIamt > 0{
-		print("imafraud");
 		for (var i = 0; i < iIamt; i++){
 			var iInst = instance_find(obj_editor_itemInstance, i);
 			with iInst{
 				objectActions.savedAction();
 			}
-			print("save!");
-			print(iInst.objectActions);
 			roomInfo.instances[i] = {
 				displayObjIndex : iInst.DOindex,
 				instanceArgumentsChoices: iInst.instanceArgumentsChoices,

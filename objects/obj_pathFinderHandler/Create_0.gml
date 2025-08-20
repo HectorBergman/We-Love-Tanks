@@ -12,6 +12,24 @@ visitNumber = 0;
 bfsFinish = false;
 editorException = false;
 isNewRoom = 2;
+newRoomLogic();
+SignalSubscribe(id,"grid: newGridSpawned", function(){
+	newRoomLogic();
+});
+
+function newRoomLogic(){
+	ds_map_clear(gridMap);
+	for (var i = 0; i < instance_number(obj_gridSquare); i++){
+		var unit = instance_find(obj_gridSquare,i)
+		ds_map_add(gridMap, unit.squareNo, {square: unit, visited: false, distance: 0, visitedTwo: false})
+	}
+	BFS();
+	if !editorException{
+		currentRoom[0] = obj_roomHandler.currentRoom[0]
+		currentRoom[1] = obj_roomHandler.currentRoom[1]
+	}
+	editorException = false;
+}
 
 if obj_gameSettingHandler.gameState == gameStates.editorBuilding{
 	editorException = true;

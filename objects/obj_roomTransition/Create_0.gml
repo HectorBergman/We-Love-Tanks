@@ -1,6 +1,5 @@
 pauseMode = allPause;
 colliding=false;
-print("door:")
 willTry = true;
 
 transitionFunction = function(){}
@@ -23,7 +22,7 @@ function getTransitionFunction(){
 			transitionFunction = function(){
 				SignalSend("transitionStart", {
 					transitionType: transitionTypes.toShop, 
-					transitionArr :[xDiff,yDiff,roomNo,doorNo, obj_player.movementVector]
+					transitionArr :[xDiff,yDiff,roomNo,doorNo]
 				})
 				instance_destroy();
 			}

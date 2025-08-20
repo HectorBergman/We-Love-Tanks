@@ -9,11 +9,6 @@ function pause(mode) {
 			case pM.shop: paused = global.shop; break;
 			default: paused = false; break;
 		}
-		if (object_index == obj_player){
-			print("---");
-			print(pauseRestriction);
-			print(paused);
-		}
 		if paused{
 			return true;
 		}

@@ -38,7 +38,7 @@ function generateDungeon(minRooms = 16, maxRooms = 32, floors = 1, bossFloors = 
 	
 
 		//print(random_amalgamate());print(random_amalgamate());
-		print("Edgesss:")
+		print("Edges:")
 		for (var i = 0; i < ds_list_size(edgeList); i++){
 			print(ds_list_find_value(edgeList,i).coords);
 		}
@@ -48,8 +48,7 @@ function generateDungeon(minRooms = 16, maxRooms = 32, floors = 1, bossFloors = 
 		crownBossRoom(itemRoomEdges);
 		crownShopRoom(itemRoomEdges);
 		//crownItemRoom(itemRoomEdges);
-	
-		print(roomAmount);
+
 		print("Generate dungeon: End.")
 		dungeonArr[floorCount] = ds_grid_create(dungeonSize, dungeonSize);
 		ds_grid_copy(dungeonArr[floorCount], dungeonGrid);
@@ -71,10 +70,8 @@ function addMoreRooms(addMoreRoomList,edgeList,minRoom){
 		var edgeListLength = ds_list_size(addMoreRoomList);
 		
 		if edgeListLength > 0{
-			print("wein");
 			var randomIndex = irandom(edgeListLength-1);
 			var roomCandidate = ds_list_find_value(edgeList,randomIndex);
-			print(roomCandidate);
 			var emptyNeighboursArr = room_getEmptyNeighbours(roomCandidate.coords);
 			var emptyNeighboursAmt = array_length(emptyNeighboursArr)
 			if emptyNeighboursAmt > 0{
@@ -85,7 +82,6 @@ function addMoreRooms(addMoreRoomList,edgeList,minRoom){
 				return room_extend(roomCandidate.coords, chosenRoomCoords)
 				
 			}else{
-				print("fuckass");
 				ds_list_delete(addMoreRoomList,randomIndex);
 				return addMoreRooms(addMoreRoomList, edgeList,minRoom);
 			}
@@ -102,9 +98,7 @@ function addMoreRooms(addMoreRoomList,edgeList,minRoom){
 
 function reEdge(edgeList, oldRoom, newRoom){
 	print("reedging");
-	print(oldRoom.coords)
-	print(newRoom.coords);
-	print("---");
+
 	oldRoom.edge = false;
 	newRoom.edge = true;
 	ds_list_delete(edgeList,ds_list_find_index(edgeList,oldRoom));
@@ -115,7 +109,7 @@ function reEdge(edgeList, oldRoom, newRoom){
 
 function deEdge(edgeList, _room){
 	print("deedging");
-	print(_room.coords);
+
 	_room.edge = false;
 	ds_list_delete(edgeList,ds_list_find_index(edgeList,_room));
 }
@@ -211,8 +205,7 @@ function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors 
 		doors = forceDoors;
 	}
 	_room.doors = doors
-	print("oneRun");
-	print(incomingDir);
+
 	var edgeDoors = [doorValues.closed,doorValues.closed,doorValues.closed,doorValues.closed]
 	if sign(incomingDir) != -1{
 		edgeDoors[incomingDir] = 1;
@@ -222,15 +215,12 @@ function dungeon_addNeighbours(roomCoords,_room, incomingDir, queue, forceDoors 
 	}
 	for (var i = 0; i < 4; i++){
 		if i != incomingDir && doors[i]{
-			print("Wegotin!");
 			var xy = getXY(i);
-			print(xy);
+
 			var adjacentRoom = ds_grid_get(dungeonGrid, roomCoords[0]+xy[0],roomCoords[1]+xy[1])
-			print(adjacentRoom);
+
 			if adjacentRoom == noone{ //Skip if room already exists
-				print("THESEARETHEROOMCOORDS:");
-				print(roomCoords);
-				print(_room);
+
 				print("addingnewCoords: " + string(roomCoords[0]) + " + " + string(xy[0]) + " & " + string(roomCoords[1]) + " + " + string(xy[1]));
 				print("AKA: " + string(roomCoords[0] + xy[0]) + " & " + string(roomCoords[1] +xy[1]));
 				var newRoom = room_generate(roomCoords[0]+xy[0],roomCoords[1]+xy[1],xy)
@@ -273,13 +263,13 @@ function room_generate(i,j,originXY){
 		newRoom = {_room : {roomName: "home", instances:[],difficulty: "0", roomShape: "normal"}, 
 		roomShape:global.roomShapes[0], roomType : "standard",
 		roomShapeInfo: {roomNo: 0,leftOverEntities: ds_list_create(),roommates: [[i,j],undefinedCoords,undefinedCoords,undefinedCoords]}, 
-		edge: false, roomID : uniqueIDGiver, coords : [i,j], doors : [1,1,1,1], bossBeaten : false,
+		edge: false, coords : [i,j], doors : [1,1,1,1], bossBeaten : false,
 		cleared: false,visited: true, originDir : getDir(originXY), reverseDir: getDirReverse(originXY), amalgamated: false}
 	}else{
 		newRoom = {_room : pickRandomRoomByType(global.roomList,"standard", "normal"), 
 		roomShape:global.roomShapes[0], roomType : "standard",
 		roomShapeInfo: {roomNo: 0,leftOverEntities: ds_list_create(),roommates: [[i,j],undefinedCoords,undefinedCoords,undefinedCoords]}, 
-		edge: false/*somesortofisedgehere*/, roomID : uniqueIDGiver, coords : [i,j], doors : [0,0,0,0], bossBeaten : false,
+		edge: false/*somesortofisedgehere*/, coords : [i,j], doors : [0,0,0,0], bossBeaten : false,
 		cleared: false,visited: false, originDir : getDir(originXY), reverseDir: getDirReverse(originXY), amalgamated: false}
 		
 		ds_list_add(roomCoordsList, newRoom.coords)
@@ -333,7 +323,6 @@ function doors_generate(roomCoords,incomingDirection,doorChance){
 		
 	}
 	var theRoom = ds_grid_get(dungeonGrid, roomCoords[0], roomCoords[1])
-	print(theRoom);
 	theRoom._room.isEdge = noOtherDoors;
 	if noOtherDoors{
 		print("noOtherDoors")
@@ -371,8 +360,6 @@ function getXY(dir){
 /// @param {array}		xy , integer vector normal
 /// @returns {integer}	array of size 2 containing the integer vector normal
 function getDir(xy){
-	print("dir:");
-	print(xy);
 	if array_equals(xy,[ 1,0 ]){
 		return 0;
 	}else if array_equals(xy,[ 0,-1 ]){
@@ -393,8 +380,6 @@ function getDir(xy){
 /// @param {array}		xy , integer vector normal
 /// @returns {integer}	array of size 2 containing the integer vector normal rotated 180 degrees
 function getDirReverse(xy){
-	print("dir:");
-	print(xy);
 	if array_equals(xy,[ 1,0 ]){
 		return 2;
 	}else if array_equals(xy,[ 0,-1 ]){
@@ -448,19 +433,15 @@ function room_getAllDoors(_room){
 	var roomiesArr = _room.roomShapeInfo.roommates;
 	var doorsArr = [];
 	for (var i = 0; i < 4; i++){
-		print(roomiesArr);
 		if roomiesArr[i][0] != -229{
 			var cRoom = ds_grid_get(dungeonGrid, roomiesArr[i][0], roomiesArr[i][1])
 			print("roomie: " + string(roomiesArr[i][0]) + " n " + string(roomiesArr[i][1]));
 		
-			print("hello");
-			print(cRoom);
 			doorsArr[i] = cRoom.doors;
 		}else{
 			doorsArr[i] = [doorValues.closed,doorValues.closed,doorValues.closed,doorValues.closed];
 		}
 	}
-	print("getDoorsdone");
 	return doorsArr;
 }
 
@@ -503,28 +484,22 @@ function room_visit(_room){
 /// @returns {real} The index of the matching room, or -1 if not found
 
 function findRoomIndexByCoords(room_list, target_coords) {
-    print("----\nfRIBC:");
     var target_x = target_coords[0];
     var target_y = target_coords[1];
-    print(target_coords);
     // Loop through all rooms in the list
     for (var i = 0; i < ds_list_size(room_list); i++) {
-		print(string(i) + ": ");
         var _room = ds_list_find_value(room_list,i);
-        print(_room);
         // Check if this room has the matching coordinates
         if (variable_struct_exists(_room, "coords")) {
             var room_coords = _room.coords;
             
             if (is_array(room_coords) && array_length(room_coords) >= 2) {
                 if (room_coords[0] == target_x && room_coords[1] == target_y) {
-					print("match found!");
                     return i; // Found matching room
                 }
             }
         }
     }
-    print("-----");
     return -1; // No matching room found
 }
 
