@@ -15,7 +15,7 @@ function visualizeFloor(dFloor){
 			str = string_concat(str,arr[j],"|");
 		}
 		print(str);
-		print("___________________________________________");
+		print("_________________________________________");
 	}
 }
 

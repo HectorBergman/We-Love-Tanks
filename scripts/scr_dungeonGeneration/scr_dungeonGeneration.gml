@@ -507,22 +507,6 @@ function findRoomIndexByCoords(room_list, target_coords) {
 
 
 
-/*enum doorValues{
-	closed,
-	anotherRoom,
-	anotherStage,
-	shop
-}*/
-
-enum doorValues{
-	closed,
-	open,
-	openToNewStage,
-	openToShop
-}
-
-
-
 
 
 
