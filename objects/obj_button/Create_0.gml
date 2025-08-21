@@ -3,7 +3,7 @@ enum bTypes {
 	startGame,
 	startEditor,
 	saveEditor,
-	idk,
+	test,
 	startNewEditor,
 	exitShop,
 }

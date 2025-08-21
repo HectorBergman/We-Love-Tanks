@@ -41,7 +41,8 @@ if (truthStatement){ //hover over button
 				}
 				break;
 		
-			case bTypes.idk: //menu button to select room to edit
+			case bTypes.test: //menu button to select room to edit
+				room_goto(rm_test);
 				break;
 		
 			case bTypes.startNewEditor:

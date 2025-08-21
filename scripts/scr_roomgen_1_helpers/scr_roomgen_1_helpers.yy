@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_roomgen_1_helpers",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_roomgen_1_helpers",
+  "parent":{
+    "name":"oScripts",
+    "path":"folders/oScripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
