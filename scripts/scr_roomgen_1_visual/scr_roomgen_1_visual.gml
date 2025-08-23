@@ -8,26 +8,36 @@ function visualizeFloor(dFloor){
 		printArray[i] = xArray;
 	}
 	print("Floor image:");
-	for (var i = 0; i < array_length(printArray); i++){
-		var arr = printArray[i];
+	for (var i = 0; i < array_length(printArray)*2; i++){
+		var arr = printArray[floor(i/2)];
 		var str = "|";
 		for (var j = 0; j < array_length(arr); j++){
-			str = string_concat(str,arr[j],"|");
+			if i mod 2 == 1{
+				str = string_concat(str,arr[j],"|");
+			}else{
+				str = string_concat(str,"____")
+			}
 		}
 		print(str);
-		print("_________________________________________");
 	}
+	print("_________________________________________");
 }
 
 function visualizeRoom(dRoom){
-	switch (dRoom.specialRoomInfo.roomType){
-		case "standard":
-			return " s ";
-		case "item":
-			return " i ";
-		case "none":
-			return "   "
-		case "startRoom":
-			return "stp"
+	if roomExists(dRoom){
+		switch (dRoom.specialRoomInfo.roomType){
+			case "standard":
+				return " s ";
+			case "item":
+				return "itm";
+			case "boss":
+				return "bos";
+			case "none":
+				return "   "
+			case "startRoom":
+				return "stp"
+		}
+	}else{
+		return "   "
 	}
 }

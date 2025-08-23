@@ -1,7 +1,8 @@
 #macro normalShape ["normal",0]
+#macro defaultDoorWeight [-1,-1,-1,-1,-1]
 
-#macro undefinedRoom {specialRoomInfo: createSpecialRoom("none",{requirementFunction : function(arg){return false}, extraArguments: []}, [], undefinedCoords,{min: -1, max: -1}, normalShape, [], function(arg){return false}, noone)}
-#macro startRoom createSpecialRoom("startRoom", {requirementFunction : function(arg){return true}, extraArguments: []}, [], startPoint, {min: 4, max: 4})
+#macro undefinedRoom {doors: [0,0,0,0],  roomType : "none"}
+#macro startRoom createSpecialRoom("startRoom", {requirementFunction : function(arg){return true}, extraArguments: []}, [], startPoint, [0,0,0,0,99])
 enum doorValues{
 	closed,
 	open,
@@ -16,8 +17,8 @@ function createSpecialRoom(
 	positionRequirements = {requirementFunction : function(arg){return true}, extraArguments: []}, 
 	requiredRoomPartners = [], 
 	exactCoord = undefinedCoords,
-	doorAmounts= {min: 1, max : 1}, 
-	roomShape = "normal",
+	doorWeights = defaultDoorWeight,
+	roomShape = ["normal",0],
 	unacceptableDoorDirs = [], 
 	unlockRequirements = function(){return true}, 
 	uniqueRoom = noone
@@ -26,38 +27,56 @@ function createSpecialRoom(
 		roomType: roomType,
 		positionRequirements: positionRequirements,
 		requiredRoomPartners: requiredRoomPartners,
-		doorAmounts: doorAmounts,
+		doorWeights : doorWeights,
 		unacceptableDoorDirs: unacceptableDoorDirs,
 		unlockRequirements: unlockRequirements,
 		uniqueRoom: uniqueRoom,
-		exactCoord: exactCoord
+		exactCoord: exactCoord,
+		gridInfo: {isPlaced : false, placedCoords : undefinedCoords}
 	}
 	return specialRoom
 }
-function generateSpecialRoom(sRoom, dungeon){
-	var coord = specialRoomSetCoords(sRoom, dungeon);
-	
-	
+
+
+function generateSpecialRoom(dungeon, sRoom){
+	var coord = specialRoomGetCoords(dungeon, sRoom);
 }
-function specialRoomSetCoords(sRoom, dFloor){
+
+function specialRoomGetCoords(dFloor, sRoom){
 	if array_equals(sRoom.exactCoord, undefinedCoords){ 
 		var arr = getAllAvailableCoordsFittingReq(dFloor, sRoom.positionRequirements)
 		var coord = setRandomCoordInArray(arr, dFloor);
-		var _room = {specialRoomInfo: sRoom};
-		ds_grid_add(dFloor.grid, coord[0], coord[1], _room);
+		updateRoomsGridInfo(sRoom, coord);
+		return sRoom
+		//ds_grid_add(dFloor.grid, coord[0], coord[1], _room);
 	}else{
-		if coordsWithinGrid(sRoom.exactCoord, dFloor.dimensions){
-			ds_grid_add(dFloor.grid, sRoom.exactCoord[0], sRoom.exactCoord[1], {specialRoomInfo: sRoom}) 
-		}else{
-			forceCrash("specialRoomSetCoord: coords outside grid: \n" + 
-					   "Coords: " + string(sRoom.exactCoord) + 
-					   " Outside of dimensions: "  + string(dFloor.dimensions));
-		}
+		return addRoomToGrid(dFloor, sRoom);
 	}
 }
 
-function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone){
+
+
+function addRoomToGrid(dFloor,sRoom){
+	if coordsWithinGrid(sRoom.exactCoord, dFloor.dimensions){
+		if !roomExists(ds_grid_get(dFloor.grid, sRoom.exactCoord[0], sRoom.exactCoord[1])){
+			updateRoomsGridInfo(sRoom, sRoom.exactCoord);
+			return sRoom
+			//ds_grid_add(dFloor.grid, sRoom.exactCoord[0], sRoom.exactCoord[1], {specialRoomInfo: sRoom}) 
+		}else{
+			forceCrash( "addRoomToGrid: room already occupies coords \n" + 
+						"Coords: " + string(sRoom.exactCoord));
+		}
+	}else{
+		forceCrash("addRoomToGrid: coords outside grid: \n" + 
+					"Coords: " + string(sRoom.exactCoord) + 
+					" Outside of dimensions: "  + string(dFloor.dimensions));
+	}
+}
+
+
+function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, forceSkipAmalgam = false){
 	var doors = noDoors
+	var doorWeights = dfloor.doorWeights
 	if sRoom == noone{
 		if roomType == noone{
 			roomType = "standard"
@@ -67,14 +86,17 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone){
 			var doorDir = sRoom.unacceptableDoorDirs[i]
 			doors[doorDir] = doorValues.unacceptable;
 		}
+		if sRoom.doorWeights[0] != -1{
+			doorWeights = sRoom.doorWeights;
+		}
 		roomType = sRoom.roomType
 	}
-	
-	var shouldAmalgamate = random_range(0,1) < dfloor.amalgamOdds
 	var roomShape = ["normal",0]
-	if shouldAmalgamate{
-		roomShape = randomAmalgamateShape(dfloor,fromDir,coords);
-		print(roomShape);
+	if !forceSkipAmalgam{
+		var shouldAmalgamate = random_range(0,1) < dfloor.amalgamOdds
+		if shouldAmalgamate{
+			roomShape = randomAmalgamateShape(dfloor,fromDir,coords);
+		}
 	}
 	
 	//roomName, instances, sanitized, roomShape, roomType, savedRandomsNeeded
@@ -88,12 +110,16 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone){
 		roomType : roomType,
 		roomInfo : roomInfo,
 		doors : doors,
+		doorWeights : doorWeights,
+		isEdgeRoom : false,
 		visited : false,
 		cleared : false,
 		roomShape : roomShape,
 		loadedEntities : [],
 		preRandoms : preRandoms,
-	}			
+		coords : coords
+	}	
+	return fullRoomInfo
 }
 function randomAmalgamateShape(dfloor, fromDir, coords){
 	var grid = dfloor.grid
@@ -125,11 +151,11 @@ function randomAmalgamateShape(dfloor, fromDir, coords){
 }
 function coordOccupied(coords,dfloor){
 	var _room = ds_grid_get(dfloor.grid, coords[0],coords[1]);
-	return roomOccupied(_room)
+	return roomExists(_room)
 }
 
-function roomOccupied(_room){
-	return !(_room.specialRoomInfo.roomType == "none");
+function roomExists(_room){
+	return !(_room.roomType == "none");
 }
 function getAcceptedAmalgams(acceptedRooms){
 	var potentialAmalgams = [
@@ -188,6 +214,27 @@ function generateRandoms(randomsNeeded){
 	return randoms
 }
 
+
+
+
+function generateStandardRooms(dfloor){
+	var grid = dfloor.grid;
+	var roomArray = dfloor.specialRoomArray;
+	var goalCoords = [];
+	for (var i = 0; i < array_length(roomArray); i++){
+		if roomArray[i].gridInfo.isPlaced{
+			goalCoords[i] = roomArray[i].gridInfo.placedCoords
+		}else{
+			forceCrash("Room " + roomArray[i] + " is not placed in grid")
+		}
+	}
+	print(goalCoords);
+}
+
+function posRequirement(reqFunc,extraArgs){
+	return {requirementFunction: reqFunc, extraArguments: extraArgs}
+}
+
 function createDFloor(specialRoomArray = [], amalgamOdds = 0,startPoint = [5,5], dimensions = [10,10]){
 	global.roomList = loadData("savedRooms2.sav");
 	function setAllRoomsAvailable(floorDimensions){
@@ -207,31 +254,33 @@ function createDFloor(specialRoomArray = [], amalgamOdds = 0,startPoint = [5,5],
 		dimensions : dimensions,
 		availableCoords : setAllRoomsAvailable(dimensions),
 		amalgamOdds : amalgamOdds,
+		doorWeights : [0,2,7,4,1], //index = amt doors
+		roomAmountRange : [30,40],
 	}
 	ds_grid_clear(dfloor.grid, undefinedRoom);
-	makeCoordsUnavailable(dfloor.startPoint,dfloor);
 	return dfloor
 }
 
 function populateDFloor(amalgamOdds){
 	var startPoint = [5,5]
-	var dfloor = createDFloor([startRoom], amalgamOdds,startPoint)
+	var dfloor = createDFloor([], amalgamOdds,startPoint)
 	var specialRooms = [
-		createSpecialRoom("item", posRequirement(coordWithinRange,[startPoint, 3,5]))
+		createSpecialRoom("item", posRequirement(coordsWithinRange,[startPoint, 3,5])),
+		createSpecialRoom("boss", posRequirement(coordsWithinRange,[startPoint, 6,7]))
 	]
 	dfloor.specialRoomArray = array_concat(dfloor.specialRoomArray,specialRooms);
+	initiateSpecialRoom(dfloor,startRoom)
 	for (var i = 0; i < array_length(dfloor.specialRoomArray); i++){
-		specialRoomSetCoords(dfloor.specialRoomArray[i], dfloor)
+		var sRoom = dfloor.specialRoomArray[i]
+		initiateSpecialRoom(dfloor,sRoom)
+		//if crashes cus need specialroominfo fml
 	}
-	createRoom(dfloor,[5,4],3)
+	generateStandardRooms(dfloor);
 	return dfloor;
 	
 }
-
-function generateDFloor(dFloor){
-
-}
-
-function posRequirement(reqFunc,extraArgs){
-	return {requirementFunction: reqFunc, extraArguments: extraArgs}
+function initiateSpecialRoom(dfloor,sRoom){
+	var _room = specialRoomGetCoords(dfloor, sRoom)
+	var newRoom = createRoom(dfloor, _room.gridInfo.placedCoords, -1, _room)
+	ds_grid_set(dfloor.grid, newRoom.coords[0], newRoom.coords[1], newRoom);
 }

@@ -60,7 +60,7 @@ function getAllAvailableCoordsFittingReq(dfloor,requirement){
 	return arr;
 }
 //coord, startCoords, minimum, maximum
-function coordWithinRange(argArray){
+function coordsWithinRange(argArray){
 	var coord = argArray[0];
 	var startCoords = argArray[1];
 	var minimum = argArray[2];
@@ -81,6 +81,10 @@ function setRandomCoordInArray(array, dfloor){
 	}
 }
 
+function updateRoomsGridInfo(sRoom,coords){
+	sRoom.gridInfo.isPlaced = true;
+	sRoom.gridInfo.placedCoords = coords
+}
 
 /// @function pickRandomRoomByType(roomArray, roomType)
 /// @description Returns a RANDOM room struct where Type matches roomType

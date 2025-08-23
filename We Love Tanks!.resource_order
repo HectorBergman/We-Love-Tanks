@@ -235,6 +235,7 @@
     {"name":"scr_parentChildFunctions","order":8,"path":"scripts/scr_parentChildFunctions/scr_parentChildFunctions.yy",},
     {"name":"scr_pause","order":13,"path":"scripts/scr_pause/scr_pause.yy",},
     {"name":"scr_roomgen_1_amalgam","order":17,"path":"scripts/scr_roomgen_1_amalgam/scr_roomgen_1_amalgam.yy",},
+    {"name":"scr_roomgen_1_generate","order":18,"path":"scripts/scr_roomgen_1_generate/scr_roomgen_1_generate.yy",},
     {"name":"scr_roomgen_1_helpers","order":15,"path":"scripts/scr_roomgen_1_helpers/scr_roomgen_1_helpers.yy",},
     {"name":"scr_roomgen_1_visual","order":16,"path":"scripts/scr_roomgen_1_visual/scr_roomgen_1_visual.yy",},
     {"name":"scr_roomgen_1","order":14,"path":"scripts/scr_roomgen_1/scr_roomgen_1.yy",},

@@ -83,3 +83,16 @@ function amalgamAcceptance_giant(shapeVariantNumber){
 			forceCrash(string(shapeVariantNumber) + "is not a valid variant number for shape topLeftAbsent")
 	}
 }
+
+/*
+specialRoomInfo: sRoom, 
+		roomType : roomType,
+		roomInfo : roomInfo,
+		doors : doors,
+		visited : false,
+		cleared : false,
+		roomShape : roomShape,
+		loadedEntities : [],
+		preRandoms : preRandoms,
+		coords : coords
+	}	
