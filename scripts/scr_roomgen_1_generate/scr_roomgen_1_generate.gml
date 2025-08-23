@@ -117,9 +117,6 @@ function generateDoors(dfloor, _room){
 	return newDoors
 }
 
-function openDoor(_room,doorNumber){
-	_room.doors[doorNumber] = doorValues.open;
-}
 function roomHasSpecialInfo(_room){
 	return !_room.specialInfo == noone;
 }
