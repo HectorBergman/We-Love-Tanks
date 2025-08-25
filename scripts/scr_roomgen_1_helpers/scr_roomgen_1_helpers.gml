@@ -13,7 +13,6 @@ function makeCoordsUnavailable(coords,dfloor){
 	var coordsString = getCoordsString(coords);
 	var coordValue = ds_map_find_value(dfloor.availableCoords, coordsString)
 	if !is_undefined(coordValue) && coordValue{
-		print("made unavailable: " + coordsString); //deletePrint
 		ds_map_set(dfloor.availableCoords, coordsString, false)
 	}else{
 		print(coordsString);
@@ -26,6 +25,9 @@ function coordsAreAvailable(unavailableRooms, coordStr){
 }
 function manhattanDistance(startPoint,endPoint){
 	return abs(startPoint[0]-endPoint[0])+abs(startPoint[1]-endPoint[1]);
+}
+function chebyshevDistance(startPoint,endPoint){
+	return max(abs(startPoint[0]-endPoint[0]),abs(startPoint[1]-endPoint[1]));
 }
 function getCoordsFromString(coordsString){
 	var pos = string_pos(",", coordsString)
@@ -67,6 +69,14 @@ function coordsWithinRange(argArray){
 	var maximum = argArray[3];
 	return inRange(manhattanDistance(coord,startCoords), minimum, maximum)
 }
+function coordsWithinRangeChebyshev(argArray){
+	var coord = argArray[0];
+	var startCoords = argArray[1];
+	var minimum = argArray[2];
+	var maximum = argArray[3];
+	return inRange(chebyshevDistance(coord,startCoords), minimum, maximum)
+}
+
 
 
 

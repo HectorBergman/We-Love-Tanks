@@ -1,21 +1,33 @@
 function visualizeFloor(dFloor){
 	var printArray = [];
+	var printArrayDoors = [];
+	var printArrayHorizontalDoors = [];
 	for (var i = 0; i < dFloor.dimensions[0]; i++){
 		var xArray = [];
+		var xArrayDoors = [];
+		var xArrayHoriDoors = [];
 		for (var j = 0; j < dFloor.dimensions[1]; j++){
 			xArray[j] = visualizeRoom(ds_grid_get(dFloor.grid, i,j));
+			xArrayDoors[j] = visualizeDoors(ds_grid_get(dFloor.grid,i,j));
+			xArrayHoriDoors[j] = visualizeHoriDoors(ds_grid_get(dFloor.grid,i,j));
 		}
 		printArray[i] = xArray;
+		printArrayDoors[i] = xArrayDoors
+		printArrayHorizontalDoors[i] = xArrayHoriDoors;
 	}
 	print("Floor image:");
 	for (var i = 0; i < array_length(printArray)*2; i++){
 		var arr = printArray[floor(i/2)];
+		var doorArr = printArrayDoors[floor(i/2)];
+		var horiDoorArr = printArrayHorizontalDoors[floor(i/2)];
+		
 		var str = "|";
 		for (var j = 0; j < array_length(arr); j++){
 			if i mod 2 == 1{
-				str = string_concat(str,arr[j],"|");
+				str = string_concat(str,arr[j], horiDoorArr[j]);
 			}else{
-				str = string_concat(str,"____")
+				
+				str = string_concat(str,doorArr[j])
 			}
 		}
 		print(str);
@@ -25,7 +37,7 @@ function visualizeFloor(dFloor){
 
 function visualizeRoom(dRoom){
 	if roomExists(dRoom){
-		switch (dRoom.specialRoomInfo.roomType){
+		switch (dRoom.roomType){
 			case "standard":
 				return " s ";
 			case "item":
@@ -41,3 +53,22 @@ function visualizeRoom(dRoom){
 		return "   "
 	}
 }
+function visualizeDoors(dRoom){
+	
+	switch (dRoom.doors[3]){
+		case true:
+			return "_ __"
+		case false:
+			return "____"
+	}
+}
+function visualizeHoriDoors(dRoom){
+	
+	switch (dRoom.doors[0]){
+		case true:
+			return ":"
+		case false:
+			return "|"
+	}
+}
+

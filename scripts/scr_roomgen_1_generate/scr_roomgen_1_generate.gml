@@ -1,9 +1,23 @@
-function generate(dfloor, goalCoords,startingRoom){
+function generateDFloor(dfloor, goalCoords){
 	var roomsQueue = ds_queue_create();
+	var queueGrid = ds_grid_create(dfloor.dimensions[0],dfloor.dimensions[1]);
+	for (var i = 0; i < dfloor.dimensions[1]; i++){
+		for (var j = 0; j < dfloor.dimensions[0]; j++){
+			ds_grid_add(queueGrid, i, j, false);
+		}
+	}
 	//first step:
 	//no need to generateDoors
-
+	var generateCount = 0;
+	iterateRoom(dfloor,ds_grid_get(dfloor.grid,dfloor.startPoint[0],dfloor.startPoint[1]),roomsQueue);
+	while !ds_queue_empty(roomsQueue){
+		var newRoom = dequeueRoomCoordinates(roomsQueue)
+		iterateRoom(dfloor,newRoom, roomsQueue)
+		generateCount++;
+	}
+	print("roomsGenerated: " + string(generateCount));
 	ds_queue_destroy(roomsQueue);
+	print(dfloor.doorWeights);
 }
 
 function queueRoom(roomsQueue,_room,parentDirection){
@@ -13,11 +27,13 @@ function queueRoom(roomsQueue,_room,parentDirection){
 	
 	// shouldnt be needed with openDoor
 	
-	//ds_map_add(queuedRoomsMap,coordString,{coords:coords,doors:doors}); maybe needed..?
+
+	//ds_grid_set(queueGrid, _room.coords[0], _room.coords[1], true);
 	ds_queue_enqueue(roomsQueue,_room);
 }
-function dequeueRoomCoordinates(roomsQueue,coords){
+function dequeueRoomCoordinates(roomsQueue){
 	var val = ds_queue_dequeue(roomsQueue);
+	//ds_grid_set(queueGrid, val.coords[0],val.coords[1], false);
 	return val;
 }
 function changeDoorState(dfloor, _room, dir, state){
@@ -25,6 +41,8 @@ function changeDoorState(dfloor, _room, dir, state){
 	var XY = getXY(dir);
 	var neighbour = ds_grid_get(dfloor.grid, _room.coords[0]+XY[0], _room.coords[1]+XY[1]);
 	neighbour.doors[(dir+2)mod 4] = state
+
+
 }
 function openDoor(dfloor, _room, dir){
 	changeDoorState(dfloor, _room, dir, doorValues.open)
@@ -32,90 +50,125 @@ function openDoor(dfloor, _room, dir){
 function closeDoor(dfloor,_room,dir){
 	changeDoorState(dfloor, _room, dir, doorValues.closed)
 }
-function iterateRoom(dfloor, roomCoords, doors = [-1,-1,-1,-1]){
-	var _room = ds_grid_get(dfloor.grid,roomCoords[0],roomCoords[1]);
+function iterateRoom(dfloor, _room, roomsQueue, doors = [-1,-1,-1,-1]){
+	var roomCoords = _room.coords;
+
 	var checkedDoors = [];
 	if doors[0] == -1{ //if doors not preset by func, check if neighbours have door leading to room
-		for (var i = 0; i < array_length(doors); i++){
-			var XY = getXY(i)
-			var neighbouringRoom = ds_grid_get(dfloor.grid, roomCoords[0]+XY[0],roomCoords[1]+XY[1])
-			/*if roomExists(neighbouringRoom) && neighbouringRoom.doors[(i+2)mod 4]{
-				doors[i] = doorValues.open;
-			}*/
-		}
-		generateDoors(dfloor, _room);
+		generateDoors(dfloor, _room, roomsQueue);
 	}
 	var doorsAmt = 0;
 	for (var i = 0; i < array_length(doors); i++){
 		if doors[i]{
-			openDoor(dfloor, _room, i);
 			var XY = getXY(i)
-			var neighbouringRoom = ds_grid_get(dfloor.grid, roomCoords[0]+XY[0],roomCoords[1]+XY[1])
+			if (coordsWithinGrid([roomCoords[0]+XY[0],roomCoords[1]+XY[1]],dfloor.dimensions)){
+				openDoor(dfloor, _room, i);
 			
-			if !roomExists(neighbouringRoom){//inherit doors.. dont forget 2 do that
-				var newRoom = createRoom(dfloor, [roomCoords[0]+XY[0],roomCoords[1]+XY[1]], i)
-				//ds_queue_enqueue(
+				var neighbouringRoom = ds_grid_get(dfloor.grid, roomCoords[0]+XY[0],roomCoords[1]+XY[1])
+				
+				doorsAmt++;
 			}
-			doorsAmt++;
 		}
 	}
 	if doorsAmt == 1{
-		cRoom.isEdgeRoom = true;
+		_room.isEdgeRoom = true;
 	}
-	
+	ds_grid_set(dfloor.grid, roomCoords[0],roomCoords[1], _room);
 	
 }
 
-function generateDoors(dfloor, _room){
-	var doors = _room.coords
-	var doorCount = 0;
-	var predecidedDoors = [];
-	var newDoors = [];
-	//find out where room came from
-	//do sumn if outside grid
-	for (var i = 0; i < array_length(doors); i++){
-		if doors[i]{
-			predecidedDoors[doorCount] = i;
-			doorCount++
-			_room.doorWeights[i-1] = 0;
+function findIllegitimateDoors(dfloor,_room){
+	var coords = _room.coords;
+	var bannedDoors = [];
+	var index = 0;
+	for (var i = 0; i < 4; i++){
+		var XY = getXY(i);
+
+		if !coordsWithinGrid([coords[0]+XY[0],coords[1]+XY[1]],dfloor.dimensions){
+			bannedDoors[index] = i
+			index++
 		}
 	}
-	var undecidedDoors = [0,1,2,3];
-	var minusIndex = 0;
-	for (var i = 0; i < array_length(undecidedDoors); i++){
-		if array_contains(predecidedDoors,undecidedDoors[i-minusIndex]){
-			array_delete(undecidedDoors,i-minusIndex,1);
-			minusIndex++;
-		}
-	}
-	
-	//using doorWeight, decide how many doors a room shall have
-	var weightSum = 0;
-	for (var i = 0; i < array_length(_room.doorWeights); i++){
-		weightSum += _room.doorWeights[i]
-		_room.doorWeights[i] = weightSum;
-	}
-	var randomWeighted = random(1)*weightSum
-	var chosenDoorCount = -1;
-	for (var i = 0; i < array_length(_room.doorWeights); i++){
-		if _room.doorWeights[i] >= randomWeighted{
-			chosenDoorCount = i;
-			break;
-		}
-	}
-	
-	var openDoors = array_length(predecidedDoors);
-	while chosenDoorCount > openDoors{
-		var randomIndex = irandom(array_length(undecidedDoors)-1);
-		var doorNumber = undecidedDoors[randomIndex]
-		openDoor(_room,doorNumber);
-		newDoors[array_length(newDoors)] = doorNumber;
-		array_delete(undecidedDoors, randomIndex,1);
-		openDoors++;
-	}
-	
-	return newDoors
+	return bannedDoors;
 }
+
+function doorIsIllegitimate(dfloor,_room,doorDir){
+	var XY = getXY(doorDir);
+	if !coordsWithinGrid([_room.coords[0]+XY[0],_room.coords[1]+XY[1]],dfloor.dimensions){
+			return true;
+	}
+	return false;
+}
+function generateDoors(dfloor, _room, roomsQueue){
+	//step 1: discern door amounts
+	var doors = _room.doors;
+	var weights = [];
+	array_copy(weights, 0, _room.doorWeights, 0, array_length(_room.doorWeights));
+	var predecidedOpenDoors = 0;
+	var predecidedDoors = [-1,-1,-1,-1]
+	var borderDoors = 0;
+	for (var i = 0; i < array_length(doors); i++){
+		var XY = getXY(i);
+		if !coordsWithinGrid([_room.coords[0]+XY[0],_room.coords[1]+XY[1]],dfloor.dimensions){
+			if doors[i] == 1{
+				closeDoor(dfloor,_room,i);
+			}
+			borderDoors++;
+			if array_length(weights)-borderDoors-1 != -1{
+				weights[array_length(weights)-borderDoors-1] += weights[array_length(weights)-borderDoors]
+			}
+			weights[array_length(weights)-borderDoors] = 0;
+			predecidedDoors[i] = 0;
+		}else if doors[i] == 1{
+			weights[predecidedOpenDoors] = 0;
+			predecidedOpenDoors++;
+			predecidedDoors[i] = 1;
+		}
+	}
+	var validDoorNumbers = [];
+	var vdIndex = 0;
+	for (var i = 0; i < array_length(predecidedDoors); i++){
+		if predecidedDoors[i] == -1{
+			validDoorNumbers[vdIndex] = i;
+			vdIndex++;
+		}
+	}
+	var weightSum = 0;
+	for (var i = 0; i < array_length(weights); i++){
+		weightSum += weights[i];
+		weights[i] = weightSum;
+	}
+	var doorNumberRandom = random(1)*weightSum;
+	var doorAmtChosen = -1;
+	
+	if weightSum > 0{
+		for (var i = 0; i < array_length(weights); i++){
+			doorAmtChosen = i
+			if weights[i] > doorNumberRandom{
+				break;
+			}
+		}
+		if doorAmtChosen > 2 && !(dfloor.doorWeights[doorAmtChosen] < 2 && doorAmtChosen == 3){
+			dfloor.doorWeights[doorAmtChosen] -= 1
+		}
+		doorAmtChosen -= predecidedOpenDoors;
+		while doorAmtChosen > 0{
+			var randomDoorNo = irandom(array_length(validDoorNumbers)-1);
+			var doorNoChosen = validDoorNumbers[randomDoorNo];
+			openDoor(dfloor,_room,doorNoChosen);
+			var XY = getXY(doorNoChosen);
+			if !roomExists(ds_grid_get(dfloor.grid,_room.coords[0]+XY[0],_room.coords[1]+XY[1])){
+				var newRoom = createRoom(dfloor, [_room.coords[0]+XY[0],_room.coords[1]+XY[1]],doorNoChosen)
+				queueRoom(roomsQueue, newRoom,(doorNoChosen+2) mod 2);
+			}
+			array_delete(validDoorNumbers, randomDoorNo, 1);
+			doorAmtChosen--;
+		}
+	}
+	print("returningDoors: " + string(doors));
+	return doors;
+}
+
 
 function roomHasSpecialInfo(_room){
 	return !_room.specialInfo == noone;

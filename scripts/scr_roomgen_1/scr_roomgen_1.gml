@@ -75,7 +75,7 @@ function addRoomToGrid(dFloor,sRoom){
 
 
 function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, forceSkipAmalgam = false){
-	var doors = noDoors
+	var doors = ds_grid_get(dfloor.grid,coords[0],coords[1]).doors
 	var doorWeights = dfloor.doorWeights
 	if sRoom == noone{
 		if roomType == noone{
@@ -140,7 +140,6 @@ function randomAmalgamateShape(dfloor, fromDir, coords){
 		}
 	}
 	var acceptedAmalgams = getAcceptedAmalgams(acceptedArray);
-	print(acceptedAmalgams);
 	if array_length(acceptedAmalgams) > 0{
 		var randomIndex = irandom(array_length(acceptedAmalgams)-1);
 		var shape = acceptedAmalgams[randomIndex];
@@ -185,10 +184,9 @@ function getAcceptedAmalgams(acceptedRooms){
 		var roomsNeeded = amalgamAcceptance(potentialAmalgams[i][0], potentialAmalgams[i][1]);
 		var isAcceptable = true;
 		for (var j = 0; j < array_length(roomsNeeded); j++){
-			print(acceptedRooms)
-			print(roomsNeeded);
+
 			isAcceptable = array_contains(acceptedRooms,roomsNeeded[j])
-			print(isAcceptable);
+
 			if !isAcceptable{
 				break
 			}
@@ -203,7 +201,6 @@ function getAcceptedAmalgams(acceptedRooms){
 
 function amalgamAcceptance(shape, shapeVariantNumber){
 	var func = asset_get_index("amalgamAcceptance_" + shape);
-	print(func);
 	return func(shapeVariantNumber);
 }
 function generateRandoms(randomsNeeded){
@@ -228,7 +225,6 @@ function generateStandardRooms(dfloor){
 			forceCrash("Room " + roomArray[i] + " is not placed in grid")
 		}
 	}
-	print(goalCoords);
 }
 
 function posRequirement(reqFunc,extraArgs){
@@ -254,10 +250,16 @@ function createDFloor(specialRoomArray = [], amalgamOdds = 0,startPoint = [5,5],
 		dimensions : dimensions,
 		availableCoords : setAllRoomsAvailable(dimensions),
 		amalgamOdds : amalgamOdds,
-		doorWeights : [0,2,7,4,1], //index = amt doors
+		doorWeights : [0,1.1,3,6,4], //index = amt doors
 		roomAmountRange : [30,40],
 	}
-	ds_grid_clear(dfloor.grid, undefinedRoom);
+	for (var j = 0; j < dimensions[1]; j++){
+		for (var i = 0; i < dimensions[0]; i++){
+			var _room = undefinedRoom;
+			_room.coords = [i,j];
+			ds_grid_set(dfloor.grid,i,j,_room);
+		}
+	}
 	return dfloor
 }
 
@@ -265,8 +267,8 @@ function populateDFloor(amalgamOdds){
 	var startPoint = [5,5]
 	var dfloor = createDFloor([], amalgamOdds,startPoint)
 	var specialRooms = [
-		createSpecialRoom("item", posRequirement(coordsWithinRange,[startPoint, 3,5])),
-		createSpecialRoom("boss", posRequirement(coordsWithinRange,[startPoint, 6,7]))
+		createSpecialRoom("item", posRequirement(coordsWithinRangeChebyshev,[startPoint, 2,3])),
+		createSpecialRoom("boss", posRequirement(coordsWithinRangeChebyshev,[startPoint, 4,5]))
 	]
 	dfloor.specialRoomArray = array_concat(dfloor.specialRoomArray,specialRooms);
 	initiateSpecialRoom(dfloor,startRoom)

@@ -26,7 +26,6 @@ function sanitizeRoomFromRoomData(_room, index){
 
 	var newInstancesArr = [];
 	if variable_struct_exists(_room,"sanitized"){
-		print("passed")
 		return _room.instances;
 	}
 	for (var i = 0; i < array_length(_room.instances); i++){
@@ -42,7 +41,7 @@ function sanitizeRoomFromRoomData(_room, index){
 						
 		//insts[i] = 
 	}
-	print("sanitized")
+
 	_room.sanitized = true;
 	//insts[i][0][1], insts[i]
 	return newInstancesArr;
@@ -87,7 +86,6 @@ function crownItemRoom(edgeList){
 	while !(finished || ds_list_empty(newList)){
 		chosenRoom = ds_list_find_value(newList,randomIndex)
 		var brandRoom = chosenRoom
-		print(randomIndex);
 		if !chosenRoom.amalgamated{
 			newRoom = pickRandomRoomByType(global.roomList,"item", "normal")
 			

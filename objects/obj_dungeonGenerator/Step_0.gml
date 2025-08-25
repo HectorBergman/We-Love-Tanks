@@ -1,6 +1,7 @@
 
 if keyboard_check_pressed(ord("K")) || keyboard_check(ord("J")){
-	print("test");
-	var vis = populateDFloor(0);
-	visualizeFloor(vis);
+	dfloor = populateDFloor(0);
+	generateDFloor(dfloor,[])
+	visualizeFloor(dfloor);
+	print("doneeeey!!!");
 }
