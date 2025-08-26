@@ -217,14 +217,7 @@ function generateRandoms(randomsNeeded){
 function generateStandardRooms(dfloor){
 	var grid = dfloor.grid;
 	var roomArray = dfloor.specialRoomArray;
-	var goalCoords = [];
-	for (var i = 0; i < array_length(roomArray); i++){
-		if roomArray[i].gridInfo.isPlaced{
-			goalCoords[i] = roomArray[i].gridInfo.placedCoords
-		}else{
-			forceCrash("Room " + roomArray[i] + " is not placed in grid")
-		}
-	}
+	var goalCoords = dfloor.goalCoords
 }
 
 function posRequirement(reqFunc,extraArgs){
@@ -242,7 +235,7 @@ function createDFloor(specialRoomArray = [], amalgamOdds = 0,startPoint = [5,5],
 		}
 		return availableRooms;
 	}
-	
+	var possibleDoorWeights = {stage0 : [0,0,4,2,1], stage1: [0,0.5,4,1,1], stage2: [0,1,2,2,1], stage3: [0,1,4,1,0.5], stage4: [0,1.1,0.5,0,0]}
 	var dfloor = {
 		grid : ds_grid_create(dimensions[0],dimensions[1]),
 		specialRoomArray: specialRoomArray,
@@ -250,8 +243,10 @@ function createDFloor(specialRoomArray = [], amalgamOdds = 0,startPoint = [5,5],
 		dimensions : dimensions,
 		availableCoords : setAllRoomsAvailable(dimensions),
 		amalgamOdds : amalgamOdds,
-		doorWeights : [0,1.1,3,6,4], //index = amt doors
+		doorWeights : possibleDoorWeights.stage0,
+		possibleDoorWeights : possibleDoorWeights,
 		roomAmountRange : [30,40],
+		goalCoords : []
 	}
 	for (var j = 0; j < dimensions[1]; j++){
 		for (var i = 0; i < dimensions[0]; i++){
@@ -272,11 +267,7 @@ function populateDFloor(amalgamOdds){
 	]
 	dfloor.specialRoomArray = array_concat(dfloor.specialRoomArray,specialRooms);
 	initiateSpecialRoom(dfloor,startRoom)
-	for (var i = 0; i < array_length(dfloor.specialRoomArray); i++){
-		var sRoom = dfloor.specialRoomArray[i]
-		initiateSpecialRoom(dfloor,sRoom)
-		//if crashes cus need specialroominfo fml
-	}
+	
 	generateStandardRooms(dfloor);
 	return dfloor;
 	
