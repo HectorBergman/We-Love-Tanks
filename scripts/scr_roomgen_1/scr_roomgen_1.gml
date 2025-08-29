@@ -16,7 +16,7 @@ function createSpecialRoom(
 	roomType = "standard", 
 	positionRequirements = {requirementFunction : function(arg){return true}, extraArguments: []}, 
 	requiredRoomPartners = [], 
-	exactCoord = undefinedCoords,
+	exactCoords = undefinedCoords,
 	doorWeights = defaultDoorWeight,
 	roomShape = ["normal",0],
 	unacceptableDoorDirs = [], 
@@ -31,7 +31,7 @@ function createSpecialRoom(
 		unacceptableDoorDirs: unacceptableDoorDirs,
 		unlockRequirements: unlockRequirements,
 		uniqueRoom: uniqueRoom,
-		exactCoord: exactCoord,
+		exactCoords: exactCoords,
 		gridInfo: {isPlaced : false, placedCoords : undefinedCoords}
 	}
 	return specialRoom
@@ -41,18 +41,17 @@ function createSpecialRoom(
 
 
 function addRoomToGrid(dfloor,sRoom){
-	if coordsWithinGrid(sRoom.exactCoord, dfloor.dimensions){
-		if !roomExists(ds_grid_get(dfloor.grid, sRoom.exactCoord[0], sRoom.exactCoord[1])){
-			sRoom.gridInfo.isPlaced = true;
-			sRoom.gridInfo.placedCoords = sRoom.exactCoord;
+	if coordsWithinGrid(sRoom.exactCoords, dfloor.dimensions){
+		if !roomExists(ds_grid_get(dfloor.grid, sRoom.exactCoords[0], sRoom.exactCoords[1])){
+			updateRoomsGridInfo(dfloor, sRoom, sRoom.exactCoords);
 			return sRoom
 		}else{
 			forceCrash( "addRoomToGrid: room already occupies coords \n" + 
-						"Coords: " + string(sRoom.exactCoord));
+						"Coords: " + string(sRoom.exactCoords));
 		}
 	}else{
 		forceCrash("addRoomToGrid: coords outside grid: \n" + 
-					"Coords: " + string(sRoom.exactCoord) + 
+					"Coords: " + string(sRoom.exactCoords) + 
 					" Outside of dimensions: "  + string(dfloor.dimensions));
 	}
 }

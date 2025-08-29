@@ -77,7 +77,6 @@ function specialRoomGetCoords_gen(dfloor, edgelistCoords,sRoom){
 	}
 	var coord = setRandomCoordInArray(potentialCoords, dfloor);
 
-	//addRoomToGrid(dfloor, sRoom,coord)
 	updateRoomsGridInfo(dfloor, sRoom, coord);
 	return sRoom.gridInfo.placedCoords
 	
