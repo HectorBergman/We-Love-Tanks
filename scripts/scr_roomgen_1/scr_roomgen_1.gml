@@ -38,15 +38,10 @@ function createSpecialRoom(
 }
 
 
-function generateSpecialRoom(dungeon, sRoom){
-	var coord = specialRoomGetCoords(dungeon, sRoom);
-}
-
 function specialRoomGetCoords(dFloor, sRoom){
 	if array_equals(sRoom.exactCoord, undefinedCoords){ 
 		var arr = getAllAvailableCoordsFittingReq(dFloor, sRoom.positionRequirements)
 		var coord = setRandomCoordInArray(arr, dFloor);
-		updateRoomsGridInfo(sRoom, coord);
 		return sRoom
 		//ds_grid_add(dFloor.grid, coord[0], coord[1], _room);
 	}else{
@@ -77,6 +72,9 @@ function addRoomToGrid(dFloor,sRoom){
 function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, forceSkipAmalgam = false){
 	var doors = ds_grid_get(dfloor.grid,coords[0],coords[1]).doors
 	var doorWeights = dfloor.doorWeights
+	if (is_undefined(doorWeights)){
+		print("scamartist here");
+	}
 	if sRoom == noone{
 		if roomType == noone{
 			roomType = "standard"
@@ -214,31 +212,20 @@ function generateRandoms(randomsNeeded){
 
 
 
-function generateStandardRooms(dfloor){
-	var grid = dfloor.grid;
-	var roomArray = dfloor.specialRoomArray;
-	var goalCoords = dfloor.goalCoords
-}
-
 function posRequirement(reqFunc,extraArgs){
 	return {requirementFunction: reqFunc, extraArguments: extraArgs}
 }
 
-function createDFloor(specialRoomArray = [], amalgamOdds = 0,startPoint = [5,5], dimensions = [10,10]){
+function createDFloor(
+		amalgamOdds = 0,
+		startPoint = [5,5], 
+		dimensions = [10,10], 
+		doorWeights = [[0,0,4,2,1], [0,0.5,4,1,1], [0,1,2,2,1], [0,1,4,1,0.5], [0,1.1,0.5,0,0]]){
 	global.roomList = loadData("savedRooms2.sav");
-	function setAllRoomsAvailable(floorDimensions){
-		var availableRooms = ds_map_create();
-		for (var i = 0; i < floorDimensions[0]; i++){
-			for (var j = 0; j < floorDimensions[1]; j++){
-				ds_map_add(availableRooms, getCoordsString([i,j]), true);
-			}
-		}
-		return availableRooms;
-	}
-	var possibleDoorWeights = {stage0 : [0,0,4,2,1], stage1: [0,0.5,4,1,1], stage2: [0,1,2,2,1], stage3: [0,1,4,1,0.5], stage4: [0,1.1,0.5,0,0]}
+	var possibleDoorWeights = generateDoorWeights(doorWeights);
 	var dfloor = {
 		grid : ds_grid_create(dimensions[0],dimensions[1]),
-		specialRoomArray: specialRoomArray,
+		specialRoomArray: [],
 		startPoint : startPoint,
 		dimensions : dimensions,
 		availableCoords : setAllRoomsAvailable(dimensions),
@@ -246,7 +233,11 @@ function createDFloor(specialRoomArray = [], amalgamOdds = 0,startPoint = [5,5],
 		doorWeights : possibleDoorWeights.stage0,
 		possibleDoorWeights : possibleDoorWeights,
 		roomAmountRange : [30,40],
-		goalCoords : []
+		goalCoords : [],
+		edgeList : ds_list_create(),
+		roomsQueue : ds_queue_create(),
+		queueGrid : ds_grid_create(dimensions[0],dimensions[1]),
+		floorNo : -1
 	}
 	for (var j = 0; j < dimensions[1]; j++){
 		for (var i = 0; i < dimensions[0]; i++){
@@ -258,17 +249,24 @@ function createDFloor(specialRoomArray = [], amalgamOdds = 0,startPoint = [5,5],
 	return dfloor
 }
 
+function generateDoorWeights(stagesArray){
+	var struct = {}
+	var structEntryNameTemplate = "stage"
+	for (var i = 0; i < array_length(stagesArray); i++){
+		struct_set(struct, structEntryNameTemplate+string(i), stagesArray[i]);
+	}
+	return struct;
+}
+	
 function populateDFloor(amalgamOdds){
 	var startPoint = [5,5]
-	var dfloor = createDFloor([], amalgamOdds,startPoint)
+	var dfloor = createDFloor(amalgamOdds,startPoint)
 	var specialRooms = [
 		createSpecialRoom("item", posRequirement(coordsWithinRangeChebyshev,[startPoint, 2,3])),
 		createSpecialRoom("boss", posRequirement(coordsWithinRangeChebyshev,[startPoint, 4,5]))
 	]
-	dfloor.specialRoomArray = array_concat(dfloor.specialRoomArray,specialRooms);
+	dfloor.specialRoomArray = specialRooms
 	initiateSpecialRoom(dfloor,startRoom)
-	
-	generateStandardRooms(dfloor);
 	return dfloor;
 	
 }
@@ -276,4 +274,10 @@ function initiateSpecialRoom(dfloor,sRoom){
 	var _room = specialRoomGetCoords(dfloor, sRoom)
 	var newRoom = createRoom(dfloor, _room.gridInfo.placedCoords, -1, _room)
 	ds_grid_set(dfloor.grid, newRoom.coords[0], newRoom.coords[1], newRoom);
+}
+function destroydfloor(dfloor){
+	ds_grid_destroy(dfloor.grid)
+	ds_list_destroy(dfloor.edgeList)
+	ds_grid_destroy(dfloor.queueGrid)
+	ds_queue_destroy(dfloor.roomsQueue)
 }

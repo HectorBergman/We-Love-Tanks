@@ -96,6 +96,16 @@ function updateRoomsGridInfo(sRoom,coords){
 	sRoom.gridInfo.placedCoords = coords
 }
 
+function setAllRoomsAvailable(floorDimensions){
+	var availableRooms = ds_map_create();
+	for (var i = 0; i < floorDimensions[0]; i++){
+		for (var j = 0; j < floorDimensions[1]; j++){
+			ds_map_add(availableRooms, getCoordsString([i,j]), true);
+		}
+	}
+	return availableRooms;
+}
+
 /// @function pickRandomRoomByType(roomArray, roomType)
 /// @description Returns a RANDOM room struct where Type matches roomType
 /// @param {array} roomArray   Array of room structs

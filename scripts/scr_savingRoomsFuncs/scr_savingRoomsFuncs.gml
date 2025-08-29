@@ -12,7 +12,6 @@ function saveRoom(roomSaved){
 function insertRoomInArr(arr, _room){
 	var currentPos = 0;
 	if array_length(arr) > 0{
-		print("hey");
 		var closestVal = findClosestString(_room.roomName, " ", arr[0].roomName);
 		switch(closestVal){
 			case closestStringReturns.clone:{
@@ -28,7 +27,6 @@ function insertRoomInArr(arr, _room){
 			}break;
 		}
 	}else{
-		print("arr len 0");
 		var len = array_length(arr)
 		arr[len] = _room
 	}
@@ -59,7 +57,6 @@ function insertRoomInArr_forLoop(arr, _room){
 		}
 	}if !passed{
 		
-		print("at the end");
 		var len = array_length(arr)
 		arr[len] = _room
 	}

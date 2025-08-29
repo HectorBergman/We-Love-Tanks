@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_dungeonGeneration_amalgamate",
   "parent":{
-    "name":"oScripts",
-    "path":"folders/oScripts.yy",
+    "name":"tbd",
+    "path":"folders/oScripts/tbd.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -30,7 +30,6 @@ function updateInstanceArgumentChoices(argumentType,instanceIndex,choiceInfo){
 			instanceArgumentsChoices[instanceIndex] = objectArguments[instanceIndex].argumentChoices[choiceInfo];
 		}break;
 		case argumentTypes.checkbox:{ //choiceInfo ignored
-			print("letsgo");
 			instanceArgumentsChoices[instanceIndex] = !instanceArgumentsChoices[instanceIndex];
 		}break;
 		case argumentTypes.freetext:{ //choiceInfo is free text

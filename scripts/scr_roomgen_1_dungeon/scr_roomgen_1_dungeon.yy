@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_dungeonHelp",
+  "%Name":"scr_roomgen_1_dungeon",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_dungeonHelp",
+  "name":"scr_roomgen_1_dungeon",
   "parent":{
-    "name":"tbd",
-    "path":"folders/oScripts/tbd.yy",
+    "name":"oScripts",
+    "path":"folders/oScripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

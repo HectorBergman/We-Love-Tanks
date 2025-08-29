@@ -7,9 +7,10 @@ function visualizeFloor(dFloor){
 		var xArrayDoors = [];
 		var xArrayHoriDoors = [];
 		for (var j = 0; j < dFloor.dimensions[1]; j++){
-			xArray[j] = visualizeRoom(ds_grid_get(dFloor.grid, j,i));
-			xArrayDoors[j] = visualizeDoors(ds_grid_get(dFloor.grid,j,i));
-			xArrayHoriDoors[j] = visualizeHoriDoors(ds_grid_get(dFloor.grid,j,i));
+			var _room = ds_grid_get(dFloor.grid, j,i)
+			xArray[j] = visualizeRoom(_room);
+			xArrayDoors[j] = visualizeDoors(_room);
+			xArrayHoriDoors[j] = visualizeHoriDoors(_room);
 		}
 		printArray[i] = xArray;
 		printArrayDoors[i] = xArrayDoors

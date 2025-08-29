@@ -34,7 +34,6 @@ function sanitizeRoomFromRoomData(_room, index){
 
 		var summonArr = getSummonArrFromChoices(inst.displayObjIndex, inst.instanceArgumentsChoices);
 		var newSummonArr = array_concat(inst.summonArr,summonArr);
-		print(newSummonArr);
 		var newInst = {objectIndex : ds_list_find_value(global.displayObjects,inst.displayObjIndex).objectIndex,
 					   summonArray : newSummonArr}
 		newInstancesArr[i] = newInst;

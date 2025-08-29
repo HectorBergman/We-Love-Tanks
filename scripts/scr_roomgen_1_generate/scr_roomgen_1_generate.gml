@@ -1,43 +1,118 @@
 function generateDFloor(dfloor){
-	var roomsQueue = ds_queue_create();
-	var queueGrid = ds_grid_create(dfloor.dimensions[0],dfloor.dimensions[1]);
+	dfloor.roomsQueue = ds_queue_create();
+	dfloor.queueGrid = ds_grid_create(dfloor.dimensions[0],dfloor.dimensions[1]);
 	for (var i = 0; i < dfloor.dimensions[1]; i++){
 		for (var j = 0; j < dfloor.dimensions[0]; j++){
-			ds_grid_add(queueGrid, i, j, false);
+			ds_grid_add(dfloor.queueGrid, i, j, false);
 		}
 	}
 	//first step:
 	//no need to generateDoors
 	var generateCount = 1;
-	iterateRoom(dfloor,ds_grid_get(dfloor.grid,dfloor.startPoint[0],dfloor.startPoint[1]),roomsQueue);
-	while !ds_queue_empty(roomsQueue){
-		var newRoom = dequeueRoomCoordinates(roomsQueue)
-		iterateRoom(dfloor,newRoom, roomsQueue, dfloor.goalCoords)
+	iterateRoom(dfloor,ds_grid_get(dfloor.grid,dfloor.startPoint[0],dfloor.startPoint[1]),dfloor.roomsQueue);
+	while !ds_queue_empty(dfloor.roomsQueue){
+		var newRoom = dequeueRoomCoordinates(dfloor.roomsQueue)
+		iterateRoom(dfloor,newRoom, dfloor.roomsQueue, dfloor.goalCoords)
 		generateCount++;
-		recalibrateDoorWeights(dfloor,roomsQueue,40,generateCount)
+		recalibrateDoorWeights(dfloor,dfloor.roomsQueue,40,generateCount)
 	}
-	print("roomsGenerated: " + string(generateCount));
-	ds_queue_destroy(roomsQueue);
-	print(dfloor.doorWeights);
+	var edgeList_coord = [];
+	var listPrint = "edgeList: "
+	for (var i = 0; i < ds_list_size(dfloor.edgeList); i++){
+		var entry = ds_list_find_value(dfloor.edgeList,i);
+		listPrint += string(entry.coords) + ", "
+		edgeList_coord[i] = entry.coords;
+		if exitDungeon{
+			break;
+		}
+	}
+	if exitDungeon{
+		return regenDfloor(dfloor.floorNo);
+	}
+	for (var i = 0; i < array_length(dfloor.specialRoomArray); i++){
+		plopdownSpecialRoom(dfloor, edgeList_coord, dfloor.specialRoomArray[i])
+		if exitDungeon{
+			break;
+		}
+	}
+	if exitDungeon{
+		return regenDfloor(dfloor.floorNo);
+	}
+	//print(listPrint);
+	visualizeFloor(dfloor);
+	return dfloor;
 }
 
-function getStageNumber(dfloor,currentRoomAmount,roomsQueue,goalAmount){
+
+function plopdownSpecialRoom(dfloor, edgeList_coord, sRoom){
+	var newCoords = specialRoomGetCoords_gen(dfloor, edgeList_coord, sRoom)
+	if exitDungeon{
+		exit;
+	}
+	var newRoom = createRoom(dfloor, newCoords, getPremadeRoomDir(dfloor, ds_grid_get(dfloor.grid,newCoords[0],newCoords[1])),sRoom)
+	ds_grid_set(dfloor.grid, newCoords[0], newCoords[1], newRoom);
+}
+
+function getPremadeRoomDir(dfloor,sRoom){
+	var doors = sRoom.doors
+	var doorNo = -1;
+	for (var i = 0; i < array_length(doors); i++){
+		if doors[i] == 1{
+			if doorNo == -1{
+				doorNo = i;
+			}else{
+					//forceCrash("more than one door present");
+
+			}
+		}
+	}
+}
+
+function specialRoomGetCoords_gen(dfloor, edgelistCoords,sRoom){
+	var arr = getAllAvailableCoordsFittingReq(dfloor, sRoom.positionRequirements)
+	var potentialCoords = getAllAvailableRoomsFittingReq(dfloor,arr,edgelistCoords);
+	if (array_length(potentialCoords) == 0){
+		retryDFloorGen(dfloor)
+		exit;
+	}
+	var coord = setRandomCoordInArray(potentialCoords, dfloor);
+
+	updateRoomsGridInfo(sRoom, coord);
+	return sRoom.gridInfo.placedCoords
+	
+}
+function getAllAvailableRoomsFittingReq(dfloor,coordsArray, edgeListCoords){
+	var validRooms = [];
+	var index = 0;
+	for (var i = 0; i < array_length(coordsArray); i++){
+		if arrayContainsArray(edgeListCoords, coordsArray[i]){
+			validRooms[index] = coordsArray[i];
+			index++;
+		}
+	}
+	if array_length(validRooms) == 0{
+		retryDFloorGen(dfloor)
+	}
+	return validRooms;
+}
+
+function retryDFloorGen(dfloor){
+	exitDungeon = true;
+
+}
+
+function getStageNumber(dfloor,currentRoomAmount,roomsQueue,goalAmount, possibleDoorWeights){
+	var stageAmount = struct_names_count(possibleDoorWeights);
 	var count = currentRoomAmount + ds_queue_size(roomsQueue);
-	if (count > 3.4 * goalAmount / 4) {
-	    return 4;
-	} else if (count > 2.5 * goalAmount / 4) {
-	    return 3;
-	} else if (count > 1.5 * goalAmount / 4) {
-	    return 2;
-	} else if (count > (goalAmount / 4) /1.2) {
-	    return 1;
-	} else {
-	    return 0;
+	for (var i = stageAmount-1; i > 0; i--){
+		if (count > (i-0.5)*goalAmount/stageAmount){
+			return i;
+		}
 	}
 }
 function recalibrateDoorWeights(dfloor,roomsQueue, goalAmt, currentRoomAmount){
-	var stageNumber = getStageNumber(dfloor,currentRoomAmount,roomsQueue, goalAmt)
-	var doorWeight = struct_get(dfloor.possibleDoorWeights, "stage" + string(stageNumber));
+	var stageNumber = getStageNumber(dfloor,currentRoomAmount,roomsQueue, goalAmt, dfloor.possibleDoorWeights)
+	var doorWeight = variable_struct_get(dfloor.possibleDoorWeights, "stage" + string(stageNumber));
 	dfloor.doorWeights = doorWeight;
 }
 function calculateExpectedRoomCount(dfloor,roomsQueue){
@@ -139,26 +214,20 @@ function doorIsIllegitimate(dfloor,_room,doorDir){
 function generateDoors(dfloor, _room, roomsQueue, goalCoords){
 	//step 1: discern door amounts
 	var doors = _room.doors;
-	if (array_equals(_room.coords,[3,4])){
-		print("doorsof341");
-		print(doors)
-	}
 	var weights = [];
+	print("hey");
+	print(_room);
 	array_copy(weights, 0, _room.doorWeights, 0, array_length(_room.doorWeights));
 	var predecidedOpenDoors = 0;
 	var predecidedDoors = [-1,-1,-1,-1]
 	var borderDoors = 0;
+	
+	var totalOpenDoors = 0;
 	//find doors that lead outside the grid (borderDoors)
 	//and doors that are already open (predecidedOpenDoors)
 	for (var i = 0; i < array_length(doors); i++){
 		var XY = getXY(i);
 		var nextCoords = [_room.coords[0]+XY[0],_room.coords[1]+XY[1]]
-		if (array_equals(_room.coords,[6,4])){
-			print("sixfour")
-			print(goalCoords);
-			print(nextCoords)
-			print(arrayContainsArray(goalCoords,nextCoords))
-		}
 		if !coordsWithinGrid(nextCoords,dfloor.dimensions){
 			if doors[i] == 1{
 				closeDoor(dfloor,_room,i);
@@ -174,6 +243,7 @@ function generateDoors(dfloor, _room, roomsQueue, goalCoords){
 			weights[predecidedOpenDoors] = 0;
 			predecidedOpenDoors++;
 			predecidedDoors[i] = 1;
+			totalOpenDoors++;
 		}
 	}
 	var validDoorNumbers = [];
@@ -199,30 +269,27 @@ function generateDoors(dfloor, _room, roomsQueue, goalCoords){
 				break;
 			}
 		}
-		if doorAmtChosen > 2 && !(dfloor.doorWeights[doorAmtChosen] < 2 && doorAmtChosen == 3){
-			//dfloor.doorWeights[doorAmtChosen] -= 1
-		}
 		doorAmtChosen -= predecidedOpenDoors;
 		while doorAmtChosen > 0{
 			var randomDoorNo = irandom(array_length(validDoorNumbers)-1);
 			var doorNoChosen = validDoorNumbers[randomDoorNo];
 			openDoor(dfloor,_room,doorNoChosen);
+			totalOpenDoors++;
 			var XY = getXY(doorNoChosen);
 			var nextCoords = [_room.coords[0]+XY[0],_room.coords[1]+XY[1]]
 			
 			if !roomExists(ds_grid_get(dfloor.grid,nextCoords[0],nextCoords[1])){
 				var newRoom = createRoom(dfloor, nextCoords,doorNoChosen)
 				queueRoom(roomsQueue, newRoom,(doorNoChosen+2) mod 2);
-			}else{
-				print("roomExists: " + string(nextCoords));
-				print(_room.coords);
-				print("--");
 			}
 			array_delete(validDoorNumbers, randomDoorNo, 1);
 			doorAmtChosen--;
 		}
 	}
-	
+	if totalOpenDoors == 1{
+		_room.isEdgeRoom = true;
+		ds_list_add(dfloor.edgeList, _room);
+	}
 	return doors;
 }
 
