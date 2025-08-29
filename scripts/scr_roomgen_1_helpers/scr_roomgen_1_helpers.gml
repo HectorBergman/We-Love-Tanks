@@ -91,7 +91,7 @@ function setRandomCoordInArray(array, dfloor){
 	}
 }
 
-function updateRoomsGridInfo(sRoom,coords){
+function updateRoomsGridInfo(dfloor, sRoom, coords){
 	sRoom.gridInfo.isPlaced = true;
 	sRoom.gridInfo.placedCoords = coords
 }

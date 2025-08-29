@@ -38,25 +38,14 @@ function createSpecialRoom(
 }
 
 
-function specialRoomGetCoords(dFloor, sRoom){
-	if array_equals(sRoom.exactCoord, undefinedCoords){ 
-		var arr = getAllAvailableCoordsFittingReq(dFloor, sRoom.positionRequirements)
-		var coord = setRandomCoordInArray(arr, dFloor);
-		return sRoom
-		//ds_grid_add(dFloor.grid, coord[0], coord[1], _room);
-	}else{
-		return addRoomToGrid(dFloor, sRoom);
-	}
-}
 
 
-
-function addRoomToGrid(dFloor,sRoom){
-	if coordsWithinGrid(sRoom.exactCoord, dFloor.dimensions){
-		if !roomExists(ds_grid_get(dFloor.grid, sRoom.exactCoord[0], sRoom.exactCoord[1])){
-			updateRoomsGridInfo(sRoom, sRoom.exactCoord);
+function addRoomToGrid(dfloor,sRoom){
+	if coordsWithinGrid(sRoom.exactCoord, dfloor.dimensions){
+		if !roomExists(ds_grid_get(dfloor.grid, sRoom.exactCoord[0], sRoom.exactCoord[1])){
+			sRoom.gridInfo.isPlaced = true;
+			sRoom.gridInfo.placedCoords = sRoom.exactCoord;
 			return sRoom
-			//ds_grid_add(dFloor.grid, sRoom.exactCoord[0], sRoom.exactCoord[1], {specialRoomInfo: sRoom}) 
 		}else{
 			forceCrash( "addRoomToGrid: room already occupies coords \n" + 
 						"Coords: " + string(sRoom.exactCoord));
@@ -64,7 +53,7 @@ function addRoomToGrid(dFloor,sRoom){
 	}else{
 		forceCrash("addRoomToGrid: coords outside grid: \n" + 
 					"Coords: " + string(sRoom.exactCoord) + 
-					" Outside of dimensions: "  + string(dFloor.dimensions));
+					" Outside of dimensions: "  + string(dfloor.dimensions));
 	}
 }
 
@@ -119,88 +108,7 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 	}	
 	return fullRoomInfo
 }
-function randomAmalgamateShape(dfloor, fromDir, coords){
-	var grid = dfloor.grid
-	var XY = getXY(fromDir);
-	var ignoreCoords = [coords[0]+XY[0],coords[1]+XY[1]]
-	var acceptedIndex = 0;
-	var index = 0;
-	var acceptedArray = []
-	for (var j = -1; j < 2; j++){
-		for (var i = -1; i < 2; i++){
-			var currentCoords = [coords[0]+i,coords[1]+j]
-			//add check for if room can be amalgamated
-			if !array_equals(ignoreCoords, currentCoords) && !coordOccupied(currentCoords, dfloor){
-				acceptedArray[acceptedIndex] = index
-				acceptedIndex++
-			}
-			index++
-		}
-	}
-	var acceptedAmalgams = getAcceptedAmalgams(acceptedArray);
-	if array_length(acceptedAmalgams) > 0{
-		var randomIndex = irandom(array_length(acceptedAmalgams)-1);
-		var shape = acceptedAmalgams[randomIndex];
-		return shape;
-	}else{
-		return ["normal",0];
-	}
-}
-function coordOccupied(coords,dfloor){
-	var _room = ds_grid_get(dfloor.grid, coords[0],coords[1]);
-	return roomExists(_room)
-}
 
-function roomExists(_room){
-	return !(_room.roomType == "none");
-}
-function getAcceptedAmalgams(acceptedRooms){
-	var potentialAmalgams = [
-		["long", 0],
-		["long", 1],
-		["tall", 0],
-		["tall", 2],
-		["topLeftAbsent", 1],
-		["topLeftAbsent", 2],
-		["topLeftAbsent", 3],
-		["topRightAbsent", 0],
-		["topRightAbsent", 2],
-		["topRightAbsent", 3],
-		["bottomLeftAbsent", 0],
-		["bottomLeftAbsent", 1],
-		["bottomLeftAbsent", 3],
-		["bottomRightAbsent", 0],
-		["bottomRightAbsent", 1],
-		["bottomRightAbsent", 2],
-		["giant", 0],
-		["giant", 1],
-		["giant", 2],
-		["giant", 3]
-	]
-	var acceptedAmalgams = [];
-	for (var i = 0; i < array_length(potentialAmalgams); i++){
-		var roomsNeeded = amalgamAcceptance(potentialAmalgams[i][0], potentialAmalgams[i][1]);
-		var isAcceptable = true;
-		for (var j = 0; j < array_length(roomsNeeded); j++){
-
-			isAcceptable = array_contains(acceptedRooms,roomsNeeded[j])
-
-			if !isAcceptable{
-				break
-			}
-		}
-		if isAcceptable{
-			acceptedAmalgams[array_length(acceptedAmalgams)] = potentialAmalgams[i]
-		}
-	}
-	return acceptedAmalgams
-}
-
-
-function amalgamAcceptance(shape, shapeVariantNumber){
-	var func = asset_get_index("amalgamAcceptance_" + shape);
-	return func(shapeVariantNumber);
-}
 function generateRandoms(randomsNeeded){
 	var randoms = []
 	for (var i = 0; i < randomsNeeded; i++){
@@ -209,7 +117,14 @@ function generateRandoms(randomsNeeded){
 	return randoms
 }
 
+function coordOccupied(coords,dfloor){
+	var _room = ds_grid_get(dfloor.grid, coords[0],coords[1]);
+	return roomExists(_room)
+}
 
+function roomExists(_room){
+	return !(_room.roomType == "none");
+}
 
 
 function posRequirement(reqFunc,extraArgs){
@@ -271,8 +186,8 @@ function populateDFloor(amalgamOdds){
 	
 }
 function initiateSpecialRoom(dfloor,sRoom){
-	var _room = specialRoomGetCoords(dfloor, sRoom)
-	var newRoom = createRoom(dfloor, _room.gridInfo.placedCoords, -1, _room)
+	addRoomToGrid(dfloor, sRoom);
+	var newRoom = createRoom(dfloor, sRoom.gridInfo.placedCoords, -1, sRoom)
 	ds_grid_set(dfloor.grid, newRoom.coords[0], newRoom.coords[1], newRoom);
 }
 function destroydfloor(dfloor){
