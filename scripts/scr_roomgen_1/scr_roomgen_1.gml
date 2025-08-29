@@ -60,9 +60,6 @@ function addRoomToGrid(dfloor,sRoom){
 function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, forceSkipAmalgam = false){
 	var doors = ds_grid_get(dfloor.grid,coords[0],coords[1]).doors
 	var doorWeights = dfloor.doorWeights
-	if (is_undefined(doorWeights)){
-		print("scamartist here");
-	}
 	if sRoom == noone{
 		if roomType == noone{
 			roomType = "standard"
@@ -70,7 +67,7 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 	}else{
 		for (var i = 0; i < array_length(sRoom.unacceptableDoorDirs); i++){
 			var doorDir = sRoom.unacceptableDoorDirs[i]
-			doors[doorDir] = doorValues.unacceptable;
+			changeDoorState(dfloor,coords,doorDir,doorValues.unacceptable);
 		}
 		if sRoom.doorWeights[0] != -1{
 			doorWeights = sRoom.doorWeights;

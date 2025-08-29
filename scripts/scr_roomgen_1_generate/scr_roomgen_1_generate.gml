@@ -148,19 +148,20 @@ function dequeueRoomCoordinates(roomsQueue){
 	//ds_grid_set(queueGrid, val.coords[0],val.coords[1], false);
 	return val;
 }
-function changeDoorState(dfloor, _room, dir, state){
+function changeDoorState(dfloor, coords, dir, state){
+	var _room = ds_grid_get(dfloor.grid, coords[0],coords[1]);
 	_room.doors[dir] = state
 	var XY = getXY(dir);
-	var neighbour = ds_grid_get(dfloor.grid, _room.coords[0]+XY[0], _room.coords[1]+XY[1]);
+	var neighbour = ds_grid_get(dfloor.grid, coords[0]+XY[0], coords[1]+XY[1]);
 	neighbour.doors[(dir+2)mod 4] = state
 
 
 }
-function openDoor(dfloor, _room, dir){
-	changeDoorState(dfloor, _room, dir, doorValues.open)
+function openDoor(dfloor, coords, dir){
+	changeDoorState(dfloor, coords, dir, doorValues.open)
 }
-function closeDoor(dfloor,_room,dir){
-	changeDoorState(dfloor, _room, dir, doorValues.closed)
+function closeDoor(dfloor, coords,dir){
+	changeDoorState(dfloor, coords, dir, doorValues.closed)
 }
 function iterateRoom(dfloor, _room, roomsQueue, goalCoords, doors = [-1,-1,-1,-1]){
 	var roomCoords = _room.coords;
@@ -174,7 +175,7 @@ function iterateRoom(dfloor, _room, roomsQueue, goalCoords, doors = [-1,-1,-1,-1
 		if doors[i]{
 			var XY = getXY(i)
 			if (coordsWithinGrid([roomCoords[0]+XY[0],roomCoords[1]+XY[1]],dfloor.dimensions)){
-				openDoor(dfloor, _room, i);
+				openDoor(dfloor, roomCoords, i);
 			
 				var neighbouringRoom = ds_grid_get(dfloor.grid, roomCoords[0]+XY[0],roomCoords[1]+XY[1])
 				
@@ -230,7 +231,7 @@ function generateDoors(dfloor, _room, roomsQueue, goalCoords){
 		var nextCoords = [_room.coords[0]+XY[0],_room.coords[1]+XY[1]]
 		if !coordsWithinGrid(nextCoords,dfloor.dimensions){
 			if doors[i] == 1{
-				closeDoor(dfloor,_room,i);
+				closeDoor(dfloor,_room.coords,i);
 			}
 			borderDoors++;
 			if array_length(weights)-borderDoors-1 != -1{
@@ -239,7 +240,7 @@ function generateDoors(dfloor, _room, roomsQueue, goalCoords){
 			weights[array_length(weights)-borderDoors] = 0;
 			predecidedDoors[i] = 0;
 		}else if (arrayContainsArray(goalCoords, nextCoords) || doors[i] == 1){
-			openDoor(dfloor, _room, i);
+			openDoor(dfloor, _room.coords, i);
 			weights[predecidedOpenDoors] = 0;
 			predecidedOpenDoors++;
 			predecidedDoors[i] = 1;
@@ -273,7 +274,7 @@ function generateDoors(dfloor, _room, roomsQueue, goalCoords){
 		while doorAmtChosen > 0{
 			var randomDoorNo = irandom(array_length(validDoorNumbers)-1);
 			var doorNoChosen = validDoorNumbers[randomDoorNo];
-			openDoor(dfloor,_room,doorNoChosen);
+			openDoor(dfloor,_room.coords,doorNoChosen);
 			totalOpenDoors++;
 			var XY = getXY(doorNoChosen);
 			var nextCoords = [_room.coords[0]+XY[0],_room.coords[1]+XY[1]]
