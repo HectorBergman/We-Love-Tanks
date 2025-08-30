@@ -20,9 +20,7 @@ function makeCoordsUnavailable(coords,dfloor){
 		forceCrash("setUnavailableCoords: coords not valid or already unavailable")
 	}
 }
-function coordsAreAvailable(unavailableRooms, coordStr){
-	return ds_map_find_value(availableRooms, coordStr)
-}
+
 function manhattanDistance(startPoint,endPoint){
 	return abs(startPoint[0]-endPoint[0])+abs(startPoint[1]-endPoint[1]);
 }
@@ -37,12 +35,7 @@ function getCoordsFromString(coordsString){
 	var num2 = real(coord2);
 	return [num1,num2];
 }
-function generateDistanceFromStartRequirement(startPoint,minDistance,maxDistance){
-	return {
-		requirementFunction: function(arg){return true}, 
-		extraArguments: [startPoint,minDistance,maxDistance]
-	}
-}
+
 //requirementfunc: true if requirement met
 function getAllAvailableCoordsFittingReq(dfloor,requirement){
 	var arr = [];
@@ -62,7 +55,7 @@ function getAllAvailableCoordsFittingReq(dfloor,requirement){
 	return arr;
 }
 //coord, startCoords, minimum, maximum
-function coordsWithinRange(argArray){
+function coordsWithinRangeManhattan(argArray){
 	var coord = argArray[0];
 	var startCoords = argArray[1];
 	var minimum = argArray[2];

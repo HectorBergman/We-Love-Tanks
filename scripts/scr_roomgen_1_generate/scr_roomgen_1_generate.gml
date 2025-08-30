@@ -96,15 +96,11 @@ function specialRoomGetCoords(dfloor,sRoom){
 		exit;
 	}
 	var coord = setRandomCoordInArray(potentialCoords, dfloor);
-	if arrayContainsArray(dfloor.edgesArray, coord){
-		var arrIndex = findArrayIndexInArray(dfloor.edgesArray,coord)
-		if arrIndex != -1{
-			array_delete(dfloor.edgesArray,arrIndex,1);
-		}else{
-			forceCrash("coord not in edgesarray")
-		}
+	var arrIndex = findArrayIndexInArray(dfloor.edgesArray,coord)
+	if arrIndex != -1{
+		array_delete(dfloor.edgesArray,arrIndex,1);
 	}else{
-		print("we messed up");
+		forceCrash("coord not in edgesarray")
 	}
 
 	updateRoomsGridInfo(dfloor, sRoom, coord);
@@ -164,7 +160,7 @@ function closeDoor(dfloor, coords,dir){
 function iterateRoom(dfloor, _room, doors = [-1,-1,-1,-1]){
 	var roomCoords = _room.coords;
 	var checkedDoors = [];
-	if doors[0] == -1{ //if doors not preset by func, check if neighbours have door leading to room
+	if doors[0] == -1{
 		generateDoors(dfloor, _room);
 	}
 	ds_grid_set(dfloor.grid, roomCoords[0],roomCoords[1], _room);

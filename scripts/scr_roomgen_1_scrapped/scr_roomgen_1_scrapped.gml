@@ -1,4 +1,4 @@
-
+/*
 function findClosestCoordinate(coord,array){
 	var closestCoord = [-1,-1]
 	var closestDistance = 999999;
@@ -72,5 +72,12 @@ function averageRoomOffspring(dfloor){
 		totalDoors += weight[i]*(i-1);
 	}
 	return totalDoors/weightSum
+}
+
+function generateDistanceFromStartRequirement(startPoint,minDistance,maxDistance){
+	return {
+		requirementFunction: function(arg){return true}, 
+		extraArguments: [startPoint,minDistance,maxDistance]
+	}
 }
 
