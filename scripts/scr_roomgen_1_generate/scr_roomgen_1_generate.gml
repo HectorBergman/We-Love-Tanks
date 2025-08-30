@@ -6,14 +6,7 @@ function generateDFloor(dfloor){
 			ds_grid_add(dfloor.queueGrid, i, j, false);
 		}
 	}
-	var generateCount = 1;
-	iterateRoom(dfloor,ds_grid_get(dfloor.grid,dfloor.startPoint[0],dfloor.startPoint[1]));
-	while !ds_queue_empty(dfloor.roomsQueue){
-		var newRoom = ds_queue_dequeue(dfloor.roomsQueue);
-		iterateRoom(dfloor,newRoom)
-		generateCount++;
-		recalibrateDoorWeights(dfloor,40,generateCount)
-	}
+	var generateCount = iterateDFloor(dfloor);
 	var entriesCount = fillEdgesArray(dfloor)
 	//remove entry from dfloor.edgesArray if used
 	if exitDungeon{
@@ -32,6 +25,17 @@ function generateDFloor(dfloor){
 	return dfloor;
 }
 
+function iterateDFloor(dfloor){
+	var generateCount = 1;
+	iterateRoom(dfloor,ds_grid_get(dfloor.grid,dfloor.startPoint[0],dfloor.startPoint[1]));
+	while !ds_queue_empty(dfloor.roomsQueue){
+		var newRoom = ds_queue_dequeue(dfloor.roomsQueue);
+		iterateRoom(dfloor,newRoom)
+		generateCount++;
+		recalibrateDoorWeights(dfloor,40,generateCount)
+	}
+	return generateCount
+}
 function fillEdgesArray(dfloor){
 	var entriesCount = 0;
 	for (var j = 0; j < dfloor.dimensions[1]; j++){
@@ -92,6 +96,16 @@ function specialRoomGetCoords(dfloor,sRoom){
 		exit;
 	}
 	var coord = setRandomCoordInArray(potentialCoords, dfloor);
+	if arrayContainsArray(dfloor.edgesArray, coord){
+		var arrIndex = findArrayIndexInArray(dfloor.edgesArray,coord)
+		if arrIndex != -1{
+			array_delete(dfloor.edgesArray,arrIndex,1);
+		}else{
+			forceCrash("coord not in edgesarray")
+		}
+	}else{
+		print("we messed up");
+	}
 
 	updateRoomsGridInfo(dfloor, sRoom, coord);
 	return sRoom.gridInfo.placedCoords

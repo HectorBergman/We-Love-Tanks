@@ -156,3 +156,13 @@ function forceCrash(crashMessage){
 	print("--------------------------------")
 	crashMessage = crashMessage + 1;
 }
+
+function findArrayIndexInArray(array,arrayValue){
+	for (var i = 0; i < array_length(array); i++){
+		if array_equals(array[i],arrayValue){
+			return i
+		}
+	}
+		
+	return -1
+}
