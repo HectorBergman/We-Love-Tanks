@@ -2,6 +2,7 @@ function visualizeFloor(dFloor){
 	var printArray = [];
 	var printArrayDoors = [];
 	var printArrayHorizontalDoors = [];
+	print(dFloor);
 	for (var i = 0; i < dFloor.dimensions[0]; i++){
 		var xArray = [];
 		var xArrayDoors = [];

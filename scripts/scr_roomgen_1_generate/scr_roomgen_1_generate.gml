@@ -21,7 +21,7 @@ function generateDFloor(dfloor){
 	if exitDungeon{
 		return regenDfloor(dfloor.floorNo);
 	}
-	visualizeFloor(dfloor);
+	visualizeFloor(dfloor)
 	return dfloor;
 }
 

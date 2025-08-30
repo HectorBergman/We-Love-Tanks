@@ -8,7 +8,6 @@ function initiateDungeon(){
 	dungeon.floors[dungeon.floorCount] = dfloor;
 	dungeon.floorCount++;
 	dfloor = generateDFloor(dfloor)
-	visualizeFloor(dfloor);
 }
 
 function regenDfloor(dfloorNo){

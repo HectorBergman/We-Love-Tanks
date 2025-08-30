@@ -140,7 +140,7 @@ function createDFloor(
 		startPoint : startPoint,
 		dimensions : dimensions,
 		availableCoords : setAllRoomsAvailable(dimensions),
-		amalgamOdds : amalgamOdds,
+		amalgamOdds : 0,//amalgamOdds,
 		doorWeights : possibleDoorWeights.stage0,
 		possibleDoorWeights : possibleDoorWeights,
 		edgesArray : [],
