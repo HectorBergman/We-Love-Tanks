@@ -1,7 +1,7 @@
 function randomAmalgamateShape(dfloor, fromDir, coords){
 	var grid = dfloor.grid
 	var XY = getXY(fromDir);
-	var ignoreCoords = [coords[0]+XY[0],coords[1]+XY[1]]
+	var parentCoords = [coords[0]+XY[0],coords[1]+XY[1]]
 	var acceptedIndex = 0;
 	var index = 0;
 	var acceptedArray = []
@@ -9,7 +9,10 @@ function randomAmalgamateShape(dfloor, fromDir, coords){
 		for (var i = -1; i < 2; i++){
 			var currentCoords = [coords[0]+i,coords[1]+j]
 			//add check for if room can be amalgamated
-			if !array_equals(ignoreCoords, currentCoords) && !coordOccupied(currentCoords, dfloor){
+			if	!array_equals(parentCoords, currentCoords) && 
+				coordsWithinGrid(currentCoords, dfloor.dimensions) && 
+				!coordOccupied(currentCoords, dfloor)
+			{
 				acceptedArray[acceptedIndex] = index
 				acceptedIndex++
 			}
