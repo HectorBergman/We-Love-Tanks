@@ -75,10 +75,12 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 		roomType = sRoom.roomType
 	}
 	var roomShape = ["normal",0]
+	var roomies = [];
 	if !forceSkipAmalgam{
 		var shouldAmalgamate = random_range(0,1) < dfloor.amalgamOdds
 		if shouldAmalgamate{
 			roomShape = randomAmalgamateShape(dfloor,fromDir,coords);
+			roomies = getRoomies(dfloor,roomShape,coords);
 		}
 	}
 	
@@ -97,12 +99,32 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 		isEdgeRoom : false,
 		visited : false,
 		cleared : false,
+		roomies : roomies,
 		roomShape : roomShape,
 		loadedEntities : [],
 		preRandoms : preRandoms,
 		coords : coords
 	}	
 	return fullRoomInfo
+}
+
+function getRoomies(dfloor, shape, coords){
+	var roomsNeeded = amalgamAcceptance(shape[0], shape[1]);
+	var central = roomsNeeded[shape[1]];
+	var roomies = [];
+	for (var i = 0; i < array_length(roomsNeeded); i++){
+		var XY = getAmalgamXY(central, roomsNeeded[i])
+		var newCoord = [coords[0]+XY[0],coords[1]+XY[1]]
+		var newRoom = ds_grid_get(dfloor.grid, newCoord[0],newCoord[1]);
+		roomies[i] = newRoom;
+	}
+}
+
+function getAmalgamXY(central, goal){
+	var lengthDiffFromCenter = goal mod 3 - central mod 3
+	var heightDiffFromCenter = floor(goal/3)-floor(central/3)
+	
+	return [lengthDiffFromCenter,heightDiffFromCenter]
 }
 
 function generateRandoms(randomsNeeded){
