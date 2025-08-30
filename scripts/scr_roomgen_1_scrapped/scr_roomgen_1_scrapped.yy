@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_signal",
+  "%Name":"scr_roomgen_1_scrapped",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_signal",
+  "name":"scr_roomgen_1_scrapped",
   "parent":{
-    "name":"Rooms",
-    "path":"folders/Rooms.yy",
+    "name":"oScripts",
+    "path":"folders/oScripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

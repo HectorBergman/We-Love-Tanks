@@ -298,6 +298,7 @@
     {"id":{"name":"scr_roomgen_1_dungeon","path":"scripts/scr_roomgen_1_dungeon/scr_roomgen_1_dungeon.yy",},},
     {"id":{"name":"scr_roomgen_1_generate","path":"scripts/scr_roomgen_1_generate/scr_roomgen_1_generate.yy",},},
     {"id":{"name":"scr_roomgen_1_helpers","path":"scripts/scr_roomgen_1_helpers/scr_roomgen_1_helpers.yy",},},
+    {"id":{"name":"scr_roomgen_1_scrapped","path":"scripts/scr_roomgen_1_scrapped/scr_roomgen_1_scrapped.yy",},},
     {"id":{"name":"scr_roomgen_1_visual","path":"scripts/scr_roomgen_1_visual/scr_roomgen_1_visual.yy",},},
     {"id":{"name":"scr_roomgen_1","path":"scripts/scr_roomgen_1/scr_roomgen_1.yy",},},
     {"id":{"name":"scr_save","path":"scripts/scr_save/scr_save.yy",},},

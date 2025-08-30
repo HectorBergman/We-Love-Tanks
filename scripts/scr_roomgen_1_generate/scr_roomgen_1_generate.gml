@@ -14,23 +14,27 @@ function generateDFloor(dfloor){
 		var newRoom = ds_queue_dequeue(dfloor.roomsQueue);
 		iterateRoom(dfloor,newRoom)
 		generateCount++;
-		recalibrateDoorWeights(dfloor,dfloor.roomsQueue,40,generateCount)
+		recalibrateDoorWeights(dfloor,40,generateCount)
 	}
 	var edgeList_coord = [];
-	var listPrint = "edgeList: "
-	for (var i = 0; i < ds_list_size(dfloor.edgeList); i++){
-		var entry = ds_list_find_value(dfloor.edgeList,i);
-		listPrint += string(entry.coords) + ", "
-		edgeList_coord[i] = entry.coords;
-		if exitDungeon{
-			break;
+	var entriesCount = 0;
+	for (var j = 0; j < dfloor.dimensions[1]; j++){
+		for (var i = 0; i < dfloor.dimensions[0]; i++){
+			var _room = ds_grid_get(dfloor.grid, i, j)
+			if roomExists(_room) && roomHasOneDoor(_room){
+				_room.isEdgeRoom = true;
+				edgeList_coord[entriesCount] = [i,j] 
+				//^^_room.coords if you want this to be writeable thru edgeList_coord for some reason
+				entriesCount++;
+			}
 		}
 	}
+	//remove entry from edgelist_coord if used
 	if exitDungeon{
 		return regenDfloor(dfloor.floorNo);
 	}
 	for (var i = 0; i < array_length(dfloor.specialRoomArray); i++){
-		plopdownSpecialRoom(dfloor, edgeList_coord, dfloor.specialRoomArray[i])
+		insertSpecialRoomInGrid(dfloor, edgeList_coord, dfloor.specialRoomArray[i])
 		if exitDungeon{
 			break;
 		}
@@ -38,14 +42,25 @@ function generateDFloor(dfloor){
 	if exitDungeon{
 		return regenDfloor(dfloor.floorNo);
 	}
-	//print(listPrint);
 	visualizeFloor(dfloor);
 	return dfloor;
 }
 
-
-function plopdownSpecialRoom(dfloor, edgeList_coord, sRoom){
-	var newCoords = specialRoomGetCoords_gen(dfloor, edgeList_coord, sRoom)
+function roomHasOneDoor(_room){
+	var doors = _room.doors;
+	var doorCount = 0;
+	for (var i = 0; i < array_length(doors); i++){
+		if doors[i] == 1{
+			doorCount++;
+		}
+		if doorCount > 1{
+			return false;
+		}
+	}
+	return doorCount == 1
+}
+function insertSpecialRoomInGrid(dfloor, edgeList_coord, sRoom){
+	var newCoords = specialRoomGetCoords(dfloor, edgeList_coord, sRoom)
 	if exitDungeon{
 		exit;
 	}
@@ -61,14 +76,14 @@ function getPremadeRoomDir(dfloor,sRoom){
 			if doorNo == -1{
 				doorNo = i;
 			}else{
-					//forceCrash("more than one door present");
-
+				forceCrash("Room has more than one door")
 			}
 		}
 	}
+	return doorNo
 }
 
-function specialRoomGetCoords_gen(dfloor, edgelistCoords,sRoom){
+function specialRoomGetCoords(dfloor, edgelistCoords,sRoom){
 	var arr = getAllAvailableCoordsFittingReq(dfloor, sRoom.positionRequirements)
 	var potentialCoords = getAllAvailableRoomsFittingReq(dfloor,arr,edgelistCoords);
 	if (array_length(potentialCoords) == 0){
@@ -101,37 +116,20 @@ function retryDFloorGen(dfloor){
 
 }
 
-function getStageNumber(dfloor,currentRoomAmount,roomsQueue,goalAmount, possibleDoorWeights){
+function getStageNumber(dfloor,currentRoomAmount,goalAmount, possibleDoorWeights){
 	var stageAmount = struct_names_count(possibleDoorWeights);
-	var count = currentRoomAmount + ds_queue_size(roomsQueue);
+	var count = currentRoomAmount + ds_queue_size(dfloor.roomsQueue);
 	for (var i = stageAmount-1; i > 0; i--){
 		if (count > (i-0.5)*goalAmount/stageAmount){
 			return i;
 		}
 	}
 }
-function recalibrateDoorWeights(dfloor,roomsQueue, goalAmt, currentRoomAmount){
-	var stageNumber = getStageNumber(dfloor,currentRoomAmount,roomsQueue, goalAmt, dfloor.possibleDoorWeights)
+function recalibrateDoorWeights(dfloor, goalAmt, currentRoomAmount){
+	var stageNumber = getStageNumber(dfloor,currentRoomAmount, goalAmt, dfloor.possibleDoorWeights)
 	var doorWeight = variable_struct_get(dfloor.possibleDoorWeights, "stage" + string(stageNumber));
 	dfloor.doorWeights = doorWeight;
 }
-function calculateExpectedRoomCount(dfloor,roomsQueue){
-	var avgDoors = averageRoomOffspring(dfloor);
-	var qLen = ds_queue_size(roomsQueue);
-	return qLen*avgDoors;
-}
-
-function averageRoomOffspring(dfloor){
-	var weight = dfloor.doorWeights
-	var weightSum = 0;
-	var totalDoors = 0;
-	for (var i = 1; i < array_length(weight); i++){
-		weightSum += weight[i];
-		totalDoors += weight[i]*(i-1);
-	}
-	return totalDoors/weightSum
-}
-
 
 function changeDoorState(dfloor, coords, dir, state){
 	var _room = ds_grid_get(dfloor.grid, coords[0],coords[1]);
@@ -157,28 +155,8 @@ function iterateRoom(dfloor, _room, doors = [-1,-1,-1,-1]){
 	ds_grid_set(dfloor.grid, roomCoords[0],roomCoords[1], _room);
 }
 
-function findIllegitimateDoors(dfloor,_room){
-	var coords = _room.coords;
-	var bannedDoors = [];
-	var index = 0;
-	for (var i = 0; i < 4; i++){
-		var XY = getXY(i);
 
-		if !coordsWithinGrid([coords[0]+XY[0],coords[1]+XY[1]],dfloor.dimensions){
-			bannedDoors[index] = i
-			index++
-		}
-	}
-	return bannedDoors;
-}
 
-function doorIsIllegitimate(dfloor,_room,doorDir){
-	var XY = getXY(doorDir);
-	if !coordsWithinGrid([_room.coords[0]+XY[0],_room.coords[1]+XY[1]],dfloor.dimensions){
-			return true;
-	}
-	return false;
-}
 function generateDoors(dfloor, _room){
 	//step 1: discern door amounts
 	var doors = _room.doors;
@@ -253,37 +231,12 @@ function generateDoors(dfloor, _room){
 		}
 	}
 	if totalOpenDoors == 1{
-		_room.isEdgeRoom = true;
-		ds_list_add(dfloor.edgeList, _room);
+
 	}
 	return doors;
 }
 
-function getDirectionBias(dfloor, _room, validDoors){
-	var goals = dfloor.goalCoords
-	var coords = _room.coords;
-	//jesus fuck thi shit
-}
 
-function findClosestCoordinate(coord,array){
-	var closestCoord = [-1,-1]
-	var closestDistance = 999999;
-	for (var i = 0; i < array_length(array); i++){
-		var coordinate = array[i];
-		var distance = manhattanDistance(coord,coordinate);
-		if closestDistance > distance{
-			closestDistance = distance;
-			closestCoord = coordinate;
-		}
-	}
-	if closestCoord[0] == -1{
-		print(closestCoord);
-		print(closestDistance)
-		print(array);
-		forceCrash("findClosestCoordinate: array empty or otherwise closest coord not found!");
-	}
-	return closestCoord;
-}
 function arrayContainsArray(array, valueArray){
 	for (var i = 0; i < array_length(array); i++){
 		if array_equals(valueArray,array[i]){
@@ -293,25 +246,5 @@ function arrayContainsArray(array, valueArray){
 	return false;
 }
 
-function roomHasSpecialInfo(_room){
-	return !_room.specialInfo == noone;
-}
 
-
-function getNeighboursExist(dfloor, coords){
-	var neighbours = [];
-	for (var i = 0; i < 4; i++){
-		var dir = i;
-		var XY = getXY(i);
-		if coordsWithinGrid([coords[0]+XY[0],coords[1]+XY[1]], dfloor.dimensions) && 
-		   roomExists(ds_grid_get(dfloor.grid, coords[0]+XY[0],coords[1]+XY[1])){
-			neighbours[i] = true //do stuff here with doors and crap
-		}else{
-			neighbours[i] = false
-		}
-	}
-}
-
-/*doorOdds : [2,7,4,1], //index = amt doors (not counting door room came from
-roomAmountRange : [30,40],
 
