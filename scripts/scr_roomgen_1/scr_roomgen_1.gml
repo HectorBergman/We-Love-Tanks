@@ -143,9 +143,9 @@ function createDFloor(
 		amalgamOdds : amalgamOdds,
 		doorWeights : possibleDoorWeights.stage0,
 		possibleDoorWeights : possibleDoorWeights,
+		edgesArray : [],
 		roomAmountRange : [30,40],
 		goalCoords : [],
-		edgeList : ds_list_create(),
 		roomsQueue : ds_queue_create(),
 		queueGrid : ds_grid_create(dimensions[0],dimensions[1]),
 		floorNo : -1
@@ -188,7 +188,6 @@ function initiateSpecialRoom(dfloor,sRoom){
 }
 function destroydfloor(dfloor){
 	ds_grid_destroy(dfloor.grid)
-	ds_list_destroy(dfloor.edgeList)
 	ds_grid_destroy(dfloor.queueGrid)
 	ds_queue_destroy(dfloor.roomsQueue)
 }

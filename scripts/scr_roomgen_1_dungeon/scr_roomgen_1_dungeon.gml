@@ -13,6 +13,9 @@ function initiateDungeon(){
 
 function regenDfloor(dfloorNo){
 	attempts++;
+	if attempts > 100{
+		forceCrash("100 attempts")
+	}
 	exitDungeon = false;
 	print("Restarting floor gen");
 	var oldDfloor = dungeon.floors[dfloorNo];

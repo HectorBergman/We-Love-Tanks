@@ -6,8 +6,6 @@ function generateDFloor(dfloor){
 			ds_grid_add(dfloor.queueGrid, i, j, false);
 		}
 	}
-	//first step:
-	//no need to generateDoors
 	var generateCount = 1;
 	iterateRoom(dfloor,ds_grid_get(dfloor.grid,dfloor.startPoint[0],dfloor.startPoint[1]));
 	while !ds_queue_empty(dfloor.roomsQueue){
@@ -16,25 +14,13 @@ function generateDFloor(dfloor){
 		generateCount++;
 		recalibrateDoorWeights(dfloor,40,generateCount)
 	}
-	var edgeList_coord = [];
-	var entriesCount = 0;
-	for (var j = 0; j < dfloor.dimensions[1]; j++){
-		for (var i = 0; i < dfloor.dimensions[0]; i++){
-			var _room = ds_grid_get(dfloor.grid, i, j)
-			if roomExists(_room) && roomHasOneDoor(_room){
-				_room.isEdgeRoom = true;
-				edgeList_coord[entriesCount] = [i,j] 
-				//^^_room.coords if you want this to be writeable thru edgeList_coord for some reason
-				entriesCount++;
-			}
-		}
-	}
-	//remove entry from edgelist_coord if used
+	var entriesCount = fillEdgesArray(dfloor)
+	//remove entry from dfloor.edgesArray if used
 	if exitDungeon{
 		return regenDfloor(dfloor.floorNo);
 	}
 	for (var i = 0; i < array_length(dfloor.specialRoomArray); i++){
-		insertSpecialRoomInGrid(dfloor, edgeList_coord, dfloor.specialRoomArray[i])
+		insertSpecialRoomInGrid(dfloor, dfloor.specialRoomArray[i])
 		if exitDungeon{
 			break;
 		}
@@ -46,6 +32,21 @@ function generateDFloor(dfloor){
 	return dfloor;
 }
 
+function fillEdgesArray(dfloor){
+	var entriesCount = 0;
+	for (var j = 0; j < dfloor.dimensions[1]; j++){
+		for (var i = 0; i < dfloor.dimensions[0]; i++){
+			var _room = ds_grid_get(dfloor.grid, i, j)
+			if roomExists(_room) && roomHasOneDoor(_room){
+				_room.isEdgeRoom = true;
+				dfloor.edgesArray[entriesCount] = [i,j] 
+				//^^_room.coords if you want this to be writeable thru dfloor.edgesArray for some reason
+				entriesCount++;
+			}
+		}
+	}
+	return entriesCount
+}
 function roomHasOneDoor(_room){
 	var doors = _room.doors;
 	var doorCount = 0;
@@ -59,8 +60,8 @@ function roomHasOneDoor(_room){
 	}
 	return doorCount == 1
 }
-function insertSpecialRoomInGrid(dfloor, edgeList_coord, sRoom){
-	var newCoords = specialRoomGetCoords(dfloor, edgeList_coord, sRoom)
+function insertSpecialRoomInGrid(dfloor, sRoom){
+	var newCoords = specialRoomGetCoords(dfloor, sRoom)
 	if exitDungeon{
 		exit;
 	}
@@ -83,11 +84,11 @@ function getPremadeRoomDir(dfloor,sRoom){
 	return doorNo
 }
 
-function specialRoomGetCoords(dfloor, edgelistCoords,sRoom){
+function specialRoomGetCoords(dfloor,sRoom){
 	var arr = getAllAvailableCoordsFittingReq(dfloor, sRoom.positionRequirements)
-	var potentialCoords = getAllAvailableRoomsFittingReq(dfloor,arr,edgelistCoords);
+	var potentialCoords = getAllAvailableRoomsFittingReq(dfloor,arr);
 	if (array_length(potentialCoords) == 0){
-		retryDFloorGen(dfloor)
+		exitDungeon = true;
 		exit;
 	}
 	var coord = setRandomCoordInArray(potentialCoords, dfloor);
@@ -96,11 +97,11 @@ function specialRoomGetCoords(dfloor, edgelistCoords,sRoom){
 	return sRoom.gridInfo.placedCoords
 	
 }
-function getAllAvailableRoomsFittingReq(dfloor,coordsArray, edgeListCoords){
+function getAllAvailableRoomsFittingReq(dfloor,coordsArray){
 	var validRooms = [];
 	var index = 0;
 	for (var i = 0; i < array_length(coordsArray); i++){
-		if arrayContainsArray(edgeListCoords, coordsArray[i]){
+		if arrayContainsArray(dfloor.edgesArray, coordsArray[i]){
 			validRooms[index] = coordsArray[i];
 			index++;
 		}
