@@ -235,6 +235,11 @@ function generateDoors(dfloor, _room){
 			
 			if !roomExists(ds_grid_get(dfloor.grid,nextCoords[0],nextCoords[1])){
 				var newRoom = createRoom(dfloor, nextCoords,doorNoChosen)
+				if newRoom.roomShape[0] != "normal"{
+					print("not normal: " + string(nextCoords));
+					print(newRoom);
+					print("---");
+				}
 				ds_queue_enqueue(dfloor.roomsQueue,newRoom);
 			}
 			array_delete(validDoorNumbers, randomDoorNo, 1);
