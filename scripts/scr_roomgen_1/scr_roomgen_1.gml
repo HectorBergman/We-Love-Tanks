@@ -80,7 +80,11 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 		var shouldAmalgamate = random_range(0,1) < dfloor.amalgamOdds
 		if shouldAmalgamate{
 			roomShape = randomAmalgamateShape(dfloor,fromDir,coords);
-			roomies = getRoomies(dfloor,roomShape,coords);
+			print("test");
+			print(roomShape);
+			if roomShape[0] != "normal"{
+				roomies = getRoomies(dfloor,roomShape,coords);
+			}
 		}
 	}
 	
@@ -110,6 +114,8 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 
 function getRoomies(dfloor, shape, coords){
 	var roomsNeeded = amalgamAcceptance(shape[0], shape[1]);
+	print(roomsNeeded)
+	print(shape[1]);
 	var central = roomsNeeded[shape[1]];
 	var roomies = [];
 	for (var i = 0; i < array_length(roomsNeeded); i++){
