@@ -42,6 +42,26 @@ function visualizeFloor(dFloor){
 
 function visualizeRoom(dRoom){
 	if roomExists(dRoom){
+		/*switch (dRoom.roomShape[0]) {
+		    case "normal":
+		        return "nor"
+		    case "giant":
+		        return "gia"
+		    case "long":
+		        return "lon"
+		    case "tall":
+		        return "tal"
+		    case "topleftabsent":
+		        return "tla"
+		    case "toprightabsent":
+		        return "tra"
+		    case "bottomleftabsent":
+		        return "bla"
+		    case "bottomrightabsent":
+		        return "bra"
+		    default:
+		        return "nor"
+		}*/
 		switch (dRoom.roomType){
 			case "standard":
 				return " s ";
@@ -53,6 +73,8 @@ function visualizeRoom(dRoom){
 				return "   "
 			case "startRoom":
 				return "stp"
+			case "claimed":
+				forceCrash("Room remains claimed");
 		}
 	}else{
 		return "   "

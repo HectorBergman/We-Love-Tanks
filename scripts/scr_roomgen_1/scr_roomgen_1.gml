@@ -75,7 +75,7 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 		roomType = sRoom.roomType
 	}
 	var roomShape = ["normal",0]
-	var roomies = [];
+	var amalgamClaimedCoords = [];
 	if !forceSkipAmalgam{
 		var shouldAmalgamate = random_range(0,1) < dfloor.amalgamOdds
 		if shouldAmalgamate{
@@ -83,7 +83,7 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 			print("test");
 			print(roomShape);
 			if roomShape[0] != "normal"{
-				roomies = getRoomies(dfloor,roomShape,coords);
+				amalgamClaimedCoords = getAmalgamClaimedCoords(dfloor,roomShape,coords);
 			}
 		}
 	}
@@ -103,7 +103,7 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 		isEdgeRoom : false,
 		visited : false,
 		cleared : false,
-		roomies : roomies,
+		amalgamClaimedCoords : amalgamClaimedCoords,
 		roomShape : roomShape,
 		loadedEntities : [],
 		preRandoms : preRandoms,
@@ -112,17 +112,17 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 	return fullRoomInfo
 }
 
-function getRoomies(dfloor, shape, coords){
+function getAmalgamClaimedCoords(dfloor, shape, coords){
 	var roomsNeeded = amalgamAcceptance(shape[0], shape[1]);
 	print(roomsNeeded)
 	print(shape[1]);
 	var central = roomsNeeded[shape[1]];
-	var roomies = [];
+	var amalgamClaimedCoords = [];
 	for (var i = 0; i < array_length(roomsNeeded); i++){
 		var XY = getAmalgamXY(central, roomsNeeded[i])
 		var newCoord = [coords[0]+XY[0],coords[1]+XY[1]]
-		var newRoom = ds_grid_get(dfloor.grid, newCoord[0],newCoord[1]);
-		roomies[i] = newRoom;
+		//var newRoom = ds_grid_get(dfloor.grid, newCoord[0],newCoord[1]);
+		amalgamClaimedCoords[i] = newCoord;
 	}
 }
 
