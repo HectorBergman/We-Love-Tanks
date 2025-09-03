@@ -8,10 +8,19 @@ function randomAmalgamateShape(dfloor, fromDir, coords){
 	for (var j = -1; j < 2; j++){
 		for (var i = -1; i < 2; i++){
 			var currentCoords = [coords[0]+i,coords[1]+j]
+			var coordsNotParent = !array_equals(parentCoords, currentCoords)
+			var coordsInGrid = coordsWithinGrid(currentCoords, dfloor.dimensions)
+			if coordsInGrid{
+				var coordsNotOccupied = !coordOccupied(currentCoords, dfloor)
+			}else{
+				var coordsNotOccupied = false
+			}
+	
+			if (array_equals(currentCoords,coords)){
+				coordsNotOccupied = true;
+			}
 			//add check for if room can be amalgamated
-			if	!array_equals(parentCoords, currentCoords) && 
-				coordsWithinGrid(currentCoords, dfloor.dimensions) && 
-				!coordOccupied(currentCoords, dfloor)
+			if	coordsNotParent && coordsInGrid && coordsNotOccupied
 			{
 				acceptedArray[acceptedIndex] = index
 				acceptedIndex++
@@ -19,6 +28,8 @@ function randomAmalgamateShape(dfloor, fromDir, coords){
 			index++
 		}
 	}
+	print("acceptArr");
+	print(acceptedArray);
 	var acceptedAmalgams = getAcceptedAmalgams(acceptedArray);
 	if array_length(acceptedAmalgams) > 0{
 		var randomIndex = irandom(array_length(acceptedAmalgams)-1);
@@ -57,8 +68,11 @@ function getAcceptedAmalgams(acceptedRooms){
 		var roomsNeeded = amalgamAcceptance(potentialAmalgams[i][0], potentialAmalgams[i][1]);
 		var isAcceptable = true;
 		for (var j = 0; j < array_length(roomsNeeded); j++){
-
-			isAcceptable = array_contains(acceptedRooms,roomsNeeded[j])
+			if roomsNeeded[j] != -1{
+				isAcceptable = array_contains(acceptedRooms,roomsNeeded[j])
+			}else{
+				isAcceptable = true;
+			}
 
 			if !isAcceptable{
 				break

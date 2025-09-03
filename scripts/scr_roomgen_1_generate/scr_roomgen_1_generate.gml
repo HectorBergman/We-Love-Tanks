@@ -21,7 +21,11 @@ function generateDFloor(dfloor){
 	if exitDungeon{
 		return regenDfloor(dfloor.floorNo);
 	}
+	print("QueueLen:");
+	print(ds_queue_size(dfloor.roomsQueue));
 	visualizeFloor(dfloor)
+
+	
 	return dfloor;
 }
 
@@ -30,6 +34,9 @@ function iterateDFloor(dfloor){
 	iterateRoom(dfloor,ds_grid_get(dfloor.grid,dfloor.startPoint[0],dfloor.startPoint[1]));
 	while !ds_queue_empty(dfloor.roomsQueue){
 		var newRoom = ds_queue_dequeue(dfloor.roomsQueue);
+		if array_equals(newRoom.coords, [4,1]){
+			print("4,1 here");
+		}
 		iterateRoom(dfloor,newRoom)
 		generateCount++;
 		recalibrateDoorWeights(dfloor,40,generateCount)
@@ -163,7 +170,10 @@ function iterateRoom(dfloor, _room, doors = [-1,-1,-1,-1]){
 	if doors[0] == -1{
 		generateDoors(dfloor, _room);
 	}
-	ds_grid_set(dfloor.grid, roomCoords[0],roomCoords[1], _room);
+	print(_room.amalgamClaimedCoords);
+	for (var i = 0; i < array_length(_room.amalgamClaimedCoords); i++){
+		ds_grid_set(dfloor.grid, _room.amalgamClaimedCoords[i][0],_room.amalgamClaimedCoords[i][1], _room);
+	}
 }
 
 
@@ -237,6 +247,8 @@ function generateDoors(dfloor, _room){
 				var newRoom = createRoom(dfloor, nextCoords,doorNoChosen)
 				ds_queue_enqueue(dfloor.roomsQueue,newRoom);
 				ds_grid_get(dfloor.grid, nextCoords[0], nextCoords[1]).roomType = "claimed";
+				print("claimed:");
+				print(nextCoords);
 			}
 			array_delete(validDoorNumbers, randomDoorNo, 1);
 			doorAmtChosen--;

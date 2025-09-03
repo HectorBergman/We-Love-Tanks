@@ -114,6 +114,7 @@ function pickRandomRoomByType(roomArray, roomType, roomShape) {
 
     // Pick a random index from the filtered list
     var randomIndex = irandom(array_length(matchingRoomShapes) - 1);
+	print(matchingRoomShapes);
 	var newInstances = sanitizeRoomFromRoomData(matchingRoomShapes[randomIndex])
 
 	matchingRoomShapes[randomIndex].instances = newInstances;
@@ -130,7 +131,6 @@ function pickRandomRoomByType(roomArray, roomType, roomShape) {
 
 function findRoomsByProperty(roomArray, propertyName, targetValue) {
     var foundRooms = [];
-    
     for (var i = 0; i < array_length(roomArray); i++) {
         var _room = roomArray[i];
         // Check if property exists AND matches targetValue

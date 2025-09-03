@@ -73,9 +73,10 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 			doorWeights = sRoom.doorWeights;
 		}
 		roomType = sRoom.roomType
+		forceSkipAmalgam = true;
 	}
 	var roomShape = ["normal",0]
-	var amalgamClaimedCoords = [];
+	var amalgamClaimedCoords = [coords];
 	if !forceSkipAmalgam{
 		var shouldAmalgamate = random_range(0,1) < dfloor.amalgamOdds
 		if shouldAmalgamate{
@@ -84,8 +85,18 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 			print(roomShape);
 			if roomShape[0] != "normal"{
 				amalgamClaimedCoords = getAmalgamClaimedCoords(dfloor,roomShape,coords);
+				print(amalgamClaimedCoords);
+				print("amalgamFrom: " + string(coords));
+			}else{
+				print("failed to get good shape");
+				print(coords);
 			}
 		}
+	}
+	if array_length(amalgamClaimedCoords) != 1{
+		print("aCCoords");
+		print(amalgamClaimedCoords);
+		print(roomShape);
 	}
 	
 	//roomName, instances, sanitized, roomShape, roomType, savedRandomsNeeded
@@ -114,16 +125,22 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 
 function getAmalgamClaimedCoords(dfloor, shape, coords){
 	var roomsNeeded = amalgamAcceptance(shape[0], shape[1]);
+	print("roomsneeded:");
 	print(roomsNeeded)
 	print(shape[1]);
 	var central = roomsNeeded[shape[1]];
 	var amalgamClaimedCoords = [];
+	var index = 0;
 	for (var i = 0; i < array_length(roomsNeeded); i++){
-		var XY = getAmalgamXY(central, roomsNeeded[i])
-		var newCoord = [coords[0]+XY[0],coords[1]+XY[1]]
-		//var newRoom = ds_grid_get(dfloor.grid, newCoord[0],newCoord[1]);
-		amalgamClaimedCoords[i] = newCoord;
+		if roomsNeeded[i] != -1{
+			var XY = getAmalgamXY(central, roomsNeeded[i])
+			var newCoord = [coords[0]+XY[0],coords[1]+XY[1]]
+			//var newRoom = ds_grid_get(dfloor.grid, newCoord[0],newCoord[1]);
+			amalgamClaimedCoords[index] = newCoord;
+			index++;
+		}
 	}
+	return amalgamClaimedCoords;
 }
 
 function getAmalgamXY(central, goal){
@@ -211,7 +228,7 @@ function populateDFloor(amalgamOdds){
 }
 function initiateSpecialRoom(dfloor,sRoom){
 	addRoomToGrid(dfloor, sRoom);
-	var newRoom = createRoom(dfloor, sRoom.gridInfo.placedCoords, -1, sRoom)
+	var newRoom = createRoom(dfloor, sRoom.gridInfo.placedCoords, -1, sRoom, ["normal",0], true)
 	ds_grid_set(dfloor.grid, newRoom.coords[0], newRoom.coords[1], newRoom);
 }
 function destroydfloor(dfloor){

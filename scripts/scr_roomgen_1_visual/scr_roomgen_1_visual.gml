@@ -42,7 +42,7 @@ function visualizeFloor(dFloor){
 
 function visualizeRoom(dRoom){
 	if roomExists(dRoom){
-		/*switch (dRoom.roomShape[0]) {
+		switch (dRoom.roomShape[0]) {
 		    case "normal":
 		        return "nor"
 		    case "giant":
@@ -61,7 +61,7 @@ function visualizeRoom(dRoom){
 		        return "bra"
 		    default:
 		        return "nor"
-		}*/
+		}
 		switch (dRoom.roomType){
 			case "standard":
 				return " s ";
@@ -74,6 +74,7 @@ function visualizeRoom(dRoom){
 			case "startRoom":
 				return "stp"
 			case "claimed":
+				print(dRoom.coords);
 				forceCrash("Room remains claimed");
 		}
 	}else{
