@@ -23,6 +23,7 @@ function generateDFloor(dfloor){
 	}
 	print("QueueLen:");
 	print(ds_queue_size(dfloor.roomsQueue));
+	print(ds_grid_get(dfloor.grid, 8,6));
 	visualizeFloor(dfloor)
 
 	
@@ -34,9 +35,6 @@ function iterateDFloor(dfloor){
 	iterateRoom(dfloor,ds_grid_get(dfloor.grid,dfloor.startPoint[0],dfloor.startPoint[1]));
 	while !ds_queue_empty(dfloor.roomsQueue){
 		var newRoom = ds_queue_dequeue(dfloor.roomsQueue);
-		if array_equals(newRoom.coords, [4,1]){
-			print("4,1 here");
-		}
 		iterateRoom(dfloor,newRoom)
 		generateCount++;
 		recalibrateDoorWeights(dfloor,40,generateCount)
@@ -150,11 +148,31 @@ function recalibrateDoorWeights(dfloor, goalAmt, currentRoomAmount){
 }
 
 function changeDoorState(dfloor, coords, dir, state){
+	
 	var _room = ds_grid_get(dfloor.grid, coords[0],coords[1]);
+	if array_equals([coords[0], coords[1]], [7,6]){
+		print("7 6 open begin")
+		print(_room.doors);
+		print(dir);
+	}
 	_room.doors[dir] = state
 	var XY = getXY(dir);
 	var neighbour = ds_grid_get(dfloor.grid, coords[0]+XY[0], coords[1]+XY[1]);
+	print("coords: " + string(coords));
+	print("neighbour:");
+
 	neighbour.doors[(dir+2)mod 4] = state
+	if array_equals([coords[0]+XY[0], coords[1]+XY[1]], [7,6]){
+		print("7 6 open at")
+		print(coords);
+		print(neighbour.coords);
+		print(neighbour.doors);
+	}
+	if array_equals([coords[0], coords[1]], [7,6]){
+		print("7 6 open end")
+		print(_room.doors);
+	}
+	
 }
 
 function openDoor(dfloor, coords, dir){
@@ -165,14 +183,29 @@ function closeDoor(dfloor, coords,dir){
 }
 
 function iterateRoom(dfloor, _room, doors = [-1,-1,-1,-1]){
-	var roomCoords = _room.coords;
-	var checkedDoors = [];
-	if doors[0] == -1{
-		generateDoors(dfloor, _room);
-	}
+	print("iterateRoom: " + string(_room.coords));
 	print(_room.amalgamClaimedCoords);
 	for (var i = 0; i < array_length(_room.amalgamClaimedCoords); i++){
-		ds_grid_set(dfloor.grid, _room.amalgamClaimedCoords[i][0],_room.amalgamClaimedCoords[i][1], _room);
+		var newRoom = _room;
+		print("itroom");
+		print(_room)
+		array_copy(newRoom.coords, 0, _room.amalgamClaimedCoords[i], 0, 2);
+		print("precopy:")
+		print(newRoom.doors)
+		array_copy(newRoom.doors, 0, ds_grid_get(dfloor.grid, _room.amalgamClaimedCoords[i][0], _room.amalgamClaimedCoords[i][1]).doors, 0, 4);
+		print(newRoom.doors);
+		var checkedDoors = [];
+		print(newRoom.doors);
+		if doors[0] == -1{
+			print(newRoom.coords);
+			generateDoors(dfloor, newRoom);
+		}
+		print("penus");
+		print(_room.amalgamClaimedCoords);
+		print(ds_grid_get(dfloor.grid, 7,6)); // 7,7 and 7,6 both get 7,7. see: iterateRoom: [ 7,6
+		print(newRoom);
+		print(newRoom.coords);
+		ds_grid_set(dfloor.grid, _room.amalgamClaimedCoords[i][0],_room.amalgamClaimedCoords[i][1], newRoom);
 	}
 }
 
@@ -181,6 +214,7 @@ function iterateRoom(dfloor, _room, doors = [-1,-1,-1,-1]){
 function generateDoors(dfloor, _room){
 	//step 1: discern door amounts
 	var doors = _room.doors;
+	print(" generateDoors: " + string(_room.coords));
 	var weights = [];
 	array_copy(weights, 0, _room.doorWeights, 0, array_length(_room.doorWeights));
 	var predecidedOpenDoors = 0;
@@ -211,6 +245,7 @@ function generateDoors(dfloor, _room){
 			totalOpenDoors++;
 		}
 	}
+	print(predecidedDoors);
 	var validDoorNumbers = [];
 	var vdIndex = 0;
 	for (var i = 0; i < array_length(predecidedDoors); i++){
@@ -234,17 +269,28 @@ function generateDoors(dfloor, _room){
 				break;
 			}
 		}
+		print(doorAmtChosen);
 		doorAmtChosen -= predecidedOpenDoors;
 		while doorAmtChosen > 0{
 			var randomDoorNo = irandom(array_length(validDoorNumbers)-1);
 			var doorNoChosen = validDoorNumbers[randomDoorNo];
+			if (array_equals(_room.coords, [7,7])){
+				print("opening from 7,7:");
+				print(doorNoChosen)
+			}
 			openDoor(dfloor,_room.coords,doorNoChosen);
 			totalOpenDoors++;
 			var XY = getXY(doorNoChosen);
 			var nextCoords = [_room.coords[0]+XY[0],_room.coords[1]+XY[1]]
 			var nextRoom = ds_grid_get(dfloor.grid,nextCoords[0],nextCoords[1])
+			print(nextRoom);
+			print(roomExists(nextRoom))
+			print(roomIsClaimed(nextRoom));
 			if !roomExists(nextRoom) && !roomIsClaimed(nextRoom){
 				var newRoom = createRoom(dfloor, nextCoords,doorNoChosen)
+				print("enqueue:")
+				print(newRoom.coords);
+				print(newRoom);
 				ds_queue_enqueue(dfloor.roomsQueue,newRoom);
 				if array_length(newRoom.amalgamClaimedCoords) != 1{
 					print("lule");
@@ -254,11 +300,8 @@ function generateDoors(dfloor, _room){
 					//stop claim if room already claimed
 					var roomToClaim = ds_grid_get(dfloor.grid, newRoom.amalgamClaimedCoords[i][0], newRoom.amalgamClaimedCoords[i][1])
 					roomToClaim.roomType = "claimed";
-					ds_grid_set(dfloor.grid, newRoom.amalgamClaimedCoords[i][0], newRoom.amalgamClaimedCoords[i][1], roomToClaim);
-					print("claimed:");
-					print(newRoom.amalgamClaimedCoords[i]);
 				}//messed up shit here, search 7,7. 7,7 claimed but still generated normal.
-				//maybe claiming is ineffective? roomCreate sees it as seperate entity but still to be claimed?
+				 //maybe claiming is ineffective? roomCreate sees it as seperate entity but still to be claimed?
 				
 				
 			}
@@ -266,9 +309,9 @@ function generateDoors(dfloor, _room){
 			doorAmtChosen--;
 		}
 	}
-	if totalOpenDoors == 1{
-
-	}
+	print(doors);
+	print(_room.coords);
+	print("donezo");
 	return doors;
 }
 
