@@ -1,4 +1,5 @@
 function visualizeFloor(dFloor){
+	print("visFloor called");
 	var printArray = [];
 	var printArrayDoors = [];
 	var printArrayHorizontalDoors = [];

@@ -242,13 +242,25 @@ function generateDoors(dfloor, _room){
 			totalOpenDoors++;
 			var XY = getXY(doorNoChosen);
 			var nextCoords = [_room.coords[0]+XY[0],_room.coords[1]+XY[1]]
-			
-			if !roomExists(ds_grid_get(dfloor.grid,nextCoords[0],nextCoords[1])){
+			var nextRoom = ds_grid_get(dfloor.grid,nextCoords[0],nextCoords[1])
+			if !roomExists(nextRoom) && !roomIsClaimed(nextRoom){
 				var newRoom = createRoom(dfloor, nextCoords,doorNoChosen)
 				ds_queue_enqueue(dfloor.roomsQueue,newRoom);
-				ds_grid_get(dfloor.grid, nextCoords[0], nextCoords[1]).roomType = "claimed";
-				print("claimed:");
-				print(nextCoords);
+				if array_length(newRoom.amalgamClaimedCoords) != 1{
+					print("lule");
+					print(newRoom.amalgamClaimedCoords);
+				}
+				for (var i = 0; i < array_length(newRoom.amalgamClaimedCoords); i++){
+					//stop claim if room already claimed
+					var roomToClaim = ds_grid_get(dfloor.grid, newRoom.amalgamClaimedCoords[i][0], newRoom.amalgamClaimedCoords[i][1])
+					roomToClaim.roomType = "claimed";
+					ds_grid_set(dfloor.grid, newRoom.amalgamClaimedCoords[i][0], newRoom.amalgamClaimedCoords[i][1], roomToClaim);
+					print("claimed:");
+					print(newRoom.amalgamClaimedCoords[i]);
+				}//messed up shit here, search 7,7. 7,7 claimed but still generated normal.
+				//maybe claiming is ineffective? roomCreate sees it as seperate entity but still to be claimed?
+				
+				
 			}
 			array_delete(validDoorNumbers, randomDoorNo, 1);
 			doorAmtChosen--;
@@ -271,4 +283,8 @@ function arrayContainsArray(array, valueArray){
 }
 
 
+function roomIsClaimed(_room){
+	print(_room.roomType);
+	return _room.roomType == "claimed"
+}
 
