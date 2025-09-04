@@ -150,29 +150,11 @@ function recalibrateDoorWeights(dfloor, goalAmt, currentRoomAmount){
 function changeDoorState(dfloor, coords, dir, state){
 	
 	var _room = ds_grid_get(dfloor.grid, coords[0],coords[1]);
-	if array_equals([coords[0], coords[1]], [7,6]){
-		print("7 6 open begin")
-		print(_room.doors);
-		print(dir);
-	}
 	_room.doors[dir] = state
 	var XY = getXY(dir);
 	var neighbour = ds_grid_get(dfloor.grid, coords[0]+XY[0], coords[1]+XY[1]);
-	print("coords: " + string(coords));
-	print("neighbour:");
 
 	neighbour.doors[(dir+2)mod 4] = state
-	if array_equals([coords[0]+XY[0], coords[1]+XY[1]], [7,6]){
-		print("7 6 open at")
-		print(coords);
-		print(neighbour.coords);
-		print(neighbour.doors);
-	}
-	if array_equals([coords[0], coords[1]], [7,6]){
-		print("7 6 open end")
-		print(_room.doors);
-	}
-	
 }
 
 function openDoor(dfloor, coords, dir){
@@ -183,29 +165,12 @@ function closeDoor(dfloor, coords,dir){
 }
 
 function iterateRoom(dfloor, _room, doors = [-1,-1,-1,-1]){
-	print("iterateRoom: " + string(_room.coords));
-	print(_room.amalgamClaimedCoords);
 	for (var i = 0; i < array_length(_room.amalgamClaimedCoords); i++){
-		var newRoom = _room;
-		print("itroom");
-		print(_room)
-		array_copy(newRoom.coords, 0, _room.amalgamClaimedCoords[i], 0, 2);
-		print("precopy:")
-		print(newRoom.doors)
-		array_copy(newRoom.doors, 0, ds_grid_get(dfloor.grid, _room.amalgamClaimedCoords[i][0], _room.amalgamClaimedCoords[i][1]).doors, 0, 4);
-		print(newRoom.doors);
-		var checkedDoors = [];
-		print(newRoom.doors);
+		var newRoom = variable_clone(_room);
+		ds_grid_set(dfloor.grid, _room.amalgamClaimedCoords[i][0],_room.amalgamClaimedCoords[i][1], newRoom);
 		if doors[0] == -1{
-			print(newRoom.coords);
 			generateDoors(dfloor, newRoom);
 		}
-		print("penus");
-		print(_room.amalgamClaimedCoords);
-		print(ds_grid_get(dfloor.grid, 7,6)); // 7,7 and 7,6 both get 7,7. see: iterateRoom: [ 7,6
-		print(newRoom);
-		print(newRoom.coords);
-		ds_grid_set(dfloor.grid, _room.amalgamClaimedCoords[i][0],_room.amalgamClaimedCoords[i][1], newRoom);
 	}
 }
 
