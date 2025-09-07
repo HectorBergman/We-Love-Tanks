@@ -47,7 +47,7 @@ function fillEdgesArray(dfloor){
 	for (var j = 0; j < dfloor.dimensions[1]; j++){
 		for (var i = 0; i < dfloor.dimensions[0]; i++){
 			var _room = ds_grid_get(dfloor.grid, i, j)
-			if roomExists(_room) && roomHasOneDoor(_room){
+			if roomExists(_room) && roomHasOneDoor(_room) && array_length(_room.amalgamClaimedCoords) == 1{
 				_room.isEdgeRoom = true;
 				dfloor.edgesArray[entriesCount] = [i,j] 
 				//^^_room.coords if you want this to be writeable thru dfloor.edgesArray for some reason
@@ -149,21 +149,10 @@ function recalibrateDoorWeights(dfloor, goalAmt, currentRoomAmount){
 }
 
 function changeDoorState(dfloor, coords, dir, state){
-	if array_equals(coords, [4,9]){
-		print("4,9 doorchange");
-		print(dir)
-		print(state)
-	}
 	var _room = ds_grid_get(dfloor.grid, coords[0],coords[1]);
 	_room.doors[dir] = state
 	var XY = getXY(dir);
 	var neighbour = ds_grid_get(dfloor.grid, coords[0]+XY[0], coords[1]+XY[1]);
-	if array_equals(neighbour.coords, [4,9]){
-		print("4,9 doorchange (not parent)");
-		print((dir+2)mod 4);
-		print(dir)
-		print(state)
-	}
 
 	neighbour.doors[(dir+2)mod 4] = state
 }
@@ -176,30 +165,36 @@ function closeDoor(dfloor, coords,dir){
 }
 
 function iterateRoom(dfloor, _room, doors = [-1,-1,-1,-1]){
-	if (array_equals(_room.coords, [7,5])){
-		print("WEINNISHO!!!");
-		print(_room.amalgamClaimedCoords);
-	} // 7,5 on 2nd tall room only generates bottom, possibly because 7,4 is first in arr
-	for (var i = 0; i < array_length(_room.amalgamClaimedCoords); i++){
-		var newRoom = variable_clone(_room);
-		var oldCoords = newRoom.coords
-		newRoom.coords = [_room.amalgamClaimedCoords[i][0], _room.amalgamClaimedCoords[i][1]]
-		newRoom.doors = ds_grid_get(dfloor.grid, newRoom.coords[0], newRoom.coords[1]).doors
-		if (!array_equals(newRoom.coords, oldCoords)){
-			print("noarrayequals")
-			print(newRoom);
-			print(oldCoords);
-			print(newRoom.coords);
-			print(_room.amalgamClaimedCoords)
-		}
-		ds_grid_set(dfloor.grid, _room.amalgamClaimedCoords[i][0],_room.amalgamClaimedCoords[i][1], newRoom);
-		if doors[0] == -1{
-			generateDoors(dfloor, newRoom);
+	print("iterateRoom: ")
+	print(_room);
+	//1,7 boss room or item room!!!
+	var doneArray = []
+	var amalgamAmt = array_length(_room.amalgamClaimedCoords);
+	for (var i = 0; i < amalgamAmt; i++){
+		doneArray[i] = false;
+	}
+	var ccPos = arrayInArrayPosition(_room.amalgamClaimedCoords,_room.coords)
+	iterateRoom_helper(dfloor,_room, ccPos, doors)
+	doneArray[ccPos] = true;
+	for (var i = 0; i < amalgamAmt; i++){
+		if !doneArray[i]{
+			iterateRoom_helper(dfloor,_room, i, doors)
 		}
 	}
 }
 
-
+function iterateRoom_helper(dfloor,_room, index, doors){
+	var newRoom = variable_clone(_room);
+	var oldCoords = newRoom.coords
+	newRoom.coords = [_room.amalgamClaimedCoords[index][0], _room.amalgamClaimedCoords[index][1]]
+	print(newRoom.coords)
+	print("newroomcoords^^^^");
+	newRoom.doors = ds_grid_get(dfloor.grid, newRoom.coords[0], newRoom.coords[1]).doors
+	ds_grid_set(dfloor.grid, _room.amalgamClaimedCoords[index][0],_room.amalgamClaimedCoords[index][1], newRoom);
+	if doors[0] == -1{
+		generateDoors(dfloor, newRoom);
+	}
+}
 
 function generateDoors(dfloor, _room){
 	//step 1: discern door amounts
@@ -229,9 +224,6 @@ function generateDoors(dfloor, _room){
 			weights[array_length(weights)-borderDoors] = 0;
 			predecidedDoors[i] = 0;
 		}else if doors[i] == 1{
-			if (array_equals([4,9], _room.coords)){
-				print("opening 4,9 door2");
-			}
 			openDoor(dfloor, _room.coords, i);
 			weights[predecidedOpenDoors] = 0;
 			predecidedOpenDoors++;
@@ -266,9 +258,6 @@ function generateDoors(dfloor, _room){
 		while doorAmtChosen > 0{
 			var randomDoorNo = irandom(array_length(validDoorNumbers)-1);
 			var doorNoChosen = validDoorNumbers[randomDoorNo];
-			if (array_equals([4,9], _room.coords)){
-				print("opening 4,9 door");
-			}
 			openDoor(dfloor,_room.coords,doorNoChosen);
 			totalOpenDoors++;
 			var XY = getXY(doorNoChosen);
@@ -298,6 +287,16 @@ function arrayContainsArray(array, valueArray){
 		}
 	}
 	return false;
+}
+
+function arrayInArrayPosition(array, valueArray){
+	for (var i = 0; i < array_length(array); i++){
+		if array_equals(valueArray,array[i]){
+			return i;
+		}
+	}
+	return -1;
+	return -1;
 }
 
 
