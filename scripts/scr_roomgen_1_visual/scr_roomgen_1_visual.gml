@@ -52,16 +52,16 @@ function visualizeRoom(dRoom){
 		        return "lon"
 		    case "tall":
 		        return "tal"
-		    case "topleftabsent":
+		    case "topLeftAbsent":
 		        return "tla"
-		    case "toprightabsent":
+		    case "topRightAbsent":
 		        return "tra"
-		    case "bottomleftabsent":
+		    case "bottomLeftAbsent":
 		        return "bla"
-		    case "bottomrightabsent":
+		    case "bottomRightAbsent":
 		        return "bra"
 		    default:
-		        return "nor"
+		        return "fuc"
 		}
 		switch (dRoom.roomType){
 			case "standard":

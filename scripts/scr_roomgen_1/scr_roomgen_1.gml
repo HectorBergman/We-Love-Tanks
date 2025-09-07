@@ -81,22 +81,10 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 		var shouldAmalgamate = random_range(0,1) < dfloor.amalgamOdds
 		if shouldAmalgamate{
 			roomShape = randomAmalgamateShape(dfloor,fromDir,coords);
-			print("test");
-			print(roomShape);
 			if roomShape[0] != "normal"{
 				amalgamClaimedCoords = getAmalgamClaimedCoords(dfloor,roomShape,coords);
-				print(amalgamClaimedCoords);
-				print("amalgamFrom: " + string(coords));
-			}else{
-				print("failed to get good shape");
-				print(coords);
 			}
 		}
-	}
-	if array_length(amalgamClaimedCoords) != 1{
-		print("aCCoords");
-		print(amalgamClaimedCoords);
-		print(roomShape);
 	}
 	
 	//roomName, instances, sanitized, roomShape, roomType, savedRandomsNeeded
@@ -125,9 +113,6 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 
 function getAmalgamClaimedCoords(dfloor, shape, coords){
 	var roomsNeeded = amalgamAcceptance(shape[0], shape[1]);
-	print("roomsneeded:");
-	print(roomsNeeded)
-	print(shape[1]);
 	var central = roomsNeeded[shape[1]];
 	var amalgamClaimedCoords = [];
 	var index = 0;

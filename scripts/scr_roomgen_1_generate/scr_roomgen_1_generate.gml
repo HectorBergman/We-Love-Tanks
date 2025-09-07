@@ -1,4 +1,5 @@
 function generateDFloor(dfloor){
+	print("createDfloore")
 	dfloor.roomsQueue = ds_queue_create();
 	dfloor.queueGrid = ds_grid_create(dfloor.dimensions[0],dfloor.dimensions[1]);
 	for (var i = 0; i < dfloor.dimensions[1]; i++){
@@ -148,11 +149,21 @@ function recalibrateDoorWeights(dfloor, goalAmt, currentRoomAmount){
 }
 
 function changeDoorState(dfloor, coords, dir, state){
-	
+	if array_equals(coords, [4,9]){
+		print("4,9 doorchange");
+		print(dir)
+		print(state)
+	}
 	var _room = ds_grid_get(dfloor.grid, coords[0],coords[1]);
 	_room.doors[dir] = state
 	var XY = getXY(dir);
 	var neighbour = ds_grid_get(dfloor.grid, coords[0]+XY[0], coords[1]+XY[1]);
+	if array_equals(neighbour.coords, [4,9]){
+		print("4,9 doorchange (not parent)");
+		print((dir+2)mod 4);
+		print(dir)
+		print(state)
+	}
 
 	neighbour.doors[(dir+2)mod 4] = state
 }
@@ -165,8 +176,22 @@ function closeDoor(dfloor, coords,dir){
 }
 
 function iterateRoom(dfloor, _room, doors = [-1,-1,-1,-1]){
+	if (array_equals(_room.coords, [7,5])){
+		print("WEINNISHO!!!");
+		print(_room.amalgamClaimedCoords);
+	} // 7,5 on 2nd tall room only generates bottom, possibly because 7,4 is first in arr
 	for (var i = 0; i < array_length(_room.amalgamClaimedCoords); i++){
 		var newRoom = variable_clone(_room);
+		var oldCoords = newRoom.coords
+		newRoom.coords = [_room.amalgamClaimedCoords[i][0], _room.amalgamClaimedCoords[i][1]]
+		newRoom.doors = ds_grid_get(dfloor.grid, newRoom.coords[0], newRoom.coords[1]).doors
+		if (!array_equals(newRoom.coords, oldCoords)){
+			print("noarrayequals")
+			print(newRoom);
+			print(oldCoords);
+			print(newRoom.coords);
+			print(_room.amalgamClaimedCoords)
+		}
 		ds_grid_set(dfloor.grid, _room.amalgamClaimedCoords[i][0],_room.amalgamClaimedCoords[i][1], newRoom);
 		if doors[0] == -1{
 			generateDoors(dfloor, newRoom);
@@ -180,6 +205,7 @@ function generateDoors(dfloor, _room){
 	//step 1: discern door amounts
 	var doors = _room.doors;
 	print(" generateDoors: " + string(_room.coords));
+	print(doors);
 	var weights = [];
 	array_copy(weights, 0, _room.doorWeights, 0, array_length(_room.doorWeights));
 	var predecidedOpenDoors = 0;
@@ -202,7 +228,10 @@ function generateDoors(dfloor, _room){
 			}
 			weights[array_length(weights)-borderDoors] = 0;
 			predecidedDoors[i] = 0;
-		}else if (arrayContainsArray(dfloor.goalCoords, nextCoords) || doors[i] == 1){
+		}else if doors[i] == 1{
+			if (array_equals([4,9], _room.coords)){
+				print("opening 4,9 door2");
+			}
 			openDoor(dfloor, _room.coords, i);
 			weights[predecidedOpenDoors] = 0;
 			predecidedOpenDoors++;
@@ -210,7 +239,6 @@ function generateDoors(dfloor, _room){
 			totalOpenDoors++;
 		}
 	}
-	print(predecidedDoors);
 	var validDoorNumbers = [];
 	var vdIndex = 0;
 	for (var i = 0; i < array_length(predecidedDoors); i++){
@@ -234,48 +262,30 @@ function generateDoors(dfloor, _room){
 				break;
 			}
 		}
-		print(doorAmtChosen);
 		doorAmtChosen -= predecidedOpenDoors;
 		while doorAmtChosen > 0{
 			var randomDoorNo = irandom(array_length(validDoorNumbers)-1);
 			var doorNoChosen = validDoorNumbers[randomDoorNo];
-			if (array_equals(_room.coords, [7,7])){
-				print("opening from 7,7:");
-				print(doorNoChosen)
+			if (array_equals([4,9], _room.coords)){
+				print("opening 4,9 door");
 			}
 			openDoor(dfloor,_room.coords,doorNoChosen);
 			totalOpenDoors++;
 			var XY = getXY(doorNoChosen);
 			var nextCoords = [_room.coords[0]+XY[0],_room.coords[1]+XY[1]]
 			var nextRoom = ds_grid_get(dfloor.grid,nextCoords[0],nextCoords[1])
-			print(nextRoom);
-			print(roomExists(nextRoom))
-			print(roomIsClaimed(nextRoom));
 			if !roomExists(nextRoom) && !roomIsClaimed(nextRoom){
 				var newRoom = createRoom(dfloor, nextCoords,doorNoChosen)
-				print("enqueue:")
-				print(newRoom.coords);
-				print(newRoom);
 				ds_queue_enqueue(dfloor.roomsQueue,newRoom);
-				if array_length(newRoom.amalgamClaimedCoords) != 1{
-					print("lule");
-					print(newRoom.amalgamClaimedCoords);
-				}
 				for (var i = 0; i < array_length(newRoom.amalgamClaimedCoords); i++){
-					//stop claim if room already claimed
 					var roomToClaim = ds_grid_get(dfloor.grid, newRoom.amalgamClaimedCoords[i][0], newRoom.amalgamClaimedCoords[i][1])
 					roomToClaim.roomType = "claimed";
-				}//messed up shit here, search 7,7. 7,7 claimed but still generated normal.
-				 //maybe claiming is ineffective? roomCreate sees it as seperate entity but still to be claimed?
-				
-				
+				}
 			}
 			array_delete(validDoorNumbers, randomDoorNo, 1);
 			doorAmtChosen--;
 		}
 	}
-	print(doors);
-	print(_room.coords);
 	print("donezo");
 	return doors;
 }
@@ -292,7 +302,6 @@ function arrayContainsArray(array, valueArray){
 
 
 function roomIsClaimed(_room){
-	print(_room.roomType);
 	return _room.roomType == "claimed"
 }
 

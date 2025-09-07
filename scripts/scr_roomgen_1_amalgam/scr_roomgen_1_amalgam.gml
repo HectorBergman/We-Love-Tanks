@@ -28,8 +28,6 @@ function randomAmalgamateShape(dfloor, fromDir, coords){
 			index++
 		}
 	}
-	print("acceptArr");
-	print(acceptedArray);
 	var acceptedAmalgams = getAcceptedAmalgams(acceptedArray);
 	if array_length(acceptedAmalgams) > 0{
 		var randomIndex = irandom(array_length(acceptedAmalgams)-1);
@@ -88,7 +86,6 @@ function getAcceptedAmalgams(acceptedRooms){
 
 function amalgamAcceptance(shape, shapeVariantNumber){
 	var func = asset_get_index("amalgamAcceptance_" + shape);
-	print(shape);
 	return func(shapeVariantNumber);
 }
 
