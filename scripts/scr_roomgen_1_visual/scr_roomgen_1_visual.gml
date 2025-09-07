@@ -83,15 +83,23 @@ function visualizeRoom(dRoom){
 	}
 }
 function visualizeDoors(dRoom){
+	if variable_struct_exists(dRoom, "amalgamClaimedCoords") &&
+	arrayContainsArray(dRoom.amalgamClaimedCoords, [dRoom.coords[0],dRoom.coords[1]+1]){
+		return "   _"
+	}
 	switch (dRoom.doors[3]){
 		case true:
+		
 			return "_ __"
 		case false:
 			return "____"
 	}
 }
 function visualizeHoriDoors(dRoom){
-	
+	if variable_struct_exists(dRoom, "amalgamClaimedCoords") &&
+	arrayContainsArray(dRoom.amalgamClaimedCoords, [dRoom.coords[0]+1,dRoom.coords[1]]){
+		return " "
+	}
 	switch (dRoom.doors[0]){
 		case true:
 			return ":"
