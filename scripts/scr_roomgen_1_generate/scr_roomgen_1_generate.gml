@@ -1,4 +1,5 @@
 function generateDFloor(dfloor){
+	print("createDfloore")
 	dfloor.roomsQueue = ds_queue_create();
 	dfloor.queueGrid = ds_grid_create(dfloor.dimensions[0],dfloor.dimensions[1]);
 	for (var i = 0; i < dfloor.dimensions[1]; i++){
@@ -22,6 +23,8 @@ function generateDFloor(dfloor){
 		return regenDfloor(dfloor.floorNo);
 	}
 	visualizeFloor(dfloor)
+
+	
 	return dfloor;
 }
 
@@ -32,7 +35,9 @@ function iterateDFloor(dfloor){
 		var newRoom = ds_queue_dequeue(dfloor.roomsQueue);
 		iterateRoom(dfloor,newRoom)
 		generateCount++;
-		recalibrateDoorWeights(dfloor,40,generateCount)
+		print("penis")
+		print(dfloor)
+		recalibrateDoorWeights(dfloor,dfloor.roomAmountRange[1],generateCount)
 	}
 	return generateCount
 }
@@ -41,7 +46,7 @@ function fillEdgesArray(dfloor){
 	for (var j = 0; j < dfloor.dimensions[1]; j++){
 		for (var i = 0; i < dfloor.dimensions[0]; i++){
 			var _room = ds_grid_get(dfloor.grid, i, j)
-			if roomExists(_room) && roomHasOneDoor(_room){
+			if roomExists(_room) && roomHasOneDoor(_room) && array_length(_room.amalgamClaimedCoords) == 1{
 				_room.isEdgeRoom = true;
 				dfloor.edgesArray[entriesCount] = [i,j] 
 				//^^_room.coords if you want this to be writeable thru dfloor.edgesArray for some reason
@@ -92,6 +97,7 @@ function specialRoomGetCoords(dfloor,sRoom){
 	var arr = getAllAvailableCoordsFittingReq(dfloor, sRoom.positionRequirements)
 	var potentialCoords = getAllAvailableRoomsFittingReq(dfloor,arr);
 	if (array_length(potentialCoords) == 0){
+		print("exitReason: array_length(potentialCoords) == 0");
 		exitDungeon = true;
 		exit;
 	}
@@ -117,6 +123,7 @@ function getAllAvailableRoomsFittingReq(dfloor,coordsArray){
 		}
 	}
 	if array_length(validRooms) == 0{
+		print("exitReason: array_length(validRooms) == 0");
 		retryDFloorGen(dfloor)
 	}
 	return validRooms;
@@ -147,6 +154,7 @@ function changeDoorState(dfloor, coords, dir, state){
 	_room.doors[dir] = state
 	var XY = getXY(dir);
 	var neighbour = ds_grid_get(dfloor.grid, coords[0]+XY[0], coords[1]+XY[1]);
+
 	neighbour.doors[(dir+2)mod 4] = state
 }
 
@@ -158,21 +166,40 @@ function closeDoor(dfloor, coords,dir){
 }
 
 function iterateRoom(dfloor, _room, doors = [-1,-1,-1,-1]){
-	var roomCoords = _room.coords;
-	var checkedDoors = [];
-	if doors[0] == -1{
-		generateDoors(dfloor, _room);
+	var doneArray = []
+	var amalgamAmt = array_length(_room.amalgamClaimedCoords);
+	for (var i = 0; i < amalgamAmt; i++){
+		doneArray[i] = false;
 	}
-	ds_grid_set(dfloor.grid, roomCoords[0],roomCoords[1], _room);
+	var ccPos = arrayInArrayPosition(_room.amalgamClaimedCoords,_room.coords)
+	iterateRoom_helper(dfloor,_room, ccPos, doors)
+	doneArray[ccPos] = true;
+	for (var i = 0; i < amalgamAmt; i++){
+		if !doneArray[i]{
+			iterateRoom_helper(dfloor,_room, i, doors)
+		}
+	}
 }
 
-
+function iterateRoom_helper(dfloor,_room, index, doors){
+	var newRoom = variable_clone(_room);
+	var oldCoords = newRoom.coords
+	newRoom.coords = [_room.amalgamClaimedCoords[index][0], _room.amalgamClaimedCoords[index][1]]
+	newRoom.doors = ds_grid_get(dfloor.grid, newRoom.coords[0], newRoom.coords[1]).doors
+	ds_grid_set(dfloor.grid, _room.amalgamClaimedCoords[index][0],_room.amalgamClaimedCoords[index][1], newRoom);
+	if doors[0] == -1{
+		generateDoors(dfloor, newRoom);
+	}
+}
 
 function generateDoors(dfloor, _room){
 	//step 1: discern door amounts
 	var doors = _room.doors;
+	print(" generateDoors: " + string(_room.coords));
+	print(doors);
 	var weights = [];
 	array_copy(weights, 0, _room.doorWeights, 0, array_length(_room.doorWeights));
+
 	var predecidedOpenDoors = 0;
 	var predecidedDoors = [-1,-1,-1,-1]
 	var borderDoors = 0;
@@ -193,7 +220,7 @@ function generateDoors(dfloor, _room){
 			}
 			weights[array_length(weights)-borderDoors] = 0;
 			predecidedDoors[i] = 0;
-		}else if (arrayContainsArray(dfloor.goalCoords, nextCoords) || doors[i] == 1){
+		}else if doors[i] == 1{
 			openDoor(dfloor, _room.coords, i);
 			weights[predecidedOpenDoors] = 0;
 			predecidedOpenDoors++;
@@ -232,18 +259,20 @@ function generateDoors(dfloor, _room){
 			totalOpenDoors++;
 			var XY = getXY(doorNoChosen);
 			var nextCoords = [_room.coords[0]+XY[0],_room.coords[1]+XY[1]]
-			
-			if !roomExists(ds_grid_get(dfloor.grid,nextCoords[0],nextCoords[1])){
+			var nextRoom = ds_grid_get(dfloor.grid,nextCoords[0],nextCoords[1])
+			if !roomExists(nextRoom) && !roomIsClaimed(nextRoom){
 				var newRoom = createRoom(dfloor, nextCoords,doorNoChosen)
 				ds_queue_enqueue(dfloor.roomsQueue,newRoom);
+				for (var i = 0; i < array_length(newRoom.amalgamClaimedCoords); i++){
+					var roomToClaim = ds_grid_get(dfloor.grid, newRoom.amalgamClaimedCoords[i][0], newRoom.amalgamClaimedCoords[i][1])
+					roomToClaim.roomType = "claimed";
+				}
 			}
 			array_delete(validDoorNumbers, randomDoorNo, 1);
 			doorAmtChosen--;
 		}
 	}
-	if totalOpenDoors == 1{
-
-	}
+	print("donezo");
 	return doors;
 }
 
@@ -257,5 +286,18 @@ function arrayContainsArray(array, valueArray){
 	return false;
 }
 
+function arrayInArrayPosition(array, valueArray){
+	for (var i = 0; i < array_length(array); i++){
+		if array_equals(valueArray,array[i]){
+			return i;
+		}
+	}
+	return -1;
+	return -1;
+}
 
+
+function roomIsClaimed(_room){
+	return _room.roomType == "claimed"
+}
 

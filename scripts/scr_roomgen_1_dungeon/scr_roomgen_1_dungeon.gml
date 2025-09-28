@@ -1,13 +1,23 @@
-function initiateDungeon(){
+function initiateDungeon(floorReqList){
 	exitDungeon = false;
 	attempts = 0;
-	dungeon = {floorCount : 0, floors : []};
-	var dfloor = populateDFloor(0);
-	dfloor.floorNo = dungeon.floorCount;
-	dfloor.dungeon = dungeon;
-	dungeon.floors[dungeon.floorCount] = dfloor;
-	dungeon.floorCount++;
-	dfloor = generateDFloor(dfloor)
+	var dungeon = {floorCount : 0, floors : ds_list_create()};
+	var listSize = ds_list_size(floorReqList)
+	for (var i = 0; i < listSize; i++){
+		print("my i is: " + string(i))
+		var floorReq = ds_list_find_value(floorReqList,0)
+
+		var dfloor = populateDFloor(floorReq);
+		dfloor.floorNo = dungeon.floorCount;
+		ds_list_add(dungeon.floors,dfloor)
+		dungeon.floorCount++;
+		dfloor = generateDFloor(dfloor)
+		ds_list_delete(floorReqList,0)
+	}
+	
+	ds_list_destroy(floorReqList);
+
+	return dungeon
 }
 
 function regenDfloor(dfloorNo){
@@ -19,7 +29,7 @@ function regenDfloor(dfloorNo){
 	print("Restarting floor gen");
 	var oldDfloor = dungeon.floors[dfloorNo];
 	destroydfloor(oldDfloor);
-	var dfloor = populateDFloor(0);
+	var dfloor = populateDFloor(currentFloorReq);
 	dfloor.floorNo = dfloorNo;
 	dungeon.floors[dfloorNo] = dfloor;
 	generateDFloor(dfloor)

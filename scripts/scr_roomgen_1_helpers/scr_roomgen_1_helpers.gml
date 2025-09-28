@@ -130,7 +130,6 @@ function pickRandomRoomByType(roomArray, roomType, roomShape) {
 
 function findRoomsByProperty(roomArray, propertyName, targetValue) {
     var foundRooms = [];
-    
     for (var i = 0; i < array_length(roomArray); i++) {
         var _room = roomArray[i];
         // Check if property exists AND matches targetValue
