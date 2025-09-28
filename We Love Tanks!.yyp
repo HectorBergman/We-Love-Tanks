@@ -177,6 +177,7 @@
     {"id":{"name":"obj_roomEditorDialogue","path":"objects/obj_roomEditorDialogue/obj_roomEditorDialogue.yy",},},
     {"id":{"name":"obj_roomEditorHandler","path":"objects/obj_roomEditorHandler/obj_roomEditorHandler.yy",},},
     {"id":{"name":"obj_roomEntrance","path":"objects/obj_roomEntrance/obj_roomEntrance.yy",},},
+    {"id":{"name":"obj_roomHandler_true","path":"objects/obj_roomHandler_true/obj_roomHandler_true.yy",},},
     {"id":{"name":"obj_roomHandler","path":"objects/obj_roomHandler/obj_roomHandler.yy",},},
     {"id":{"name":"obj_roomLoader","path":"objects/obj_roomLoader/obj_roomLoader.yy",},},
     {"id":{"name":"obj_roomTransition","path":"objects/obj_roomTransition/obj_roomTransition.yy",},},

@@ -135,6 +135,7 @@
     {"name":"obj_roomEditorDialogue","order":5,"path":"objects/obj_roomEditorDialogue/obj_roomEditorDialogue.yy",},
     {"name":"obj_roomEditorHandler","order":1,"path":"objects/obj_roomEditorHandler/obj_roomEditorHandler.yy",},
     {"name":"obj_roomEntrance","order":8,"path":"objects/obj_roomEntrance/obj_roomEntrance.yy",},
+    {"name":"obj_roomHandler_true","order":16,"path":"objects/obj_roomHandler_true/obj_roomHandler_true.yy",},
     {"name":"obj_roomLoader","order":1,"path":"objects/obj_roomLoader/obj_roomLoader.yy",},
     {"name":"obj_roomTransition","order":6,"path":"objects/obj_roomTransition/obj_roomTransition.yy",},
     {"name":"obj_saveable","order":9,"path":"objects/obj_saveable/obj_saveable.yy",},
