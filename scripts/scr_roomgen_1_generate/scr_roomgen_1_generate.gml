@@ -22,9 +22,6 @@ function generateDFloor(dfloor){
 	if exitDungeon{
 		return regenDfloor(dfloor.floorNo);
 	}
-	print("QueueLen:");
-	print(ds_queue_size(dfloor.roomsQueue));
-	print(ds_grid_get(dfloor.grid, 8,6));
 	visualizeFloor(dfloor)
 
 	
@@ -38,7 +35,9 @@ function iterateDFloor(dfloor){
 		var newRoom = ds_queue_dequeue(dfloor.roomsQueue);
 		iterateRoom(dfloor,newRoom)
 		generateCount++;
-		recalibrateDoorWeights(dfloor,40,generateCount)
+		print("penis")
+		print(dfloor)
+		recalibrateDoorWeights(dfloor,dfloor.roomAmountRange[1],generateCount)
 	}
 	return generateCount
 }
@@ -98,6 +97,7 @@ function specialRoomGetCoords(dfloor,sRoom){
 	var arr = getAllAvailableCoordsFittingReq(dfloor, sRoom.positionRequirements)
 	var potentialCoords = getAllAvailableRoomsFittingReq(dfloor,arr);
 	if (array_length(potentialCoords) == 0){
+		print("exitReason: array_length(potentialCoords) == 0");
 		exitDungeon = true;
 		exit;
 	}
@@ -123,6 +123,7 @@ function getAllAvailableRoomsFittingReq(dfloor,coordsArray){
 		}
 	}
 	if array_length(validRooms) == 0{
+		print("exitReason: array_length(validRooms) == 0");
 		retryDFloorGen(dfloor)
 	}
 	return validRooms;
@@ -165,9 +166,6 @@ function closeDoor(dfloor, coords,dir){
 }
 
 function iterateRoom(dfloor, _room, doors = [-1,-1,-1,-1]){
-	print("iterateRoom: ")
-	print(_room);
-	//1,7 boss room or item room!!!
 	var doneArray = []
 	var amalgamAmt = array_length(_room.amalgamClaimedCoords);
 	for (var i = 0; i < amalgamAmt; i++){
@@ -187,8 +185,6 @@ function iterateRoom_helper(dfloor,_room, index, doors){
 	var newRoom = variable_clone(_room);
 	var oldCoords = newRoom.coords
 	newRoom.coords = [_room.amalgamClaimedCoords[index][0], _room.amalgamClaimedCoords[index][1]]
-	print(newRoom.coords)
-	print("newroomcoords^^^^");
 	newRoom.doors = ds_grid_get(dfloor.grid, newRoom.coords[0], newRoom.coords[1]).doors
 	ds_grid_set(dfloor.grid, _room.amalgamClaimedCoords[index][0],_room.amalgamClaimedCoords[index][1], newRoom);
 	if doors[0] == -1{
@@ -203,6 +199,7 @@ function generateDoors(dfloor, _room){
 	print(doors);
 	var weights = [];
 	array_copy(weights, 0, _room.doorWeights, 0, array_length(_room.doorWeights));
+
 	var predecidedOpenDoors = 0;
 	var predecidedDoors = [-1,-1,-1,-1]
 	var borderDoors = 0;
