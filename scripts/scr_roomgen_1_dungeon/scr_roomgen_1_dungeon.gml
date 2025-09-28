@@ -4,7 +4,7 @@ function initiateDungeon(floorReqList){
 	var dungeon = {floorCount : 0, floors : ds_list_create()};
 	var listSize = ds_list_size(floorReqList)
 	for (var i = 0; i < listSize; i++){
-		print("my i is: " + string(i))
+
 		var floorReq = ds_list_find_value(floorReqList,0)
 
 		var dfloor = populateDFloor(floorReq);

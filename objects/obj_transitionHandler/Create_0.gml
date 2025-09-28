@@ -48,7 +48,7 @@ SignalSubscribe(id, "transitionStart", function(arg){
 				ds_list_add(delayNewRoom, "newRoom")
 			}
 		}break;
-		case (transitionTypes.toShop):{
+		/*case (transitionTypes.toShop):{
 			transitionSignal = function(){
 				SignalSend("transportShop", transitionArr)
 				ds_list_add(delayNewRoom, "shop")
@@ -59,7 +59,7 @@ SignalSubscribe(id, "transitionStart", function(arg){
 				SignalSend("transportNextStage", transitionArr)
 				ds_list_add(delayNewRoom, "nextStage")
 			}
-		}break;
+		}break;*/
 	}
 	global.transitionPause = true;
 	tP = transitionPhase.start;

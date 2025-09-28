@@ -1,16 +1,7 @@
 PAUSE
-if willTry{
-	try{
-		getTransitionFunction()
-		willTry = false;
-	}catch(e){
-	}
-}
-if (place_meeting(x,y,obj_player)){
-	if !colliding{
-		print("collide")
-		transitionFunction();
-	}
-}else{
-	colliding = false;
+
+if (place_meeting(x,y,obj_player) && active){
+	
+	transitionFunction();
+	
 }

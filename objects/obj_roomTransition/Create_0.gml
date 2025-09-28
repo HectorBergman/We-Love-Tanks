@@ -1,10 +1,12 @@
 pauseMode = allPause;
 colliding=false;
-willTry = true;
+active = false
+SignalSubscribe(id,"transitionEnd", function(arg){active = true})
 
 transitionFunction = function(){}
 function getTransitionFunction(){
-	switch(obj_currentRoomHandler.roomDoors[roomNo][doorNo]){
+	//todo: amend
+	switch(obj_roomHandler_true.currentRoom.doors[doorNo]){//roomDoors[roomNo][doorNo]){
 		case doorValues.open:{
 			transitionFunction = function(){
 				//signal to transitionHandler
@@ -18,7 +20,7 @@ function getTransitionFunction(){
 		case doorValues.openToNewStage:{
 			transitionFunction = function(){with obj_levelHandler{enterLevel();};instance_destroy();}
 		}break;
-		case doorValues.openToShop:{
+		/*case doorValues.openToShop:{
 			transitionFunction = function(){
 				SignalSend("transitionStart", {
 					transitionType: transitionTypes.toShop, 
@@ -26,6 +28,11 @@ function getTransitionFunction(){
 				})
 				instance_destroy();
 			}
-		}break;
+		}break;*/
 	}
+}
+try{
+	getTransitionFunction()
+}catch(e){
+	SignalSubscribe(id, "getTransitionFunction", getTransitionFunction)
 }
