@@ -47,7 +47,8 @@ function death(){
 	with obj_player{
 		loop_onKill(dinfo)
 	}
-	obj_currentRoomHandler._room.bossBeaten = true;
+	//obj_currentRoomHandler._room.bossBeaten = true;
+	SignalSend("clearedStatus", true)
 	instance_destroy();
 }
 

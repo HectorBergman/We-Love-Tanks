@@ -1,12 +1,6 @@
 PAUSE
-SignalSubscribe(id, "doors:",function(arg){
-	var relevantDoor = arg[_direction]
-	if relevantDoor == doorValues.open{
-		image_index = 1;
-	}else if relevantDoor == doorValues.closed{
-		sprite_index = spr_wall;
-	}
-})
+
+
 /*if instance_exists(obj_currentRoomHandler){
 	var relevantDoor = obj_currentRoomHandler.roomDoors[roomNo][_direction]
 	if relevantDoor == doorValues.open ||

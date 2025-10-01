@@ -94,6 +94,8 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 	var preRandoms = [];
 	if !is_undefined(roomInfo){
 		preRandoms = generateRandoms(roomInfo.savedRandomsNeeded);
+	}else{
+		roomInfo = { roomName : "", instances: [], sanitized : 1, roomShape : "normal", roomType : "standard", savedRandomsNeeded: 0}
 	}
 	var fullRoomInfo = {
 		specialRoomInfo: sRoom, 
@@ -106,9 +108,10 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 		cleared : false,
 		amalgamClaimedCoords : amalgamClaimedCoords,
 		roomShape : roomShape,
-		loadedEntities : [],
+		loadedEntities : ds_queue_create(),
 		preRandoms : preRandoms,
-		coords : coords
+		coords : coords,
+		roomInfo : roomInfo
 	}	
 	return fullRoomInfo
 }

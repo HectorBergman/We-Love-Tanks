@@ -55,6 +55,7 @@ function death(){
 	with obj_player{
 		loop_onKill(dinfo)
 	}
+	SignalSend("clearedStatus", true)
 	instance_destroy();
 }
 
