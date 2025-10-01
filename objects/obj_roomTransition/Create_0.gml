@@ -1,7 +1,7 @@
 pauseMode = allPause;
 colliding=false;
 active = false
-SignalSubscribe(id,"transitionEnd", function(arg){active = true})
+SignalSubscribe(id,"transitionEnd", function(arg){active = true;})
 
 transitionFunction = function(){}
 function getTransitionFunction(){
@@ -20,15 +20,6 @@ function getTransitionFunction(){
 		case doorValues.openToNewStage:{
 			transitionFunction = function(){with obj_levelHandler{enterLevel();};instance_destroy();}
 		}break;
-		/*case doorValues.openToShop:{
-			transitionFunction = function(){
-				SignalSend("transitionStart", {
-					transitionType: transitionTypes.toShop, 
-					transitionArr :[xDiff,yDiff,roomNo,doorNo]
-				})
-				instance_destroy();
-			}
-		}break;*/
 	}
 }
 try{

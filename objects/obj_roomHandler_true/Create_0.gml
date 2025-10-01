@@ -6,6 +6,7 @@ enterInfo = {
 	enteredRoomNo: 0,
 	enteredRoomDir: [-1,-1]
 }
+enteredDoor = -1
 var startPoint = [1,1]
 var spezRooms = [
 	createSpecialRoom("item", posRequirement(coordsWithinRangeChebyshev,[startPoint, 0,3])),
@@ -13,7 +14,7 @@ var spezRooms = [
 ]
 floorReqs = ds_list_create()
 var oneReq = floorRequirements([3,3],startPoint,0.1,[[0,0,4,2,1], [0,0.5,4,1,1], [0,1,2,2,1], [0,1,4,1,0.5], [0,1.1,0.5,0,0]],[4,8],spezRooms)
-
+SignalSubscribe(id,"roomEntered: general", function(){SignalSend("roomEntranceNo", (enteredDoor+2) mod 4)})
 ds_list_add(floorReqs, oneReq);ds_list_add(floorReqs, oneReq);
 currentDungeon = initiateDungeon(floorReqs);
 changeFloor(0)
@@ -26,6 +27,7 @@ SignalSubscribe(id,"transportRoom",function(arg){
 function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
 	//storePreviousRoom();
 	checkCleared()
+	enteredDoor = doorNo;
 	//var extraDiff = getRoomDiff(enterInfo.enteredRoomNo,roomNo);
 	//enterInfo.enteredRoomDoor = doorNo;
 	currentRoom.coords = [currentRoom.coords[0]+xDirection, currentRoom.coords[1]+yDirection]//+extraDiff[0],currentRoom[1]+yDirection+extraDiff[1]];
