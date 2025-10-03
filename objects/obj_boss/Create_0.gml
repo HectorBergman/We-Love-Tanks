@@ -49,6 +49,7 @@ function death(){
 	}
 	//obj_currentRoomHandler._room.bossBeaten = true;
 	SignalSend("clearedStatus", true)
+	SignalSend("Boss defeated") //todo: account for more than 1 boss being present
 	instance_destroy();
 }
 

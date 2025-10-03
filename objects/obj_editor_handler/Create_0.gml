@@ -175,6 +175,7 @@ function destroyEditorObjects(){
 	instance_destroy(obj_editor_player_standIn);
 	instance_destroy(obj_editor_saveRoomButton);
 	instance_destroy(obj_editor_itemInstance);
+	instance_destroy(obj_boss);
 }
 
 summonMenuObjects();

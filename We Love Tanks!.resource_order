@@ -86,6 +86,7 @@
     {"name":"obj_currentRoomHandler","order":2,"path":"objects/obj_currentRoomHandler/obj_currentRoomHandler.yy",},
     {"name":"obj_dollar","order":9,"path":"objects/obj_dollar/obj_dollar.yy",},
     {"name":"obj_dungeonGenerator","order":17,"path":"objects/obj_dungeonGenerator/obj_dungeonGenerator.yy",},
+    {"name":"obj_dungeonTrans","order":17,"path":"objects/obj_dungeonTrans/obj_dungeonTrans.yy",},
     {"name":"obj_editor_displayObjects","order":2,"path":"objects/obj_editor_displayObjects/obj_editor_displayObjects.yy",},
     {"name":"obj_editor_handler","order":1,"path":"objects/obj_editor_handler/obj_editor_handler.yy",},
     {"name":"obj_editor_instanceMenu","order":2,"path":"objects/obj_editor_instanceMenu/obj_editor_instanceMenu.yy",},

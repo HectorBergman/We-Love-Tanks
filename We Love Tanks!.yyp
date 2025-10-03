@@ -121,6 +121,7 @@
     {"id":{"name":"obj_detectionSquare","path":"objects/obj_detectionSquare/obj_detectionSquare.yy",},},
     {"id":{"name":"obj_dollar","path":"objects/obj_dollar/obj_dollar.yy",},},
     {"id":{"name":"obj_dungeonGenerator","path":"objects/obj_dungeonGenerator/obj_dungeonGenerator.yy",},},
+    {"id":{"name":"obj_dungeonTrans","path":"objects/obj_dungeonTrans/obj_dungeonTrans.yy",},},
     {"id":{"name":"obj_editor_displayObjects","path":"objects/obj_editor_displayObjects/obj_editor_displayObjects.yy",},},
     {"id":{"name":"obj_editor_handler","path":"objects/obj_editor_handler/obj_editor_handler.yy",},},
     {"id":{"name":"obj_editor_instanceMenu","path":"objects/obj_editor_instanceMenu/obj_editor_instanceMenu.yy",},},

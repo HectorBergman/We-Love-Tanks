@@ -6,31 +6,43 @@ enterInfo = {
 	enteredRoomNo: 0,
 	enteredRoomDir: [-1,-1]
 }
+currentDungeon = noone;
+currentFloor = noone;
+currentRoom = noone;
+function newDungeon(){
+	with (obj_roomHandler_true){
+		var startPoint = [1,1]
+		var spezRooms = [
+			createSpecialRoom("item", posRequirement(coordsWithinRangeChebyshev_edgesOnly,[startPoint, 0,3])),
+			createSpecialRoom("boss", posRequirement(coordsWithinRangeChebyshev_edgesOnly,[startPoint, 0,3]))
+		]
+		floorReqs = ds_list_create()
+		var oneReq = floorRequirements([3,3],startPoint,0.1,[[0,0,4,2,1], [0,0.5,4,1,1], [0,1,2,2,1], [0,1,4,1,0.5], [0,1.1,0.5,0,0]],[4,8],spezRooms)
+		SignalSubscribe(id,"roomEntered: general", function(){
+			print("roomentered: ",currentRoom.doors);
+			SignalSend("roomEntranceNo", (enteredDoor+2) mod 4);
+			SignalSend("doors:", currentRoom.doors);
+			SignalSend("clearedStatus", currentRoom.cleared);
+			loadRoom(currentRoom)
+		})
+		ds_list_add(floorReqs, oneReq);
+		ds_list_add(floorReqs, oneReq);
+		currentDungeon = initiateDungeon(floorReqs);
+		currentFloor = changeFloor(currentDungeon, 0)
+		print(currentFloor)
+		print(currentDungeon)
+		print(currentRoom);
+		currentRoom = ds_grid_get(currentFloor.grid, currentFloor.startPoint[0],currentFloor.startPoint[1])
+		print(ds_grid_get(currentFloor.grid, 0,0))
+	}
+}
 enteredDoor = -1
-var startPoint = [1,1]
-var spezRooms = [
-	createSpecialRoom("item", posRequirement(coordsWithinRangeChebyshev,[startPoint, 0,3])),
-	createSpecialRoom("boss", posRequirement(coordsWithinRangeChebyshev,[startPoint, 0,3]))
-]
-floorReqs = ds_list_create()
-var oneReq = floorRequirements([3,3],startPoint,0.1,[[0,0,4,2,1], [0,0.5,4,1,1], [0,1,2,2,1], [0,1,4,1,0.5], [0,1.1,0.5,0,0]],[4,8],spezRooms)
-SignalSubscribe(id,"roomEntered: general", function(){
-	print("roomentered: ",currentRoom.doors);
-	SignalSend("roomEntranceNo", (enteredDoor+2) mod 4);
-	SignalSend("doors:", currentRoom.doors);
-	SignalSend("clearedStatus", currentRoom.cleared);
-	loadRoom(currentRoom)
-})
-ds_list_add(floorReqs, oneReq);
-ds_list_add(floorReqs, oneReq);
-currentDungeon = initiateDungeon(floorReqs);
-changeFloor(0)
-
-currentRoom = ds_grid_get(currentFloor.grid, currentFloor.startPoint[0],currentFloor.startPoint[1])
-print(ds_grid_get(currentFloor.grid, 0,0))
+newDungeon()
 SignalSubscribe(id,"transportRoom",function(arg){
 	enterNewRoom(arg[0],arg[1],arg[2],arg[3]);
 });
+SignalSubscribe(id, "Boss defeated", summonDungeonTrans);
+SignalSubscribe(id,"newDungeon", newDungeon)
 
 function enterNewRoom(xDirection, yDirection,roomNo,doorNo){
 	storePreviousRoom();
@@ -111,9 +123,14 @@ function checkCleared(){
 		instance_number(obj_enemySpawner) == 0
 }
 
-function changeFloor(floorNo){
-	currentFloorNo = floorNo
-	currentFloor = ds_list_find_value(currentDungeon.floors, currentFloorNo)
+function changeFloor(currentDungeon, floorNo){
+	print("lol")
+	for (var i = 0; i < ds_list_size(currentDungeon.floors); i++){
+		print(ds_list_find_value(currentDungeon.floors,i));
+	}
+	var currentFloorNo = floorNo
+	var currentFloor = ds_list_find_value(currentDungeon.floors, currentFloorNo)
+	return currentFloor;
 }
 function lol(changeDiff){
 	if inRange(currentFloorNo+floorDiff, 0, currentDungeon.floorCount){
@@ -123,4 +140,8 @@ function lol(changeDiff){
 	}
 }
 SignalSend("getTransitionFunction")
+
+function summonDungeonTrans(){
+	summonObject(obj_dungeonTrans, [["x", room_width/2],["y",room_height/2]])
+}
 //SignalSubscribe(id, "roomEntered: newRoom", roomEnterLogic);

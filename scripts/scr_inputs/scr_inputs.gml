@@ -42,6 +42,9 @@ function playerInput(){
 	if keyboard_check(vk_shift){
 		run = true;
 	}
+	if keyboard_check(ord("E")){
+		interact = true;
+	}
 	if keyboard_check(ord("T")){
 		debugUnlockAndKill = true;
 	}
@@ -97,4 +100,5 @@ function resetInputs(){
 	del = false;
 	rightClick = false;
 	clickRelease = false;
+	interact = false;
 }

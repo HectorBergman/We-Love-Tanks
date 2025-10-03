@@ -23,6 +23,7 @@ function createSpecialRoom(
 	unlockRequirements = function(){return true}, 
 	uniqueRoom = noone
 ){
+	
 	var specialRoom = {
 		roomType: roomType,
 		positionRequirements: positionRequirements,
@@ -90,7 +91,11 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 	}
 	
 	//roomName, instances, sanitized, roomShape, roomType, savedRandomsNeeded
+	if roomType != "standard"{
+		print("roomType: ",roomType);
+	}
 	var roomInfo = pickRandomRoomByType(global.roomList, roomType, roomShape[0])//add something in here for custom rooms
+	print(roomInfo)
 	var preRandoms = [];
 	if !is_undefined(roomInfo){
 		preRandoms = generateRandoms(roomInfo.savedRandomsNeeded);
@@ -163,6 +168,7 @@ function posRequirement(reqFunc,extraArgs){
 }
 
 function createDFloor(
+		floorReqs,
 		amalgamOdds = 0,
 		startPoint = [5,5], 
 		dimensions = [10,10], 
@@ -180,11 +186,13 @@ function createDFloor(
 		doorWeights : possibleDoorWeights.stage0,
 		possibleDoorWeights : possibleDoorWeights,
 		edgesArray : [],
+		availableRooms : [],
 		roomAmountRange : roomAmountRange,
 		goalCoords : [],
 		roomsQueue : ds_queue_create(),
 		queueGrid : ds_grid_create(dimensions[0],dimensions[1]),
-		floorNo : -1
+		floorNo : -1,
+		floorReqs : floorReqs
 	}
 	for (var j = 0; j < dimensions[1]; j++){
 		for (var i = 0; i < dimensions[0]; i++){
@@ -208,11 +216,12 @@ function generateDoorWeights(stagesArray){
 	
 function populateDFloor(floorReqs){
 	var startPoint = floorReqs.startPoint
-	var dfloor = createDFloor(floorReqs.amalgamOdds,startPoint, floorReqs.floorDimensions, floorReqs.doorWeights, floorReqs.roomAmountRange)
+	var dfloor = createDFloor(floorReqs, floorReqs.amalgamOdds,startPoint, floorReqs.floorDimensions, floorReqs.doorWeights, floorReqs.roomAmountRange)
 	/*var specialRooms = [
 		createSpecialRoom("item", posRequirement(coordsWithinRangeChebyshev,[floorReqs.startPoint, 2,3])),
 		createSpecialRoom("boss", posRequirement(coordsWithinRangeChebyshev,[floorReqs.startPoint, 4,5]))
 	]*/
+	
 	dfloor.specialRoomArray = floorReqs.specialRooms
 	initiateSpecialRoom(dfloor,startRoom)
 	return dfloor;

@@ -45,7 +45,7 @@ function getAllAvailableCoordsFittingReq(dfloor,requirement){
 	for (var i = 0; i < ds_map_size(map); i++){
 		if ds_map_find_value(map,current){
 			var coord = getCoordsFromString(current);
-			if requirement.requirementFunction(array_concat([[coord[0],coord[1]]],requirement.extraArguments)){
+			if requirement.requirementFunction(array_concat([dfloor],[[coord[0],coord[1]]],requirement.extraArguments)){
 				arr[arrIndex] = coord;
 				arrIndex++
 			}
@@ -56,20 +56,39 @@ function getAllAvailableCoordsFittingReq(dfloor,requirement){
 }
 //coord, startCoords, minimum, maximum
 function coordsWithinRangeManhattan(argArray){
-	var coord = argArray[0];
-	var startCoords = argArray[1];
-	var minimum = argArray[2];
-	var maximum = argArray[3];
+	var coord = argArray[1];
+	var startCoords = argArray[2];
+	var minimum = argArray[3];
+	var maximum = argArray[4];
 	return inRange(manhattanDistance(coord,startCoords), minimum, maximum)
 }
 function coordsWithinRangeChebyshev(argArray){
-	var coord = argArray[0];
-	var startCoords = argArray[1];
-	var minimum = argArray[2];
-	var maximum = argArray[3];
+	var coord = argArray[1];
+	var startCoords = argArray[2];
+	var minimum = argArray[3];
+	var maximum = argArray[4];
 	return inRange(chebyshevDistance(coord,startCoords), minimum, maximum)
 }
 
+function coordsWithinRangeChebyshev_edgesOnly(argArray){
+	var dfloor = argArray[0]
+	var coord = argArray[1];
+	
+	var chebyshev = coordsWithinRangeChebyshev(argArray)
+	var isAnEdge = roomDoorCount(dfloor,ds_grid_get(dfloor.grid, coord[0],coord[1])) == 1
+
+	return chebyshev && isAnEdge
+}
+function coordsWithinRangeChebyshev_edgesOnly_boss(argArray){
+	var dfloor = argArray[0]
+	var coord = argArray[1];
+	
+	var chebyshev = coordsWithinRangeChebyshev(argArray)
+	var isAnEdge = roomDoorCount(dfloor,ds_grid_get(dfloor.grid, coord[0],coord[1])) == 1
+	var hasEmptyNeighbour = hasEmptyNeighbour(dfloor,coord)
+
+	return chebyshev && isAnEdge
+}
 
 
 
@@ -107,6 +126,7 @@ function setAllRoomsAvailable(floorDimensions){
 
 function pickRandomRoomByType(roomArray, roomType, roomShape) {
     var matchingRooms = findRoomsByProperty(roomArray, "roomType", roomType);
+	print("pickRandomRoomByType: ",roomType)
     if (array_length(matchingRooms) == 0) {
         return undefined; // No matches found
     }
