@@ -12,7 +12,14 @@ function getTransitionFunction(){
 				//signal to transitionHandler
 				SignalSend("transitionStart", {
 					transitionType: transitionTypes.toRoom, 
-					transitionArr : [xDiff,yDiff,roomNo,doorNo, obj_player.movementVector]
+					transitionStruct : {
+						diff: [xDiff,yDiff],
+						roomNo:roomNo,
+						doorNo:doorNo, 
+						movementVector: obj_player.movementVector,
+						store: true
+					},
+					transitionLengthMult : 1
 				})
 				instance_destroy();
 			}

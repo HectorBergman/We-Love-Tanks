@@ -9,8 +9,8 @@
   "name":"obj_dungeonTrans",
   "overriddenProperties":[],
   "parent":{
-    "name":"handlers",
-    "path":"folders/Objects/handlers.yy",
+    "name":"wallsNStuff",
+    "path":"folders/Objects/wallsNStuff.yy",
   },
   "parentObjectId":null,
   "persistent":false,

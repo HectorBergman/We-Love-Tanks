@@ -146,7 +146,6 @@ function summonEditorObjects(){
 }
 
 function initiateRoom(){
-	//["@ref object(obj_enemySpawner)",[["enemyType","stiffNormal"],["x",560.0],["y",144.0],["image_xscale",1.0],["image_yscale",1.0]]]
 	if roomsPosition != 0{
 		SignalSend("editor_handler: enterRoom", searchArray[roomsPosition-1]);
 		for (var i = 0; i < array_length(searchArray[roomsPosition-1].instances); i++){

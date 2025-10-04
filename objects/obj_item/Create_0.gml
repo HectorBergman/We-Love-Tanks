@@ -1,3 +1,4 @@
+
 pauseMode = allPause;
 floatingValue = 0;
 floatingAdd = 0.03;
@@ -8,6 +9,13 @@ depth = -10;
 enum itemState{
 	idle,
 	collected,
+}
+try{
+	if state == itemState.collected{
+		instance_destroy()
+		exit;
+	}
+}catch(e){
 }
 state = itemState.idle;
 textY = -200;

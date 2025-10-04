@@ -1,24 +1,31 @@
 pauseMode = [pM.pauseMenu];
 collideable = true;
+
 enum doorModes{
 	open,
 	locked,
 	wall,
 }
 mode = doorModes.wall
-SignalSubscribe(id, "doors:",function(doors){
-	var relevantDoor = doors[_direction]
-	
+SignalSubscribe(id, "doors:",function(currentRoom){
+	var relevantDoor = currentRoom.doors[_direction]
 	if relevantDoor == doorValues.open{
-		image_index = 1;
-		mode = doorModes.open
+		if currentRoom.cleared ||(
+			instance_number(obj_enemy) == 0 && instance_number(obj_enemySpawner) == 0 &&
+			instance_number(obj_boss)  == 0 && instance_number(obj_bossSpawner)  == 0
+		){
+			image_index = 1;
+			mode = doorModes.open
+		}else{
+			image_index = 0;
+			mode = doorModes.locked
+		}
 	}else if relevantDoor == doorValues.closed{
 		sprite_index = spr_wall;
 		mode = doorModes.wall
 	}
 })
 SignalSubscribe(id, "clearedStatus", function(isCleared){
-	print("clearedStatus received ",isCleared)
 	if isCleared && mode != doorModes.wall{
 		mode = doorModes.open
 		image_index = 1;
