@@ -30,6 +30,7 @@ function newDungeon(){
 		currentDungeon = initiateDungeon(floorReqs);
 		currentFloor = changeFloor(currentDungeon, 0)
 		currentRoom = ds_grid_get(currentFloor.grid, currentFloor.startPoint[0],currentFloor.startPoint[1])
+		minimapFullUpdate()
 	}
 }
 enteredDoor = -1
@@ -39,7 +40,14 @@ SignalSubscribe(id,"transportRoom",function(arg){
 });
 SignalSubscribe(id, "Boss defeated", summonDungeonTrans);
 SignalSubscribe(id,"newDungeon",  nextLvl)
+SignalSubscribe(id,"minimap", minimapFullUpdate)
 
+function minimapFullUpdate(){
+	SignalSend("update: currentDungeon", currentDungeon)
+	SignalSend("update: currentFloor", currentFloor)
+	SignalSend("update: currentRoom", currentRoom)
+	SignalSend("update: minimap")
+}
 
 function nextLvl(){
 	newDungeon()
@@ -87,6 +95,8 @@ function enterNewRoom(dir,roomNo,doorNo, store = true){
 		forceCrash("roomOutsideBoundaries");
 		//todo: add error room
 	}
+	SignalSend("update: currentRoom", currentRoom)
+	SignalSend("update: minimap")
 	//isNewRoom = true;
 }
 

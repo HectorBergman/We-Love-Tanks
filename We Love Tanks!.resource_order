@@ -112,6 +112,7 @@
     {"name":"obj_lock_boss","order":10,"path":"objects/obj_lock_boss/obj_lock_boss.yy",},
     {"name":"obj_lock","order":7,"path":"objects/obj_lock/obj_lock.yy",},
     {"name":"obj_lvlTrans_debug","order":11,"path":"objects/obj_lvlTrans_debug/obj_lvlTrans_debug.yy",},
+    {"name":"obj_minimapHandler_true","order":17,"path":"objects/obj_minimapHandler_true/obj_minimapHandler_true.yy",},
     {"name":"obj_minimapHandler","order":3,"path":"objects/obj_minimapHandler/obj_minimapHandler.yy",},
     {"name":"obj_moneyHandler","order":9,"path":"objects/obj_moneyHandler/obj_moneyHandler.yy",},
     {"name":"obj_mouse","order":12,"path":"objects/obj_mouse/obj_mouse.yy",},

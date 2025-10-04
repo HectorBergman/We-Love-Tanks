@@ -12,7 +12,6 @@ function generateDFloor(dfloor){
 	fillAvailableRooms(dfloor)
 	//remove entry from dfloor.edgesArray if used
 	if exitDungeon{
-		print("regendfloor")
 		return regenDfloor(dfloor);
 	}
 	for (var i = 0; i < array_length(dfloor.specialRoomArray); i++){
@@ -22,20 +21,10 @@ function generateDFloor(dfloor){
 		}
 	}
 	if exitDungeon{
-		print("regendfloor")
 		var regendfloor = regenDfloor(dfloor);
-		if is_undefined(regendfloor){
-			print("undefined regendfloor")
-		}
 		return  regendfloor
 	}
 	visualizeFloor(dfloor)
-	print("returning:");
-	print(dfloor);
-	if is_undefined(dfloor){
-		print("undefined dfloor on attempt: ", attempt)
-	}
-	
 	return dfloor;
 }
 
@@ -46,8 +35,6 @@ function iterateDFloor(dfloor){
 		var newRoom = ds_queue_dequeue(dfloor.roomsQueue);
 		iterateRoom(dfloor,newRoom)
 		generateCount++;
-		print("penis")
-		print(dfloor)
 		recalibrateDoorWeights(dfloor,dfloor.roomAmountRange[1],generateCount)
 	}
 	return generateCount

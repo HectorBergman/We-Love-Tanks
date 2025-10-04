@@ -152,6 +152,7 @@
     {"id":{"name":"obj_lock_boss","path":"objects/obj_lock_boss/obj_lock_boss.yy",},},
     {"id":{"name":"obj_lock","path":"objects/obj_lock/obj_lock.yy",},},
     {"id":{"name":"obj_lvlTrans_debug","path":"objects/obj_lvlTrans_debug/obj_lvlTrans_debug.yy",},},
+    {"id":{"name":"obj_minimapHandler_true","path":"objects/obj_minimapHandler_true/obj_minimapHandler_true.yy",},},
     {"id":{"name":"obj_minimapHandler","path":"objects/obj_minimapHandler/obj_minimapHandler.yy",},},
     {"id":{"name":"obj_moneyHandler","path":"objects/obj_moneyHandler/obj_moneyHandler.yy",},},
     {"id":{"name":"obj_mouse","path":"objects/obj_mouse/obj_mouse.yy",},},

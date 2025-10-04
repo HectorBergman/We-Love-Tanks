@@ -45,7 +45,7 @@ function normal_summon(){
 	normCrossHair = summonObject(obj_crosshair, [["x", 960/2], ["y", 540/2]]);
 	normCam = summonObject(obj_cam);
 	//normCurrRoom = summonObject(obj_currentRoomHandler);
-	//normMinimapHand = summonObject(obj_minimapHandler);
+	normMinimapHand = summonObject(obj_minimapHandler_true);
 	normMoneyHand = summonObject(obj_moneyHandler);
 	normLevelH = summonObject(obj_levelHandler);
 	
