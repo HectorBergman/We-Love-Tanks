@@ -7,8 +7,10 @@ searchArray = [];
 toDrawArray = [];
 justexited = false;
 menu = noone;
+globalMenu = noone;
 menuOffset = [600,32];
 SignalSubscribe(id, "saved room", function(arg){ saveRoom(arg)})
+SignalSubscribe(id, "openedMenu", function(openedMenu){ globalMenu = openedMenu});
 loadAllRoomData();
 
 

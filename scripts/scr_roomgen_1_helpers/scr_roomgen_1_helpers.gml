@@ -124,21 +124,25 @@ function setAllRoomsAvailable(floorDimensions){
 /// @param {string} roomType   Type to filter by (e.g., "fun", "boss")
 /// @returns {struct|undefined} Random room struct (or undefined if no matches)
 
-function pickRandomRoomByType(roomArray, roomType, roomShape) {
-    var matchingRooms = findRoomsByProperty(roomArray, "roomType", roomType);
+function pickRandomRoomByType(roomArray, roomType, roomShape, roomSubtype = noone) {
+    var matchingRoomsType = findRoomsByProperty(roomArray, "roomType", roomType);
+	var matchingRoomsSubtype = matchingRoomsType
+	if roomSubtype != noone{
+		matchingRoomsSubtype = findRoomsByProperty(matchingRooms,"roomSubtype", roomSubtype)
+	}
 	print("pickRandomRoomByType: ",roomType)
     if (array_length(matchingRooms) == 0) {
-        return undefined; // No matches found
+        return undefined;
     }
-    var matchingRoomShapes = findRoomsByProperty(matchingRooms, "roomShape", roomShape);
+    var matchingRoomsShape = findRoomsByProperty(matchingRoomsSubtype, "roomShape", roomShape);
 
-    // Pick a random index from the filtered list
-    var randomIndex = irandom(array_length(matchingRoomShapes) - 1);
-	var newInstances = sanitizeRoomFromRoomData(matchingRoomShapes[randomIndex])
+    
+    var randomIndex = irandom(array_length(matchingRoomsShape) - 1);
+	var newInstances = sanitizeRoomFromRoomData(matchingRoomsShape[randomIndex])
 
-	matchingRoomShapes[randomIndex].instances = newInstances;
+	matchingRoomsShape[randomIndex].instances = newInstances;
 
-	return matchingRoomShapes[randomIndex];
+	return matchingRoomsShape[randomIndex];
 }
 
 /// @function findRoomsByProperty(roomArray, propertyName, targetValue)

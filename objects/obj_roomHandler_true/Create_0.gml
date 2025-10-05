@@ -152,7 +152,6 @@ function checkCleared(){
 }
 
 function changeFloor(currentDungeon, floorNo){
-	print("lol")
 	for (var i = 0; i < ds_list_size(currentDungeon.floors); i++){
 		print(ds_list_find_value(currentDungeon.floors,i));
 	}

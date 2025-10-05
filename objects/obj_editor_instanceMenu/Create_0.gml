@@ -2,7 +2,7 @@
 if (variable_instance_exists(id,"DOindex")){
 	getDisplayObjectInfo(DOindex)
 }
-
+SignalSubscribe(id, "openedMenu", function(arg){if arg != id{close()}})
 searchForClick(close)
 function close(){
 	SignalSend("closeMenu: " + string(instanceId))
@@ -11,6 +11,24 @@ function close(){
 }
 toDrawArr = [];
 function summonOptions(){
+	var width = getWidestWidth()
+	image_xscale = (width.widest+width.widestArgumentChoices+48)/sprite_width;
+	
+	var heightNeeded = 32;
+	for (var i = 0; i < array_length(objectArguments); i++){
+		summonObject(obj_editor_menu_argumentForm,
+			[["coordsOffset",[16+width.widest+coordsOffset[0], i*24+8+coordsOffset[1]]], 
+			["type", objectArguments[i].argumentType], ["depth", depth-1],
+			["instanceId", instanceId], ["argumentIndex", i], ["name", objectArguments[i].argumentName],
+			["argumentChoice",instanceArgumentsChoices[i]],
+			["allArgumentChoices",objectArguments[i].argumentChoices], ["width", width.widestArgumentChoices]]
+		);
+		heightNeeded += 24;
+		
+	}
+	image_yscale = (heightNeeded)/sprite_height;
+}
+function getWidestWidth(){
 	widestWidthNameText = 0;
 	widestWidthArgumentText = 0;
 	var widestWidth = getWidestText(objectArguments, function(arg, i){ var s = string(arg.argumentName)+ ":"; toDrawArr[i] = scribble(s); return s;});
@@ -23,21 +41,7 @@ function summonOptions(){
 		}
 	
 	}
-	image_xscale = (widestWidthArgumentChoices+widestWidth+48)/sprite_width;
-	
-	var heightNeeded = 32;
-	for (var i = 0; i < array_length(objectArguments); i++){
-		summonObject(obj_editor_menu_argumentForm,
-			[["coordsOffset",[16+widestWidth+coordsOffset[0], i*24+8+coordsOffset[1]]], 
-			["type", objectArguments[i].argumentType], ["depth", depth-1],
-			["instanceId", instanceId], ["argumentIndex", i], ["name", objectArguments[i].argumentName],
-			["argumentChoice",instanceArgumentsChoices[i]],
-			["allArgumentChoices",objectArguments[i].argumentChoices], ["width", widestWidthArgumentChoices]]
-		);
-		heightNeeded += 24;
-		
-	}
-	image_yscale = (heightNeeded)/sprite_height;
+	return {widest : widestWidth, widestArgumentChoices: widestWidthArgumentChoices}
 }
 function getWidestText(textArray, extractNameFunc){
 	var widestWidth = 0;

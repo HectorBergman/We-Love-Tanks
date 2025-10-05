@@ -1,4 +1,5 @@
 depth = -300;
+
 menu = noone;
 menuOffset = [0,16]
 totalRandoms = 0;
@@ -6,12 +7,17 @@ objectArguments = [
 	createArgument("roomName", argumentTypes.freetext),
 	createArgument("roomShape", argumentTypes.options, global.roomShapes),
 	createArgument("roomType", argumentTypes.options, global.roomTypes),
+	createArgument("subType", argumentTypes.options, global.roomSubtypes),
 	createArgument("save:", argumentTypes.button)
 ];
 
 instanceArgumentsChoices = [];
 setInstanceArgumentsChoices()
+SignalSubscribe(id, "updatedInstance: obj_editor_menu_argumentForm_dropdown", updateSubtypes);
 
+function updateSubtypes(){
+	
+}
 searchForClick(toggleMenu);
 SignalSubscribe(id, "editor_handler: enterRoom", 
 	function(arg){

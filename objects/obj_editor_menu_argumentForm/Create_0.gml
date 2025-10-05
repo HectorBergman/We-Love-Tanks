@@ -6,13 +6,15 @@ SignalSubscribe(id, "closeMenu: " + string(instanceId), function(){close()});
 SignalSubscribe(id, "updateInstance: " + string(instanceId), function(arg){updateArgumentChoice(arg[0],arg[1],arg[2])});
 SignalSubscribe(id, "closeDropdownFromDD: " + string(instanceId) + string(argumentIndex), function(){toggleDropdown();})
 SignalSubscribe(id, "openDropdown: " + string(instanceId), function(arg){if arg[0] != id && isOpen{ toggleDropdown();}})
-print("newone")
-print(argumentChoice);
-print("done");
+
 //dropdown
 isOpen = false; 
+//
+
 //checkbox
 isChecked = argumentChoice;
+//
+
 //freetext
 isActive = false; 
 buffer = "";
@@ -20,6 +22,7 @@ maxLetters =getMaxVisibleLetters()
 backSpaceStartTime = 10;
 backSpaceTimer = 0;
 backSpaceHoldTime = 3;
+//
 
 function getMaxVisibleLetters(){
 	var val = "a"
@@ -107,7 +110,6 @@ function updateArgumentChoice(argumentType, index, choiceInfo){
 				}
 			}break;
 			case argumentTypes.checkbox:{ //choiceInfo ignored
-				print("letsgo");
 				argumentChoice = !argumentChoice;
 			}break;
 			case argumentTypes.freetext:{ //choiceInfo is free text
@@ -168,17 +170,7 @@ function deactivateTextbox(){
 	image_index = 0;
 	isActive = false;
 }
-print("lol")
-print(string_upper("-"));
-print(ord(string_upper("-")));
-print(ord("-"));
-/*function getWidest(widthToReach){
-	
-	if toDraw.get_width() > widthToReach{
-		widthToReach = toDraw.get_width();
-	}
-	return widthToReach;
-}*/
+
 
 function activeTextboxLogic(){
 	var preBuffer = buffer;
