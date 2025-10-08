@@ -4,8 +4,6 @@
 for (var i = 0; i < 5; i++){
 	for (var j = 0; j < 5; j++){
 		var grid = ds_grid_get(roomsToDisplay, i, j)
-		print("heregoesgrid");
-		print(grid);
 		if grid != noone{
 			var borderColor = c_black;
 			var roomColor = c_white;
@@ -40,10 +38,3 @@ for (var i = 0; i < 5; i++){
 		}
 	}
 }
-/*
-var _x = x+2*(rectangleWidth+doorWidth)* 1/scale;
-var _y = y+2*(rectangleHeight+doorHeight)* 1/scale;
-_x *= scale;
-_y *= scale;
-draw_rectangle_color(_x+rectangleWidth/2-2,_y+rectangleHeight/2-2,_x+rectangleWidth/2+2,_y+rectangleHeight/2+2, c_red,c_red,c_red,c_red, false)
-//35 18

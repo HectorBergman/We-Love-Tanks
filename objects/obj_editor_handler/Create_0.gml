@@ -176,7 +176,6 @@ function destroyEditorObjects(){
 	instance_destroy(obj_editor_player_standIn);
 	instance_destroy(obj_editor_saveRoomButton);
 	instance_destroy(obj_editor_itemInstance);
-	instance_destroy(obj_boss);
 }
 
 summonMenuObjects();
@@ -199,6 +198,7 @@ function checkForModeSwitchRequest(){
 				instance_destroy(obj_item);
 				instance_destroy(obj_enemy);
 				instance_destroy(obj_dollar);
+				instance_destroy(obj_boss);
 			}break;
 		}
 		return true;

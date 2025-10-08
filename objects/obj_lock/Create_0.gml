@@ -7,10 +7,13 @@ enum doorModes{
 	wall,
 }
 mode = doorModes.wall
-SignalSubscribe(id, "doors:",function(currentRoom){
-	var relevantDoor = currentRoom.doors[_direction]
+SignalSubscribe(id, "doors:",function(info){
+	print(info)
+	print(roomNo)
+	print(_direction);
+	var relevantDoor = info[0][roomNo][_direction]
 	if relevantDoor == doorValues.open{
-		if currentRoom.cleared ||(
+		if info[1] ||(
 			instance_number(obj_enemy) == 0 && instance_number(obj_enemySpawner) == 0 &&
 			instance_number(obj_boss)  == 0 && instance_number(obj_bossSpawner)  == 0
 		){

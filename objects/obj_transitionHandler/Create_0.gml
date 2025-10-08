@@ -48,6 +48,7 @@ SignalSubscribe(id, "transitionStart", function(arg){
 	switch transitionType{
 		case (transitionTypes.toRoom):{
 			transitionSignal = function(){
+				print("getmoney");
 				SignalSend("transportRoom", transitionStruct)
 				ds_list_add(delayNewRoom, "newRoom")
 			}

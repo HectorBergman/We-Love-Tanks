@@ -4,9 +4,11 @@ if (variable_instance_exists(id,"DOindex")){
 }
 SignalSubscribe(id, "openedMenu", function(arg){if arg != id{close()}})
 searchForClick(close)
+
 function close(){
 	SignalSend("closeMenu: " + string(instanceId))
 	instance_destroy()
+	print(instanceId);
 	instanceId.menu = noone;
 }
 toDrawArr = [];

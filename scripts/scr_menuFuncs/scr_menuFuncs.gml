@@ -26,6 +26,7 @@ function closeMenu(){
 }
 
 function updateInstanceArgumentChoices(argumentType,instanceIndex,choiceInfo){
+	print("uIAC");
 	switch (argumentType){
 		case argumentTypes.options:{ //choiceInfo is the number of the argument
 			instanceArgumentsChoices[instanceIndex] = objectArguments[instanceIndex].argumentChoices[choiceInfo];

@@ -126,12 +126,12 @@ function setAllRoomsAvailable(floorDimensions){
 
 function pickRandomRoomByType(roomArray, roomType, roomShape, roomSubtype = noone) {
     var matchingRoomsType = findRoomsByProperty(roomArray, "roomType", roomType);
+
 	var matchingRoomsSubtype = matchingRoomsType
 	if roomSubtype != noone{
-		matchingRoomsSubtype = findRoomsByProperty(matchingRooms,"roomSubtype", roomSubtype)
+		matchingRoomsSubtype = findRoomsByProperty(matchingRoomsType,"roomSubtype", roomSubtype)
 	}
-	print("pickRandomRoomByType: ",roomType)
-    if (array_length(matchingRooms) == 0) {
+    if (array_length(matchingRoomsSubtype) == 0) {
         return undefined;
     }
     var matchingRoomsShape = findRoomsByProperty(matchingRoomsSubtype, "roomShape", roomShape);
@@ -156,11 +156,14 @@ function findRoomsByProperty(roomArray, propertyName, targetValue) {
     var foundRooms = [];
     for (var i = 0; i < array_length(roomArray); i++) {
         var _room = roomArray[i];
-        // Check if property exists AND matches targetValue
-        if (variable_struct_exists(_room, propertyName) 
-        && (variable_struct_get(_room, propertyName) == targetValue)) {
-            array_push(foundRooms, _room); // If key is "Room_Name"
-        }
+        // check if property exists AND matches targetValue
+        if (variable_struct_exists(_room, propertyName)){
+			if (variable_struct_get(_room, propertyName) == targetValue) {
+				array_push(foundRooms, _room);
+			}
+        }else{
+			forceCrash("property doesn't exist");
+		}
     }
     return foundRooms;
 }

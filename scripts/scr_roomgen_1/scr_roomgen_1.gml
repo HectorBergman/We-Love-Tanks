@@ -2,7 +2,7 @@
 #macro defaultDoorWeight [-1,-1,-1,-1,-1]
 
 #macro undefinedRoom {doors: [0,0,0,0],  roomType : "none"}
-#macro startRoom createSpecialRoom("startRoom", {requirementFunction : function(arg){return true}, extraArguments: []}, [], startPoint, [0,0,0,0,99])
+#macro startRoom createSpecialRoom("startRoom", "normal", {requirementFunction : function(arg){return true}, extraArguments: []}, [], startPoint, [0,0,0,0,99])
 enum doorValues{
 	closed,
 	open,
@@ -14,6 +14,7 @@ enum doorValues{
 
 function createSpecialRoom(
 	roomType = "standard", 
+	subType = "normal",
 	positionRequirements = {requirementFunction : function(arg){return true}, extraArguments: []}, 
 	requiredRoomPartners = [], 
 	exactCoords = undefinedCoords,
@@ -26,6 +27,7 @@ function createSpecialRoom(
 	
 	var specialRoom = {
 		roomType: roomType,
+		subType : subType,
 		positionRequirements: positionRequirements,
 		requiredRoomPartners: requiredRoomPartners,
 		doorWeights : doorWeights,
@@ -58,7 +60,7 @@ function addRoomToGrid(dfloor,sRoom){
 }
 
 
-function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, forceSkipAmalgam = false){
+function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, forceSkipAmalgam = false, roomSubtype = "normal"){
 	var doors = ds_grid_get(dfloor.grid,coords[0],coords[1]).doors
 	var doorWeights = dfloor.doorWeights
 	if sRoom == noone{
@@ -94,7 +96,8 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 	if roomType != "standard"{
 		print("roomType: ",roomType);
 	}
-	var roomInfo = pickRandomRoomByType(global.roomList, roomType, roomShape[0])//add something in here for custom rooms
+	var roomInfo = pickRandomRoomByType(global.roomList, roomType, roomShape[0], roomSubtype)//add something in here for custom rooms
+
 	print(roomInfo)
 	var preRandoms = [];
 	if !is_undefined(roomInfo){
@@ -105,6 +108,7 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 	var fullRoomInfo = {
 		specialRoomInfo: sRoom, 
 		roomType : roomType,
+		roomSubtype : roomSubtype,
 		roomInfo : roomInfo,
 		doors : doors,
 		doorWeights : doorWeights,
@@ -217,10 +221,6 @@ function generateDoorWeights(stagesArray){
 function populateDFloor(floorReqs){
 	var startPoint = floorReqs.startPoint
 	var dfloor = createDFloor(floorReqs, floorReqs.amalgamOdds,startPoint, floorReqs.floorDimensions, floorReqs.doorWeights, floorReqs.roomAmountRange)
-	/*var specialRooms = [
-		createSpecialRoom("item", posRequirement(coordsWithinRangeChebyshev,[floorReqs.startPoint, 2,3])),
-		createSpecialRoom("boss", posRequirement(coordsWithinRangeChebyshev,[floorReqs.startPoint, 4,5]))
-	]*/
 	
 	dfloor.specialRoomArray = floorReqs.specialRooms
 	initiateSpecialRoom(dfloor,startRoom)

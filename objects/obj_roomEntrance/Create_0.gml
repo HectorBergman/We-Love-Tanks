@@ -1,1 +1,1 @@
-SignalSubscribe(id, "roomEntranceNo", function(arg){if arg == entranceDoor{obj_player.x = x; obj_player.y = y}})
+SignalSubscribe(id, "roomEntranceNo", function(arg){if arg[0] == entranceDoor && arg[1] == roomNo{obj_player.x = x; obj_player.y = y}})

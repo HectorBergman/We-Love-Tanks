@@ -85,7 +85,8 @@ function insertSpecialRoomInGrid(dfloor, sRoom){
 		exit;
 	}
 	//getPremadeRoomDir(dfloor, ds_grid_get(dfloor.grid,newCoords[0],newCoords[1]))
-	var newRoom = createRoom(dfloor, newCoords, 0,sRoom, sRoom.roomType, true)
+	print(sRoom);
+	var newRoom = createRoom(dfloor, newCoords, 0,sRoom, sRoom.roomType, true, sRoom.subType)
 	ds_grid_set(dfloor.grid, newCoords[0], newCoords[1], newRoom);
 }
 

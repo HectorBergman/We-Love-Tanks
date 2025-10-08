@@ -4,23 +4,26 @@ enterInfo = {
 	enteredRoomCoords: [-1,-1], 
 	enteredRoomDoor: 0,
 	enteredRoomNo: 0,
-	enteredRoomDir: [-1,-1]
+	enteredRoomDir: [-1,-1],
+	enteredRoomFullDoors: []
 }
 currentDungeon = noone;
 currentFloor = noone;
 currentRoom = noone;
+
+SignalSubscribe(id, "currentRoom_doors_request", function(){SignalSend("currentRoom_doors_request_response", enterInfo.enteredRoomFullDoors)})
 function newDungeon(){
 	with (obj_roomHandler_true){
-		var startPoint = [1,1]
+		var startPoint = [4,1]
 		var spezRooms = [
-			createSpecialRoom("item", posRequirement(coordsWithinRangeChebyshev_edgesOnly,[startPoint, 0,3])),
-			createSpecialRoom("boss", posRequirement(coordsWithinRangeChebyshev_edgesOnly,[startPoint, 0,3]))
+			createSpecialRoom("item", "normal",   posRequirement(coordsWithinRangeChebyshev_edgesOnly,[startPoint, 0,6])),
+			createSpecialRoom("boss", "elevator", posRequirement(coordsWithinRangeChebyshev_edgesOnly,[startPoint, 0,6]))
 		]
 		floorReqs = ds_list_create()
-		var oneReq = floorRequirements([3,3],startPoint,0.1,[[0,0,4,2,1], [0,0.5,4,1,1], [0,1,2,2,1], [0,1,4,1,0.5], [0,1.1,0.5,0,0]],[4,8],spezRooms)
+		var oneReq = floorRequirements([6,6],startPoint,0.1,[[0,0,4,2,1], [0,0.5,4,1,1], [0,1,2,2,1], [0,1,4,1,0.5], [0,1.1,0.5,0,0]],[4,8],spezRooms)
 		SignalSubscribe(id,"roomEntered: general", function(){
-			if enteredDoor != -1{
-				SignalSend("roomEntranceNo", (enteredDoor+2) mod 4);
+			if enterInfo.enteredRoomDoor != -1{
+				SignalSend("roomEntranceNo", [(enterInfo.enteredRoomDoor+2) mod 4,enterInfo.enteredRoomNo]);
 			}
 			SignalSend("clearedStatus", currentRoom.cleared);
 			loadRoom(currentRoom)
@@ -31,12 +34,13 @@ function newDungeon(){
 		currentFloor = changeFloor(currentDungeon, 0)
 		currentRoom = ds_grid_get(currentFloor.grid, currentFloor.startPoint[0],currentFloor.startPoint[1])
 		minimapFullUpdate()
+		updateEnterInfo();
 	}
 }
-enteredDoor = -1
+
 newDungeon()
 SignalSubscribe(id,"transportRoom",function(arg){
-	enterNewRoom(arg.diff,arg.roomNo,arg.doorNo,arg.store);
+	enterNewRoom(arg.roomNo,arg.doorNo,arg.store);
 });
 SignalSubscribe(id, "Boss defeated", summonDungeonTrans);
 SignalSubscribe(id,"newDungeon",  nextLvl)
@@ -54,7 +58,6 @@ function nextLvl(){
 	SignalSend("transitionStart", {
 		transitionType: transitionTypes.newDungeon, 
 		transitionStruct : {
-						diff: [0,0],
 						roomNo:0,
 						doorNo:-1, 
 						movementVector: [0,0],
@@ -65,7 +68,8 @@ function nextLvl(){
 	print(currentRoom)
 }
 
-function enterNewRoom(dir,roomNo,doorNo, store = true){
+function enterNewRoom(roomNo,doorNo, store = true){
+	var dir = getRoomAndDoorVector(roomNo,doorNo)
 	if store{
 		storePreviousRoom([
 			{oIndex: obj_enemy, variables:["x","y","hp","enemyType"]},
@@ -79,12 +83,13 @@ function enterNewRoom(dir,roomNo,doorNo, store = true){
 		]);
 		checkCleared()
 	}
-	enteredDoor = doorNo;
+	enterInfo.enteredRoomDoor = doorNo;
 	currentRoom.visited = true;
 	//var extraDiff = getRoomDiff(enterInfo.enteredRoomNo,roomNo);
 	//enterInfo.enteredRoomDoor = doorNo;
 	var newCoords = [currentRoom.coords[0]+dir[0], currentRoom.coords[1]+dir[1]]//+extraDiff[0],currentRoom[1]+yDirection+extraDiff[1]];
 	var newRoom = ds_grid_get(currentFloor.grid, newCoords[0], newCoords[1])
+	print(newCoords);
 	if inRange(newCoords[0], 0, currentFloor.dimensions[0]) && inRange(newCoords[1], 0, currentFloor.dimensions[1]) && !is_undefined(newRoom) && newRoom != noone{
 		//obj_currentRoomHandler.roomDoors = room_getAllDoors(newRoom);
 		gotoRoom(newRoom);
@@ -97,7 +102,76 @@ function enterNewRoom(dir,roomNo,doorNo, store = true){
 	}
 	SignalSend("update: currentRoom", currentRoom)
 	SignalSend("update: minimap")
+	
+	updateEnterInfo()
 	//isNewRoom = true;
+}
+
+function updateEnterInfo(){
+	enterInfo.enteredRoomNo = getRoomNo(currentRoom);
+	enterInfo.enteredRoomFullDoors = getAllDoors(coord_sort_fill(currentRoom.amalgamClaimedCoords));
+}
+
+function getRoomVector(_from, _to) {
+    var grid_width = 2;
+
+    var from_x = _from mod grid_width;
+    var from_y = floor(_from / grid_width);
+
+    var to_x = _to mod grid_width;
+    var to_y = floor(_to / grid_width);
+
+    return [to_x - from_x, to_y - from_y];
+}
+
+function getRoomAndDoorVector(roomNo,doorNo){
+	if roomNo == -1 || doorNo == -1{
+		return [0,0]
+	}
+	var roomDiff = getRoomVector(enterInfo.enteredRoomNo,roomNo)
+	var doorDiff = getXY(doorNo)
+	var roomAndDoorDiff = [roomDiff[0]+doorDiff[0],roomDiff[1]+doorDiff[1]]
+	return roomAndDoorDiff;
+}
+function getRoomNo(_room) {
+    var coordsArray = _room.amalgamClaimedCoords;
+    
+    // Determine grid bounds
+    var min_x = coordsArray[0][0];
+    var min_y = coordsArray[0][1];
+    var max_x = coordsArray[0][0];
+    var max_y = coordsArray[0][1];
+    
+    for (var i = 1; i < array_length(coordsArray); i++) {
+        var c = coordsArray[i];
+        if (c[0] < min_x) min_x = c[0];
+        if (c[1] < min_y) min_y = c[1];
+        if (c[0] > max_x) max_x = c[0];
+        if (c[1] > max_y) max_y = c[1];
+    }
+
+    var grid_width = (max_x - min_x + 1);
+    
+    // Find the "grid index" this coordinate would occupy
+    var my_x = _room.coords[0];
+    var my_y = _room.coords[1];
+    var index = (my_y - min_y) * grid_width + (my_x - min_x);
+    
+    return index;
+}
+
+//sorts arrays in 2x2 grid
+function coord_sort(coordsArray){
+	array_sort(coordsArray, function(a, b) {
+		
+	    if (a[1] < b[1]) return -1;
+	    if (a[1] > b[1]) return 1;
+	    
+	    if (a[0] < b[0]) return -1;
+	    if (a[0] > b[0]) return 1;
+
+	    return 0;
+	});
 }
 
 function gotoRoom(_room){
@@ -138,8 +212,66 @@ function loadRoom(newRoom){
 		var instance = newRoom.roomInfo.instances[i];
 		summonObject(instance.objectIndex, instance.summonArray);
 	}
-	SignalSend("doors:", currentRoom)
+	
+	SignalSend("doors:", [enterInfo.enteredRoomFullDoors, currentRoom.cleared])
 
+}
+function getAllDoors(coordArr){
+	var newArr = []
+	for (var i = 0; i < array_length(coordArr); i++){
+		newArr[i] = ds_grid_get(currentFloor.grid,coordArr[i][0],coordArr[i][1]).doors
+	}
+	return newArr
+}
+/// @function coord_sort_fill(coordsArray)
+/// @desc Sorts coordinates into grid order and fills missing slots with [-1,-1].
+function coord_sort_fill(coordsArray) {
+    // --- Step 1: Sort existing coordinates (row-major order)
+    array_sort(coordsArray, function(a, b) {
+        if (a[1] < b[1]) return -1;
+        if (a[1] > b[1]) return 1;
+        if (a[0] < b[0]) return -1;
+        if (a[0] > b[0]) return 1;
+        return 0;
+    });
+
+    // --- Step 2: Find grid bounds
+    var min_x = coordsArray[0][0];
+    var max_x = coordsArray[0][0];
+    var min_y = coordsArray[0][1];
+    var max_y = coordsArray[0][1];
+
+    for (var i = 1; i < array_length(coordsArray); i++) {
+        var c = coordsArray[i];
+        if (c[0] < min_x) min_x = c[0];
+        if (c[0] > max_x) max_x = c[0];
+        if (c[1] < min_y) min_y = c[1];
+        if (c[1] > max_y) max_y = c[1];
+    }
+
+    var grid_width  = (max_x - min_x + 1);
+    var grid_height = (max_y - min_y + 1);
+
+    // --- Step 3: Build the filled grid
+    var filled = [];
+    for (var j = min_y; j <= max_y; j++) {
+        for (var k = min_x; k <= max_x; k++) {
+            var found = false;
+            for (var i = 0; i < array_length(coordsArray); i++) {
+                var c = coordsArray[i];
+                if (c[0] == k && c[1] == j) {
+                    array_push(filled, c);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                array_push(filled, [-1, -1]); // placeholder
+            }
+        }
+    }
+
+    return filled;
 }
 
 function checkCleared(){
