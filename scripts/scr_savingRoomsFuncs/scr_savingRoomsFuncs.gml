@@ -85,7 +85,7 @@ function loadAllRoomData(){
 function defaultRoomsArray(){
 	var arr = []
 	for (var i = 0; i < array_length(global.roomShapes); i++){
-		arr[i] = {roomName:"default_" + global.roomShapes[i],roomShape:global.roomShapes[i],roomType:"standard",instances:[], savedRandomsNeeded:0}
+		arr[i] = {roomName:"default_" + global.roomShapes[i],roomShape:global.roomShapes[i],roomType:"standard",roomSubtype: "normal", instances:[], savedRandomsNeeded:0}
 	}
 	return arr;
 }

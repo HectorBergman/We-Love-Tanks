@@ -48,6 +48,10 @@ function toggleInRoom(){
 		break;
 		case editorMenuModes.editingRoom:{
 			if obj_inputHandler.escape{
+				try{ //i messed up by not dereferencing globalMenu upon closing without opening another
+					// menu so this is how we do it to save dev time
+					globalMenu.close()
+				}catch(e){}
 				room_goto(rm_editor_menu);
 				menuMode = editorMenuModes.selectingRoom;
 				justexited = true;

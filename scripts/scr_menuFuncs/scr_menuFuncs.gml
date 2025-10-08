@@ -5,14 +5,15 @@ function offsetCoordsFromParents(parent,offset){
 
 function toggleMenu(){
 	if menu == noone{
-		openMenu();
+		menu = openMenu();
+		SignalSend("openedMenu", menu);
 	}else{
 		closeMenu();
 	}
 }
 
 function openMenu(){
-	menu = summonObject(obj_editor_instanceMenu, [["coordsOffset", [sprite_width+menuOffset[0],menuOffset[1]]], 
+	return summonObject(obj_editor_instanceMenu, [["coordsOffset", [sprite_width+menuOffset[0],menuOffset[1]]], 
 	["depth", depth-1], ["instanceId", id],
 	["instanceArgumentsChoices", instanceArgumentsChoices],
 	["objectArguments", objectArguments]]);
@@ -25,6 +26,7 @@ function closeMenu(){
 }
 
 function updateInstanceArgumentChoices(argumentType,instanceIndex,choiceInfo){
+	print("uIAC");
 	switch (argumentType){
 		case argumentTypes.options:{ //choiceInfo is the number of the argument
 			instanceArgumentsChoices[instanceIndex] = objectArguments[instanceIndex].argumentChoices[choiceInfo];
@@ -36,5 +38,5 @@ function updateInstanceArgumentChoices(argumentType,instanceIndex,choiceInfo){
 			instanceArgumentsChoices[instanceIndex] = choiceInfo;
 		}break;
 	}
-	
+	SignalSend("updatedInstance: " + string(object_index))
 }

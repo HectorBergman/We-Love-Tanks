@@ -1,5 +1,6 @@
 pauseMode = [pM.pauseMenu, pM.transition, pM.shop]
 luck = 1;
+//SignalSubscribe(id,"roomEntered: newRoom",function(){x = room_width/2; y = room_height/2;})
 
 wallBonkCooldownTime = 10;
 wallBonkCooldown = 0;
@@ -89,5 +90,6 @@ function player_handleWallCollision(){
 	}
 }
 
-
+//because otherwise doors dont work on game start, probably delete later
+SignalSend("transitionEnd")
 

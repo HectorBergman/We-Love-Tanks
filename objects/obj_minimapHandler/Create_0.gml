@@ -2,7 +2,7 @@ mapWidth = 192
 mapHeight = 108
 x = 1920-192*1.5
 y = 0+108
-scale = 0.5;
+scale = 1;
 
 depth = -10;
 rectangleWidth = 35*scale

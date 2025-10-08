@@ -151,23 +151,6 @@ function loadInPreviousObjects(){
 	}
 }
 
-function storePreviousRoom(){
-	var cRoom = ds_grid_get(dungeonGrid, currentRoom[0], currentRoom[1])
-	for (var i = 0; i < instance_number(obj_enemy); i++){
-		
-		var currentInst = instance_find(obj_enemy,i);
-		var newEntry = {objIndex:currentInst.object_index,x:currentInst.x,y:currentInst.y,hp:currentInst.hp,enemyType:currentInst.enemyType}
-		ds_list_add(cRoom.roomShapeInfo.leftOverEntities,newEntry);
-		
-	}
-	for (var i = 0; i < instance_number(obj_item); i++){
-		var currentInst = instance_find(obj_item,i);
-		if currentInst.state != itemState.collected{
-			var newEntry =  {objIndex:currentInst.object_index,x:currentInst.x,y:currentInst.y,itemId:currentInst.itemId}
-			ds_list_add(cRoom.roomShapeInfo.leftOverEntities,newEntry);
-		}
-	}
-}
 
 function gotoRoom(_room){
 	obj_pathFinderHandler.isNewRoom = 2;

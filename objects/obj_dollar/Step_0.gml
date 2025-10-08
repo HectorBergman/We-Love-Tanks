@@ -15,7 +15,6 @@ if z < -1{
 }
 if z < -15 && value >= 1{
 	var tempZ = abs(z)-15
-	print(image_alpha)
 	image_alpha = abs(15/z)
 }else{
 	image_alpha = 1

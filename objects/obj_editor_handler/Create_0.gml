@@ -7,8 +7,10 @@ searchArray = [];
 toDrawArray = [];
 justexited = false;
 menu = noone;
+globalMenu = noone;
 menuOffset = [600,32];
 SignalSubscribe(id, "saved room", function(arg){ saveRoom(arg)})
+SignalSubscribe(id, "openedMenu", function(openedMenu){ globalMenu = openedMenu});
 loadAllRoomData();
 
 
@@ -146,7 +148,6 @@ function summonEditorObjects(){
 }
 
 function initiateRoom(){
-	//["@ref object(obj_enemySpawner)",[["enemyType","stiffNormal"],["x",560.0],["y",144.0],["image_xscale",1.0],["image_yscale",1.0]]]
 	if roomsPosition != 0{
 		SignalSend("editor_handler: enterRoom", searchArray[roomsPosition-1]);
 		for (var i = 0; i < array_length(searchArray[roomsPosition-1].instances); i++){
@@ -197,6 +198,7 @@ function checkForModeSwitchRequest(){
 				instance_destroy(obj_item);
 				instance_destroy(obj_enemy);
 				instance_destroy(obj_dollar);
+				instance_destroy(obj_boss);
 			}break;
 		}
 		return true;

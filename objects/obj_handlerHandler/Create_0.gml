@@ -31,7 +31,7 @@ alwaysParticle = noone;
 normSummoned = false;
 lethimcook = false;
 function prepSummon(){
-	normRH = summonObject(obj_roomHandler);
+	normRH = summonObject(obj_roomHandler_true);
 	lethimcook = true;
 	normSummoned = true;
 }
@@ -44,8 +44,8 @@ function normal_summon(){
 	normPlayer = summonObject(obj_player, [["x", 960/2], ["y", 540/2]]);
 	normCrossHair = summonObject(obj_crosshair, [["x", 960/2], ["y", 540/2]]);
 	normCam = summonObject(obj_cam);
-	normCurrRoom = summonObject(obj_currentRoomHandler);
-	normMinimapHand = summonObject(obj_minimapHandler);
+	//normCurrRoom = summonObject(obj_currentRoomHandler);
+	normMinimapHand = summonObject(obj_minimapHandler_true);
 	normMoneyHand = summonObject(obj_moneyHandler);
 	normLevelH = summonObject(obj_levelHandler);
 	

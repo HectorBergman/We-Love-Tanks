@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"obj_dollarfuncs",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"obj_dollarfuncs",
+  "parent":{
+    "name":"items",
+    "path":"folders/Objects/items.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

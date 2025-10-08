@@ -2,7 +2,7 @@
 #macro defaultDoorWeight [-1,-1,-1,-1,-1]
 
 #macro undefinedRoom {doors: [0,0,0,0],  roomType : "none"}
-#macro startRoom createSpecialRoom("startRoom", {requirementFunction : function(arg){return true}, extraArguments: []}, [], startPoint, [0,0,0,0,99])
+#macro startRoom createSpecialRoom("startRoom", "normal", {requirementFunction : function(arg){return true}, extraArguments: []}, [], startPoint, [0,0,0,0,99])
 enum doorValues{
 	closed,
 	open,
@@ -14,6 +14,7 @@ enum doorValues{
 
 function createSpecialRoom(
 	roomType = "standard", 
+	subType = "normal",
 	positionRequirements = {requirementFunction : function(arg){return true}, extraArguments: []}, 
 	requiredRoomPartners = [], 
 	exactCoords = undefinedCoords,
@@ -23,8 +24,10 @@ function createSpecialRoom(
 	unlockRequirements = function(){return true}, 
 	uniqueRoom = noone
 ){
+	
 	var specialRoom = {
 		roomType: roomType,
+		subType : subType,
 		positionRequirements: positionRequirements,
 		requiredRoomPartners: requiredRoomPartners,
 		doorWeights : doorWeights,
@@ -57,7 +60,7 @@ function addRoomToGrid(dfloor,sRoom){
 }
 
 
-function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, forceSkipAmalgam = false){
+function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, forceSkipAmalgam = false, roomSubtype = "normal"){
 	var doors = ds_grid_get(dfloor.grid,coords[0],coords[1]).doors
 	var doorWeights = dfloor.doorWeights
 	if sRoom == noone{
@@ -90,14 +93,22 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 	}
 	
 	//roomName, instances, sanitized, roomShape, roomType, savedRandomsNeeded
-	var roomInfo = pickRandomRoomByType(global.roomList, roomType, roomShape[0])//add something in here for custom rooms
+	if roomType != "standard"{
+		print("roomType: ",roomType);
+	}
+	var roomInfo = pickRandomRoomByType(global.roomList, roomType, roomShape[0], roomSubtype)//add something in here for custom rooms
+
+	print(roomInfo)
 	var preRandoms = [];
 	if !is_undefined(roomInfo){
 		preRandoms = generateRandoms(roomInfo.savedRandomsNeeded);
+	}else{
+		roomInfo = { roomName : "", instances: [], sanitized : 1, roomShape : "normal", roomType : "standard", savedRandomsNeeded: 0}
 	}
 	var fullRoomInfo = {
 		specialRoomInfo: sRoom, 
 		roomType : roomType,
+		roomSubtype : roomSubtype,
 		roomInfo : roomInfo,
 		doors : doors,
 		doorWeights : doorWeights,
@@ -106,9 +117,10 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 		cleared : false,
 		amalgamClaimedCoords : amalgamClaimedCoords,
 		roomShape : roomShape,
-		loadedEntities : [],
+		loadedEntities : ds_queue_create(),
 		preRandoms : preRandoms,
-		coords : coords
+		coords : coords,
+		roomInfo : roomInfo
 	}	
 	return fullRoomInfo
 }
@@ -160,6 +172,7 @@ function posRequirement(reqFunc,extraArgs){
 }
 
 function createDFloor(
+		floorReqs,
 		amalgamOdds = 0,
 		startPoint = [5,5], 
 		dimensions = [10,10], 
@@ -177,11 +190,13 @@ function createDFloor(
 		doorWeights : possibleDoorWeights.stage0,
 		possibleDoorWeights : possibleDoorWeights,
 		edgesArray : [],
+		availableRooms : [],
 		roomAmountRange : roomAmountRange,
 		goalCoords : [],
 		roomsQueue : ds_queue_create(),
 		queueGrid : ds_grid_create(dimensions[0],dimensions[1]),
-		floorNo : -1
+		floorNo : -1,
+		floorReqs : floorReqs
 	}
 	for (var j = 0; j < dimensions[1]; j++){
 		for (var i = 0; i < dimensions[0]; i++){
@@ -205,11 +220,8 @@ function generateDoorWeights(stagesArray){
 	
 function populateDFloor(floorReqs){
 	var startPoint = floorReqs.startPoint
-	var dfloor = createDFloor(floorReqs.amalgamOdds,startPoint, floorReqs.floorDimensions, floorReqs.doorWeights, floorReqs.roomAmountRange)
-	/*var specialRooms = [
-		createSpecialRoom("item", posRequirement(coordsWithinRangeChebyshev,[floorReqs.startPoint, 2,3])),
-		createSpecialRoom("boss", posRequirement(coordsWithinRangeChebyshev,[floorReqs.startPoint, 4,5]))
-	]*/
+	var dfloor = createDFloor(floorReqs, floorReqs.amalgamOdds,startPoint, floorReqs.floorDimensions, floorReqs.doorWeights, floorReqs.roomAmountRange)
+	
 	dfloor.specialRoomArray = floorReqs.specialRooms
 	initiateSpecialRoom(dfloor,startRoom)
 	return dfloor;

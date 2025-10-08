@@ -40,7 +40,6 @@ function sanitizeRoomFromRoomData(_room, index){
 						
 		//insts[i] = 
 	}
-
 	_room.sanitized = true;
 	//insts[i][0][1], insts[i]
 	return newInstancesArr;

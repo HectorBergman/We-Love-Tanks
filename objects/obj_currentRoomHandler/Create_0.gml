@@ -1,4 +1,5 @@
 #macro noDoors [doorValues.closed,doorValues.closed,doorValues.closed,doorValues.closed]
+
 pauseMode = [pM.pauseMenu];
 lock = true;
 roomDoors = [[1,1,1,1],noDoors,noDoors,noDoors];

@@ -1,4 +1,5 @@
 depth = -300;
+print("button: ", id);
 menu = noone;
 menuOffset = [0,16]
 totalRandoms = 0;
@@ -6,11 +7,21 @@ objectArguments = [
 	createArgument("roomName", argumentTypes.freetext),
 	createArgument("roomShape", argumentTypes.options, global.roomShapes),
 	createArgument("roomType", argumentTypes.options, global.roomTypes),
-	createArgument("save:", argumentTypes.button)
+	createArgument("subType", argumentTypes.options, global.roomSubtypes),
+	createArgument("save", argumentTypes.button)
 ];
 
 instanceArgumentsChoices = [];
 setInstanceArgumentsChoices()
+
+updateSubtypes();
+
+function updateSubtypes(){
+	print("updatingSubtypes");
+	global.roomSubtypes = variable_struct_get(global.roomSubtypes_dict, instanceArgumentsChoices[2])
+	objectArguments[3] = createArgument("subType", argumentTypes.options, global.roomSubtypes)
+	
+}
 
 searchForClick(toggleMenu);
 SignalSubscribe(id, "editor_handler: enterRoom", 
@@ -19,25 +30,38 @@ SignalSubscribe(id, "editor_handler: enterRoom",
 		SignalUnsubscribe(id, "editor_handler: enterRoom")
 	}
 )
-SignalSubscribe(id, "updateInstance: " + string(id), function(arg){updateRoom(arg)});
+SignalSubscribe(id, "updateInstance: " + string(id), function(arg){updateRoom(arg);});
 SignalSubscribe(id, "button: clicked", function(arg){if arg[0] == id{print("save!"); button_saveRoom()}});
 
 
 function updateRoom(arg){
+	print("updateRoom");
 	var prevShape = instanceArgumentsChoices[1];
 	updateInstanceArgumentChoices(arg[0],arg[1], arg[2])
 	var newShape = instanceArgumentsChoices[1];
+	updateSubtypes()
 	if prevShape != newShape{
 		room_goto(asset_get_index("rm_roomTemplate_" + newShape));
 	}
+	print(instanceArgumentsChoices);
 }
 
 function button_saveRoom(){
 	print("saving room!");
-	roomInfo = {roomName:"",roomShape:"normal",roomType:"standard",instances:[], savedRandomsNeeded:0}
-	roomInfo.roomName  = instanceArgumentsChoices[0];
-	roomInfo.roomShape = instanceArgumentsChoices[1];
-	roomInfo.roomType  = instanceArgumentsChoices[2];
+	var roomKeys = [
+	    "roomName",
+	    "roomShape",
+	    "roomType",
+	    "roomSubtype",
+	];
+
+	roomInfo = {instances:[], savedRandomsNeeded:0}
+	for (var i = 0; i < array_length(roomKeys); i++) {
+		print(roomKeys[i],": ", instanceArgumentsChoices[i]);
+		variable_struct_set(roomInfo, roomKeys[i], instanceArgumentsChoices[i]);
+	}
+	print(roomInfo);
+
 	totalRandoms = 0;
 	SignalSubscribe(id, "saved: addRandom", function(randomAmt){totalRandoms += randomAmt});
 	var iIamt = instance_number(obj_editor_itemInstance) 

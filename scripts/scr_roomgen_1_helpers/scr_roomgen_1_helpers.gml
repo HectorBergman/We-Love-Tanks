@@ -45,7 +45,7 @@ function getAllAvailableCoordsFittingReq(dfloor,requirement){
 	for (var i = 0; i < ds_map_size(map); i++){
 		if ds_map_find_value(map,current){
 			var coord = getCoordsFromString(current);
-			if requirement.requirementFunction(array_concat([[coord[0],coord[1]]],requirement.extraArguments)){
+			if requirement.requirementFunction(array_concat([dfloor],[[coord[0],coord[1]]],requirement.extraArguments)){
 				arr[arrIndex] = coord;
 				arrIndex++
 			}
@@ -56,20 +56,39 @@ function getAllAvailableCoordsFittingReq(dfloor,requirement){
 }
 //coord, startCoords, minimum, maximum
 function coordsWithinRangeManhattan(argArray){
-	var coord = argArray[0];
-	var startCoords = argArray[1];
-	var minimum = argArray[2];
-	var maximum = argArray[3];
+	var coord = argArray[1];
+	var startCoords = argArray[2];
+	var minimum = argArray[3];
+	var maximum = argArray[4];
 	return inRange(manhattanDistance(coord,startCoords), minimum, maximum)
 }
 function coordsWithinRangeChebyshev(argArray){
-	var coord = argArray[0];
-	var startCoords = argArray[1];
-	var minimum = argArray[2];
-	var maximum = argArray[3];
+	var coord = argArray[1];
+	var startCoords = argArray[2];
+	var minimum = argArray[3];
+	var maximum = argArray[4];
 	return inRange(chebyshevDistance(coord,startCoords), minimum, maximum)
 }
 
+function coordsWithinRangeChebyshev_edgesOnly(argArray){
+	var dfloor = argArray[0]
+	var coord = argArray[1];
+	
+	var chebyshev = coordsWithinRangeChebyshev(argArray)
+	var isAnEdge = roomDoorCount(dfloor,ds_grid_get(dfloor.grid, coord[0],coord[1])) == 1
+
+	return chebyshev && isAnEdge
+}
+function coordsWithinRangeChebyshev_edgesOnly_boss(argArray){
+	var dfloor = argArray[0]
+	var coord = argArray[1];
+	
+	var chebyshev = coordsWithinRangeChebyshev(argArray)
+	var isAnEdge = roomDoorCount(dfloor,ds_grid_get(dfloor.grid, coord[0],coord[1])) == 1
+	var hasEmptyNeighbour = hasEmptyNeighbour(dfloor,coord)
+
+	return chebyshev && isAnEdge
+}
 
 
 
@@ -105,20 +124,25 @@ function setAllRoomsAvailable(floorDimensions){
 /// @param {string} roomType   Type to filter by (e.g., "fun", "boss")
 /// @returns {struct|undefined} Random room struct (or undefined if no matches)
 
-function pickRandomRoomByType(roomArray, roomType, roomShape) {
-    var matchingRooms = findRoomsByProperty(roomArray, "roomType", roomType);
-    if (array_length(matchingRooms) == 0) {
-        return undefined; // No matches found
+function pickRandomRoomByType(roomArray, roomType, roomShape, roomSubtype = noone) {
+    var matchingRoomsType = findRoomsByProperty(roomArray, "roomType", roomType);
+
+	var matchingRoomsSubtype = matchingRoomsType
+	if roomSubtype != noone{
+		matchingRoomsSubtype = findRoomsByProperty(matchingRoomsType,"roomSubtype", roomSubtype)
+	}
+    if (array_length(matchingRoomsSubtype) == 0) {
+        return undefined;
     }
-    var matchingRoomShapes = findRoomsByProperty(matchingRooms, "roomShape", roomShape);
+    var matchingRoomsShape = findRoomsByProperty(matchingRoomsSubtype, "roomShape", roomShape);
 
-    // Pick a random index from the filtered list
-    var randomIndex = irandom(array_length(matchingRoomShapes) - 1);
-	var newInstances = sanitizeRoomFromRoomData(matchingRoomShapes[randomIndex])
+    
+    var randomIndex = irandom(array_length(matchingRoomsShape) - 1);
+	var newInstances = sanitizeRoomFromRoomData(matchingRoomsShape[randomIndex])
 
-	matchingRoomShapes[randomIndex].instances = newInstances;
+	matchingRoomsShape[randomIndex].instances = newInstances;
 
-	return matchingRoomShapes[randomIndex];
+	return matchingRoomsShape[randomIndex];
 }
 
 /// @function findRoomsByProperty(roomArray, propertyName, targetValue)
@@ -132,11 +156,14 @@ function findRoomsByProperty(roomArray, propertyName, targetValue) {
     var foundRooms = [];
     for (var i = 0; i < array_length(roomArray); i++) {
         var _room = roomArray[i];
-        // Check if property exists AND matches targetValue
-        if (variable_struct_exists(_room, propertyName) 
-        && (variable_struct_get(_room, propertyName) == targetValue)) {
-            array_push(foundRooms, _room); // If key is "Room_Name"
-        }
+        // check if property exists AND matches targetValue
+        if (variable_struct_exists(_room, propertyName)){
+			if (variable_struct_get(_room, propertyName) == targetValue) {
+				array_push(foundRooms, _room);
+			}
+        }else{
+			forceCrash("property doesn't exist");
+		}
     }
     return foundRooms;
 }

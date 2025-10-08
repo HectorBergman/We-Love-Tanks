@@ -25,8 +25,8 @@ function newRoomLogic(){
 	}
 	BFS();
 	if !editorException{
-		currentRoom[0] = obj_roomHandler.currentRoom[0]
-		currentRoom[1] = obj_roomHandler.currentRoom[1]
+		//currentRoom[0] = obj_roomHandler.currentRoom[0]
+		//currentRoom[1] = obj_roomHandler.currentRoom[1]
 	}
 	editorException = false;
 }

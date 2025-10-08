@@ -1,31 +1,36 @@
 pauseMode = allPause;
 colliding=false;
-willTry = true;
+active = false
+enteredRoomNo = -1;
+SignalSubscribe(id,"transitionEnd", function(arg){active = true;})
 
 transitionFunction = function(){}
 function getTransitionFunction(){
-	switch(obj_currentRoomHandler.roomDoors[roomNo][doorNo]){
-		case doorValues.open:{
-			transitionFunction = function(){
-				//signal to transitionHandler
-				SignalSend("transitionStart", {
-					transitionType: transitionTypes.toRoom, 
-					transitionArr :[xDiff,yDiff,roomNo,doorNo, obj_player.movementVector]
-				})
-				instance_destroy();
-			}
-		}break;
-		case doorValues.openToNewStage:{
-			transitionFunction = function(){with obj_levelHandler{enterLevel();};instance_destroy();}
-		}break;
-		case doorValues.openToShop:{
-			transitionFunction = function(){
-				SignalSend("transitionStart", {
-					transitionType: transitionTypes.toShop, 
-					transitionArr :[xDiff,yDiff,roomNo,doorNo]
-				})
-				instance_destroy();
-			}
-		}break;
-	}
+	//todo: amend
+	SignalSubscribe(id, "currentRoom_doors_request_response", function(currentRoom_doors){
+		print(currentRoom_doors);
+		switch(currentRoom_doors[roomNo][doorNo]){
+			case doorValues.open:{
+				transitionFunction = function(){
+					//signal to transitionHandler
+					SignalSend("transitionStart", {
+						transitionType: transitionTypes.toRoom, 
+						transitionStruct : {
+							roomNo:roomNo,
+							doorNo:doorNo, 
+							movementVector: obj_player.movementVector,
+							store: true
+						},
+						transitionLengthMult : 1
+					})
+					instance_destroy();
+				}
+			}break;
+			case doorValues.openToNewStage:{
+				transitionFunction = function(){with obj_levelHandler{enterLevel();};instance_destroy();}
+			}break;
+		}
+	})
+	SignalSend("currentRoom_doors_request");
+	SignalUnsubscribe(id, "currentRoom_doors_request_response");
 }
