@@ -1,4 +1,4 @@
-
+print("transitionStar: ",instance_number(obj_transitionStar),"transitionStripe: ", instance_number(obj_transitionStripe));
 switch (tP){
 	case transitionPhase.start:
 		var startOffset = [32,-32]
@@ -18,24 +18,24 @@ switch (tP){
 			[["x", -600-45+startOffset[0]], ["y", 960+startOffset[1]],
 			["sprite_index", spr], ["delay", 0],
 			["tweenTime", tweenTime], ["totalDelay", totalDelay],
-			["isLast", false],["isBlue", true],["offset", startOffset], ["count", count]]);
+			["isLast", false],["isBlue", true],["offset", startOffset], ["transitionId", transitionId]]);
 		for (var i = 0; i < 31; i++){
 			summonObject(obj_transitionStar,
 				[["x", -600-180-i*starSpacing+64-48+startOffset[0]], ["y", 960+i*starSpacing+48+startOffset[1]], ["delay", 0],
 				["tweenTime", tweenTime], ["totalDelay", totalDelay], ["tMult", tMult],
-				["spinSpeed", 2.4],["offset", startOffset], ["count", count]]);
+				["spinSpeed", 2.4],["offset", startOffset], ["transitionId", transitionId]]);
 		}
 		for (var i = 0; i < 29; i++){
 			summonObject(obj_transitionStar,
 				[["x", -600-200-i*starSpacing-32-48+startOffset[0]], ["y", 960+i*starSpacing+48+startOffset[1]], ["delay", 0],
 				["tweenTime", tweenTime], ["totalDelay", totalDelay], ["tMult", tMult],
-				["spinSpeed", 2.5],["offset", startOffset], ["count", count]]);
+				["spinSpeed", 2.5],["offset", startOffset], ["transitionId", transitionId]]);
 		}
 		for (var i = 0; i < 27; i++){
 			summonObject(obj_transitionStar,
 				[["x", -600-220-i*starSpacing-32-96-48+startOffset[0]], ["y", 960+i*starSpacing+48+startOffset[1]], ["delay", 0],
 				["tweenTime", tweenTime], ["totalDelay", totalDelay], ["tMult", tMult],
-				["spinSpeed", 2.6],["offset", startOffset], ["count", count]]);
+				["spinSpeed", 2.6],["offset", startOffset], ["transitionId", transitionId]]);
 		}
 		for (var i = 0; i < whiteWait; i++){
 			spr = spr_cube_red;
@@ -43,7 +43,7 @@ switch (tP){
 				[["x", -600+redIndex*95+startOffset[0]], ["y", 960+startOffset[1]],
 				["sprite_index", spr], ["delay", trueBaseDelay+i*delayIncrement],
 				["tweenTime", tweenTime], ["totalDelay", totalDelay],
-				["isLast", false],["isBlue", false],["offset", startOffset], ["count", count]]);
+				["isLast", false],["isBlue", false],["offset", startOffset], ["transitionId", transitionId]]);
 			redIndex += 2;
 		}
 		for (var i = 0; i < 11; i++){
@@ -68,9 +68,9 @@ switch (tP){
 				[["x", -600+index*95+startOffset[0]], ["y", 960+startOffset[1]],
 				["sprite_index", spr], ["delay", i*delayIncrement+baseDelay],
 				["tweenTime", tweenTime], ["totalDelay", totalDelay],
-				["isLast", last],["isBlue", false],["offset", startOffset], ["count", count]]);
+				["isLast", last],["isBlue", false],["offset", startOffset], ["transitionId", transitionId]]);
 		}
-		count++
+		transitionId++
 		SignalSubscribe(id,"lastBannerFinishedStart", function(){
 			SignalUnsubscribe(id,"lastBannerFinishedStart");
 			tP = transitionPhase.wait2; 
@@ -78,7 +78,7 @@ switch (tP){
 			transitionSignal();
 			SignalSend("transport");
 			SignalSubscribe(id,"lastBannerFinishedEnd", function(){
-					SignalSend("transitionEnd", [count]);
+					SignalSend("transitionEnd", [transitionId-1]);
 					SignalUnsubscribe(id,"lastBannerFinishedEnd");
 				})
 			})
