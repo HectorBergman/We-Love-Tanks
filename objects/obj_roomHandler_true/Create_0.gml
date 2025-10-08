@@ -219,7 +219,11 @@ function loadRoom(newRoom){
 function getAllDoors(coordArr){
 	var newArr = []
 	for (var i = 0; i < array_length(coordArr); i++){
-		newArr[i] = ds_grid_get(currentFloor.grid,coordArr[i][0],coordArr[i][1]).doors
+		if !array_equals([-1,-1],coordArr[i]){
+			newArr[i] = ds_grid_get(currentFloor.grid,coordArr[i][0],coordArr[i][1]).doors
+		}else{
+			newArr[i] = [-1,-1,-1,-1]
+		}
 	}
 	return newArr
 }
