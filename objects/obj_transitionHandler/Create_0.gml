@@ -18,7 +18,7 @@ waitDelay = 52*tMult;
 waitTimer = waitDelay;
 tP = transitionPhase.inactive;
 tRoomArr = [];
-count = 0;
+transitionId = 0;
 transitionType = -1;
 transitionSignal = function(){}
 delayNewRoom = ds_list_create();
@@ -31,15 +31,6 @@ SignalSubscribe(id, "roomEntered: general", function(){
 	SignalSend(_str + prevRoom);
 })
 
-SignalSubscribe(id, "roomEntered: newRoom", function(){
-	prevRoom = "newRoom";
-})
-SignalSubscribe(id, "roomEntered: shop", function(){
-	prevRoom = "shop";
-})
-SignalSubscribe(id, "roomEntered: nextStage", function(){
-	prevRoom = "nextStage";
-})
 
 SignalSubscribe(id, "transitionStart", function(arg){
 	tMult = tMultBase*arg.transitionLengthMult
@@ -48,7 +39,6 @@ SignalSubscribe(id, "transitionStart", function(arg){
 	switch transitionType{
 		case (transitionTypes.toRoom):{
 			transitionSignal = function(){
-				print("getmoney");
 				SignalSend("transportRoom", transitionStruct)
 				ds_list_add(delayNewRoom, "newRoom")
 			}
@@ -59,18 +49,6 @@ SignalSubscribe(id, "transitionStart", function(arg){
 				ds_list_add(delayNewRoom, "newRoom")
 			}
 		}break;
-		/*case (transitionTypes.toShop):{
-			transitionSignal = function(){
-				SignalSend("transportShop", transitionArr)
-				ds_list_add(delayNewRoom, "shop")
-			}
-		}break;
-		case (transitionTypes.toNextStage):{
-			transitionSignal = function(){
-				SignalSend("transportNextStage", transitionArr)
-				ds_list_add(delayNewRoom, "nextStage")
-			}
-		}break;*/
 	}
 	global.transitionPause = true;
 	tP = transitionPhase.start;

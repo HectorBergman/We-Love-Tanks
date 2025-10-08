@@ -15,4 +15,4 @@ sentSignal = false;
 SignalSubscribe(id,"transport", function(){
 		phase = tD_phase.start
 	})
-SignalSubscribe(id,"transitionEnd", function(arg){ if arg[0] == count{instance_destroy()}})
+SignalSubscribe(id,"transitionEnd", function(arg){ if arg[0] == transitionId{instance_destroy()}})
