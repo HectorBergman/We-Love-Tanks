@@ -15,7 +15,7 @@ if obj_inputHandler.fire && !place_meeting(x,y, obj_solid) && activeBullets < ma
 	var b_Bnc = bulletBounces
 	var b_D = bulletDamage
 	var b_Db = bulletDurability;
-	with parent {
+	/*with parent {
 		loop_onFire({obj : obj_bullet_player, bulletSpeed : b_Sp, bulletBounces : b_Bnc, bulletDamage : b_D, bulletAngle : angle, bulletDurability : b_Db, extraInfo : extraInfo});
-	}
+	}*/
 }

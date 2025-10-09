@@ -13,7 +13,7 @@ if keyboard_check_pressed(ord("P")){
 }
 
 checkForDeath();
-loop_onTick();
+//loop_onTick();
 pickupMoney();
 if keyboard_check(vk_tab){
 	gothruwalls = true;

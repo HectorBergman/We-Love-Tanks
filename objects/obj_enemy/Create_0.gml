@@ -52,9 +52,7 @@ function death(){
 		id.death();
 	}
 	var dinfo = getDeceasedInfo(id)
-	with obj_player{
-		loop_onKill(dinfo)
-	}
+	SignalSend("onKill",dinfo)
 	if (instance_number(obj_enemy) <= 1 && instance_number(obj_boss) <= 1){
 		SignalSend("clearedStatus", true)
 	}

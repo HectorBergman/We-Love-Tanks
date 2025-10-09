@@ -12,3 +12,5 @@ bulletDurability = 1;
 fullMetalJacket = false;
 
 bulletSpeed = 2;
+
+subToTriggers(object_index);

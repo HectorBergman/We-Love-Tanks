@@ -46,6 +46,8 @@ maxPathLength = 100
 
 pathSurface = -1; 
 
+subToTriggers(string(object_index))
+
 
 ignoreList = ds_list_create()
 

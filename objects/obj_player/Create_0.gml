@@ -7,6 +7,7 @@ wallBonkCooldown = 0;
 movementVectorStep = 0.08;
 runSpeedStep = 0.4;
 turningSpeed = 99;
+
 enum playerStates{
 	normal,
 }
@@ -44,6 +45,8 @@ lol = 0;
 
 breadCrumbRadius = 5;
 
+subToTriggers(object_index)
+
 function death(){
 	cannon.visible = false;
 	hitbox.visible = false;
@@ -53,7 +56,7 @@ function death(){
 function decreaseHealth(amount){
 	if !invincible{
 		invincible = true;
-		loop_onHit();
+		SignalSend("onHit", {cannonId: cannon});
 		hp -= amount;
 	}
 }
