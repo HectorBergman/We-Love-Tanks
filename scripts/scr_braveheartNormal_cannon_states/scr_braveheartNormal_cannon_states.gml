@@ -12,8 +12,23 @@ function braveheartNormal_firing_cannon(){
 
 	}
 	if !place_meeting(x,y, obj_solid) && activeBullets < 3 && firingCooldown < 1{
-		fireBullet(obj_bullet_enemy, 1.5, 3, 1, image_angle,20,true, 1)	
+		var extraInfo = {
+			bulletGrowthStart: 0.3, 
+			bulletGrowthEnd: 1, 
+			bulletGrowthRate: 0.05,
+		}
 		
+	
+		var args = 
+		fireBullet_defaultSummonStruct(
+			bulletInfo.speed,
+			bulletInfo.bounces,
+			bulletInfo.damage,
+			20, 
+			bulletInfo.durability,
+			extraInfo
+		)
+		fireBullet(id,obj_bullet_enemy,image_angle,args)
 	}
 }
 function braveheartNormal_scanning_cannon(){

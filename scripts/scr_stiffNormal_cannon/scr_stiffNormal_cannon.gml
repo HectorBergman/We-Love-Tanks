@@ -1,6 +1,11 @@
 function stiffNormal_create_cannon(){
 	
-
+	bulletInfo = bulletInfo_create(
+		1,
+		3,
+		1,
+		2
+	)
 	x = parent.x
 	y = parent.y
 	activeBullets = 0;

@@ -1,6 +1,13 @@
 function braveheartNormal_create_cannon(){
 	x = parent.x
 	y = parent.y
+	bulletInfo = bulletInfo_create(
+		1,
+		3,
+		1,
+		2
+	)
+
 	activeBullets = 0;
 	firingCooldown = 0;
 	firingCooldownTime = 900;

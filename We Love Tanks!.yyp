@@ -92,7 +92,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.13.1.193",
+    "IDEVersion":"2024.13.0.190",
   },
   "name":"We Love Tanks!",
   "resources":[
@@ -267,6 +267,7 @@
     {"id":{"name":"scr_braveheartNormal_cannon","path":"scripts/scr_braveheartNormal_cannon/scr_braveheartNormal_cannon.yy",},},
     {"id":{"name":"scr_braveheartNormal_states","path":"scripts/scr_braveheartNormal_states/scr_braveheartNormal_states.yy",},},
     {"id":{"name":"scr_braveheartNormal","path":"scripts/scr_braveheartNormal/scr_braveheartNormal.yy",},},
+    {"id":{"name":"scr_bulletFuncs","path":"scripts/scr_bulletFuncs/scr_bulletFuncs.yy",},},
     {"id":{"name":"scr_clickActions","path":"scripts/scr_clickActions/scr_clickActions.yy",},},
     {"id":{"name":"scr_crappyAIfuncs","path":"scripts/scr_crappyAIfuncs/scr_crappyAIfuncs.yy",},},
     {"id":{"name":"scr_death","path":"scripts/scr_death/scr_death.yy",},},

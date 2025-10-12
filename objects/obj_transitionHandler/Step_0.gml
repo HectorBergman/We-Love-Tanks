@@ -1,4 +1,3 @@
-print("transitionStar: ",instance_number(obj_transitionStar),"transitionStripe: ", instance_number(obj_transitionStripe));
 switch (tP){
 	case transitionPhase.start:
 		var startOffset = [32,-32]

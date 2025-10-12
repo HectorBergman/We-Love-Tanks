@@ -65,29 +65,29 @@ function determineIfWithinBoxCone(wall, quadrant, objectCoords, acceptableAngleD
 }
 
 
-function fireBullet(bulletObj, bulletSpeed, maxBounce, damage, angle, barrelLength, increaseCount, bulletHp, extraArgs = []){
-	var summonArray = [ ["movementVector", [dcos(angle), -dsin(angle)]], 
-	["bulletSpeed", bulletSpeed], ["x", x], ["y", y], 
-	["maxBounce", maxBounce], ["parent", id], ["firedFrom", [x,y]], 
-	["barrelLength", barrelLength],
-	["firedAngle", angle],
-	["image_angle", angle], ["depth", depth+1], ["damage", damage], ["increaseCount",increaseCount],
-	["durability", bulletHp]];
-	
-	var length = array_length(extraArgs)
-	var summonLength = array_length(summonArray)
-	for (var i = 0; i < length; i++){
-		array_insert(summonArray, summonLength+i, extraArgs[i])
-		
+function fireBullet(instance, bulletObj, angle, extraArgs = {}, increaseCount = true){
+	if instance == noone || is_undefined(instance){
+		forceCrash("bullet needs parent, parent: " + string(instance))
+	}
+	var summonArray = 
+		[
+		 ["parent",instance], 
+		 ["movementVector", [dcos(angle),-dsin(angle)]], 
+		 ["increaseCount", increaseCount]
+		];
+	var keys = variable_struct_get_names(extraArgs)
+	for (var i = 0; i < array_length(keys); i++) {
+	    var key = keys[i];
+	    var value = variable_struct_get(extraArgs, key);
+		summonArray[i+3] = [key,value]
 	}
 	var bullet = summonObject(bulletObj, summonArray);
 	if increaseCount{
-		activeBullets++;
-		firingCooldown = firingCooldownTime;
+		instance.activeBullets++;
+		instance.firingCooldown = instance.firingCooldownTime;
 	}
 	return bullet;
 }
-
 
 /// @function findWallSideHit(wall)
 /// @description Returns the quadrant of the wall that was hit by the bullet
