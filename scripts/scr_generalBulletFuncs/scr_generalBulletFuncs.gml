@@ -190,7 +190,23 @@ function engageTag(tag){
 		buckshotTime--
 		if buckshotTime < 1{
 			for (var i = 0; i < buckshotCount; i++){
-				var firedBullet =  fireBullet(object_index,bulletSpeed*1.6,0,damage,image_angle-buckshotSpread/2+buckshotSpread/buckshotCount*i,0,false, 1, [["image_xscale",0.75],["image_yscale",0.75]])
+				var extraInfo = {
+					bulletGrowthStart: 0.3, 
+					bulletGrowthEnd: 1, 
+					bulletGrowthRate: 0.05,
+					image_xscale: 0.75,
+					image_yscale: 0.75,
+				}
+				var args = 
+				fireBullet_defaultSummonStruct(
+					bulletSpeed*1.6,
+					1,
+					damage,
+					0, 
+					durability,
+					extraInfo
+				)
+				var firedBullet = fireBullet(parent,obj_bullet_enemy,image_angle-buckshotSpread/2+buckshotSpread/buckshotCount*i,args, false)
 				if instance_exists(parent){
 					parent.buckshotBullets[i] = firedBullet
 				}

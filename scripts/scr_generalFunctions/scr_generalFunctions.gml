@@ -34,7 +34,11 @@ function summonObject(obj, arguments = noone){
 	}else{
 		struct = {}
 	}
-    return instance_create_depth(x, y, 0, obj, struct);
+	try{
+		return instance_create_depth(x, y, 0, obj, struct);
+	}catch(e){
+		return instance_create_depth(0, 0, 0, obj, struct);
+	}
     
 }
 

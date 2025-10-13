@@ -1,7 +1,11 @@
 function getInfo_onKill(){
 	var dinfo = getDeceasedInfo(id)
-	var playerInfo = {player: obj_player.id}
-	var info = {deceased: dinfo, player: playerInfo}
+	var playerInfo = {
+		player: obj_player.id, 
+		cannon: obj_player.cannon, 
+		bulletInfo: obj_player.cannon.bulletInfo
+	}
+	var info = {deceased: dinfo, playerInfo: playerInfo}
 	return info
 }
 
@@ -21,7 +25,7 @@ function fanfare_onKill(info){
 	}, function() {
 		fanfare_onKill_helper(info)
 	});
-	triggerAsInstance(info.player.cannon, func)
+	triggerAsInstance(info.playerInfo.player.cannon, func)
 }
 function fanfare_onKill_helper(info){
 	print(info);
@@ -35,14 +39,14 @@ function fanfare_onKill_helper(info){
 		}
 		var args = 
 		fireBullet_defaultSummonStruct(
-			bulletInfo.speed,
-			bulletInfo.bounces,
-			bulletInfo.damage,
+			info.playerInfo.bulletInfo.speed,
+			info.playerInfo.bulletInfo.bounces,
+			info.playerInfo.bulletInfo.damage,
 			0, 
-			bulletInfo.durability,
+			info.playerInfo.bulletInfo.durability,
 			extraInfo
 		)
-		fireBullet(info.player.cannon.id,obj_bullet_player,i,args,false)
+		fireBullet(info.playerInfo.cannon.id,obj_bullet_player,i,args,false)
 	}
 }
 

@@ -9,6 +9,6 @@ function fullMetalJacket_onPickup(){
 	triggerAsAll(obj_player_cannon, fullMetalJacket_onPickup_helper)
 }
 function fullMetalJacket_onPickup_helper(){
-	bulletDurability += 1;
+	bulletInfo.durability += 1;
 	fullMetalJacket = true;
 }
