@@ -1,3 +1,4 @@
+depth = parent.depth+1
 pauseMode = allPause
 function movementX(){
 	return movementVector[0]*bulletSpeed;
@@ -46,6 +47,8 @@ maxPathLength = 100
 
 pathSurface = -1; 
 
+subToTriggers(string(object_index))
+
 
 ignoreList = ds_list_create()
 
@@ -83,6 +86,8 @@ function collide(collideEntity, isBullet){
 }
 function decreaseDurability(collidedEntity){
 	var dura = durability;
+	print(durability)
+	print(collidedEntity.durability);
 	durability -= collidedEntity.durability;
 	collidedEntity.durability -= dura;
 	if durability <= 0{
@@ -98,7 +103,6 @@ function death(){
 	if increaseCount && instance_exists(parent){
 		parent.activeBullets--;
 	}
-	
 	instance_destroy()
 	exit;
 }

@@ -22,8 +22,27 @@ function stiffBuckshot_cannon_firing(){
 		}
 	}
 	if !place_meeting(x,y, obj_solid) && activeBullets < 1 && firingCooldown < 1 && !hasbullets{
-		fireBullet(obj_bullet_enemy, 1.5, 3, 1,image_angle, 20,true, 1, [["tags",["buckshot"]],["buckshotSpread", 45],["buckshotCount",4],["buckshotTime",30]])	
-
+		var extraInfo = {
+			bulletGrowthStart: 0.3, 
+			bulletGrowthEnd: 1, 
+			bulletGrowthRate: 0.05,
+			tags:["buckshot"],
+			buckshotSpread:45,
+			buckshotCount:4,
+			buckshotTime:30,
+		}
+		
+	
+		var args = 
+		fireBullet_defaultSummonStruct(
+			bulletInfo.speed,
+			bulletInfo.bounces,
+			bulletInfo.damage,
+			enemyBarrelLength, 
+			bulletInfo.durability,
+			extraInfo
+		)
+		fireBullet(id,obj_bullet_enemy,image_angle,args)
 	}
 }
 

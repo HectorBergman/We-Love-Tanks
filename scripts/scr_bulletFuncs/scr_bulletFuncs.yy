@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_bulletFuncs",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_bulletFuncs",
+  "parent":{
+    "name":"bullets",
+    "path":"folders/Objects/bullets.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

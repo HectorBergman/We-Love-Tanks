@@ -8,7 +8,7 @@ if (slowmovin mod 60 == 0){
 	lifeTime++
 	if object_index == obj_bullet_player{
 		pickupMoney();
-		loop_onBulletTravel();
+		SignalSend("onBulletTravel", {id : id});
 	}
 	findTags();
 	timeSinceBounce++

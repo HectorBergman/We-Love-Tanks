@@ -1,13 +1,18 @@
 function stiffBuckshot_create_cannon(){
 	
-
+	bulletInfo = bulletInfo_create(
+		1,
+		2,
+		1,
+		1
+	)
 	x = parent.x
 	y = parent.y
 	activeBullets = 0;
 	firingCooldown = 0;
 	firingCooldownTime = 180;
 	buckshotBullets = [];
-
+	
 	
 	fire = false;
 	state = stiffBuckshot_cannon.firing;

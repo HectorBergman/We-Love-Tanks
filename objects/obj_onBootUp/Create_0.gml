@@ -33,7 +33,9 @@ global.roomShapes = [ //this information is purely for knowing which room pool t
 ]
 
 
-global.itemRoomPool = ["cactus","spinnyBullet", "backJack","caseOfAces", "fanfare", "fullMetalJacket"];
+defineItems();
+global.itemRoomPool = getItemPool("itemRoom");
+
 
 
 //in the future, create seperate lists or w/e for items that
@@ -41,52 +43,9 @@ global.itemRoomPool = ["cactus","spinnyBullet", "backJack","caseOfAces", "fanfar
 //like create a onHit list, and add all items that activate
 //on hit there. So when player gets hit, go through the list
 //and use all of their onHit effects
-global.items = {
-	spinnyBullet: {
-		name:"Spinny Bullet",
-		pickupText: "It spins :)",
-		infoText: "Your bullets spin and leave behind a protective barrier.",
-		sprite: spr_itemTemp,
-		onBulletTravel: spinnyBullet_onBulletTravel,
-		
-	},
-	cactus: {
-		name:"The Cactus",
-		pickupText: "Prickly!",
-		infoText: "On hit: Shoot out 8 bullets from your body.",
-		sprite: spr_item_cactus,
-		onHit: cactus_onHit,
-	},
-	backJack: {
-		name:"Go-Back Jack",
-		pickupText: "Do it again!",
-		infoText: "After firing, fire again 1 second later",
-		sprite: spr_item_backJack,
-		onFire: backJack_onFire,
-		onTick: backJack_onTick,
-	},
-	caseOfAces: {
-		name:"A Case of Aces",
-		pickupText: "Done up loose for dealing.",
-		infoText: "+4 Luck",
-		sprite: spr_item_caseOfAces,
-		onPickup: caseOfAces_onPickup
-	},
-	fanfare: {
-		name:"Fanfare!",
-		pickupText: "Ta taaaah!!",
-		infoText: "Enemies explode in + upon kill",
-		sprite: spr_item_fanfare,
-		onKill: fanfare_onKill
-	},
-	fullMetalJacket: {
-		name:"Full Metal Jacket",
-		pickupText: "I AM. IN A WORLD. OF $#!@.",
-		infoText: "+1 durability",
-		sprite: spr_item_FMJ,
-		onPickup: fullMetalJacket_onPickup
-	}
-}
+
+
+
 
 global.enemyTypes = ["stiffNormal","braveheartNormal","stiffRicochet","tinyman","stiffBuckshot"]
 global.bossTypes = ["testStar"]

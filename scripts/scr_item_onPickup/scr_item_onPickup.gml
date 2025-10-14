@@ -1,15 +1,14 @@
 function caseOfAces_onPickup(){
+	triggerAsAll(obj_player, caseOfAces_onPickup_helper)
+}
+function caseOfAces_onPickup_helper(){
 	luck += 4;
 }
+
 function fullMetalJacket_onPickup(){
-	cannon.bulletDurability += 1;
-	cannon.fullMetalJacket = true;
+	triggerAsAll(obj_player_cannon, fullMetalJacket_onPickup_helper)
 }
-function find_onPickup(item){
-	var itemData = variable_instance_get(global.items, item);
-	if variable_instance_exists(global.items, item) && 
-       variable_instance_exists(itemData, "onPickup") {
-            var func = itemData.onPickup;
-            method_call(func);
-	}		
+function fullMetalJacket_onPickup_helper(){
+	bulletInfo.durability += 1;
+	fullMetalJacket = true;
 }

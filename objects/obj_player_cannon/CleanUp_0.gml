@@ -1,0 +1,1 @@
+unsubToTriggers(object_index)

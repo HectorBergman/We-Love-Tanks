@@ -5,11 +5,7 @@ switch (state){
 		y = baseY + sin(floatingValue)*5;
 		if place_meeting(x,y,obj_player){
 			state = itemState.collected;
-			ds_list_add(obj_itemHandler.currentItems, itemId);
-			var _id = itemId
-			with obj_player{
-				find_onPickup(_id);
-			}
+			SignalSend("itemAcquired", itemId); 
 		}
 	}break;
 	case itemState.collected:{

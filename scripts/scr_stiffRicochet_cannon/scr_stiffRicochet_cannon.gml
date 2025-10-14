@@ -5,7 +5,14 @@ function stiffRicochet_create_cannon(){
 	type = parent.type;
 	shotCooldownTime = 300;
 	shotCooldown = irandom_range(1,60);
-
+	
+	bulletInfo = bulletInfo_create(
+		1,
+		2,
+		3,
+		5.5
+	)
+	
 	x = parent.x
 	y = parent.y
 	activeBullets = 0;
@@ -55,7 +62,23 @@ function stiffRicochet_step_cannon(){
 		stepAngle = gradualPointOverTime(chosenAngle, timeFromCalculationToFire-10) //no instant snap
 	}else if (shotCooldown mod shotCooldownTime == 0){
 		image_angle = chosenAngle;
-		fireBullet(obj_bullet_enemy, bulletSpeed, maxBounces,1,image_angle,20,true, 1)
+		var extraInfo = {
+			bulletGrowthStart: 0.3, 
+			bulletGrowthEnd: 1, 
+			bulletGrowthRate: 0.05,
+		}
+		
+	
+		var args = 
+		fireBullet_defaultSummonStruct(
+			bulletInfo.speed,
+			bulletInfo.bounces,
+			bulletInfo.damage,
+			enemyBarrelLength, 
+			bulletInfo.durability,
+			extraInfo
+		)
+		fireBullet(id,obj_bullet_enemy,image_angle,args)
 		chosenAngle = -1;
 		closestDistanceToPlayer = 999999;
 	}else if(shotCooldown mod shotCooldownTime > shotCooldownTime-timeFromCalculationToFire+10){
