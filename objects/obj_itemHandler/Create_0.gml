@@ -1,4 +1,5 @@
 acquiredItems = [];
+activeDelays = ds_list_create()
 
 for (var i = 0; i < array_length(global.triggers); i++){
 	variable_instance_set(id,global.triggers[i] + "Items", [])
@@ -17,18 +18,13 @@ SignalSubscribe(id, "itemAcquired", function(itemId){
 	}
 })
 
-/*SignalSubscribe(id, "onFire", function(bulletInfo){
-	var itemsArray = variable_instance_get(id, "onFireItems")
-	for (var i = 0; i < array_length(itemsArray); i++){
-		triggerEvent(itemsArray[i], "onFire");
-	}
-	var bullet = bulletInfo.bullet
+SignalSubscribe(id, "delay", function(delayInfo){
+	print(delayInfo);
+	ds_list_add(activeDelays,delayInfo)
+	print(ds_list_size(activeDelays));
 })
 
-SignalSubscribe(id, "onFire", function(bulletInfo){
-	var bullet = bulletInfo.bullet
-	
-})*/
+
 function subToAllTriggers(){
 	for (var i = 0; i < array_length(global.triggers); i++){
 		var trigger = global.triggers[i]

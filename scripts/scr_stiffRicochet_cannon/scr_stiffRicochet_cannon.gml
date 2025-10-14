@@ -8,9 +8,9 @@ function stiffRicochet_create_cannon(){
 	
 	bulletInfo = bulletInfo_create(
 		1,
-		3,
 		2,
-		4
+		3,
+		5.5
 	)
 	
 	x = parent.x

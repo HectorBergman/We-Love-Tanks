@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_item_onDelay",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_item_onDelay",
+  "parent":{
+    "name":"items",
+    "path":"folders/Objects/items.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

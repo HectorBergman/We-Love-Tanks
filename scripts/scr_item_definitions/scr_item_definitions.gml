@@ -1,5 +1,5 @@
 function defineItems(){
-	global.triggers = ["onPickup","onTick","onFire","onBulletTravel","onHit","onKill"]
+	global.triggers = ["onPickup","onTick","onFire","onBulletTravel","onHit","onKill","onDelay"]
 	global.items = 
 	[{
 		name:"Spinny Bullet",
@@ -27,7 +27,6 @@ function defineItems(){
 		itemPools : ["itemRoom"],
 
 		onFire: backJack_onFire,
-		onTick: backJack_onTick,
 	},
 	{
 		name:"A Case of Aces",

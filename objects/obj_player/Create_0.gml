@@ -54,9 +54,10 @@ function death(){
 }
 
 function decreaseHealth(amount){
+	print("take damage: ",amount);
 	if !invincible{
 		invincible = true;
-		SignalSend("onHit", {cannonId: cannon});
+		SignalSend("onHit", {cannonId: cannon, bulletInfo: cannon.bulletInfo});
 		hp -= amount;
 	}
 }

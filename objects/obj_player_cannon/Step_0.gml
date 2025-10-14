@@ -23,6 +23,7 @@ if obj_inputHandler.fire && !place_meeting(x,y, obj_solid) && activeBullets < ma
 	)
 	
 	fireBullet(id,obj_bullet_player,image_angle, args)
+	SignalSend("onFire", {id : id, bulletInfo : bulletInfo});
 	/*
 	var angle = image_angle
 	var b_Sp = bulletSpeed

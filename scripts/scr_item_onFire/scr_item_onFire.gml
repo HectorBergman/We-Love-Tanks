@@ -1,23 +1,21 @@
 function backJack_onFire(fireInfo){
-	ds_list_add(backJackList, [60,fireInfo]);
-	//fireInfo.obj,fireInfo.bulletSpeed,fireInfo.bulletBounces, fireInfo.bulletDamage,  fireInfo.bulletAngle, fireInfo.bulletDurability
+	SignalSend("delay",{timer: 60, func: backJack_onDelay, funcArgs: fireInfo})
 }
-
-/*// Golden Ratio (φ ≈ 1.618) and Golden Angle (≈137.508°)
-		var _phi = (1 + sqrt(5)) / 2;
-		var _golden_angle = 360 / ((_phi * _phi)*10); // ≈137.508°
-
-		// Initial angle calculation
-		var _angle = radtodeg(arctan2(-movementVector[1], movementVector[0]));
-
-		var _radius = lifeTime/5; // Increase radius over time
-		// Apply Golden Angle increment per frame
-		_angle = (_angle + _golden_angle*_radius) mod 360;
-
-		// Update movement vector (preserve speed)
-	
-		bulletSpeed -= 0.02
-		
-		// Update movement vector
-		movementVector[0] = dcos(_angle);
-		movementVector[1] = -dsin(_angle);*/
+function backJack_onDelay(fireInfo){
+	var bulletInfo = fireInfo.bulletInfo
+	var extraInfo = {
+		bulletGrowthStart: 0.3, 
+		bulletGrowthEnd: 1, 
+		bulletGrowthRate: 0.05,
+	}
+	var args = 
+	fireBullet_defaultSummonStruct(
+		bulletInfo.speed,
+		bulletInfo.bounces,
+		bulletInfo.damage,
+		global.playerBarrelLength, 
+		bulletInfo.durability,
+		extraInfo
+	)
+	fireBullet(fireInfo.id, obj_bullet_player,fireInfo.id.image_angle,args,false)
+}

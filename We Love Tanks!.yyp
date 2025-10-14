@@ -288,6 +288,7 @@
     {"id":{"name":"scr_item_general","path":"scripts/scr_item_general/scr_item_general.yy",},},
     {"id":{"name":"scr_item_onBulletImpact","path":"scripts/scr_item_onBulletImpact/scr_item_onBulletImpact.yy",},},
     {"id":{"name":"scr_item_onBulletTravel","path":"scripts/scr_item_onBulletTravel/scr_item_onBulletTravel.yy",},},
+    {"id":{"name":"scr_item_onDelay","path":"scripts/scr_item_onDelay/scr_item_onDelay.yy",},},
     {"id":{"name":"scr_item_onFire","path":"scripts/scr_item_onFire/scr_item_onFire.yy",},},
     {"id":{"name":"scr_item_onHit","path":"scripts/scr_item_onHit/scr_item_onHit.yy",},},
     {"id":{"name":"scr_item_onKill","path":"scripts/scr_item_onKill/scr_item_onKill.yy",},},

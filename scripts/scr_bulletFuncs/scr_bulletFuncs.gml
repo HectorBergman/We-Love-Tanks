@@ -1,10 +1,10 @@
 #macro enemyBarrelLength 20
-function bulletInfo_create(damage,bounces,durability,speed,extraArgs = {}){
+function bulletInfo_create(damage,bounces,durability,_speed,extraArgs = {}){
 	var bulletInfo = {
-		damage : 100,
-		bounces : 3,
-		durability : 1,
-		speed : 2,
+		damage : damage,
+		bounces : bounces,
+		durability : durability,
+		speed : _speed,
 	}
 	var keys = variable_struct_get_names(extraArgs);
     for (var i = 0; i < array_length(keys); i++) {
@@ -24,14 +24,14 @@ function fireBullet_defaultSummonStruct(bulletSpeed, maxBounce, damage, barrelLe
         barrelLength: barrelLength,
         durability: bulletHp
     };
-    print(struct)
-	print(extraArgs);
-    var keys = variable_struct_get_names(extraArgs);
+    struct_addArgs(struct,extraArgs)
+    return struct;
+}
+
+function struct_addArgs(struct,argsStruct){
+	var keys = variable_struct_get_names(argsStruct);
     for (var i = 0; i < array_length(keys); i++) {
         var key = keys[i];
-        variable_struct_set(struct, key, variable_struct_get(extraArgs, key));
+        variable_struct_set(struct, key, variable_struct_get(argsStruct, key));
     }
-	print("fireBullet")
-    print(struct)
-    return struct;
 }
