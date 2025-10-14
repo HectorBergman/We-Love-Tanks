@@ -1,3 +1,5 @@
+//functions that trigger when the player is hit
+
 function cactus_onHit(info){
 	var func = method({
 		info: info

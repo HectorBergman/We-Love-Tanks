@@ -1,3 +1,5 @@
+//functions that trigger each bullet tick
+
 function spinnyBullet_onBulletTravel(bulletInfo){
 	triggerAsInstance(bulletInfo.id,spinnyBullet_onBulletTravel_helper);
 

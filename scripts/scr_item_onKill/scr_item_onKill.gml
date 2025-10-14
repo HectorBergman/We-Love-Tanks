@@ -1,3 +1,5 @@
+//functions that trigger upon enemy death
+
 function getInfo_onKill(){
 	var dinfo = getDeceasedInfo(id)
 	var playerInfo = {
