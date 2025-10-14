@@ -31,3 +31,9 @@ function ricochetBounce(){
 		bounces++
 	}
 }
+
+
+var top = y - sprite_get_yoffset(sprite_index)
+var bot = y + (sprite_height - sprite_get_yoffset(sprite_index))
+
+//collision_line(x

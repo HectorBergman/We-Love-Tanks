@@ -39,4 +39,26 @@ draw_surface_ext(pathSurface, 0, 0, 1, 1, 0, c_white, 0.7);*/
 
 draw_self();
 
-draw_text(x+20,y+20,lifeTime);
+var top_offsetX = -sprite_get_xoffset(sprite_index)*scale;
+var top_offsetY = -sprite_get_yoffset(sprite_index)*scale;
+var bot_offsetX = sprite_height - sprite_get_xoffset(sprite_index)*scale;
+var bot_offsetY = sprite_height - sprite_get_yoffset(sprite_index)*scale;
+print(top_offsetX)
+var cosA = dcos(image_angle);
+var sinA = dsin(image_angle);
+
+var topX = floor(x + top_offsetY * sinA );  // Round to nearest pixel
+var topY = floor(y + top_offsetY * cosA);
+var botX = floor(x + bot_offsetY * sinA );
+var botY = floor(y + bot_offsetY * cosA );
+
+
+draw_set_color(c_red);
+var endX1 = topX + movementVector[0] * 4000;
+var endY1 = topY + movementVector[1] * 4000;
+var endX2 = botX + movementVector[0] * 4000;
+var endY2 = botY + movementVector[1] * 4000;
+
+draw_line(topX, topY, endX1, endY1);
+draw_set_color(c_blue);
+draw_line(botX, botY, endX2, endY2);
