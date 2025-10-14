@@ -81,6 +81,7 @@ function fireBullet(instance, bulletObj, angle, extraArgs = {}, increaseCount = 
 	    var value = variable_struct_get(extraArgs, key);
 		summonArray[i+3] = [key,value]
 	}
+	print(summonArray);
 	var bullet = summonObject(bulletObj, summonArray);
 	if increaseCount{
 		instance.activeBullets++;

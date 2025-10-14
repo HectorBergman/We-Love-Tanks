@@ -92,10 +92,24 @@ function stiffRicochet_step_cannon(){
 
 function findBestRicochetAngle(){
 	for (var i = startAngle; i < 360; i = i+angleInterval){
-		var angle = degtorad(i)+pi/2;
-		summonObject(obj_bullet_findRicochet, [["movementVector", [sin(angle), cos(angle)]], 
-		["bulletSpeed", bulletSpeed], ["x", x+20*sin(angle)], ["y", y+20*cos(angle)], ["maxBounce", maxBounces], 
-		["parent", id], ["originalAngle", i], ["firedFrom", [x,y]], ["firedAngle", image_angle]])
+		var angle = i
+		var extraInfo = {
+			x : x+20*dcos(angle),
+			y : y+20*-dsin(angle),
+			originalAngle:i,
+		}
+		
+	
+		var args = 
+		fireBullet_defaultSummonStruct(
+			bulletInfo.speed,
+			bulletInfo.bounces,
+			bulletInfo.damage,
+			enemyBarrelLength, 
+			bulletInfo.durability,
+			extraInfo
+		)
+		fireBullet(id, obj_bullet_findRicochet, angle,args,false)
 	}
 }
 function searchRicochetArray(){
