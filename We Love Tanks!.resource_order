@@ -78,6 +78,7 @@
     {"name":"obj_boss","order":1,"path":"objects/obj_boss/obj_boss.yy",},
     {"name":"obj_bossSpawner","order":3,"path":"objects/obj_bossSpawner/obj_bossSpawner.yy",},
     {"name":"obj_bullet_enemy","order":3,"path":"objects/obj_bullet_enemy/obj_bullet_enemy.yy",},
+    {"name":"obj_bullet_findRicochet_test","order":6,"path":"objects/obj_bullet_findRicochet_test/obj_bullet_findRicochet_test.yy",},
     {"name":"obj_bullet_findRicochet","order":1,"path":"objects/obj_bullet_findRicochet/obj_bullet_findRicochet.yy",},
     {"name":"obj_bullet_player","order":2,"path":"objects/obj_bullet_player/obj_bullet_player.yy",},
     {"name":"obj_bulletTrail","order":4,"path":"objects/obj_bulletTrail/obj_bulletTrail.yy",},

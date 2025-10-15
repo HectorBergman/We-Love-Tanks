@@ -4,7 +4,7 @@ x = parent.x
 y = parent.y
 bulletInfo = bulletInfo_create(
 	100,
-	3,
+	99,
 	1,
 	2,
 	{fullMetalJacket: false}
@@ -13,7 +13,7 @@ bulletInfo = bulletInfo_create(
 
 
 
-maxBullets = 3;
+maxBullets = 999;
 activeBullets = 0;
 firingCooldown = 0;
 firingCooldownTime = 30;

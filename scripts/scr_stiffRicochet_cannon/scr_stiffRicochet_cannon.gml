@@ -45,8 +45,8 @@ function stiffRicochet_create_cannon(){
 
 	stepAngle = 0;
 
-	startAngle = 0;
-	angleInterval = 5; //increase this for less precise but faster calculations //recommended: 5
+	startAngle = 45;
+	angleInterval = 359; //increase this for less precise but faster calculations //recommended: 5
 
 	
 }
@@ -109,7 +109,7 @@ function findBestRicochetAngle(){
 			bulletInfo.durability,
 			extraInfo
 		)
-		fireBullet(id, obj_bullet_findRicochet, angle,args,false)
+		fireBullet(id, obj_bullet_findRicochet_test, angle,args,false)
 	}
 }
 function searchRicochetArray(){
