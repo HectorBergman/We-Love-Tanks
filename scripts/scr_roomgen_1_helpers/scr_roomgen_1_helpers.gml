@@ -1,3 +1,47 @@
+#macro undefinedCoords [-229,-229]
+#macro undefinedDir [-229,-229]
+
+
+function sanitizeRoomFromRoomData(_room, index){
+
+	var newInstancesArr = [];
+	if variable_struct_exists(_room,"sanitized"){
+		return _room.instances;
+	}
+	for (var i = 0; i < array_length(_room.instances); i++){
+		
+		var inst = _room.instances[i];
+
+		var summonArr = getSummonArrFromChoices(inst.displayObjIndex, inst.instanceArgumentsChoices);
+		var newSummonArr = array_concat(inst.summonArr,summonArr);
+		var newInst = {objectIndex : ds_list_find_value(global.displayObjects,inst.displayObjIndex).objectIndex,
+					   summonArray : newSummonArr}
+		newInstancesArr[i] = newInst;
+						
+		//insts[i] = 
+	}
+	_room.sanitized = true;
+	//insts[i][0][1], insts[i]
+	return newInstancesArr;
+}
+
+/// @function			getXY(dir)
+/// @description Given a number from 0 to 3, returns an integer vector normal
+/// Numbers outside 0 to 3 returns a vector of -2 , -2
+/// @param {integer}	dir , number from 0 to 3, 0 being 0 degrees, with the other numbers increasing by 90 degrees each
+/// @returns {array<integer>}	array of size 2 containing the integer vector normal
+function getXY(dir){
+	if dir == 0{
+		return [1,0];
+	}else if dir == 1{
+		return [0,-1]
+	}else if dir == 2{
+		return [-1,0]
+	}else if dir == 3{
+		return [0,1]
+	}
+	return undefinedDir
+}
 function coordsWithinGrid(coords,gridDimensions){
 	return !(
 			 coords[0] >= gridDimensions[0] || 
