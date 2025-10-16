@@ -4,7 +4,6 @@ switch (type){
 }
 image_xscale = scale;
 image_yscale = scale;
-
 fakeX += movementVector[0]*velocity;
 fakeY += movementVector[1]*velocity;
 z += zSpeed;

@@ -12,7 +12,6 @@ switch (menuMode){
 				roomsPosition += array_length(searchArray)+1;
 			}
 			updateToDrawArray();
-			print(roomsPosition);
 		}
 		if menu == noone{
 			toggleMenu()

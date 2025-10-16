@@ -155,7 +155,6 @@ function toggleDropdown(){
 	}
 }
 function textboxSelectedAction(arg){
-	print("haii");
 	if arg[0] == id{
 		activateTextbox();
 	}else{

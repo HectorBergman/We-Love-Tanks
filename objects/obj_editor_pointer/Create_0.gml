@@ -8,9 +8,6 @@ enum clickTypes{
 	release
 }
 function sendClickSignal(clickType, instanceClicked){
-	print("signaling!:");
-	print(clickType);
-	print(instanceClicked);
 	switch (clickType){
 		case clickTypes.click:{SignalSend("editor_clicked", instanceClicked);
 							   SignalSend("editor_clicked: " + string(instanceClicked))

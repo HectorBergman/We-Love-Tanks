@@ -53,7 +53,7 @@ var top_offsetX = -sprite_get_xoffset(sprite_index)*scale;
 var top_offsetY = -sprite_get_yoffset(sprite_index)*scale;
 var bot_offsetX = sprite_height*scale - sprite_get_xoffset(sprite_index)*scale;
 var bot_offsetY = sprite_height*scale - sprite_get_yoffset(sprite_index)*scale;
-print(top_offsetX)
+
 
 
 

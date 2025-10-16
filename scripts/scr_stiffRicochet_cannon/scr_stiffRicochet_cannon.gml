@@ -17,7 +17,7 @@ function stiffRicochet_create_cannon(){
 	y = parent.y
 	activeBullets = 0;
 	firingCooldown = 0;
-	firingCooldownTime = 120;
+	firingCooldownTime = 30;
 	fire = false;
 	state = stiffRicochet.normal;
 
@@ -45,8 +45,8 @@ function stiffRicochet_create_cannon(){
 
 	stepAngle = 0;
 
-	startAngle = 45;
-	angleInterval = 359; //increase this for less precise but faster calculations //recommended: 5
+	startAngle = 160;
+	angleInterval = 5; //increase this for less precise but faster calculations //recommended: 5
 
 	
 }
@@ -61,6 +61,7 @@ function stiffRicochet_step_cannon(){
 		searchRicochetArray();	//finds angle in array
 		stepAngle = gradualPointOverTime(chosenAngle, timeFromCalculationToFire-10) //no instant snap
 	}else if (shotCooldown mod shotCooldownTime == 0){
+		chosenAngle = 160;
 		image_angle = chosenAngle;
 		var extraInfo = {
 			bulletGrowthStart: 0.3, 
@@ -109,7 +110,9 @@ function findBestRicochetAngle(){
 			bulletInfo.durability,
 			extraInfo
 		)
-		fireBullet(id, obj_bullet_findRicochet_test, angle,args,false)
+		if instance_number(obj_bullet_findRicochet_test) < 1{ //DEBUG!!!!
+			fireBullet(id, obj_bullet_findRicochet_test, angle,args,false)
+		}
 	}
 }
 function searchRicochetArray(){
@@ -121,7 +124,7 @@ function searchRicochetArray(){
 			closestDistanceToPlayer = ricochetArray[i]
 		}
 	}
-	print("itsdecided");
+	/*print("itsdecided");
 	print(chosenAngle)
-	print(closestDistanceToPlayer)
+	print(closestDistanceToPlayer)*/
 }

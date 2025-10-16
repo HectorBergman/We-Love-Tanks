@@ -8,7 +8,6 @@ transitionFunction = function(){}
 function getTransitionFunction(){
 	//todo: amend
 	SignalSubscribe(id, "currentRoom_doors_request_response", function(currentRoom_doors){
-		print(currentRoom_doors);
 		switch(currentRoom_doors[roomNo][doorNo]){
 			case doorValues.open:{
 				transitionFunction = function(){

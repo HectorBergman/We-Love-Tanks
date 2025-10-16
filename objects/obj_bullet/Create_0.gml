@@ -66,6 +66,7 @@ function bulletBounce(){
 			bounces++
 		}
 	}
+	print("BuletmovVec0: ", movementVector[0], " BuletmovVec1: ", movementVector[1]);
 }
 
 function collide(collideEntity, isBullet){
@@ -86,8 +87,6 @@ function collide(collideEntity, isBullet){
 }
 function decreaseDurability(collidedEntity){
 	var dura = durability;
-	print(durability)
-	print(collidedEntity.durability);
 	durability -= collidedEntity.durability;
 	collidedEntity.durability -= dura;
 	if durability <= 0{

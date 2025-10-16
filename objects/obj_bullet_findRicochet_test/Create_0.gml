@@ -1,4 +1,5 @@
-#macro maxDistance 3840
+#macro maxDistance 1920
+depth = -9999;
 pauseMode = allPause;
 function movementX(){
 	return movementVector[0]*bulletSpeed;
@@ -24,6 +25,9 @@ bounces = 0;
 debugTimer = 60;
 debugTime = 60;
 
+print("movVec0: ", movementVector[0], " movVec1: ", movementVector[1]);
+print(x, " ", y);
+
 function ricochetBounce(){
 	
 	if bounces >= maxBounce{
@@ -31,6 +35,8 @@ function ricochetBounce(){
 		print(closestDistanceToPlayer);
 		print(originalAngle);
 		print("-----");
+		
+		summonObject(obj_dummy, [["depth", -9999],["x",x],["y",y]]);
 		instance_destroy();
 	}else{
 		bounces++
@@ -59,6 +65,7 @@ function getRelativeTopMidBot(point, activeNo){
 	var sinA = dsin(image_angle);
 	var scaledOffset_y = sprite_get_yoffset(sprite_index)*scale
 	var scaledHeight = sprite_height*scale
+
 	switch (activeNo){
 		case 0: 
 			arr =
@@ -92,7 +99,7 @@ function getRelativeTopMidBot(point, activeNo){
 				],
 				[
 					floor(point[0]+(scaledHeight-scaledOffset_y)*sinA),
-					floor(point[0]+(scaledHeight-scaledOffset_y)*cosA)
+					floor(point[1]+(scaledHeight-scaledOffset_y)*cosA)
 				],
 				point,
 			]
@@ -100,10 +107,14 @@ function getRelativeTopMidBot(point, activeNo){
 	}
 	return arr;
 }
-setTopMidBot()
 
 function getRaycast(array){
-    return collision_line_point(
+	
+	print("RC: ", array[0], " ",
+		array[1], " ",
+		array[0]+movementVector[0]*maxDistance, " ",
+		array[1]+movementVector[1]*maxDistance)
+	var RC = collision_line_point(
 		array[0],
 		array[1],
 		array[0]+movementVector[0]*maxDistance,
@@ -111,12 +122,14 @@ function getRaycast(array){
 		obj_solid,
 		false,
 		false
-	).hitPoint
+	)
+    return RC.hitPoint
 }
 
 function enhanceAndSortMTB(){
 	var sortArr = []
 	var arr = [top,mid,bot]
+	
 	for (var i = 0; i < array_length(arr); i++){
 		var raycast = getRaycast(arr[i]);
 		var raycastStruct = {
@@ -124,23 +137,28 @@ function enhanceAndSortMTB(){
 			distance: point_distance(
 				arr[i][0],
 				arr[i][1],
-				arr[i][0]+movementVector[0]*maxDistance,
-				arr[i][1]+movementVector[1]*maxDistance
+				raycast[0],
+				raycast[1]
 			),
 			number: i
 		}
 		array_push(sortArr,raycastStruct);
 	}
 	array_sort(sortArr, sorty)
-	
+	for (var i = 0 ; i < 3; i++){
+		print("distance for ", i, ": ",  sortArr[i].distance)
+	}
 	return sortArr;
 }
 function findBounce(){
 	var arr = enhanceAndSortMTB();
+	print(arr);
 	for (var i = 0; i < array_length(arr); i++){
 		var RTMB = getRelativeTopMidBot(arr[i].point,arr[i].number)
+		summonObject(obj_dummy, [["x",RTMB[1][0]],["y",RTMB[1][1]]]);
 		var collisionAngle = collision_normal(RTMB[1][0], RTMB[1][1], obj_solid)
 		if collisionAngle != -1{
+			
 			x = RTMB[1][0];
 			y = RTMB[1][1];
 			var dot = movementVector[0] * cos(degtorad(collisionAngle)) +
@@ -159,8 +177,8 @@ function sorty(element1,element2){
 	if element1.distance == element2.distance{
 		return 0
 	}else if element1.distance > element2.distance{
-		return -1
-	}else{
 		return 1
+	}else{
+		return -1
 	}
 }

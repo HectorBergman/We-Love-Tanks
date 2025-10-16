@@ -22,7 +22,6 @@ function allObjectVariables(isParent){
 	switch (isParent){
 		case true:{
 			var action =  createActions();
-			print(currentDisplayObject);
 			if variable_struct_exists(currentDisplayObject, "actions"){
 				action = currentDisplayObject.actions
 			}

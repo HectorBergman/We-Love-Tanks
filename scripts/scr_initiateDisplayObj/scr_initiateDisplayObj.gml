@@ -81,8 +81,6 @@ function addDisplayObjs(arr){
 		var index = ds_list_find_value(global.displayObjects, ds_list_size(global.displayObjects)).DOindex;
 	}
 	for (var i = 0; i < array_length(arr); i++){
-		print(i);
-		print(arr[i]);
 		arr[i].DOindex = index
 		ds_list_add(global.displayObjects, arr[i]);
 		index++

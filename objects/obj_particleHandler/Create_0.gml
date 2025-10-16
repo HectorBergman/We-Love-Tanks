@@ -1,4 +1,4 @@
-print("kek");
+
 SignalSubscribe(id, "transportRoom", function(){
 	part_particles_clear(global.ps_above);
 })

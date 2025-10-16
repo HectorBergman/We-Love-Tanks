@@ -154,7 +154,6 @@ function minIndex() {
     var min_index = 1;
     
     for (var i = 0; i < argument_count; i++) {
-		//print("i: " + string(i) + " val: " + string(argument[i]));
         if (argument[i] < min_val) {
             min_val = argument[i];
             min_index = i; 
