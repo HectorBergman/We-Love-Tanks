@@ -1,1 +1,0 @@
-global.newRoom = false;
