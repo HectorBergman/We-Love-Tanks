@@ -12,7 +12,14 @@ function stiffRicochet_create_cannon(){
 		3,
 		5.5
 	)
-	
+	SignalSubscribe(id, "ricochetAngle", function(ricochetInfo){
+		var closestDistance = ricochetInfo.distance 
+		var angle = ricochetInfo.angle
+		if closestDistance < closestDistanceToPlayer{
+			chosenAngle = angle
+			closestDistanceToPlayer = closestDistance
+		}
+	})
 	x = parent.x
 	y = parent.y
 	activeBullets = 0;
@@ -45,7 +52,7 @@ function stiffRicochet_create_cannon(){
 
 	stepAngle = 0;
 
-	startAngle = 160;
+	startAngle = 0;
 	angleInterval = 5; //increase this for less precise but faster calculations //recommended: 5
 
 	
@@ -61,7 +68,6 @@ function stiffRicochet_step_cannon(){
 		searchRicochetArray();	//finds angle in array
 		stepAngle = gradualPointOverTime(chosenAngle, timeFromCalculationToFire-10) //no instant snap
 	}else if (shotCooldown mod shotCooldownTime == 0){
-		chosenAngle = 160;
 		image_angle = chosenAngle;
 		var extraInfo = {
 			bulletGrowthStart: 0.3, 
@@ -93,6 +99,7 @@ function stiffRicochet_step_cannon(){
 
 function findBestRicochetAngle(){
 	for (var i = startAngle; i < 360; i = i+angleInterval){
+		
 		var angle = i
 		var extraInfo = {
 			x : x+20*dcos(angle),
@@ -110,9 +117,9 @@ function findBestRicochetAngle(){
 			bulletInfo.durability,
 			extraInfo
 		)
-		if instance_number(obj_bullet_findRicochet_test) < 1{ //DEBUG!!!!
-			fireBullet(id, obj_bullet_findRicochet_test, angle,args,false)
-		}
+		
+		fireBullet(id, obj_bullet_findRicochet_test, angle,args,false)
+		
 	}
 }
 function searchRicochetArray(){

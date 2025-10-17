@@ -31,12 +31,13 @@ print(x, " ", y);
 function ricochetBounce(){
 	
 	if bounces >= maxBounce{
-		
+		SignalSend("ricochetAngle", {
+			distance: closestDistanceToPlayer,
+			angle: originalAngle
+		})
 		print(closestDistanceToPlayer);
 		print(originalAngle);
 		print("-----");
-		
-		summonObject(obj_dummy, [["depth", -9999],["x",x],["y",y]]);
 		instance_destroy();
 	}else{
 		bounces++
@@ -55,8 +56,8 @@ function setTopMidBot(){
 
 
 	top = [floor(x + top_offsetY * sinA), floor(y + top_offsetY * cosA)]
-	bot = [floor(x + bot_offsetY * sinA), floor(y + bot_offsetY * cosA)]
 	mid = [floor(x), floor(y)]
+	bot = [floor(x + bot_offsetY * sinA), floor(y + bot_offsetY * cosA)]
 }
 
 function getRelativeTopMidBot(point, activeNo){
@@ -144,6 +145,7 @@ function enhanceAndSortMTB(){
 		}
 		array_push(sortArr,raycastStruct);
 	}
+	setClosestDistance(sortArr[1].point)
 	array_sort(sortArr, sorty)
 	for (var i = 0 ; i < 3; i++){
 		print("distance for ", i, ": ",  sortArr[i].distance)
@@ -158,7 +160,6 @@ function findBounce(){
 		summonObject(obj_dummy, [["x",RTMB[1][0]],["y",RTMB[1][1]]]);
 		var collisionAngle = collision_normal(RTMB[1][0], RTMB[1][1], obj_solid)
 		if collisionAngle != -1{
-			
 			x = RTMB[1][0];
 			y = RTMB[1][1];
 			var dot = movementVector[0] * cos(degtorad(collisionAngle)) +
@@ -170,7 +171,13 @@ function findBounce(){
 			return;
 		}
 	}
-	forceCrash("didnt find bounce");
+	forceCrash("didnt find bounce" + string(arr) + " " + string(originalAngle));
+}
+
+function setClosestDistance(wallHitPoint){
+	var playerCoord = [obj_player.x,obj_player.y];
+	var distance = point_to_segment_distance(mid, wallHitPoint, playerCoord)
+	closestDistanceToPlayer = min(closestDistanceToPlayer,distance);
 }
 
 function sorty(element1,element2){

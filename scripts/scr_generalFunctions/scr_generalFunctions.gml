@@ -331,3 +331,42 @@ function collision_line_point(x1, y1, x2, y2, obj, prec, notme) {
     }
     return {instance: rr, hitPoint: [rx, ry]};
 }
+
+/// point_to_segment_distance(x1, y1, x2, y2, px, py)
+/// Distance from point (px,py) to the segment between (x1,y1) and (x2,y2).
+/// Returns the shortest distance and optionally you can compute the closest point too.
+function point_to_segment_distance(segmentPoint1, segmentPoint2, point) {
+    var ax = segmentPoint1[0];
+    var ay = segmentPoint1[1];
+    var bx = segmentPoint2[0];
+    var by = segmentPoint2[1];
+	var px = point[0]
+	var py = point[1]
+
+    var vx = bx - ax;
+    var vy = by - ay;
+    var wx = px - ax;
+    var wy = py - ay;
+
+    var denom = vx*vx + vy*vy;
+    if (denom == 0) {
+        // segment is a point
+        return point_distance(px, py, ax, ay);
+    }
+
+    // projection factor t = dot(AP,AB) / dot(AB,AB)
+    var t = (wx*vx + wy*vy) / denom;
+
+    if (t <= 0) {
+        // closest to A
+        return point_distance(px, py, ax, ay);
+    } else if (t >= 1) {
+        // closest to B
+        return point_distance(px, py, bx, by);
+    } else {
+        // projection falls within segment, compute projection point
+        var cx = ax + t * vx;
+        var cy = ay + t * vy;
+        return point_distance(px, py, cx, cy);
+    }
+}

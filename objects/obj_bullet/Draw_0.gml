@@ -46,7 +46,7 @@ var peakX = (sprite_width-2-sprite_get_xoffset(sprite_index))*scale;
 var peakY = (sprite_height/2-sprite_get_yoffset(sprite_index))*scale
 var completePeakX = floor(x + peakX * sinB - peakY * cosB);
 var completePeakY = floor(y + peakX * cosB + peakY * sinB);
-draw_circle(completePeakX,completePeakY,3,false)
+draw_circle(completePeakX,completePeakY,2,false)
 
 
 var top_offsetX = -sprite_get_xoffset(sprite_index)*scale;

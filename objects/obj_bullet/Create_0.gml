@@ -6,39 +6,45 @@ function movementX(){
 function movementY(){
 	return movementVector[1]*bulletSpeed;
 }
+
+enum bulletState{
+	inBarrel,
+	travel,
+	bounce,
+}
+enum growthState{
+	growing,
+	grown
+}
+
+state = bulletState.inBarrel;
+growth = growthState.grown;
 scale = 1;
 canGrow = false;
 timeWhenExitBarrel = 0
 if barrelLength > 0{
 	timeWhenExitBarrel = ceil(barrelLength/bulletSpeed)+1;
-}
-if variable_instance_exists(id, "bulletGrowthStart"){
-	canGrow = true;
-	scale = bulletGrowthStart;
-}
-followCannon = 0;
-if object_index == obj_bullet_player{
 	extraMovement = 0
 	followCannon = timeWhenExitBarrel;
+}else{
+	state = bulletState.travel;
 }
+
+if variable_instance_exists(id, "bulletGrowthStart"){
+	growth = growthState.growing;
+	scale = bulletGrowthStart;
+}
+
 image_xscale = scale;
 image_yscale = scale;
-collisionVector = [0,0];
-//summonObject(obj_bulletTrail, [["parent", id]]);
-prevVector = [noone, noone];
 timeSinceBounce = 0;
 
-lastWallStruck = noone;
-newCoords = [0,0]
-latestWallHit = -1;
-hitInARow = 0;
+
 slowmovin = 1;
 slowMovinTime = 60;
-angle = image_angle
-prevTurn = -1;
+
 bounces = 0;
 
-minimumdifference = 3;
 lifeTime = 0;
 
 pathPoints = ds_list_create();
@@ -52,7 +58,6 @@ subToTriggers(string(object_index))
 
 ignoreList = ds_list_create()
 
-growth_factor = 1;
 initial_radius = 1; // Starting size
 rotation_speed = 3; // Degrees per frame
 

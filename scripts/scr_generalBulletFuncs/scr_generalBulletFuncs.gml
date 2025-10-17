@@ -236,14 +236,14 @@ function pickupMoney(){
 	ds_list_destroy(list);
 }
 
-function ricochet(movementVector, velocity, radius = 3, spacing = 1){
+function ricochet(movementVector, velocity, radius = 2, spacing = 1){
 	var cosB = dcos(image_angle + 90);
 	var sinB = dsin(image_angle + 90);
 	var peakX = (sprite_width-2-sprite_get_xoffset(sprite_index))*scale;
 	var peakY = (sprite_height/2-sprite_get_yoffset(sprite_index))*scale
 	var completePeakX = floor(x + peakX * sinB - peakY * cosB);
 	var completePeakY = floor(y + peakX * cosB + peakY * sinB);
-	var collisionAngle = collision_normal(completePeakX+movementVector[0]*velocity,completePeakY+movementVector[1]*velocity,obj_solid,radius,spacing)
+	var collisionAngle = collision_normal(x+movementVector[0]*velocity,y+movementVector[1]*velocity,obj_solid,radius,spacing)
 	
 	if collisionAngle != -1{
 		var dot = movementVector[0] * cos(degtorad(collisionAngle)) + movementVector[1] * sin(degtorad(collisionAngle));

@@ -1,19 +1,20 @@
 PAUSE
 
-if !obj_inputHandler.heldSpace{
-	debugTimer--
-}
-if debugTimer == 0{
+//if !obj_inputHandler.heldSpace{
+	//debugTimer--
+//}
+//if debugTimer == 0{
 	setTopMidBot()
 	var collisionAngle = collision_normal(x+movementX(),y+movementY(),obj_solid,2,1)
 	findBounce();
 	ricochetBounce();
 	image_angle = point_direction(x,y,x+movementVector[0],y+movementVector[1]);
-	x = x+movementVector[0]*6
-	y = y+movementVector[1]*6
-	debugTimer = debugTime;
+	x = x+movementVector[0]
+	y = y+movementVector[1]
+	//debugTimer = debugTime;
 	
-}
+//}
+
 
 /*while collisionAngle == -1{
 	collisionAngle = collision_normal(x+movementX(),y+movementY(),obj_solid,2,1)
