@@ -5,10 +5,10 @@ function stiffRicochet_create_cannon(){
 	type = parent.type;
 	shotCooldownTime = 300;
 	shotCooldown = irandom_range(1,60);
-	
+	maxBounces = 2;
 	bulletInfo = bulletInfo_create(
 		1,
-		2,
+		maxBounces,
 		3,
 		4,
 	)
@@ -50,8 +50,8 @@ function stiffRicochet_create_cannon(){
 
 	stepAngle = 0;
 
-	startAngle = 0;
-	angleInterval = 5; //increase this for less precise but faster calculations //recommended: 5
+	startAngle = 150;
+	angleInterval = 999; //increase this for less precise but faster calculations //recommended: 5
 
 	
 }

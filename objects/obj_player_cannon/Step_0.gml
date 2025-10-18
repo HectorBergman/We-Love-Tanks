@@ -10,7 +10,10 @@ if obj_inputHandler.fire && !place_meeting(tip_x,tip_y, obj_solid) && activeBull
 	var extraInfo = {
 		bulletGrowthStart: 0.3, 
 		bulletGrowthEnd: 1, 
-		bulletGrowthRate: 0.05
+		bulletGrowthRate: 0.05,
+		boostMultiplier: 1.2,
+		boostDecay: 0.99,
+		bounceFrameCount : 8,
 	}
 	
 	var args = 

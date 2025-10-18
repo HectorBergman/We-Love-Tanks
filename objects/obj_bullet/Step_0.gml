@@ -58,36 +58,44 @@ if (slowmovin mod 60 == 0){
 		
 		break;
 		case bulletState.travel: 
-			bullet_travel();
 			bullet_checkForRico();
-			if object_index == obj_bullet_player{
-				pickupMoney();
-				SignalSend("onBulletTravel", {id : id});
-			}
-	findTags();
+			bullet_travel();
+			findTags();
 		break;
 		case bulletState.bounce: 
 			switch(bInfo.state){
-				case bounceState.start:
-				print(bInfo);      
+				case bounceState.start:   
 				bInfo.state = bounceState.mid
 				
 				break;
 				case bounceState.mid: 
-					bInfo.bounceTimer--
-					image_angle += angle_difference(bInfo.angle,bInfo.angleAtBounce)/(bInfo.bounceTime+1)
+					bInfo.bounceTimer--;
+
+					var progress = 1 - (bInfo.bounceTimer / bInfo.bounceTime);
+					var easedProgress = progress * progress;
+					var totalAngleDiff = angle_difference(bInfo.angle, bInfo.angleAtBounce);
+					var angDiff = totalAngleDiff * (easedProgress - bInfo.lastEasedProgress);
+					bInfo.lastEasedProgress = easedProgress;
+					image_angle += angDiff;
 					if bInfo.bounceTimer == 0{
 						bInfo.state = bounceState.finish
 						bInfo.bounceTimer = bInfo.bounceTime
 						image_angle = bInfo.angle;
+						bInfo.lastEasedProgress = 0;
 					}
 				break;
 				case bounceState.finish:
 					bInfo.bounceTimer--
-					bulletSpeed += baseBulletSpeed*0.6;
+					var t = clamp((bulletSpeed - baseBulletSpeed) / (capBulletSpeed - baseBulletSpeed), 0, 1);
+					var scaledBoost = power(1-t,2) // quadratic ease-out
+					bulletSpeed += baseBulletSpeed * bInfo.boostMultiplier * scaledBoost;
+					print("-----");
+					print("bulletSpeed: ", bulletSpeed)
+					print("scaledBoost: ", scaledBoost);
 					bInfo.state = bounceState.start;
 					state = bulletState.travel
 					bInfo.bounceTimer = bInfo.bounceTime
+					bInfo.timeSinceBounce = 0;
 					movementVector = getMovementVector(image_angle);
 					x += movementVector[0]*bulletSpeed;
 					y += movementVector[1]*bulletSpeed;
@@ -96,7 +104,7 @@ if (slowmovin mod 60 == 0){
 			}
 		break;
 		case bulletState.dying: 
-			instance_destroy();
+			death();
 			//add delay here,
 			//maybe create a delay handler that takes id and pauseMode,
 			//then ticks down if pauseMode isnt paused
@@ -107,7 +115,7 @@ if (slowmovin mod 60 == 0){
 	image_yscale = scale;
 	
 	
-	timeSinceBounce++
+	
 	
 }
 

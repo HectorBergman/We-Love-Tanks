@@ -13,7 +13,7 @@ bulletInfo = bulletInfo_create(
 
 
 
-maxBullets = 999;
+maxBullets = 3;
 activeBullets = 0;
 firingCooldown = 0;
 firingCooldownTime = 30;

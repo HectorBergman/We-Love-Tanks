@@ -25,6 +25,18 @@ enum growthState{
 
 state = bulletState.inBarrel;
 growth = growthState.grown;
+var bounceMulti = 0;
+if variable_instance_exists(id,"boostMultiplier"){
+	bounceMulti = boostMultiplier;
+}
+var decay = 0.99;
+if variable_instance_exists(id,"boostDecay"){
+	decay = boostDecay;
+}
+var bounceFrames = 2;
+if variable_instance_exists(id,"bounceFrameCount"){
+	bounceFrames = bounceFrameCount;
+}
 
 bInfo = {
 	angle : undefined,
@@ -33,10 +45,14 @@ bInfo = {
 	endCoords : undefinedCoords,
 	state : bounceState.start,
 	
-	bounceTime : 2,
-	bounceTimer : 5,
-	frameTurnMax : 0.1,
+	bounceTime : bounceFrames,
+	bounceTimer : bounceFrames,
 	bounces : maxBounce,
+	timeSinceBounceGrace : 5,
+	timeSinceBounce : 0,
+	boostMultiplier : bounceMulti,
+	boostDecay : decay,
+	lastEasedProgress : 0,
 }
 
 scale = 1;
@@ -57,7 +73,7 @@ if variable_instance_exists(id, "bulletGrowthStart"){
 
 image_xscale = scale;
 image_yscale = scale;
-timeSinceBounce = 0;
+
 
 
 slowmovin = 1;
@@ -85,15 +101,14 @@ rotation_speed = 3; // Degrees per frame
 
 
 function bulletBounce(){
-	if timeSinceBounce > 5{
+	if bInfo.timeSinceBounce > bInfo.timeSinceBounceGrace{
 		if bounces >= maxBounce{
 			death();
 		}else{
-			timeSinceBounce = 0;
+			bInfo.timeSinceBounce = 0;
 			bounces++
 		}
 	}
-	print("BuletmovVec0: ", movementVector[0], " BuletmovVec1: ", movementVector[1]);
 }
 
 function collide(collideEntity, isBullet){
@@ -107,7 +122,7 @@ function collide(collideEntity, isBullet){
 		with collideEntity.parent{
 			decreaseHealth(dmg);
 		}
-		death();
+		state = bulletState.dying;
 	}else{
 		decreaseDurability(collideEntity);
 	}
@@ -137,38 +152,6 @@ function getMovementVector(angle){
 	return [cos(degtorad(angle)), -sin(degtorad(angle))]
 }
 
-function getBounceTrueCoords(){
-	var angleDiff = angle_difference(bInfo.angle, bInfo.angleAtBounce)
-	print("angleDiff: ",angleDiff);
-	var backPointPercent = (1-abs(angleDiff)/180)
-	print("backPointPercent: ", backPointPercent);
-	var offset = sprite_yoffset;
-	var height = sprite_height;
-	print(sprite_yoffset)
-	print(sprite_height);
-	var top = - offset;
-	var bot = - offset + height;
-	
-	var trueYoffset = 0;
-	print(sign(angleDiff));
-	switch (sign(angleDiff)){
-		case -1: 
-			trueYoffset = bot*backPointPercent;
-		break;
-		case 1: 
-			trueYoffset = top*backPointPercent;
-		break;
-		case 0: trueYoffset = 0; break;
-	}
-	print("trueYOffset: ", trueYoffset);
-	var finishX = sprite_xoffset*dsin(bInfo.angle) + trueYoffset*dcos(bInfo.angle)
-	var finishY = sprite_xoffset*dcos(bInfo.angle) + trueYoffset*dsin(bInfo.angle)
-	print("finishX: ", finishX)
-	print("finishY: ", finishY);
-	print(bInfo.impactPoint);
-	return [bInfo.impactPoint[0]-finishX,bInfo.impactPoint[1]-finishY]
-}
-
 function bullet_travel(){
 	if bulletSpeed > capBulletSpeed{
 		bulletSpeed = capBulletSpeed;
@@ -176,7 +159,13 @@ function bullet_travel(){
 	if inRange(bulletSpeed, baseBulletSpeed-0.05,baseBulletSpeed+0.05){
 		bulletSpeed = baseBulletSpeed;
 	}else if bulletSpeed > baseBulletSpeed{
-		bulletSpeed*=0.99;
+		bulletSpeed*=bInfo.boostDecay;
+	}
+	bInfo.timeSinceBounce++
+	
+	if object_index == obj_bullet_player{
+		pickupMoney();
+		SignalSend("onBulletTravel", {id : id});
 	}
 	
 	image_angle = point_direction(x,y,x+movementVector[0],y+movementVector[1]);
@@ -189,13 +178,17 @@ function bullet_checkForRico(){
 	if rico != -1{
 		if bInfo.bounces == 0{
 			state = bulletState.dying;
+			bullet_travel()
 		}else{
+			var movVecTest = getMovementVector(rico)
+			if collision_circle(x+movVecTest[0]*bulletSpeed,y+movVecTest[1]*bulletSpeed,3,obj_solid,true,true){
+				rico = (image_angle+180) mod 360
+			}
 			state = bulletState.bounce;
 			bInfo.angle = rico;
 			bInfo.angleAtBounce = image_angle;
 			bInfo.bounces--
 			bInfo.impactPoint = [x,y]
-			//bInfo.endCoords = getBounceTrueCoords()
 		}
 	}
 }
