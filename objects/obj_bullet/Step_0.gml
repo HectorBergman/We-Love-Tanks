@@ -31,3 +31,89 @@ if !(inRange(x,-32,room_width+32) && inRange(y,-32,room_height+32)){
 	death();
 }
 
+if (slowmovin mod 60 == 0){
+	lifeTime++
+	switch (growth){
+		case growthState.growing:
+			scale += bulletGrowthRate;
+			if sign(bulletGrowthRate)*scale >= bulletGrowthEnd{
+				scale = bulletGrowthEnd;
+				growth = growthState.grown;
+			}
+		break;
+		case growthState.grown: break;
+	}
+	switch (state){
+		case bulletState.inBarrel: 
+			followCannon--
+			image_angle = parent.image_angle;
+			movementVector = getMovementVector(image_angle);
+			extraMovement += bulletSpeed
+		
+			x = parent.x+extraMovement*movementVector[0]
+			y = parent.y+extraMovement*movementVector[1]
+			if followCannon == 0{
+				state = bulletState.travel;
+			}
+		
+		break;
+		case bulletState.travel: 
+			bullet_travel();
+			bullet_checkForRico();
+			if object_index == obj_bullet_player{
+				pickupMoney();
+				SignalSend("onBulletTravel", {id : id});
+			}
+	findTags();
+		break;
+		case bulletState.bounce: 
+			switch(bInfo.state){
+				case bounceState.start:
+				print(bInfo);      
+				bInfo.state = bounceState.mid
+				
+				break;
+				case bounceState.mid: 
+					bInfo.bounceTimer--
+					image_angle += angle_difference(bInfo.angle,bInfo.angleAtBounce)/(bInfo.bounceTime+1)
+					if bInfo.bounceTimer == 0{
+						bInfo.state = bounceState.finish
+						bInfo.bounceTimer = bInfo.bounceTime
+						image_angle = bInfo.angle;
+					}
+				break;
+				case bounceState.finish:
+					bInfo.bounceTimer--
+					bulletSpeed += baseBulletSpeed*0.6;
+					bInfo.state = bounceState.start;
+					state = bulletState.travel
+					bInfo.bounceTimer = bInfo.bounceTime
+					movementVector = getMovementVector(image_angle);
+					x += movementVector[0]*bulletSpeed;
+					y += movementVector[1]*bulletSpeed;
+					state = bulletState.travel;
+				break;
+			}
+		break;
+		case bulletState.dying: 
+			instance_destroy();
+			//add delay here,
+			//maybe create a delay handler that takes id and pauseMode,
+			//then ticks down if pauseMode isnt paused
+		break;
+		
+	}
+	image_xscale = scale;
+	image_yscale = scale;
+	
+	
+	timeSinceBounce++
+	
+}
+
+
+if object_index == obj_bullet_player{
+	hitOpponentBullet(object_index);
+}
+hitOpponent(object_index);
+

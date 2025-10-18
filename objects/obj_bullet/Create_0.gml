@@ -11,6 +11,12 @@ enum bulletState{
 	inBarrel,
 	travel,
 	bounce,
+	dying,
+}
+enum bounceState{
+	start,
+	mid,
+	finish,
 }
 enum growthState{
 	growing,
@@ -19,8 +25,22 @@ enum growthState{
 
 state = bulletState.inBarrel;
 growth = growthState.grown;
+
+bInfo = {
+	angle : undefined,
+	angleAtBounce : undefined,
+	impactPoint : undefinedCoords,
+	endCoords : undefinedCoords,
+	state : bounceState.start,
+	
+	bounceTime : 2,
+	bounceTimer : 5,
+	frameTurnMax : 0.1,
+	bounces : maxBounce,
+}
+
 scale = 1;
-canGrow = false;
+
 timeWhenExitBarrel = 0
 if barrelLength > 0{
 	timeWhenExitBarrel = ceil(barrelLength/bulletSpeed)+1;
@@ -43,7 +63,9 @@ timeSinceBounce = 0;
 slowmovin = 1;
 slowMovinTime = 60;
 
-bounces = 0;
+baseBulletSpeed = bulletSpeed;
+capBulletSpeed = baseBulletSpeed*4;
+
 
 lifeTime = 0;
 
@@ -111,3 +133,69 @@ function death(){
 	exit;
 }
 
+function getMovementVector(angle){
+	return [cos(degtorad(angle)), -sin(degtorad(angle))]
+}
+
+function getBounceTrueCoords(){
+	var angleDiff = angle_difference(bInfo.angle, bInfo.angleAtBounce)
+	print("angleDiff: ",angleDiff);
+	var backPointPercent = (1-abs(angleDiff)/180)
+	print("backPointPercent: ", backPointPercent);
+	var offset = sprite_yoffset;
+	var height = sprite_height;
+	print(sprite_yoffset)
+	print(sprite_height);
+	var top = - offset;
+	var bot = - offset + height;
+	
+	var trueYoffset = 0;
+	print(sign(angleDiff));
+	switch (sign(angleDiff)){
+		case -1: 
+			trueYoffset = bot*backPointPercent;
+		break;
+		case 1: 
+			trueYoffset = top*backPointPercent;
+		break;
+		case 0: trueYoffset = 0; break;
+	}
+	print("trueYOffset: ", trueYoffset);
+	var finishX = sprite_xoffset*dsin(bInfo.angle) + trueYoffset*dcos(bInfo.angle)
+	var finishY = sprite_xoffset*dcos(bInfo.angle) + trueYoffset*dsin(bInfo.angle)
+	print("finishX: ", finishX)
+	print("finishY: ", finishY);
+	print(bInfo.impactPoint);
+	return [bInfo.impactPoint[0]-finishX,bInfo.impactPoint[1]-finishY]
+}
+
+function bullet_travel(){
+	if bulletSpeed > capBulletSpeed{
+		bulletSpeed = capBulletSpeed;
+	}
+	if inRange(bulletSpeed, baseBulletSpeed-0.05,baseBulletSpeed+0.05){
+		bulletSpeed = baseBulletSpeed;
+	}else if bulletSpeed > baseBulletSpeed{
+		bulletSpeed*=0.99;
+	}
+	
+	image_angle = point_direction(x,y,x+movementVector[0],y+movementVector[1]);
+	x = x + movementX();
+	y = y + movementY();
+}
+
+function bullet_checkForRico(){
+	var rico = findRicochet(movementVector, bulletSpeed)
+	if rico != -1{
+		if bInfo.bounces == 0{
+			state = bulletState.dying;
+		}else{
+			state = bulletState.bounce;
+			bInfo.angle = rico;
+			bInfo.angleAtBounce = image_angle;
+			bInfo.bounces--
+			bInfo.impactPoint = [x,y]
+			//bInfo.endCoords = getBounceTrueCoords()
+		}
+	}
+}

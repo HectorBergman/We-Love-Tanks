@@ -10,7 +10,7 @@ function stiffRicochet_create_cannon(){
 		1,
 		2,
 		3,
-		5.5
+		4,
 	)
 	SignalSubscribe(id, "ricochetAngle", function(ricochetInfo){
 		var closestDistance = ricochetInfo.distance 
@@ -41,8 +41,6 @@ function stiffRicochet_create_cannon(){
 	chosenAngle = -1;
 	ricochetArray = [];
 	ricochetArray[360] = 99999
-	bulletSpeed = 4;
-	maxBounces = 3;
 
 	timeFromCalculationToFire = 40; //to make tanks "sharper", decrease this. Minimum: 10
 									//if you want lower, you have to edit the magic

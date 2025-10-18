@@ -77,3 +77,15 @@ draw_line(botX, botY, endX2, endY2);
 draw_set_color(c_white);
 draw_line(x,y, endX3, endY3)
 
+
+var text = "";
+var toDraw = 0;
+
+text = "[$eee7e7][scale,1][alpha,1]" + string(bulletSpeed); 
+toDraw = scribble(text).align(fa_center,fa_middle);
+toDraw.draw(x+30, y+30);
+
+text = "[$eee7e7][scale,1][alpha,1]" + string(damage); 
+
+toDraw = scribble(text).align(fa_center,fa_middle);
+toDraw.draw(x+30, y+50);

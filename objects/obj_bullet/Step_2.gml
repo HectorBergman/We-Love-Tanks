@@ -1,4 +1,4 @@
-if (slowmovin mod 60 == 0){
+/*if (slowmovin mod 60 == 0){
 	if canGrow && scale != bulletGrowthEnd{
 		scale += bulletGrowthRate;
 		if sign(bulletGrowthRate)*scale >= bulletGrowthEnd{
