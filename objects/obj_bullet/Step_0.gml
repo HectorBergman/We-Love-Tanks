@@ -45,6 +45,10 @@ if (slowmovin mod 60 == 0){
 	}
 	switch (state){
 		case bulletState.inBarrel: 
+			if !instance_exists(id){
+				death();
+				exit;
+			}
 			followCannon--
 			image_angle = parent.image_angle;
 			movementVector = getMovementVector(image_angle);

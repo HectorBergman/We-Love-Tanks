@@ -35,3 +35,10 @@ draw_set_color(c_blue);
 draw_line(botX, botY, endX2, endY2);
 draw_set_color(c_white);
 draw_line(x,y, endX3, endY3)
+
+if debug.isOn{
+	draw_sprite_ext(sprite_index,0,x+debug.vec[0]*4,y+debug.vec[1]*4,scale,scale,debug.angle,c_red,0.6)
+	draw_set_alpha(0.6)
+	draw_circle(x+debug.vec[0]*4,y+debug.vec[1]*4,3,false)
+	draw_set_alpha(1);
+}

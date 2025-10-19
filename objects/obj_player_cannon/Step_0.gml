@@ -11,7 +11,7 @@ if obj_inputHandler.fire && !place_meeting(tip_x,tip_y, obj_solid) && activeBull
 		bulletGrowthStart: 0.3, 
 		bulletGrowthEnd: 1, 
 		bulletGrowthRate: 0.05,
-		boostMultiplier: 1.2,
+		boostMultiplier: 0.8,
 		boostDecay: 0.99,
 		bounceFrameCount : 8,
 	}

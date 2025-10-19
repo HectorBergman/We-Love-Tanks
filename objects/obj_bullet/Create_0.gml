@@ -100,17 +100,6 @@ initial_radius = 1; // Starting size
 rotation_speed = 3; // Degrees per frame
 
 
-function bulletBounce(){
-	if bInfo.timeSinceBounce > bInfo.timeSinceBounceGrace{
-		if bounces >= maxBounce{
-			death();
-		}else{
-			bInfo.timeSinceBounce = 0;
-			bounces++
-		}
-	}
-}
-
 function collide(collideEntity, isBullet){
 	if ds_list_find_index(ignoreList, collideEntity) != -1{
 		exit;
@@ -180,6 +169,7 @@ function bullet_checkForRico(){
 			state = bulletState.dying;
 			bullet_travel()
 		}else{
+			SignalSend("flare", {x:x,y:y});
 			var movVecTest = getMovementVector(rico)
 			if collision_circle(x+movVecTest[0]*bulletSpeed,y+movVecTest[1]*bulletSpeed,3,obj_solid,true,true){
 				rico = (image_angle+180) mod 360
@@ -187,8 +177,11 @@ function bullet_checkForRico(){
 			state = bulletState.bounce;
 			bInfo.angle = rico;
 			bInfo.angleAtBounce = image_angle;
-			bInfo.bounces--
+			if bInfo.timeSinceBounce > bInfo.timeSinceBounceGrace{
+				bInfo.bounces--
+			}
 			bInfo.impactPoint = [x,y]
+			bInfo.timeSinceBounce = 0;
 		}
 	}
 }

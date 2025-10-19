@@ -50,7 +50,7 @@ function stiffRicochet_create_cannon(){
 
 	stepAngle = 0;
 
-	startAngle = 150;
+	startAngle = 130;
 	angleInterval = 999; //increase this for less precise but faster calculations //recommended: 5
 
 	
@@ -67,6 +67,7 @@ function stiffRicochet_step_cannon(){
 		stepAngle = gradualPointOverTime(chosenAngle, timeFromCalculationToFire-10) //no instant snap
 	}else if (shotCooldown mod shotCooldownTime == 0){
 		image_angle = chosenAngle;
+		print("chosenAngle: ",chosenAngle);
 		var extraInfo = {
 			bulletGrowthStart: 0.3, 
 			bulletGrowthEnd: 1, 
@@ -103,6 +104,7 @@ function findBestRicochetAngle(){
 			x : x+20*dcos(angle),
 			y : y+20*-dsin(angle),
 			originalAngle:i,
+			parentCoords : [x,y],
 		}
 		
 	

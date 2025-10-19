@@ -403,7 +403,6 @@
     {"id":{"name":"spr_bg_temp","path":"sprites/spr_bg_temp/spr_bg_temp.yy",},},
     {"id":{"name":"spr_boss_temp","path":"sprites/spr_boss_temp/spr_boss_temp.yy",},},
     {"id":{"name":"spr_breadcrumbs","path":"sprites/spr_breadcrumbs/spr_breadcrumbs.yy",},},
-    {"id":{"name":"spr_bullet_enemy_1","path":"sprites/spr_bullet_enemy_1/spr_bullet_enemy_1.yy",},},
     {"id":{"name":"spr_bullet_enemy","path":"sprites/spr_bullet_enemy/spr_bullet_enemy.yy",},},
     {"id":{"name":"spr_bullet","path":"sprites/spr_bullet/spr_bullet.yy",},},
     {"id":{"name":"spr_cannon_enemy","path":"sprites/spr_cannon_enemy/spr_cannon_enemy.yy",},},
