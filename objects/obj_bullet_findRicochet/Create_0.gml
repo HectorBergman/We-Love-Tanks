@@ -15,7 +15,7 @@ timeSinceBounce = 0;
 lastWallStruck = noone;
 newCoords = [0,0]
 latestWallHit = -1;
-closestDistanceToPlayer = 9999999;
+closestDistanceToPlayer = distanceNotFound;
 
 bounces = 0;
 

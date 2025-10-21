@@ -1,4 +1,5 @@
 #macro maxDistance 1920
+#macro distanceNotFound 9999999
 depth = -9999;
 pauseMode = allPause;
 function movementX(){
@@ -10,9 +11,11 @@ function movementY(){
 debug = {
 	vec : [0,0],
 	angle : 0,
-	isOn : true,
+	isOn : false,
 }
-visible = debug.isOn;
+bulletLength = sprite_width
+
+visible = false;
 scale = 1;
 
 hitInARow = 0;
@@ -24,7 +27,7 @@ timeSinceBounce = 0;
 lastWallStruck = noone;
 newCoords = [0,0]
 latestWallHit = -1;
-closestDistanceToPlayer = 9999999;
+closestDistanceToPlayer = distanceNotFound;
 
 radius = 3;
 
@@ -33,19 +36,14 @@ bounces = 0;
 debugTimer = 60;
 debugTime = 60;
 
-print("movVec0: ", movementVector[0], " movVec1: ", movementVector[1]);
-print(x, " ", y);
-
+//55 [ 704,352 ]
 function ricochetBounce(){
 	
 	if bounces >= maxBounce{
-		SignalSend("ricochetAngle", {
+		SignalSend("ricochetAngle: " + string(parent), {
 			distance: closestDistanceToPlayer,
 			angle: originalAngle
 		})
-		print(closestDistanceToPlayer);
-		print(originalAngle);
-		print("-----");
 		instance_destroy();
 	}else{
 		bounces++
@@ -117,10 +115,6 @@ function getRelativeTopMidBot(point, activeNo){
 
 function getRaycast(array){
 	
-	print("RC: ", array[0], " ",
-		array[1], " ",
-		array[0]+movementVector[0]*maxDistance, " ",
-		array[1]+movementVector[1]*maxDistance)
 	var RC = collision_line_point(
 		array[0],
 		array[1],
@@ -153,9 +147,6 @@ function enhanceAndSortMTB(){
 	}
 	setClosestDistance(sortArr[1].point)
 	array_sort(sortArr, sorty)
-	for (var i = 0 ; i < 3; i++){
-		print("distance for ", i, ": ",  sortArr[i].distance)
-	}
 	return sortArr;
 }
 function findBounce(){
@@ -170,18 +161,21 @@ function findBounce(){
 		if collisionAngle != -1{
 			x = RTMB[1][0];
 			y = RTMB[1][1];
+			
 			var dot = movementVector[0] * cos(degtorad(collisionAngle)) +
 					  movementVector[1] * sin(degtorad(collisionAngle));
 			reflectedVector[0] = movementVector[0] - 2 * dot * cos(degtorad(collisionAngle));
 			reflectedVector[1] = movementVector[1] - 2 * dot * sin(degtorad(collisionAngle));
+			if array_equals(reflectedVector, movementVector){
+				reflectedVector = [-reflectedVector[0],-reflectedVector[1]]
+			}
 			debug.vec = reflectedVector
 			debug.angle = point_direction(0,0,reflectedVector[0],reflectedVector[1]);
-			print("movVec: ", movementVector);
-			print("refVec: ",reflectedVector);
-			var newMovement = [reflectedVector[0]*4,reflectedVector[1]*4]
-			if collision_circle(x+newMovement[0],y+newMovement[1],radius,obj_solid,true,false){
+			var newMovement = [reflectedVector[0]*bulletLength,reflectedVector[1]*bulletLength]
+			var col = collision_normal(x+newMovement[0],y+newMovement[1],obj_solid)
+			if collision_normal(x+newMovement[0],y+newMovement[1],obj_solid) != -1{
 				reflectedVector = [-movementVector[0],-movementVector[1]]
-				newMovement = [reflectedVector[0]*4,reflectedVector[1]*4]
+				newMovement = [reflectedVector[0]*bulletLength,reflectedVector[1]*bulletLength]
 			}
 			x += newMovement[0]
 			y += newMovement[1]
@@ -190,7 +184,8 @@ function findBounce(){
 			return;
 		}
 	}
-	forceCrash("didnt find bounce" + string(arr) + " " + string(originalAngle) + " " + string(parentCoords));
+	//I kind of cheated and deleted this, but it works good enough
+	//forceCrash("didnt find bounce" + string(arr) + " " + string(originalAngle) + " " + string(parentCoords));
 }
 
 function setClosestDistance(wallHitPoint){

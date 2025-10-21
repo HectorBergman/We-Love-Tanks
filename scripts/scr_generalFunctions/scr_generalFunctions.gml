@@ -256,6 +256,9 @@ function collision_normal(x, y, obj, radius=4, spacing=1)
 {
     var nx = 0;
     var ny = 0;
+	if object_index == obj_bullet_findRicochet_test{
+		print("goodJoe: ",[x,y])
+	}
     if (collision_circle(x, y, radius, obj, true, true) != noone) {
         for (var j=spacing; j<=radius; j+=spacing) {
             for (var i=0; i<radius; i+=spacing) {
@@ -267,6 +270,7 @@ function collision_normal(x, y, obj, radius=4, spacing=1)
                 }
             }
         }
+		print("colnor: ", nx, ",", ny);
         if (nx == 0 && ny == 0) return (-1);
         return point_direction(0, 0, nx, ny);
     }
@@ -332,16 +336,18 @@ function collision_line_point(x1, y1, x2, y2, obj, prec, notme) {
     return {instance: rr, hitPoint: [rx, ry]};
 }
 
-/// point_to_segment_distance(x1, y1, x2, y2, px, py)
+/// point_to_segment_distance(segmentPoint1, segmentPoint2, point, obstacleObj, precise, notme)
 /// Distance from point (px,py) to the segment between (x1,y1) and (x2,y2).
-/// Returns the shortest distance and optionally you can compute the closest point too.
-function point_to_segment_distance(segmentPoint1, segmentPoint2, point) {
+/// If the line between the point and the closest point on the segment collides with obstacleObj,
+/// the function returns 999999.
+function point_to_segment_distance(segmentPoint1, segmentPoint2, point, obstacleObj = obj_solid) {
+
     var ax = segmentPoint1[0];
     var ay = segmentPoint1[1];
     var bx = segmentPoint2[0];
     var by = segmentPoint2[1];
-	var px = point[0]
-	var py = point[1]
+    var px = point[0];
+    var py = point[1];
 
     var vx = bx - ax;
     var vy = by - ay;
@@ -349,24 +355,37 @@ function point_to_segment_distance(segmentPoint1, segmentPoint2, point) {
     var wy = py - ay;
 
     var denom = vx*vx + vy*vy;
+    var cx, cy; // closest point on segment
+
     if (denom == 0) {
-        // segment is a point
-        return point_distance(px, py, ax, ay);
-    }
-
-    // projection factor t = dot(AP,AB) / dot(AB,AB)
-    var t = (wx*vx + wy*vy) / denom;
-
-    if (t <= 0) {
-        // closest to A
-        return point_distance(px, py, ax, ay);
-    } else if (t >= 1) {
-        // closest to B
-        return point_distance(px, py, bx, by);
+        // segment is a point -> closest point is A
+        cx = ax;
+        cy = ay;
     } else {
-        // projection falls within segment, compute projection point
-        var cx = ax + t * vx;
-        var cy = ay + t * vy;
-        return point_distance(px, py, cx, cy);
+        // projection factor t = dot(AP,AB) / dot(AB,AB)
+        var t = (wx*vx + wy*vy) / denom;
+
+        if (t <= 0) {
+            // closest to A
+            cx = ax;
+            cy = ay;
+        } else if (t >= 1) {
+            // closest to B
+            cx = bx;
+            cy = by;
+        } else {
+            // projection falls within segment, compute projection point
+            cx = ax + t * vx;
+            cy = ay + t * vy;
+        }
     }
+
+    // Check collision between the original point and the closest point on the segment.
+    // If any instance of obstacleObj is hit, return the sentinel value.
+    if (collision_line(px, py, cx, cy, obstacleObj, false, false) != noone) {
+        return distanceNotFound;
+    }
+
+    // Otherwise return the true shortest distance
+    return point_distance(px, py, cx, cy);
 }

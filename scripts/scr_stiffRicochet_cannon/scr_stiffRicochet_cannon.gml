@@ -5,14 +5,14 @@ function stiffRicochet_create_cannon(){
 	type = parent.type;
 	shotCooldownTime = 300;
 	shotCooldown = irandom_range(1,60);
-	maxBounces = 2;
+	maxBounces = 3;
 	bulletInfo = bulletInfo_create(
 		1,
 		maxBounces,
 		3,
 		4,
 	)
-	SignalSubscribe(id, "ricochetAngle", function(ricochetInfo){
+	SignalSubscribe(id, "ricochetAngle: " + string(id), function(ricochetInfo){
 		var closestDistance = ricochetInfo.distance 
 		var angle = ricochetInfo.angle
 		if closestDistance < closestDistanceToPlayer{
@@ -42,7 +42,7 @@ function stiffRicochet_create_cannon(){
 	ricochetArray = [];
 	ricochetArray[360] = 99999
 
-	timeFromCalculationToFire = 40; //to make tanks "sharper", decrease this. Minimum: 10
+	timeFromCalculationToFire = 15; //to make tanks "sharper", decrease this. Minimum: 10
 									//if you want lower, you have to edit the magic
 									//+10 that appears in steps. Not recommended but doable
 									//it allows for some time to let the tank turn to it's chosen
@@ -50,8 +50,8 @@ function stiffRicochet_create_cannon(){
 
 	stepAngle = 0;
 
-	startAngle = 130;
-	angleInterval = 999; //increase this for less precise but faster calculations //recommended: 5
+	startAngle = 0;
+	angleInterval = 5; //increase this for less precise but faster calculations //recommended: 5
 
 	
 }
@@ -66,27 +66,29 @@ function stiffRicochet_step_cannon(){
 		searchRicochetArray();	//finds angle in array
 		stepAngle = gradualPointOverTime(chosenAngle, timeFromCalculationToFire-10) //no instant snap
 	}else if (shotCooldown mod shotCooldownTime == 0){
-		image_angle = chosenAngle;
-		print("chosenAngle: ",chosenAngle);
-		var extraInfo = {
-			bulletGrowthStart: 0.3, 
-			bulletGrowthEnd: 1, 
-			bulletGrowthRate: 0.05,
-		}
+		if closestDistanceToPlayer != distanceNotFound{
+			image_angle = chosenAngle;
+			print("chosenAngle: ",chosenAngle);
+			var extraInfo = {
+				bulletGrowthStart: 0.3, 
+				bulletGrowthEnd: 1, 
+				bulletGrowthRate: 0.05,
+			}
 		
 	
-		var args = 
-		fireBullet_defaultSummonStruct(
-			bulletInfo.speed,
-			bulletInfo.bounces,
-			bulletInfo.damage,
-			enemyBarrelLength, 
-			bulletInfo.durability,
-			extraInfo
-		)
-		fireBullet(id,obj_bullet_enemy,image_angle,args)
+			var args = 
+			fireBullet_defaultSummonStruct(
+				bulletInfo.speed,
+				bulletInfo.bounces,
+				bulletInfo.damage,
+				enemyBarrelLength, 
+				bulletInfo.durability,
+				extraInfo
+			)
+			fireBullet(id,obj_bullet_enemy,image_angle,args)
+		}
 		chosenAngle = -1;
-		closestDistanceToPlayer = 999999;
+		closestDistanceToPlayer = distanceNotFound;
 	}else if(shotCooldown mod shotCooldownTime > shotCooldownTime-timeFromCalculationToFire+10){
 		if (abs(angle_difference(image_angle, chosenAngle)) < 3){
 			image_angle = chosenAngle

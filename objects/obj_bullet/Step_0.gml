@@ -45,7 +45,7 @@ if (slowmovin mod 60 == 0){
 	}
 	switch (state){
 		case bulletState.inBarrel: 
-			if !instance_exists(id){
+			if !instance_exists(parent){
 				death();
 				exit;
 			}
