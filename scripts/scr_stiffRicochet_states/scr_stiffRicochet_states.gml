@@ -1,3 +1,0 @@
-function stiffRicochet_normal(){
-
-}

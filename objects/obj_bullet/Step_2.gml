@@ -1,4 +1,4 @@
-if (slowmovin mod 60 == 0){
+/*if (slowmovin mod 60 == 0){
 	if canGrow && scale != bulletGrowthEnd{
 		scale += bulletGrowthRate;
 		if sign(bulletGrowthRate)*scale >= bulletGrowthEnd{
@@ -19,14 +19,12 @@ if (slowmovin mod 60 == 0){
 	
 	if followCannon == 0{
 		image_angle = point_direction(x,y,x+movementVector[0],y+movementVector[1]);
-		prevVector[0] = x
-		prevVector[1] = y
 		x = x + movementX();
 		y = y + movementY();
 	}else{
 		followCannon--;
 		image_angle = parent.image_angle;
-		movementVector = [cos(degtorad(parent.image_angle)), -sin(degtorad(parent.image_angle))]
+		movementVector = [cos(degtorad(image_angle)), -sin(degtorad(image_angle))]
 		extraMovement += bulletSpeed
 		
 		x = parent.x+extraMovement*movementVector[0]

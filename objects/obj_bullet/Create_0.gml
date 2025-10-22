@@ -6,39 +6,83 @@ function movementX(){
 function movementY(){
 	return movementVector[1]*bulletSpeed;
 }
+
+enum bulletState{
+	inBarrel,
+	travel,
+	bounce,
+	dying,
+}
+enum bounceState{
+	start,
+	mid,
+	finish,
+}
+enum growthState{
+	growing,
+	grown
+}
+
+state = bulletState.inBarrel;
+growth = growthState.grown;
+var bounceMulti = 0;
+if variable_instance_exists(id,"boostMultiplier"){
+	bounceMulti = boostMultiplier;
+}
+var decay = 0.99;
+if variable_instance_exists(id,"boostDecay"){
+	decay = boostDecay;
+}
+var bounceFrames = 2;
+if variable_instance_exists(id,"bounceFrameCount"){
+	bounceFrames = bounceFrameCount;
+}
+
+bInfo = {
+	angle : undefined,
+	angleAtBounce : undefined,
+	impactPoint : undefinedCoords,
+	endCoords : undefinedCoords,
+	state : bounceState.start,
+	
+	bounceTime : bounceFrames,
+	bounceTimer : bounceFrames,
+	bounces : maxBounce,
+	timeSinceBounceGrace : 5,
+	timeSinceBounce : 0,
+	boostMultiplier : bounceMulti,
+	boostDecay : decay,
+	lastEasedProgress : 0,
+}
+
 scale = 1;
-canGrow = false;
+
 timeWhenExitBarrel = 0
 if barrelLength > 0{
 	timeWhenExitBarrel = ceil(barrelLength/bulletSpeed)+1;
-}
-if variable_instance_exists(id, "bulletGrowthStart"){
-	canGrow = true;
-	scale = bulletGrowthStart;
-}
-followCannon = 0;
-if object_index == obj_bullet_player{
 	extraMovement = 0
 	followCannon = timeWhenExitBarrel;
+}else{
+	state = bulletState.travel;
 }
+
+if variable_instance_exists(id, "bulletGrowthStart"){
+	growth = growthState.growing;
+	scale = bulletGrowthStart;
+}
+
 image_xscale = scale;
 image_yscale = scale;
-collisionVector = [0,0];
-//summonObject(obj_bulletTrail, [["parent", id]]);
-prevVector = [noone, noone];
-timeSinceBounce = 0;
 
-lastWallStruck = noone;
-newCoords = [0,0]
-latestWallHit = -1;
-hitInARow = 0;
+
+
 slowmovin = 1;
 slowMovinTime = 60;
-angle = image_angle
-prevTurn = -1;
-bounces = 0;
 
-minimumdifference = 3;
+baseBulletSpeed = bulletSpeed;
+capBulletSpeed = baseBulletSpeed*4;
+
+
 lifeTime = 0;
 
 pathPoints = ds_list_create();
@@ -52,21 +96,9 @@ subToTriggers(string(object_index))
 
 ignoreList = ds_list_create()
 
-growth_factor = 1;
 initial_radius = 1; // Starting size
 rotation_speed = 3; // Degrees per frame
 
-
-function bulletBounce(){
-	if timeSinceBounce > 5{
-		if bounces >= maxBounce{
-			death();
-		}else{
-			timeSinceBounce = 0;
-			bounces++
-		}
-	}
-}
 
 function collide(collideEntity, isBullet){
 	if ds_list_find_index(ignoreList, collideEntity) != -1{
@@ -79,15 +111,13 @@ function collide(collideEntity, isBullet){
 		with collideEntity.parent{
 			decreaseHealth(dmg);
 		}
-		death();
+		state = bulletState.dying;
 	}else{
 		decreaseDurability(collideEntity);
 	}
 }
 function decreaseDurability(collidedEntity){
 	var dura = durability;
-	print(durability)
-	print(collidedEntity.durability);
 	durability -= collidedEntity.durability;
 	collidedEntity.durability -= dura;
 	if durability <= 0{
@@ -107,3 +137,51 @@ function death(){
 	exit;
 }
 
+function getMovementVector(angle){
+	return [cos(degtorad(angle)), -sin(degtorad(angle))]
+}
+
+function bullet_travel(){
+	if bulletSpeed > capBulletSpeed{
+		bulletSpeed = capBulletSpeed;
+	}
+	if inRange(bulletSpeed, baseBulletSpeed-0.05,baseBulletSpeed+0.05){
+		bulletSpeed = baseBulletSpeed;
+	}else if bulletSpeed > baseBulletSpeed{
+		bulletSpeed*=bInfo.boostDecay;
+	}
+	bInfo.timeSinceBounce++
+	
+	if object_index == obj_bullet_player{
+		pickupMoney();
+		SignalSend("onBulletTravel", {id : id});
+	}
+	
+	image_angle = point_direction(x,y,x+movementVector[0],y+movementVector[1]);
+	x = x + movementX();
+	y = y + movementY();
+}
+
+function bullet_checkForRico(){
+	var rico = findRicochet(movementVector, bulletSpeed)
+	if rico != -1{
+		if bInfo.bounces == 0{
+			state = bulletState.dying;
+			bullet_travel()
+		}else{
+			SignalSend("flare", {x:x,y:y});
+			var movVecTest = getMovementVector(rico)
+			if collision_circle(x+movVecTest[0]*bulletSpeed,y+movVecTest[1]*bulletSpeed,3,obj_solid,true,true){
+				rico = (image_angle+180) mod 360
+			}
+			state = bulletState.bounce;
+			bInfo.angle = rico;
+			bInfo.angleAtBounce = image_angle;
+			if bInfo.timeSinceBounce > bInfo.timeSinceBounceGrace{
+				bInfo.bounces--
+			}
+			bInfo.impactPoint = [x,y]
+			bInfo.timeSinceBounce = 0;
+		}
+	}
+}

@@ -37,7 +37,6 @@ cannon = noone;
 if createCannon{
 	cannon = summonObject(obj_enemy_cannon, [["parent", id], ["depth", depth-1]]);
 }
-print(hp);
 hitbox = summonObject(obj_enemy_hitbox, [["parent", id]]);
 //todo: add code for selecting a sprite according to enemy type
 

@@ -1,3 +1,5 @@
+//functions that trigger upon enemy death
+
 function getInfo_onKill(){
 	var dinfo = getDeceasedInfo(id)
 	var playerInfo = {
@@ -28,7 +30,6 @@ function fanfare_onKill(info){
 	triggerAsInstance(info.playerInfo.player.cannon, func)
 }
 function fanfare_onKill_helper(info){
-	print(info);
 	for (var i = 0; i < 360; i += 90){
 		var extraInfo = {
 			bulletGrowthStart: 0.3, 

@@ -38,5 +38,54 @@ draw_surface_ext(pathSurface, 0, 0, 1, 1, 0, c_white, 0.7);*/
 
 
 draw_self();
+var cosA = dcos(image_angle);
+var sinA = dsin(image_angle);
+var cosB = dcos(image_angle + 90);
+var sinB = dsin(image_angle + 90);
+var peakX = (sprite_width-2-sprite_get_xoffset(sprite_index))*scale;
+var peakY = (sprite_height/2-sprite_get_yoffset(sprite_index))*scale
+var completePeakX = floor(x + peakX * sinB - peakY * cosB);
+var completePeakY = floor(y + peakX * cosB + peakY * sinB);
+draw_circle(completePeakX,completePeakY,2,false)
 
-draw_text(x+20,y+20,lifeTime);
+
+var top_offsetX = -sprite_get_xoffset(sprite_index)*scale;
+var top_offsetY = -sprite_get_yoffset(sprite_index)*scale;
+var bot_offsetX = sprite_height*scale - sprite_get_xoffset(sprite_index)*scale;
+var bot_offsetY = sprite_height*scale - sprite_get_yoffset(sprite_index)*scale;
+
+
+
+
+var topX = floor(x + top_offsetY * sinA);
+var topY = floor(y + top_offsetY * cosA);
+var botX = floor(x + bot_offsetY * sinA);
+var botY = floor(y + bot_offsetY * cosA);
+
+
+draw_set_color(c_red);
+var endX1 = topX + movementVector[0] * 4000;
+var endY1 = topY + movementVector[1] * 4000;
+var endX2 = botX + movementVector[0] * 4000;
+var endY2 = botY + movementVector[1] * 4000;
+var endX3 = floor(x) + movementVector[0] * 4000;
+var endY3 = floor(y) + movementVector[1] * 4000;
+
+draw_line(topX, topY, endX1, endY1);
+draw_set_color(c_blue);
+draw_line(botX, botY, endX2, endY2);
+draw_set_color(c_white);
+draw_line(x,y, endX3, endY3)
+
+
+var text = "";
+var toDraw = 0;
+
+text = "[$eee7e7][scale,1][alpha,1]" + string(bulletSpeed); 
+toDraw = scribble(text).align(fa_center,fa_middle);
+toDraw.draw(x+30, y+30);
+
+text = "[$eee7e7][scale,1][alpha,1]" + string(damage); 
+
+toDraw = scribble(text).align(fa_center,fa_middle);
+toDraw.draw(x+30, y+50);

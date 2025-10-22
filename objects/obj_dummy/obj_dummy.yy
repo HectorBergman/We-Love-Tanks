@@ -1,16 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"obj_roomEditor_handlerSpawner",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"obj_dummy",
+  "eventList":[],
   "managed":true,
-  "name":"obj_roomEditor_handlerSpawner",
+  "name":"obj_dummy",
   "overriddenProperties":[],
   "parent":{
-    "name":"editor",
-    "path":"folders/Objects/editor.yy",
+    "name":"Objects",
+    "path":"folders/Objects.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -30,7 +27,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_coin",
+    "path":"sprites/spr_coin/spr_coin.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

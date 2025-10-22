@@ -65,7 +65,6 @@ function nextLvl(){
 					},
 		transitionLengthMult : 3
 	})
-	print(currentRoom)
 }
 
 function enterNewRoom(roomNo,doorNo, store = true){
@@ -89,7 +88,6 @@ function enterNewRoom(roomNo,doorNo, store = true){
 	//enterInfo.enteredRoomDoor = doorNo;
 	var newCoords = [currentRoom.coords[0]+dir[0], currentRoom.coords[1]+dir[1]]//+extraDiff[0],currentRoom[1]+yDirection+extraDiff[1]];
 	var newRoom = ds_grid_get(currentFloor.grid, newCoords[0], newCoords[1])
-	print(newCoords);
 	if inRange(newCoords[0], 0, currentFloor.dimensions[0]) && inRange(newCoords[1], 0, currentFloor.dimensions[1]) && !is_undefined(newRoom) && newRoom != noone{
 		//obj_currentRoomHandler.roomDoors = room_getAllDoors(newRoom);
 		gotoRoom(newRoom);
@@ -207,7 +205,6 @@ function loadRoom(newRoom){
 		var instance = ds_queue_dequeue(insts)
 		summonObject(instance.objIndex, instance.summonArray);
 	}
-	print(newRoom);
 	for (var i = 0; i < array_length(newRoom.roomInfo.instances); i++){
 		var instance = newRoom.roomInfo.instances[i];
 		summonObject(instance.objectIndex, instance.summonArray);
@@ -279,7 +276,6 @@ function coord_sort_fill(coordsArray) {
 }
 
 function checkCleared(){
-	//print("clearcheck: ",instance_number(obj_enemy),"&",instance_number(obj_enemySpawner))
 	ds_grid_get(currentFloor.grid, currentRoom.coords[0], currentRoom.coords[1]).cleared = 
 		instance_number(obj_enemy) == 0 && 
 		instance_number(obj_enemySpawner) == 0 &&

@@ -1,3 +1,5 @@
+//functions that trigger each bullet tick
+
 function spinnyBullet_onBulletTravel(bulletInfo){
 	triggerAsInstance(bulletInfo.id,spinnyBullet_onBulletTravel_helper);
 
@@ -16,8 +18,8 @@ function spinnyBullet_onBulletTravel_helper(){
 		_angle = (_angle + _golden_angle*_radius) mod 360;
 
 		// Update movement vector (preserve speed)
-		damage += (0.005*parent.bulletInfo.speed);
-		bulletSpeed *= 0.999999
+		damage += (0.005*bulletSpeed);
+		baseBulletSpeed *= 0.9999
 		
 		// Update movement vector
 		movementVector[0] = dcos(_angle);

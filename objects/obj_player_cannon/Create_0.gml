@@ -4,7 +4,7 @@ x = parent.x
 y = parent.y
 bulletInfo = bulletInfo_create(
 	100,
-	3,
+	99,
 	1,
 	2,
 	{fullMetalJacket: false}

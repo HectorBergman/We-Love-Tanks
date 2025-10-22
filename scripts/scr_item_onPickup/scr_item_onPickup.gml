@@ -1,3 +1,5 @@
+//functions that trigger upon picking up a certain item
+
 function caseOfAces_onPickup(){
 	triggerAsAll(obj_player, caseOfAces_onPickup_helper)
 }

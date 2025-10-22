@@ -199,6 +199,7 @@ function checkForModeSwitchRequest(){
 				instance_destroy(obj_enemy);
 				instance_destroy(obj_dollar);
 				instance_destroy(obj_boss);
+				instance_destroy(obj_bullet_findRicochet_test);
 			}break;
 		}
 		return true;

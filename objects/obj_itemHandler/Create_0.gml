@@ -19,9 +19,7 @@ SignalSubscribe(id, "itemAcquired", function(itemId){
 })
 
 SignalSubscribe(id, "delay", function(delayInfo){
-	print(delayInfo);
 	ds_list_add(activeDelays,delayInfo)
-	print(ds_list_size(activeDelays));
 })
 
 

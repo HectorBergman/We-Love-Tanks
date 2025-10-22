@@ -8,7 +8,6 @@ searchForClick(close)
 function close(){
 	SignalSend("closeMenu: " + string(instanceId))
 	instance_destroy()
-	print(instanceId);
 	instanceId.menu = noone;
 }
 toDrawArr = [];

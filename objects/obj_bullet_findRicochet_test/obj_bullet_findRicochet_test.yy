@@ -1,6 +1,6 @@
 {
   "$GMObject":"",
-  "%Name":"obj_roomEditor_dropdown_click",
+  "%Name":"obj_bullet_findRicochet_test",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
@@ -8,11 +8,11 @@
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_roomEditor_dropdown_click",
+  "name":"obj_bullet_findRicochet_test",
   "overriddenProperties":[],
   "parent":{
-    "name":"editor",
-    "path":"folders/Objects/editor.yy",
+    "name":"bullets",
+    "path":"folders/Objects/bullets.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_roomEditor_menu_dropdown_click",
-    "path":"sprites/spr_roomEditor_menu_dropdown_click/spr_roomEditor_menu_dropdown_click.yy",
+    "name":"spr_bullet_enemy",
+    "path":"sprites/spr_bullet_enemy/spr_bullet_enemy.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -38,7 +38,6 @@ function setInstanceArgumentsChoices(){
 	//objectArguments: {argumentName: "itemPool", argumentType:  argumentTypes.options, 
 	//argumentChoices: ["itemPool", "bossPool"]}
 	//instanceArguments: "itemPool"
-	print(objectArguments);
 	for (var i = 0; i < array_length(objectArguments); i++){
 		
 		instanceArgumentsChoices[i] = objectArguments[i].argumentChoices[0]

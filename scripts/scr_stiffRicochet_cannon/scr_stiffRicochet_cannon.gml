@@ -4,22 +4,47 @@ function stiffRicochet_create_cannon(){
 
 	type = parent.type;
 	shotCooldownTime = 300;
-	shotCooldown = irandom_range(1,60);
-	
+	shotCooldown = irandom_range(1,120);
+	maxBounces = 3;
 	bulletInfo = bulletInfo_create(
 		1,
-		2,
+		maxBounces,
 		3,
-		5.5
+		4,
 	)
-	
+
 	x = parent.x
 	y = parent.y
 	activeBullets = 0;
 	firingCooldown = 0;
-	firingCooldownTime = 120;
+	firingCooldownTime = 30;
 	fire = false;
-	state = stiffRicochet.normal;
+	states = {
+		normal: "normal",
+		findRicochet : "findRicochet",
+		turning : "turning",
+		firing : "firing",
+	}
+	state = states.normal;
+	scanInfo = {
+		lastAngle : 0,
+		scansPerTick : 2,
+		startAngle : 0,
+		angleInterval : 5, //increase this for less precise but faster calculations //recommended: 5
+		angleCap : 360,
+		stepAngle : 10, //turning speed, degrees per frame
+		chosenAngle : -1,
+		closestDistanceToPlayer : 999999,
+		
+	}
+	SignalSubscribe(id, "ricochetAngle: " + string(id), function(ricochetInfo){
+		var closestDistance = ricochetInfo.distance 
+		var angle = ricochetInfo.angle
+		if closestDistance < scanInfo.closestDistanceToPlayer{
+			scanInfo.chosenAngle = angle
+			scanInfo.closestDistanceToPlayer = closestDistance
+		}
+	})
 
 	scanningArea = pi/2
 	scanningStep = (pi/2)/100
@@ -30,42 +55,23 @@ function stiffRicochet_create_cannon(){
 	image_angle = radtodeg(scanningPoint);
 	playerSeenLastStep = false;
 	scanningDirection = 1;
-	closestDistanceToPlayer = 999999;
-	chosenAngle = -1;
-	ricochetArray = [];
-	ricochetArray[360] = 99999
-	bulletSpeed = 4;
-	maxBounces = 3;
-
-	timeFromCalculationToFire = 40; //to make tanks "sharper", decrease this. Minimum: 10
-									//if you want lower, you have to edit the magic
-									//+10 that appears in steps. Not recommended but doable
-									//it allows for some time to let the tank turn to it's chosen
-									//direction of shooting. Instead of just snapping.
-
-	stepAngle = 0;
-
-	startAngle = 0;
-	angleInterval = 5; //increase this for less precise but faster calculations //recommended: 5
-
 	
 }
 
 function stiffRicochet_step_cannon(){
-	x = parent.x
-	y = parent.y
-	shotCooldown++
-	if (shotCooldown mod shotCooldownTime == shotCooldownTime-maxBounces-timeFromCalculationToFire){
-		findBestRicochetAngle(); //calculates the angle which will get a bullet closest to the player
-	}else if shotCooldown mod shotCooldownTime == shotCooldownTime-timeFromCalculationToFire+10{
-		searchRicochetArray();	//finds angle in array
-		stepAngle = gradualPointOverTime(chosenAngle, timeFromCalculationToFire-10) //no instant snap
-	}else if (shotCooldown mod shotCooldownTime == 0){
-		image_angle = chosenAngle;
+	runStateFunc("stiffRicochet_cannon_",state)
+}
+
+
+function findBestRicochetAngle(){
+	for (var i = startAngle; i < 360; i = i+angleInterval){
+		
+		var angle = i
 		var extraInfo = {
-			bulletGrowthStart: 0.3, 
-			bulletGrowthEnd: 1, 
-			bulletGrowthRate: 0.05,
+			x : x+20*dcos(angle),
+			y : y+20*-dsin(angle),
+			originalAngle:i,
+			parentCoords : [x,y],
 		}
 		
 	
@@ -78,36 +84,8 @@ function stiffRicochet_step_cannon(){
 			bulletInfo.durability,
 			extraInfo
 		)
-		fireBullet(id,obj_bullet_enemy,image_angle,args)
-		chosenAngle = -1;
-		closestDistanceToPlayer = 999999;
-	}else if(shotCooldown mod shotCooldownTime > shotCooldownTime-timeFromCalculationToFire+10){
-		if (abs(angle_difference(image_angle, chosenAngle)) < 3){
-			image_angle = chosenAngle
-		}else{
-			image_angle += stepAngle;
-		}
+		
+		fireBullet(id, obj_bullet_findRicochet_test, angle,args,false)
+		
 	}
-}
-
-function findBestRicochetAngle(){
-	for (var i = startAngle; i < 360; i = i+angleInterval){
-		var angle = degtorad(i)+pi/2;
-		summonObject(obj_bullet_findRicochet, [["movementVector", [sin(angle), cos(angle)]], 
-		["bulletSpeed", bulletSpeed], ["x", x+20*sin(angle)], ["y", y+20*cos(angle)], ["maxBounce", maxBounces], 
-		["parent", id], ["originalAngle", i], ["firedFrom", [x,y]], ["firedAngle", image_angle]])
-	}
-}
-function searchRicochetArray(){
-	
-	for (var i = startAngle; i < 360; i = i+angleInterval){
-
-		if ricochetArray[i] < closestDistanceToPlayer{
-			chosenAngle = i
-			closestDistanceToPlayer = ricochetArray[i]
-		}
-	}
-	print("itsdecided");
-	print(chosenAngle)
-	print(closestDistanceToPlayer)
 }

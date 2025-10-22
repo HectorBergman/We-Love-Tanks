@@ -23,7 +23,7 @@
   ],
   "name":"spr_bullet_enemy",
   "nineSlice":null,
-  "origin":4,
+  "origin":9,
   "parent":{
     "name":"enemy",
     "path":"folders/Sprites/placeholders/enemy.yy",
@@ -77,7 +77,7 @@
     ],
     "visibleRange":null,
     "volume":1.0,
-    "xorigin":6,
+    "xorigin":10,
     "yorigin":3,
   },
   "swatchColours":null,
