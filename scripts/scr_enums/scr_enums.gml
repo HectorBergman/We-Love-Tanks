@@ -59,7 +59,10 @@ function initializeEnums(){
 		spotted,
 	}
 	enum stiffRicochet_cannon{
-		ricochet,
+		normal,
+		findRicochet,
+		turning,
+		firing,
 	}
 	enum stiffBuckshot_cannon{
 		firing,

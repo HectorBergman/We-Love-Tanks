@@ -17,6 +17,7 @@ function stiffNormal_create_cannon(){
 	rapidCool = false;
 	
 	fire = false;
+
 	state = stiffNormal.normal
 
 	scanningArea = pi/2
@@ -35,6 +36,7 @@ function stiffNormal_step_cannon(){
 	x = parent.x
 	y = parent.y
 	firingCooldown--
+
 
 	switch (state){
 	    case stiffNormal_cannon.firing: stiffNormal_cannon_firing(); break;

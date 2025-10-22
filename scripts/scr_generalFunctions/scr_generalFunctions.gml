@@ -42,6 +42,10 @@ function summonObject(obj, arguments = noone){
     
 }
 
+function runStateFunc(baseName, state){
+	script_execute(asset_get_index(baseName + state))
+}
+
 
 /// @function ds_map_to_struct(dsMap)
 /// @description Converts a ds_map to a struct.
@@ -256,9 +260,6 @@ function collision_normal(x, y, obj, radius=4, spacing=1)
 {
     var nx = 0;
     var ny = 0;
-	if object_index == obj_bullet_findRicochet_test{
-		print("goodJoe: ",[x,y])
-	}
     if (collision_circle(x, y, radius, obj, true, true) != noone) {
         for (var j=spacing; j<=radius; j+=spacing) {
             for (var i=0; i<radius; i+=spacing) {
@@ -270,7 +271,6 @@ function collision_normal(x, y, obj, radius=4, spacing=1)
                 }
             }
         }
-		print("colnor: ", nx, ",", ny);
         if (nx == 0 && ny == 0) return (-1);
         return point_direction(0, 0, nx, ny);
     }

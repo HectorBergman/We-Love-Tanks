@@ -60,7 +60,6 @@ function setTopMidBot(){
 
 
 	top = [floor(x + top_offsetY * sinA), floor(y + top_offsetY * cosA)]
-	mid = [floor(x), floor(y)]
 	bot = [floor(x + bot_offsetY * sinA), floor(y + bot_offsetY * cosA)]
 }
 
@@ -85,17 +84,7 @@ function getRelativeTopMidBot(point, activeNo){
 			 ]
 			]
 			break;
-		case 1: 
-			arr =[
-				  [floor(x + -scaledOffset_y * sinA), floor(y + -scaledOffset_y * cosA)],
-				point,
-				  [
-					  floor(x + (scaledHeight-scaledOffset_y) * sinA), 
-					  floor(y + (scaledHeight-scaledOffset_y) * cosA)
-				  ]
-				 ]
-			break;
-		case 2:
+		case 1:
 			arr = 
 			[
 				[
@@ -129,7 +118,7 @@ function getRaycast(array){
 
 function enhanceAndSortMTB(){
 	var sortArr = []
-	var arr = [top,mid,bot]
+	var arr = [top,bot]
 	
 	for (var i = 0; i < array_length(arr); i++){
 		var raycast = getRaycast(arr[i]);
@@ -151,12 +140,8 @@ function enhanceAndSortMTB(){
 }
 function findBounce(){
 	var arr = enhanceAndSortMTB();
-	print(arr);
 	for (var i = 0; i < array_length(arr); i++){
 		var RTMB = getRelativeTopMidBot(arr[i].point,arr[i].number)
-		if debug.isOn{
-			summonObject(obj_dummy, [["x",RTMB[1][0]],["y",RTMB[1][1]]]);
-		}
 		var collisionAngle = collision_normal(RTMB[1][0], RTMB[1][1], obj_solid)
 		if collisionAngle != -1{
 			x = RTMB[1][0];
@@ -190,7 +175,7 @@ function findBounce(){
 
 function setClosestDistance(wallHitPoint){
 	var playerCoord = [obj_player.x,obj_player.y];
-	var distance = point_to_segment_distance(mid, wallHitPoint, playerCoord)
+	var distance = point_to_segment_distance([floor(x),floor(y)], wallHitPoint, playerCoord)
 	closestDistanceToPlayer = min(closestDistanceToPlayer,distance);
 }
 
