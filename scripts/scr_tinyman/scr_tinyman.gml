@@ -4,7 +4,8 @@ function tinyman_create(){
 	movementSpeed = 3;
 	hp = 1;
 
-	state = tinyman.walking;
+	states = createStates("walking", "waiting");
+	state = states.walking;
 	
 	pointInMoveDir = false;
 	
@@ -23,21 +24,15 @@ function tinyman_create(){
 }
 
 function tinyman_step(){
-	switch (state){
-		case tinyman.walking: tinyman_walking(); break;
-		case tinyman.waiting: tinyman_waiting(); break;
-
-	}
-
-	
-
+	exeStateFunc("tinyman_", state)
 }
+
 function tinyman_waiting(){
 	waitTimer--;
 	if waitTimer == 0{
 		moveTime = basemoveTime + irandom_range(-40,40);
 		moveTimer = moveTime+1;
-		state = tinyman.walking;
+		state = states.walking;
 		hitThisCycle = false;
 		collideable = false;
 	}
@@ -75,7 +70,7 @@ function tinyman_walking(){
 		movementVector[1] = 0;
 	}
 	if moveTimer == 0{
-		state = tinyman.waiting;
+		state = states.waiting;
 		waitTimer = waitTime + irandom_range(-10,10);
 		movementVector = [0,0];
 	}

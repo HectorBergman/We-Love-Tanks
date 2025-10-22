@@ -12,7 +12,9 @@ function braveheartNormal_create_cannon(){
 	firingCooldown = 0;
 	firingCooldownTime = 900;
 	fire = false;
-	state = braveheartNormal_cannon.scanning;
+	
+	states = createStates("scanning","spotted","firing")
+	state = states.scanning;
 
 	scanningArea = pi/2
 	scanningStep = (pi/2)/100
@@ -30,12 +32,7 @@ function braveheartNormal_step_cannon(){
 	y = parent.y
 	firingCooldown--
 
-	switch (state){
-	    case braveheartNormal_cannon.firing: braveheartNormal_firing_cannon(); break;
-		case braveheartNormal_cannon.scanning: braveheartNormal_scanning_cannon(); break;
-		case braveheartNormal_cannon.spotted: braveheartNormal_spotted_cannon(); break;
-	}
-
+	exeStateFunc("braveheartNormal_cannon_", state)
 
 
 }

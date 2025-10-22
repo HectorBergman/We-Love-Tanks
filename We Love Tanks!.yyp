@@ -306,6 +306,7 @@
     {"id":{"name":"scr_stiffRicochet","path":"scripts/scr_stiffRicochet/scr_stiffRicochet.yy",},},
     {"id":{"name":"scr_testStar","path":"scripts/scr_testStar/scr_testStar.yy",},},
     {"id":{"name":"scr_tinyman","path":"scripts/scr_tinyman/scr_tinyman.yy",},},
+    {"id":{"name":"scr_typeStates","path":"scripts/scr_typeStates/scr_typeStates.yy",},},
     {"id":{"name":"scribble_add_macro","path":"scripts/scribble_add_macro/scribble_add_macro.yy",},},
     {"id":{"name":"scribble_anim_blink","path":"scripts/scribble_anim_blink/scribble_anim_blink.yy",},},
     {"id":{"name":"scribble_anim_cycle","path":"scripts/scribble_anim_cycle/scribble_anim_cycle.yy",},},

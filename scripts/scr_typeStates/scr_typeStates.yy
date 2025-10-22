@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_typeStates",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_typeStates",
+  "parent":{
+    "name":"oScripts",
+    "path":"folders/oScripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -15,7 +15,8 @@ function stiffBuckshot_create_cannon(){
 	
 	
 	fire = false;
-	state = stiffBuckshot_cannon.firing;
+	states = createStates("firing", "scanning", "spotted");
+	state = states.firing;
 
 	scanningArea = pi/2
 	scanningStep = (pi/2)/100
@@ -33,11 +34,5 @@ function stiffBuckshot_step_cannon(){
 	x = parent.x
 	y = parent.y
 	firingCooldown--
-
-	switch (state){
-	    case stiffNormal_cannon.firing: stiffBuckshot_cannon_firing(); break;
-		case stiffNormal_cannon.scanning: stiffBuckshot_cannon_scanning(); break;
-		case stiffNormal_cannon.spotted: stiffBuckshot_cannon_spotted(); break;
-	}
-
+	exeStateFunc("stiffBuckshot_cannon_", state)
 }

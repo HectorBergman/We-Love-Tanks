@@ -1,12 +1,12 @@
 
-function braveheartNormal_firing_cannon(){
+function braveheartNormal_cannon_firing(){
 	
 	firingCooldown--
 	if !(collision_line(x, y, obj_player.x, obj_player.y, obj_solid, false, true)){
 		image_angle = point_direction(x,y,obj_player.x,obj_player.y)
 
 	}else{
-		state = stiffNormal_cannon.scanning;
+		state = states.scanning;
 		scanningPoint = image_angle
 		scanningDirection = sign(random_range(-1, 1));
 
@@ -31,7 +31,7 @@ function braveheartNormal_firing_cannon(){
 		fireBullet(id,obj_bullet_enemy,image_angle,args)
 	}
 }
-function braveheartNormal_scanning_cannon(){
+function braveheartNormal_cannon_scanning(){
 	if (collision_line(x, y, obj_player.x, obj_player.y, obj_solid, false, true)){
 		if (parent.movementVector[0] != 0 || parent.movementVector[1] != 0){
 			var goalDirection = point_direction(x,y,x+parent.movementVector[0], y+parent.movementVector[1])
@@ -39,11 +39,11 @@ function braveheartNormal_scanning_cannon(){
 			image_angle = gradPoint;
 		}
 	}else{
-		state = braveheartNormal_cannon.spotted;
+		state = states.spotted;
 		stepsTilSwitch = 50;
 	}
 }
-function braveheartNormal_spotted_cannon(){
+function braveheartNormal_cannon_spotted(){
 	if (!collision_line(x, y, obj_player.x, obj_player.y, obj_solid, false, true)){
 		
 	
@@ -51,11 +51,11 @@ function braveheartNormal_spotted_cannon(){
 		var gradPoint = gradualPoint(goalDirection,image_angle, 0.05);
 		image_angle = gradPoint;
 		if (gradPoint == goalDirection){
-			state = braveheartNormal_cannon.firing;
+			state = states.firing;
 		}
 	
 	}else{
-		state = braveheartNormal_cannon.scanning;
+		state = states.scanning;
 	}
 	
 }

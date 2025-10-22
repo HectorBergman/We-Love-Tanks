@@ -1,7 +1,7 @@
 function stiffBuckshot_create(){
 	//todo: sprites
-
-	state = stiffBuckshot.normal
+	states = createStates("normal");
+	state = states.normal;
 
 	distance = point_distance(x, y, obj_player.x, obj_player.y);
 	distanceX = abs(obj_player.x - x);
@@ -18,9 +18,7 @@ function stiffBuckshot_step(){
 	distance = point_distance(x, y, obj_player.x, obj_player.y);
 	distanceX = abs(obj_player.x - x);
 	distanceY = abs(obj_player.y - y);
-	switch (state){
-		case stiffNormal.normal: stiffNormal_normal(); break;
-	}
+	exeStateFunc("stiffBuckshot_", state)
 	wallSeen = 0;
 
 }

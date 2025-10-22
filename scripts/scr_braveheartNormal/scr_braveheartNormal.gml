@@ -9,8 +9,9 @@ function braveheartNormal_create(){
 	nearestCrumbDistance = 9999999;
 	detectionSquareHandlers = []
 	hp = 8;
-
-	state = braveheartNormal.approaching;
+	
+	states = createStates("approaching","patrolling","spotted");
+	state = states.approaching;
 	
 
 	distance = 0
@@ -30,13 +31,6 @@ function braveheartNormal_create(){
 
 function braveheartNormal_step(){
 	
-	
-	switch (state){
-		case braveheartNormal.approaching: braveheartNormal_approaching(); break;
-		case braveheartNormal.patrolling: braveheartNormal_patrolling(); break;
-		case braveheartNormal.spotted: braveheartNormal_spotted(); break;
-	}
-
-	
+	exeStateFunc("braveheartNormal_",state);
 
 }
