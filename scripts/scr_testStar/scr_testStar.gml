@@ -2,15 +2,14 @@ function testStar_create(){
 	enum testStarStates{
 		normal
 	}
-	state = testStarStates.normal
+	states = createStates("normal");
+	state = states.normal;
 	dir = random_range(0,360);
 	movementVector = [lengthdir_x(1,dir),lengthdir_y(1,dir)]
 	velocity = 3;
 }
 function testStar_step(){
-	switch (state){
-		case testStarStates.normal: testStar_normal(); break;
-	}
+	exeStateFunc("testStar_",state);
 }
 
 function testStar_normal(){

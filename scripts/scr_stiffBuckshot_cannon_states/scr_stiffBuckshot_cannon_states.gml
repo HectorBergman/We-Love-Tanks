@@ -5,7 +5,7 @@ function stiffBuckshot_cannon_firing(){
 		image_angle = point_direction(x,y,obj_player.x,obj_player.y)
 
 	}else{
-		state = stiffBuckshot_cannon.scanning;
+		state = states.scanning;
 		rapidCooldown = 0;
 		scanningPoint = image_angle
 		scanningDirection = sign(random_range(-1, 1));
@@ -57,7 +57,7 @@ function stiffBuckshot_cannon_scanning(){
 		}
 		stepsTilSwitch--
 	}else{
-		state = stiffBuckshot_cannon.spotted;
+		state = states.spotted;
 		stepsTilSwitch = 50;
 	}
 }
@@ -69,10 +69,10 @@ function stiffBuckshot_cannon_spotted(){
 		var gradPoint = gradualPoint(goalDirection,image_angle, 0.02);
 		image_angle = gradPoint;
 		if (gradPoint == goalDirection){
-			state = stiffBuckshot_cannon.firing;
+			state = states.firing;
 		}
 	}else{
-		state = stiffBuckshot_cannon.scanning;
+		state = states.scanning;
 		stepsTilSwitch = 50;
 	} 
 }

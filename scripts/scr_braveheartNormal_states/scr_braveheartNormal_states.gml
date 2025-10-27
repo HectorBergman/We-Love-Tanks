@@ -21,7 +21,7 @@ function braveheartNormal_approaching(){
 	}
 	
 	if !collision_line(x,y,obj_player.x,obj_player.y, obj_impassable,0,1){
-		state = braveheartNormal.spotted
+		state = states.spotted
 	}
 	var moveX = place_meeting(x + movementX(), y, [obj_impassable, obj_player, obj_enemy])
 	var moveY = place_meeting(x, y + movementY(), [obj_impassable, obj_player, obj_enemy])
@@ -81,7 +81,7 @@ function braveheartNormal_approaching(){
 
 function braveheartNormal_patrolling(){
 
-	state = braveheartNormal.approaching
+	state = states.approaching
 	/*if !collision_line(x,y,obj_player.x,obj_player.y, obj_wall,0,1){
 		var arr = findNearbyCrumbs()
 		nearestCrumb = arr[0];
@@ -106,7 +106,7 @@ function braveheartNormal_spotted(){
 		movementVector[0] = lengthdir_x(movementSpeed, dir);
 		movementVector[1] = lengthdir_y(movementSpeed, dir);
 	}else{
-		state = braveheartNormal.approaching
+		state = states.approaching
 		targetSquare = noone;
 		timeSinceLastSquare = 0;
 	}

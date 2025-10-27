@@ -42,9 +42,7 @@ function summonObject(obj, arguments = noone){
     
 }
 
-function runStateFunc(baseName, state){
-	script_execute(asset_get_index(baseName + state))
-}
+
 
 
 /// @function ds_map_to_struct(dsMap)

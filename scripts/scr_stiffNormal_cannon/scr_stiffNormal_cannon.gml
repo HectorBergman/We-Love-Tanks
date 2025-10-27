@@ -18,7 +18,8 @@ function stiffNormal_create_cannon(){
 	
 	fire = false;
 
-	state = stiffNormal.normal
+	states = createStates("firing","scanning","spotted");
+	state = states.firing;
 
 	scanningArea = pi/2
 	scanningStep = (pi/2)/100
@@ -36,12 +37,6 @@ function stiffNormal_step_cannon(){
 	x = parent.x
 	y = parent.y
 	firingCooldown--
-
-
-	switch (state){
-	    case stiffNormal_cannon.firing: stiffNormal_cannon_firing(); break;
-		case stiffNormal_cannon.scanning: stiffNormal_cannon_scanning(); break;
-		case stiffNormal_cannon.spotted: stiffNormal_cannon_spotted(); break;
-	}
-
+	
+	exeStateFunc("stiffNormal_cannon_", state)
 }

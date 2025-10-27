@@ -1,4 +1,6 @@
 pauseMode = allPause;
+
+
 enum bossPhase {
 	startingUp,
 	active

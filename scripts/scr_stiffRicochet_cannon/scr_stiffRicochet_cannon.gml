@@ -19,12 +19,7 @@ function stiffRicochet_create_cannon(){
 	firingCooldown = 0;
 	firingCooldownTime = 30;
 	fire = false;
-	states = {
-		normal: "normal",
-		findRicochet : "findRicochet",
-		turning : "turning",
-		firing : "firing",
-	}
+	states = createStates("normal","findRicochet","turning","firing") 
 	state = states.normal;
 	scanInfo = {
 		lastAngle : 0,
@@ -59,7 +54,7 @@ function stiffRicochet_create_cannon(){
 }
 
 function stiffRicochet_step_cannon(){
-	runStateFunc("stiffRicochet_cannon_",state)
+	exeStateFunc("stiffRicochet_cannon_",state)
 }
 
 
