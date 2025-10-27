@@ -6,6 +6,9 @@ function backJack_onDelay(fireInfo){
 		bulletGrowthStart: 0.3, 
 		bulletGrowthEnd: 1, 
 		bulletGrowthRate: 0.05,
+		boostMultiplier: 0.8,
+		boostDecay: 0.99,
+		bounceFrameCount : 8,
 	}
 	var args = 
 	fireBullet_defaultSummonStruct(
@@ -16,5 +19,8 @@ function backJack_onDelay(fireInfo){
 		bulletInfo.durability,
 		extraInfo
 	)
+	print(fireInfo.id)
+	print(fireInfo.id.object_index);
 	fireBullet(fireInfo.id, obj_bullet_player,fireInfo.id.image_angle,args,false)
+	sprite_index = spr_player_cannon_firingAnim
 }

@@ -1,5 +1,4 @@
 acquiredItems = [];
-activeDelays = ds_list_create()
 
 for (var i = 0; i < array_length(global.triggers); i++){
 	variable_instance_set(id,global.triggers[i] + "Items", [])
@@ -16,10 +15,6 @@ SignalSubscribe(id, "itemAcquired", function(itemId){
 		triggerEvent(itemId,"onPickup");
 		//SignalSend("player: Trigger", getTriggerEvent(itemId,"onPickup"));
 	}
-})
-
-SignalSubscribe(id, "delay", function(delayInfo){
-	ds_list_add(activeDelays,delayInfo)
 })
 
 

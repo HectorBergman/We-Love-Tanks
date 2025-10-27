@@ -28,6 +28,7 @@ if obj_inputHandler.fire && !place_meeting(tip_x,tip_y, obj_solid) && activeBull
 	
 	fireBullet(id,obj_bullet_player,image_angle, args)
 	SignalSend("onFire", {id : id, bulletInfo : bulletInfo});
+	sprite_index = spr_player_cannon_firingAnim
 	/*
 	var angle = image_angle
 	var b_Sp = bulletSpeed
