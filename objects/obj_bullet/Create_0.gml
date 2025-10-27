@@ -7,24 +7,22 @@ function movementY(){
 	return movementVector[1]*bulletSpeed;
 }
 
-enum bulletState{
-	inBarrel,
-	travel,
-	bounce,
-	dying,
-}
-enum bounceState{
-	start,
-	mid,
-	finish,
-}
-enum growthState{
-	growing,
-	grown
+
+
+states = createStates("inBarrel","travel","bounce","dying");
+state = states.inBarrel;
+
+growthStates = createStates("growing","grown");
+growthState = growthStates.grown;
+
+bounceStates = createStates("start","mid","finish");
+
+print("moner");
+if variable_instance_exists(id, "bulletGrowthStart"){
+	growthState = growthStates.growing;
+	scale = bulletGrowthStart;
 }
 
-state = bulletState.inBarrel;
-growth = growthState.grown;
 var bounceMulti = 0;
 if variable_instance_exists(id,"boostMultiplier"){
 	bounceMulti = boostMultiplier;
@@ -43,7 +41,7 @@ bInfo = {
 	angleAtBounce : undefined,
 	impactPoint : undefinedCoords,
 	endCoords : undefinedCoords,
-	state : bounceState.start,
+	state : bounceStates.start,
 	
 	bounceTime : bounceFrames,
 	bounceTimer : bounceFrames,
@@ -63,13 +61,10 @@ if barrelLength > 0{
 	extraMovement = 0
 	followCannon = timeWhenExitBarrel;
 }else{
-	state = bulletState.travel;
+	state = state.travel
 }
 
-if variable_instance_exists(id, "bulletGrowthStart"){
-	growth = growthState.growing;
-	scale = bulletGrowthStart;
-}
+
 
 image_xscale = scale;
 image_yscale = scale;
@@ -111,7 +106,7 @@ function collide(collideEntity, isBullet){
 		with collideEntity.parent{
 			decreaseHealth(dmg);
 		}
-		state = bulletState.dying;
+		state = states.dying;
 	}else{
 		decreaseDurability(collideEntity);
 	}
@@ -141,7 +136,7 @@ function getMovementVector(angle){
 	return [cos(degtorad(angle)), -sin(degtorad(angle))]
 }
 
-function bullet_travel(){
+function bullet_tick(){
 	if bulletSpeed > capBulletSpeed{
 		bulletSpeed = capBulletSpeed;
 	}
@@ -166,15 +161,15 @@ function bullet_checkForRico(){
 	var rico = findRicochet(movementVector, bulletSpeed)
 	if rico != -1{
 		if bInfo.bounces == 0{
-			state = bulletState.dying;
-			bullet_travel()
+			state = states.dying;
+			bullet_tick()
 		}else{
 			SignalSend("flare", {x:x,y:y});
 			var movVecTest = getMovementVector(rico)
 			if collision_circle(x+movVecTest[0]*bulletSpeed,y+movVecTest[1]*bulletSpeed,3,obj_solid,true,true){
 				rico = (image_angle+180) mod 360
 			}
-			state = bulletState.bounce;
+			state = states.bounce;
 			bInfo.angle = rico;
 			bInfo.angleAtBounce = image_angle;
 			if bInfo.timeSinceBounce > bInfo.timeSinceBounceGrace{
@@ -185,3 +180,4 @@ function bullet_checkForRico(){
 		}
 	}
 }
+

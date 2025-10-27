@@ -8,5 +8,11 @@ function createStates(){
 }
 
 function exeStateFunc(baseName, state){
-	script_execute(asset_get_index(baseName + state))
+	var func = asset_get_index(baseName + state)
+	if func != -1{
+		script_execute(asset_get_index(baseName + state))
+	}else{
+		print(baseName + state);
+		forceCrash(baseName + state + " is not a function!");
+	}
 }
