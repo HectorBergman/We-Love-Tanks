@@ -5,7 +5,15 @@ function barrelAnim_normal(){
 	}
 }
 function barrelAnim_charging(){
-	image_index = ds_queue_head(barrelQueue).bulgeNumber;
+	var instance = ds_queue_head(barrelQueue)
+	if instance_exists(instance){
+		image_index = instance.bulgeNumber;
+	}else{
+		ds_queue_dequeue(barrelQueue);
+		if !ds_queue_empty(barrelQueue){
+			barrelAnim_charging()
+		}
+	}
 }
 function barrelAnim_releasing(){
 	print("swag");

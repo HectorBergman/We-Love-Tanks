@@ -9,7 +9,7 @@ SignalSubscribe(id, "delay", function(args){
 function setTimer(author, action, time, arguments){
 	delayArr[array_length(delayArr)] = {
 		author: author, 
-		action: action, 
+		action: method(author, action), 
 		time: round(time), 
 		arguments: arguments
 	};
