@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_barrelAnim",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_barrelAnim",
+  "parent":{
+    "name":"player",
+    "path":"folders/Objects/player.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

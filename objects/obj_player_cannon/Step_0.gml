@@ -14,6 +14,8 @@ if obj_inputHandler.fire && !place_meeting(tip_x,tip_y, obj_solid) && activeBull
 		boostMultiplier: 0.8,
 		boostDecay: 0.99,
 		bounceFrameCount : 8,
+		bulgeAmount : array_length(barrelBulges),
+		bulgeNumber : 0,
 	}
 	
 	var args = 
@@ -26,9 +28,11 @@ if obj_inputHandler.fire && !place_meeting(tip_x,tip_y, obj_solid) && activeBull
 		extraInfo
 	)
 	
-	fireBullet(id,obj_bullet_player,image_angle, args)
+	ds_queue_enqueue(barrelQueue, fireBullet(id,obj_bullet_player,image_angle, args))
+	barrelBulges[0].state = true;
+	barrelBulges[0].lock = true;
+	bulgeCount++;
 	SignalSend("onFire", {id : id, bulletInfo : bulletInfo});
-	sprite_index = spr_player_cannon_firingAnim
 	/*
 	var angle = image_angle
 	var b_Sp = bulletSpeed
@@ -39,3 +43,4 @@ if obj_inputHandler.fire && !place_meeting(tip_x,tip_y, obj_solid) && activeBull
 		loop_onFire({obj : obj_bullet_player, bulletSpeed : b_Sp, bulletBounces : b_Bnc, bulletDamage : b_D, bulletAngle : angle, bulletDurability : b_Db, extraInfo : extraInfo});
 	}*/
 }
+exeStateFunc("barrelAnim_",animState);

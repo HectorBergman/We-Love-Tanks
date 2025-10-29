@@ -4,8 +4,10 @@ function bullet_inBarrel(){
 		exit;
 	}
 	if parent.object_index == obj_player_cannon{
-		print("test");
-		SignalSend("barrelBulletCompletion", 1-followCannon/timeWhenExitBarrel);
+		if 1-followCannon/timeWhenExitBarrel > (bulgeNumber+1)/bulgeAmount{
+			SignalSend("barrelBulletExitBulge",bulgeNumber)
+			bulgeNumber++
+		}
 	}
 	followCannon--
 	image_angle = parent.image_angle;
@@ -15,6 +17,9 @@ function bullet_inBarrel(){
 	x = parent.x+extraMovement*movementVector[0]
 	y = parent.y+extraMovement*movementVector[1]
 	if followCannon == 0{
+		if parent.object_index == obj_player_cannon{
+			SignalSend("barrelBulletExitBulge",bulgeNumber)
+		}
 		SignalSend("exitBarrel: " + string(parent), ceil(barrelLength/bulletSpeed)+1);
 		state = states.travel;
 	}
