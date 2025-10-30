@@ -2,5 +2,7 @@ tween = noone;
 phase = tD_phase.start
 ease = EaseOutQuad;
 spinEase = EaseOutQuint
-
-SignalSubscribe(id,"transitionEnd", function(arg){ if arg[0] == transitionId{instance_destroy()}})
+scale = 1;
+image_xscale = scale;
+image_yscale = scale;
+SignalSubscribe(id,"transitionEnd", function(arg){ if arg[0] == transitionId{print("transEnd");instance_destroy()}})
