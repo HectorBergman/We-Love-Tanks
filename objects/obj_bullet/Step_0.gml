@@ -1,8 +1,6 @@
 PAUSE
 ds_list_add(pathPoints, [x, y]);
-if lifeTime > timeWhenExitBarrel{
-	depth = -99
-}
+
 
 
 
