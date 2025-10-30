@@ -1,4 +1,5 @@
 depth = parent.depth+1
+visible = false;
 pauseMode = allPause
 function movementX(){
 	return movementVector[0]*bulletSpeed;
@@ -8,10 +9,10 @@ function movementY(){
 }
 
 
-
 states = createStates("inBarrel","travel","bounce","dying");
 state = states.inBarrel;
 
+scale = 1;
 growthStates = createStates("growing","grown");
 growthState = growthStates.grown;
 
@@ -53,7 +54,7 @@ bInfo = {
 	lastEasedProgress : 0,
 }
 
-scale = 1;
+
 
 timeWhenExitBarrel = 0
 if barrelLength > 0{
@@ -63,6 +64,11 @@ if barrelLength > 0{
 }else{
 	state = state.travel
 }
+setDelay(function(){
+	depth = -99
+},timeWhenExitBarrel+5,id,noone);
+
+setDelay(function(){visible = true;},2,id,noone);
 
 
 

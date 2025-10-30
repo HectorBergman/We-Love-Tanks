@@ -8,6 +8,7 @@ enum bossPhase {
 enum bossTypes {
 	testStar,
 }
+scale = 1
 depth = -100
 color = c_white;
 phase = bossPhase.startingUp

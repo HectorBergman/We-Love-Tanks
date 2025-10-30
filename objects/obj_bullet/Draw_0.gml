@@ -38,7 +38,7 @@ draw_surface_ext(pathSurface, 0, 0, 1, 1, 0, c_white, 0.7);*/
 
 
 draw_self();
-var cosA = dcos(image_angle);
+/*var cosA = dcos(image_angle);
 var sinA = dsin(image_angle);
 var cosB = dcos(image_angle + 90);
 var sinB = dsin(image_angle + 90);

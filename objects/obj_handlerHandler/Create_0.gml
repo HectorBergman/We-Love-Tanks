@@ -25,6 +25,7 @@ normRH = noone;
 normLevelH = noone;
 normParticle = noone;
 normTransition = noone;
+normTimerHand = noone;
 
 alwaysParticle = noone;
 
@@ -49,6 +50,8 @@ function normal_summon(){
 	normMoneyHand = summonObject(obj_moneyHandler);
 	normLevelH = summonObject(obj_levelHandler);
 	
+	normTimerHand = summonObject(obj_delayHandler);
+	
 	normTransition = summonObject(obj_transitionHandler);
 	normSummoned = true;
 }
@@ -59,6 +62,7 @@ function normal_delete(){
 	instance_destroy(normCrossHair);
 	instance_destroy(normMinimapHand);
 	instance_destroy(normCurrRoom);
+	instance_destroy(normTimerHand);
 	//instance_destroy(normItemHand);
 	normSummoned = false;
 }
