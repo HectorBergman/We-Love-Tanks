@@ -55,10 +55,10 @@ function resetLocks(){
 }
 
 
-maxBullets = 999;
+maxBullets = 5;
 activeBullets = 0;
 firingCooldown = 0;
-firingCooldownTime = 5;
+firingCooldownTime = 30;
 
 function playerFire(){
 	var extraInfo = {
