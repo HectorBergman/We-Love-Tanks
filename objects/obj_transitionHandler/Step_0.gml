@@ -21,19 +21,19 @@ switch (tP){
 		for (var i = 0; i < 31; i++){
 			summonObject(obj_transitionStar,
 				[["x", -600-180-i*starSpacing+64-48+startOffset[0]], ["y", 960+i*starSpacing+48+startOffset[1]], ["delay", 0],
-				["tweenTime", tweenTime], ["totalDelay", totalDelay], ["tMult", tMult],
+				["tweenTime", tweenTime], ["totalDelay", totalDelay], ["tMult", tMult], ["depth", -1],
 				["spinSpeed", 2.4],["offset", startOffset], ["transitionId", transitionId]]);
 		}
 		for (var i = 0; i < 29; i++){
 			summonObject(obj_transitionStar,
 				[["x", -600-200-i*starSpacing-32-48+startOffset[0]], ["y", 960+i*starSpacing+48+startOffset[1]], ["delay", 0],
-				["tweenTime", tweenTime], ["totalDelay", totalDelay], ["tMult", tMult],
+				["tweenTime", tweenTime], ["totalDelay", totalDelay], ["tMult", tMult], ["depth", -1],
 				["spinSpeed", 2.5],["offset", startOffset], ["transitionId", transitionId]]);
 		}
 		for (var i = 0; i < 27; i++){
 			summonObject(obj_transitionStar,
 				[["x", -600-220-i*starSpacing-32-96-48+startOffset[0]], ["y", 960+i*starSpacing+48+startOffset[1]], ["delay", 0],
-				["tweenTime", tweenTime], ["totalDelay", totalDelay], ["tMult", tMult],
+				["tweenTime", tweenTime], ["totalDelay", totalDelay], ["tMult", tMult], ["depth", -1],
 				["spinSpeed", 2.6],["offset", startOffset], ["transitionId", transitionId]]);
 		}
 		for (var i = 0; i < whiteWait; i++){
