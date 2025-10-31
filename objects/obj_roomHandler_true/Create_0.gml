@@ -23,6 +23,7 @@ function newDungeon(){
 		var oneReq = floorRequirements([6,6],startPoint,0.1,[[0,0,4,2,1], [0,0.5,4,1,1], [0,1,2,2,1], [0,1,4,1,0.5], [0,1.1,0.5,0,0]],[4,8],spezRooms)
 		SignalSubscribe(id,"roomEntered: general", function(){
 			if enterInfo.enteredRoomDoor != -1{
+				print("roomentranceno: " , [(enterInfo.enteredRoomDoor+2) mod 4,enterInfo.enteredRoomNo])
 				SignalSend("roomEntranceNo", [(enterInfo.enteredRoomDoor+2) mod 4,enterInfo.enteredRoomNo]);
 			}
 			SignalSend("clearedStatus", currentRoom.cleared);
@@ -132,10 +133,12 @@ function getRoomAndDoorVector(roomNo,doorNo){
 	var roomAndDoorDiff = [roomDiff[0]+doorDiff[0],roomDiff[1]+doorDiff[1]]
 	return roomAndDoorDiff;
 }
+/// @function getRoomNo(_room)
+/// @desc Returns the grid index of this room within a minimum 2x2 area.
 function getRoomNo(_room) {
     var coordsArray = _room.amalgamClaimedCoords;
-    
-    // Determine grid bounds
+
+    // --- Step 1: Determine grid bounds
     var min_x = coordsArray[0][0];
     var min_y = coordsArray[0][1];
     var max_x = coordsArray[0][0];
@@ -149,15 +152,28 @@ function getRoomNo(_room) {
         if (c[1] > max_y) max_y = c[1];
     }
 
-    var grid_width = (max_x - min_x + 1);
-    
-    // Find the "grid index" this coordinate would occupy
+    // --- Step 2: Enforce minimum 2x2 grid bounds
+    var grid_width  = (max_x - min_x + 1);
+    var grid_height = (max_y - min_y + 1);
+
+    if (grid_width < 2) {
+        max_x += (2 - grid_width);
+        grid_width = 2;
+    }
+    if (grid_height < 2) {
+        max_y += (2 - grid_height);
+        grid_height = 2;
+    }
+
+    // --- Step 3: Compute index within the enforced grid
     var my_x = _room.coords[0];
     var my_y = _room.coords[1];
+
     var index = (my_y - min_y) * grid_width + (my_x - min_x);
-    
+
     return index;
 }
+
 
 //sorts arrays in 2x2 grid
 function coord_sort(coordsArray){
