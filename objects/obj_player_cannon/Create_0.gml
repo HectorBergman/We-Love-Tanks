@@ -51,7 +51,6 @@ function resetLocks(){
 	}
 	
 	animInfo.frameSpeed = 0.14*(power(bulgeCount+1,2));
-	print("lol: ",power(bulgeCount+1,2));
 }
 
 

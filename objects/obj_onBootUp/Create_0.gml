@@ -11,7 +11,7 @@ global.__signals = new SignalController();
 
 //print(randomize());
 //223416234
-random_set_seed(3305809835);
+random_set_seed(1020381396);
 global.dungeonSeed = random_get_seed();
 global.currentSeed = global.dungeonSeed;
 window_set_cursor(cr_none); //hide pc cursorr

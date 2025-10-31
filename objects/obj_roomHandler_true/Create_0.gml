@@ -29,7 +29,7 @@ function newDungeon(){
 			loadRoom(currentRoom)
 		})
 		ds_list_add(floorReqs, oneReq);
-		ds_list_add(floorReqs, oneReq);
+		//ds_list_add(floorReqs, oneReq); //2 floors
 		currentDungeon = initiateDungeon(floorReqs);
 		currentFloor = changeFloor(currentDungeon, 0)
 		currentRoom = ds_grid_get(currentFloor.grid, currentFloor.startPoint[0],currentFloor.startPoint[1])
@@ -107,6 +107,7 @@ function enterNewRoom(roomNo,doorNo, store = true){
 
 function updateEnterInfo(){
 	enterInfo.enteredRoomNo = getRoomNo(currentRoom);
+	print("acl: ", currentRoom.amalgamClaimedCoords);
 	enterInfo.enteredRoomFullDoors = getAllDoors(coord_sort_fill(currentRoom.amalgamClaimedCoords));
 }
 
@@ -214,6 +215,7 @@ function loadRoom(newRoom){
 
 }
 function getAllDoors(coordArr){
+	print("getAllDoors: ", coordArr);
 	var newArr = []
 	for (var i = 0; i < array_length(coordArr); i++){
 		if !array_equals([-1,-1],coordArr[i]){
@@ -222,12 +224,13 @@ function getAllDoors(coordArr){
 			newArr[i] = [-1,-1,-1,-1]
 		}
 	}
+	print("result: ", newArr);
 	return newArr
 }
 /// @function coord_sort_fill(coordsArray)
 /// @desc Sorts coordinates into grid order and fills missing slots with [-1,-1].
 function coord_sort_fill(coordsArray) {
-    // --- Step 1: Sort existing coordinates (row-major order)
+    // --- Step 1: Sort existing coordinates (row-major order: y then x)
     array_sort(coordsArray, function(a, b) {
         if (a[1] < b[1]) return -1;
         if (a[1] > b[1]) return 1;
@@ -236,7 +239,7 @@ function coord_sort_fill(coordsArray) {
         return 0;
     });
 
-    // --- Step 2: Find grid bounds
+    // --- Step 2: Find grid bounds (assume coordsArray length >= 1)
     var min_x = coordsArray[0][0];
     var max_x = coordsArray[0][0];
     var min_y = coordsArray[0][1];
@@ -250,10 +253,22 @@ function coord_sort_fill(coordsArray) {
         if (c[1] > max_y) max_y = c[1];
     }
 
+    // --- Ensure the grid is at least 2x2
     var grid_width  = (max_x - min_x + 1);
     var grid_height = (max_y - min_y + 1);
 
-    // --- Step 3: Build the filled grid
+    if (grid_width < 2) {
+        // expand to the right to make width 2
+        max_x += (2 - grid_width);
+        grid_width = 2;
+    }
+    if (grid_height < 2) {
+        // expand downward to make height 2
+        max_y += (2 - grid_height);
+        grid_height = 2;
+    }
+
+    // --- Step 3: Build the filled grid (row-major order: y outer, x inner)
     var filled = [];
     for (var j = min_y; j <= max_y; j++) {
         for (var k = min_x; k <= max_x; k++) {
@@ -272,6 +287,7 @@ function coord_sort_fill(coordsArray) {
         }
     }
 
+	print("postFill: ", filled);
     return filled;
 }
 

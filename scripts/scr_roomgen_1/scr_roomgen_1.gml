@@ -126,6 +126,7 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 }
 
 function getAmalgamClaimedCoords(dfloor, shape, coords){
+	
 	var roomsNeeded = amalgamAcceptance(shape[0], shape[1]);
 	var central = roomsNeeded[shape[1]];
 	var amalgamClaimedCoords = [];
@@ -139,6 +140,7 @@ function getAmalgamClaimedCoords(dfloor, shape, coords){
 			index++;
 		}
 	}
+	print("amalgamClCo: ", amalgamClaimedCoords)
 	return amalgamClaimedCoords;
 }
 
@@ -194,7 +196,6 @@ function createDFloor(
 		roomAmountRange : roomAmountRange,
 		goalCoords : [],
 		roomsQueue : ds_queue_create(),
-		queueGrid : ds_grid_create(dimensions[0],dimensions[1]),
 		floorNo : -1,
 		floorReqs : floorReqs
 	}
@@ -239,6 +240,5 @@ function initiateSpecialRoom(dfloor,sRoom){
 }
 function destroydfloor(dfloor){
 	ds_grid_destroy(dfloor.grid)
-	ds_grid_destroy(dfloor.queueGrid)
 	ds_queue_destroy(dfloor.roomsQueue)
 }
