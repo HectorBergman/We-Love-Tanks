@@ -4,7 +4,6 @@ ds_list_add(pathPoints, [x, y]);
 
 
 
-
 // Trim path if too long
 if (ds_list_size(pathPoints) > maxPathLength) {
     ds_list_delete(pathPoints, 0); // Remove oldest point

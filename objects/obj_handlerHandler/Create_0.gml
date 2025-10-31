@@ -12,6 +12,31 @@ reSummoned = false;
 reSummon = false; 
 
 
+inGame = {
+}
+
+
+function createSummonStructStruct(summonStructStruct){
+	var newStruct = {}
+	for (var i = 0; i < array_length(summonStructStruct); i++){
+		var name = object_get_name(summonStructStruct[i][0].object_index)
+		var noobj_name = string_delete(name, 1, 4);
+		variable_struct_set(newStruct, noobj_name, summonStructStruct[i]);
+	}
+	return newStruct;
+}
+
+function summonAllFromStruct(struct,instanceStruct){
+	var keys = variable_struct_get_names(struct);
+
+	for (var i = 0; i < array_length(keys); i++) {
+		var key = keys[i];
+		var value = variable_struct_get(struct, key);
+		variable_struct_set(instanceStruct, keys[i], summonObject(value[0],value[1]));
+	}
+}
+var stru = createSummonStructStruct("inGame",[[obj_cam,[]],[obj_delayHandler,[]],[obj_itemHandler,[]]])
+summonAllFromStruct(stru,inGame)
 
 normCam = noone;
 normItemHand = noone;
@@ -39,18 +64,32 @@ function prepSummon(){
 function always_summon(){
 	alwaysParticle = summonObject(obj_particleHandler);
 }
+
+function summon_inGame() {
+	inGame.cam = summonObject(obj_cam);
+	inGame.timerHand = summonObject(obj_delayHandler);
+	inGame.itemHand = summonObject(obj_itemHandler);
+}
+function dismantle_struct(name){
+	var struct = variable_instance_get(id, name)
+	var keys = variable_struct_get_names(struct);
+	
+	// Iterate through them
+	for (var i = 0; i < array_length(keys); i++) {
+		var key = keys[i];
+		var value = variable_struct_get(struct, key);
+		instance_destroy(value);
+		variable_struct_set(struct, key, noone);
+	}
+}
 function normal_summon(){
 	normPF = summonObject(obj_pathFinderHandler);
 	//normItemHand = summonObject(obj_itemHandler);
 	normPlayer = summonObject(obj_player, [["x", 960/2], ["y", 540/2]]);
 	normCrossHair = summonObject(obj_crosshair, [["x", 960/2], ["y", 540/2]]);
-	normCam = summonObject(obj_cam);
 	//normCurrRoom = summonObject(obj_currentRoomHandler);
 	normMinimapHand = summonObject(obj_minimapHandler_true);
-	normMoneyHand = summonObject(obj_moneyHandler);
 	normLevelH = summonObject(obj_levelHandler);
-	
-	normTimerHand = summonObject(obj_delayHandler);
 	
 	normTransition = summonObject(obj_transitionHandler);
 	normSummoned = true;
