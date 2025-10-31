@@ -108,7 +108,6 @@ function enterNewRoom(roomNo,doorNo, store = true){
 
 function updateEnterInfo(){
 	enterInfo.enteredRoomNo = getRoomNo(currentRoom);
-	print("acl: ", currentRoom.amalgamClaimedCoords);
 	enterInfo.enteredRoomFullDoors = getAllDoors(coord_sort_fill(currentRoom.amalgamClaimedCoords));
 }
 
@@ -133,6 +132,7 @@ function getRoomAndDoorVector(roomNo,doorNo){
 	var roomAndDoorDiff = [roomDiff[0]+doorDiff[0],roomDiff[1]+doorDiff[1]]
 	return roomAndDoorDiff;
 }
+
 /// @function getRoomNo(_room)
 /// @desc Returns the grid index of this room within a minimum 2x2 area.
 function getRoomNo(_room) {

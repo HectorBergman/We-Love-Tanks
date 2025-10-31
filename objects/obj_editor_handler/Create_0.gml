@@ -9,20 +9,53 @@ justexited = false;
 menu = noone;
 globalMenu = noone;
 menuOffset = [600,32];
+allOn = true;
 SignalSubscribe(id, "saved room", function(arg){ saveRoom(arg)})
 SignalSubscribe(id, "openedMenu", function(openedMenu){ globalMenu = openedMenu});
+SignalSubscribe(id, "button: clicked: " + string(id), function(){
+	
+	var setTo = true;
+	if allOn{
+		setTo = false;
+		approvedRooms.approvedTypes  = [];
+	}else{
+		filledApprovedRooms()
+	}
+	allOn = !allOn;
+	for (var i = 1+array_length(global.roomShapes); i < array_length(instanceArgumentsChoices)-1; i++){
+		instanceArgumentsChoices[i] = setTo;
+	}
+	print(instanceArgumentsChoices);
+	updateSearchArray();
+	updateToDrawArray();
+	closeMenu();
+})
+
 loadAllRoomData();
 
 
 
 var shapesArr = createShapeArguments("canHaveShape", global.roomShapes);
 var typesArr = createShapeArguments("canBeRoomType", global.roomTypes);
-var joinedShapesTypesArr = array_concat([createArgument("roomName", argumentTypes.freetext)],shapesArr,typesArr);
-var approvedShapes = [];
-var approvedTypes = [];
-array_copy(approvedShapes,0,global.roomShapes,0,array_length(global.roomShapes));
-array_copy(approvedTypes,0,global.roomTypes,0,array_length(global.roomTypes));
-approvedRooms = {approvedShapes : approvedShapes, approvedTypes : approvedTypes, nameReq : ""};
+var joinedShapesTypesArr = array_concat(
+	[createArgument("roomName", argumentTypes.freetext)],
+	shapesArr,
+	typesArr,
+	[createArgument("Toggle All Types:", argumentTypes.button)]
+);
+approvedRooms = {}
+function filledApprovedRooms(){
+	var approvedShapes = [];
+	var approvedTypes = [];
+	array_copy(approvedShapes,0,global.roomShapes,0,array_length(global.roomShapes));
+	array_copy(approvedTypes,0,global.roomTypes,0,array_length(global.roomTypes));
+	approvedRooms.approvedShapes = approvedShapes
+	approvedRooms.approvedTypes = approvedTypes;
+}
+filledApprovedRooms()
+
+approvedRooms.nameReq = "";
+
 
 function roomMeetsRequirement(_room){
 	return array_contains(approvedRooms.approvedShapes, _room.roomShape)
@@ -45,7 +78,7 @@ setInstanceArgumentsChoices()
 toggleMenu();
 SignalSubscribe(id, "updateInstance: " + string(id), function(arg){updateSearch(arg)});
 
-function updateSearch(arg){ 
+function updateSearch(arg){ //this code stinks
 	updateInstanceArgumentChoices(arg[0],arg[1], arg[2])
 	var str = objectArguments[arg[1]].argumentName
 	if string_last_pos("canHaveShape", str) == 1{
@@ -85,26 +118,6 @@ function updateSearchArray(){//if after a while updating search becomes slow, ad
 	}
 }
 
-function findFittingRooms(){
-	searchArray = [];
-	for (var i = 0; i < roomsData; i++){
-		if matchingStringsSoFar("",roomsData[i].roomName){
-		}
-	}
-}
-
-function matchingStringsSoFar(stringCompare,stringBeingCompared){
-	var strCompareLen = string_length(stringCompare);
-	var strBeingComparedLen = string_length(stringBeingCompared);
-	if strCompareLen <= strBeingComparedLen{
-		var strBeingComparedSameLen = string_copy(stringBeingCompared,0,strCompareLen)
-		if stringCompare == strBeingComparedSameLen{
-			return true
-		}
-	}
-	return false;
-}
-
 function updateToDrawArray(){
 	toDrawArray = [];
 	var text = ""
@@ -129,11 +142,7 @@ enum editorModes {
 	editing,
 	testing
 }
-/*case editorModes.editing:{
-	}break;
-	case editorModes.testing:{
-	}break;
-*/
+
 summonEditObj = false;
 editorMode = editorModes.editing;
 menuMode = editorMenuModes.selectingRoom;

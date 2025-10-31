@@ -7,6 +7,7 @@ SignalSubscribe(id, "updateInstance: " + string(instanceId), function(arg){updat
 SignalSubscribe(id, "closeDropdownFromDD: " + string(instanceId) + string(argumentIndex), function(){toggleDropdown();})
 SignalSubscribe(id, "openDropdown: " + string(instanceId), function(arg){if arg[0] != id && isOpen{ toggleDropdown();}})
 
+
 //dropdown
 isOpen = false; 
 //
@@ -46,7 +47,7 @@ switch (type){
 		SignalSubscribe(id,"editor_clicked", function(arg){if arg != id{ deactivateTextbox()}});
 	}break;
 	case argumentTypes.button:{
-		searchForClick(function(){SignalSend("button: clicked", [instanceId])})
+		searchForClick(function(){SignalSend("button: clicked: " + string(instanceId))})
 	}break;
 }
 
