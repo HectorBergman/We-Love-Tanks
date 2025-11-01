@@ -1,6 +1,6 @@
 PAUSE
 
-if !obj_inputHandler.heldSpace{
+if !obj_handler_input.heldSpace{
 	debugTimer--
 }
 if debugTimer == 0 || !debug.isOn{

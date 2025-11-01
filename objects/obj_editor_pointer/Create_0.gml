@@ -44,9 +44,9 @@ function clickingLogic(){
 		size-dragging instances
 		dragging instances
 	*/
-	var click = obj_inputHandler.click
-	var rClick = obj_inputHandler.rightClick
-	var release = obj_inputHandler.clickRelease;
+	var click = obj_handler_input.click
+	var rClick = obj_handler_input.rightClick
+	var release = obj_handler_input.clickRelease;
 	var priorityOrder = createPriorityOrder([
 		[clickTypes.click, obj_editor_saveRoomButton],
 		[clickTypes.click, obj_editor_displayObjects],
@@ -78,7 +78,7 @@ function clickingLogic(){
 			SignalSend("editor_clicked", noone);
 		}
 	}
-	if obj_inputHandler.clickRelease{
+	if obj_handler_input.clickRelease{
 		SignalSend("editor_released");
 	}
 }

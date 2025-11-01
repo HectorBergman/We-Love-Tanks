@@ -1,0 +1,2 @@
+
+global.timeSpeed = 1;

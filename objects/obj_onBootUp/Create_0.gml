@@ -31,6 +31,7 @@ global.roomShapes = [ //this information is purely for knowing which room pool t
 	"bottomRightAbsent",
 	"giant",
 ]
+global.timeSpeed = 1;
 
 
 defineItems();

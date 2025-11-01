@@ -8,7 +8,7 @@ bulletInfo = bulletInfo_create(
 	100,
 	3,
 	1,
-	0.1,
+	2,
 	{fullMetalJacket: false}
 )
 print("cannonId: ", id);

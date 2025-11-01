@@ -157,8 +157,8 @@ function bullet_tick(){
 	}
 	
 	image_angle = point_direction(x,y,x+movementVector[0],y+movementVector[1]);
-	x = x + movementX();
-	y = y + movementY();
+	x += movementX()*ts;
+	y += movementY()*ts;
 }
 
 function bullet_checkForRico(){

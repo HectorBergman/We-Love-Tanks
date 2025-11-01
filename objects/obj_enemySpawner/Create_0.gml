@@ -1,8 +1,8 @@
 depth = -200
 summoned = false;
-switch (obj_gameSettingHandler.gameState){
+switch (obj_handler_gameSetting.gameState){
 	case gameStates.regular:{
-		if (obj_roomHandler_true.currentRoom.visited){
+		if (obj_handler_room.currentRoom.visited){
 			instance_destroy();
 	
 		}else{

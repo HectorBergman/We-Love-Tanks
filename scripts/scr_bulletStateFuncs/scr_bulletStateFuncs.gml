@@ -14,8 +14,8 @@ function bullet_inBarrel(){
 	movementVector = getMovementVector(image_angle);
 	extraMovement += bulletSpeed
 		
-	x = parent.x+extraMovement*movementVector[0]
-	y = parent.y+extraMovement*movementVector[1]
+	x = parent.x+extraMovement*movementVector[0]*ts
+	y = parent.y+extraMovement*movementVector[1]*ts
 	if followCannon == 0{
 		SignalSend("exitBarrel: " + string(parent), ceil(barrelLength/bulletSpeed)+1);
 		state = states.travel;

@@ -224,9 +224,9 @@ function pickupMoney(){
 		for (var i = 0; i < ds_list_size(list); i++){
 			var dollar = ds_list_find_value(list,i)
 			if dollar.z >= -10{
-				if instance_exists(obj_moneyHandler){
-					obj_moneyHandler.money += dollar.value
-					obj_moneyHandler.bounceSize += dollar.value
+				if instance_exists(obj_handler_money){
+					obj_handler_money.money += dollar.value
+					obj_handler_money.bounceSize += dollar.value
 				}
 				instance_destroy(dollar);
 			}
