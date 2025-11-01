@@ -64,9 +64,7 @@ if barrelLength > 0{
 }else{
 	state = states.travel
 }
-setDelay(function(){
-	depth = -99
-},timeWhenExitBarrel+5,id,noone);
+
 
 setDelay(function(){visible = true;},2,id,noone);
 

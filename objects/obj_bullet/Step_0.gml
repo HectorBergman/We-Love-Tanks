@@ -1,7 +1,8 @@
 PAUSE
 ds_list_add(pathPoints, [x, y]);
-
-
+if !place_meeting(x,y,obj_player_cannon){
+	depth = -99;
+}
 
 
 // Trim path if too long
@@ -39,8 +40,5 @@ if (slowmovin mod 60 == 0){
 }
 
 
-if object_index == obj_bullet_player{
-	hitOpponentBullet(object_index);
-}
-hitOpponent(object_index);
+
 
