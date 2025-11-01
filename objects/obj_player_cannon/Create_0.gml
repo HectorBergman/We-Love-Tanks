@@ -8,12 +8,16 @@ bulletInfo = bulletInfo_create(
 	100,
 	3,
 	1,
-	2,
+	0.1,
 	{fullMetalJacket: false}
 )
 print("cannonId: ", id);
 animStates = createStates("normal","charging","releasing");
 animState = animStates.normal;
+
+SignalSubscribe(id, "roomEntered: newRoom", function(){
+	barrelBulges = [bulgeLock,bulgeLock,bulgeLock,bulgeLock,bulgeLock];
+});
 
 barrelQueue = ds_queue_create();
 barrelBulges = [bulgeLock,bulgeLock,bulgeLock,bulgeLock,bulgeLock];
@@ -51,7 +55,6 @@ function resetLocks(){
 	}
 	
 	animInfo.frameSpeed = 0.14*(power(bulgeCount+1,2));
-	print("lol: ",power(bulgeCount+1,2));
 }
 
 

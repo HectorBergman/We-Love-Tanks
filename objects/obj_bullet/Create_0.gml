@@ -62,11 +62,9 @@ if barrelLength > 0{
 	extraMovement = 0
 	followCannon = timeWhenExitBarrel;
 }else{
-	state = state.travel
+	state = states.travel
 }
-setDelay(function(){
-	depth = -99
-},timeWhenExitBarrel+5,id,noone);
+
 
 setDelay(function(){visible = true;},2,id,noone);
 

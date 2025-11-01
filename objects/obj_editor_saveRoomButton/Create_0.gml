@@ -31,7 +31,7 @@ SignalSubscribe(id, "editor_handler: enterRoom",
 	}
 )
 SignalSubscribe(id, "updateInstance: " + string(id), function(arg){updateRoom(arg);});
-SignalSubscribe(id, "button: clicked", function(arg){if arg[0] == id{print("save!"); button_saveRoom()}});
+SignalSubscribe(id, "button: clicked: " + string(id), function(arg){print("save!"); button_saveRoom()});
 
 
 function updateRoom(arg){

@@ -1,12 +1,6 @@
 function generateDFloor(dfloor){
 	print("createDfloore")
 	dfloor.roomsQueue = ds_queue_create();
-	dfloor.queueGrid = ds_grid_create(dfloor.dimensions[0],dfloor.dimensions[1]);
-	for (var i = 0; i < dfloor.dimensions[1]; i++){
-		for (var j = 0; j < dfloor.dimensions[0]; j++){
-			ds_grid_add(dfloor.queueGrid, i, j, false);
-		}
-	}
 	var generateCount = iterateDFloor(dfloor);
 	var entriesCount = fillEdgesArray(dfloor)
 	fillAvailableRooms(dfloor)
@@ -180,7 +174,9 @@ function changeDoorState(dfloor, coords, dir, state){
 	_room.doors[dir] = state
 	var XY = getXY(dir);
 	var neighbour = ds_grid_get(dfloor.grid, coords[0]+XY[0], coords[1]+XY[1]);
-
+	if is_array(neighbour.doors[(dir+2)mod 4]){
+		forceCrash("attempting to change state of doors array");
+	}
 	neighbour.doors[(dir+2)mod 4] = state
 }
 
@@ -299,6 +295,7 @@ function generateDoors(dfloor, _room){
 		}
 	}
 	print("donezo");
+	print(doors);
 	return doors;
 }
 

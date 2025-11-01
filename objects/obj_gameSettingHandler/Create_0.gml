@@ -5,3 +5,6 @@ enum gameStates {
 	editorTesting
 }
 gameState = gameStates.menu
+SignalSubscribe(id, "changeGameState", function(state){
+	gameState = state
+})

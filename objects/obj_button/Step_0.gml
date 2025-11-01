@@ -24,23 +24,7 @@ if (truthStatement){ //hover over button
 				global.roomList = loadData("savedRooms2.sav");
 				room_goto(rm_startingRoom);
 				break;
-		
-			case bTypes.startEditor: //menu button to go to editor
-				obj_gameSettingHandler.gameState = gameStates.editorBuilding;
-				room_goto(rm_editorMenu);
-				break;
-		
-			case bTypes.saveEditor: //save button for lvl editor
-				var inst = instance_find(obj_roomEditorDialogue_prompt, 0);
-				if (inst == noone) {
-					summonObject(obj_roomEditorDialogue_prompt, 
-					[["x", 40], ["y", 50], ["depth", -190]]);
-				} else {
-					inst.active = true;
-					inst.visible = true;
-				}
-				break;
-		
+
 			case bTypes.test: //menu button to select room to edit
 				room_goto(rm_test);
 				break;
@@ -50,9 +34,6 @@ if (truthStatement){ //hover over button
 				room_goto(rm_editor_menu);
 				summonObject(obj_editor_handler);
 				//room_goto(rm_editorRoom_test);
-				break;
-			case bTypes.exitShop:
-				
 				break;
 		}
 	}

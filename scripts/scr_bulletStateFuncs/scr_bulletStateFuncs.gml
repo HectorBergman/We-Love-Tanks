@@ -26,6 +26,10 @@ function bullet_travel(){
 	bullet_checkForRico();
 	bullet_tick();
 	findTags();
+	if object_index == obj_bullet_player{
+		hitOpponentBullet(object_index);
+	}
+	hitOpponent(object_index);
 }
 
 function bullet_bounce(){

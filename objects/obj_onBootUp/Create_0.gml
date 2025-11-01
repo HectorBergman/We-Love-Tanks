@@ -11,7 +11,7 @@ global.__signals = new SignalController();
 
 //print(randomize());
 //223416234
-random_set_seed(3305809835);
+random_set_seed(1020381396);
 global.dungeonSeed = random_get_seed();
 global.currentSeed = global.dungeonSeed;
 window_set_cursor(cr_none); //hide pc cursorr
@@ -49,7 +49,7 @@ global.itemRoomPool = getItemPool("itemRoom");
 
 global.enemyTypes = ["stiffNormal","braveheartNormal","stiffRicochet","tinyman","stiffBuckshot"]
 global.bossTypes = ["testStar"]
-global.roomTypes = ["standard","item","boss","nextFloor"]; 
+global.roomTypes = ["standard","item","boss","nextFloor", "debug"]; 
 global.roomSubtypes_dict = {standard: ["normal"], item: ["normal"], boss: ["normal","elevator"], nextFloor: ["normal"]}
 global.roomSubtypes = global.roomSubtypes_dict.standard;
 global.itemPools = ["itemRoom", "bossItem"];

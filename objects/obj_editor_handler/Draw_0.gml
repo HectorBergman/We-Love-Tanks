@@ -1,3 +1,5 @@
+
+
 switch (menuMode){
 	case editorMenuModes.selectingRoom:{
 		for (var i = 0; i < array_length(toDrawArray); i++;){

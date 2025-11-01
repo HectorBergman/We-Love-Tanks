@@ -43,26 +43,6 @@ function visualizeFloor(dFloor){
 
 function visualizeRoom(dRoom){
 	if roomExists(dRoom){
-		/*switch (dRoom.roomShape[0]) {
-		    case "normal":
-		        return "nor"
-		    case "giant":
-		        return "gia"
-		    case "long":
-		        return "lon"
-		    case "tall":
-		        return "tal"
-		    case "topLeftAbsent":
-		        return "tla"
-		    case "topRightAbsent":
-		        return "tra"
-		    case "bottomLeftAbsent":
-		        return "bla"
-		    case "bottomRightAbsent":
-		        return "bra"
-		    default:
-		        return "fuc"
-		}*/
 		switch (dRoom.roomType){
 			case "standard":
 				return " s ";

@@ -16,7 +16,6 @@ function barrelAnim_charging(){
 	}
 }
 function barrelAnim_releasing(){
-	print("swag");
 	animInfo.frame += animInfo.frameSpeed;
 	image_index = floor(animInfo.frame);
 	if animInfo.frame >= 5{
