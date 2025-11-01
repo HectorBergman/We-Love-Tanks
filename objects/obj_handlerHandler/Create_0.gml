@@ -35,7 +35,7 @@ function summonAllFromStruct(struct,instanceStruct){
 		variable_struct_set(instanceStruct, keys[i], summonObject(value[0],value[1]));
 	}
 }
-var stru = createSummonStructStruct("inGame",[[obj_cam,[]],[obj_delayHandler,[]],[obj_itemHandler,[]]])
+var stru = createSummonStructStruct([[obj_cam,[]],[obj_delayHandler,[]],[obj_itemHandler,[]]])
 summonAllFromStruct(stru,inGame)
 
 normCam = noone;
