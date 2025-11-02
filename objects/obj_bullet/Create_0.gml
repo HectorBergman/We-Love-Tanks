@@ -1,11 +1,13 @@
+#macro bSpeedTs bulletSpeed*ts
+
 depth = parent.depth+1
 visible = false;
 pauseMode = allPause
 function movementX(){
-	return movementVector[0]*bulletSpeed;
+	return movementVector[0]*bSpeedTs;
 }
 function movementY(){
-	return movementVector[1]*bulletSpeed;
+	return movementVector[1]*bSpeedTs;
 }
 
 
@@ -56,12 +58,10 @@ bInfo = {
 
 
 
-timeWhenExitBarrel = 0
-if barrelLength > 0{
-	timeWhenExitBarrel = ceil(barrelLength/bulletSpeed)+1;
-	extraMovement = 0
-	followCannon = timeWhenExitBarrel;
-}else{
+startOffset = [x-parent.x,y-parent.y]
+extraMovement = 0;
+lastBarrelProg = 0;
+if !(barrelLength > 0){
 	state = states.travel
 }
 
@@ -140,7 +140,7 @@ function getMovementVector(angle){
 	return [cos(degtorad(angle)), -sin(degtorad(angle))]
 }
 
-function bullet_tick(){
+function bullet_tick(step = 1){
 	if bulletSpeed > capBulletSpeed{
 		bulletSpeed = capBulletSpeed;
 	}
@@ -157,24 +157,26 @@ function bullet_tick(){
 	}
 	
 	image_angle = point_direction(x,y,x+movementVector[0],y+movementVector[1]);
-	x += movementX()*ts;
-	y += movementY()*ts;
+	x += movementX()*ts*step;
+	y += movementY()*ts*step;
 }
 
 function bullet_checkForRico(){
-	var rico = findRicochet(movementVector, bulletSpeed)
-	if rico != -1{
+	var rico = findRicochet(movementVector, bSpeedTs, 3, 1, 5)	
+	if rico.angle != -1{
+		print(rico)
 		if bInfo.bounces == 0{
 			state = states.dying;
+			print("test");
 			bullet_tick()
 		}else{
-			SignalSend("flare", {x:x,y:y});
-			var movVecTest = getMovementVector(rico)
-			if collision_circle(x+movVecTest[0]*bulletSpeed,y+movVecTest[1]*bulletSpeed,3,obj_solid,true,true){
-				rico = (image_angle+180) mod 360
+			//SignalSend("flare", {x:x,y:y});
+			var movVecTest = getMovementVector(rico.angle)
+			if collision_circle(x+movVecTest[0]*bSpeedTs*rico.step,y+movVecTest[1]*bSpeedTs*rico.step,3,obj_solid,true,true){
+				rico.angle = (image_angle+180) mod 360
 			}
 			state = states.bounce;
-			bInfo.angle = rico;
+			bInfo.angle = rico.angle;
 			bInfo.angleAtBounce = image_angle;
 			if bInfo.timeSinceBounce > bInfo.timeSinceBounceGrace{
 				bInfo.bounces--
@@ -183,5 +185,6 @@ function bullet_checkForRico(){
 			bInfo.timeSinceBounce = 0;
 		}
 	}
+	bullet_tick(rico.step);
 }
 

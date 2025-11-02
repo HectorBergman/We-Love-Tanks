@@ -1,1 +1,1 @@
-resetLocks();
+countBulge();

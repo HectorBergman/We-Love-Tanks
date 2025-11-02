@@ -1,4 +1,4 @@
-#macro bulgeLock {lock: false, state: false}
+#macro bulgeLock []
 
 global.playerBarrelLength = 25;
 pauseMode = parent.pauseMode
@@ -6,11 +6,15 @@ x = parent.x
 y = parent.y
 bulletInfo = bulletInfo_create(
 	100,
-	3,
+	1,
 	1,
 	2,
 	{fullMetalJacket: false}
 )
+maxBullets = 99;
+activeBullets = 0;
+firingCooldown = 0;
+firingCooldownTime = 5;
 print("cannonId: ", id);
 animStates = createStates("normal","charging","releasing");
 animState = animStates.normal;
@@ -27,18 +31,59 @@ animInfo = {
 	frameSpeed : 0.12,
 }
 
-SignalSubscribe(id, "barrelBulletExitBulge", function(exitNo){
-	print("exitBulge");
-	if !barrelBulges[exitNo].lock{
-		barrelBulges[exitNo].state = false;
-		print("test")
-		print(exitNo);
+SignalSubscribe(id, "barrelBulletExitBulge", function(exitInfo){
+	
+	var prevProg = exitInfo.prevProg
+	var nowProg = exitInfo.nowProg
+	var bullet = exitInfo.bullet;
+	var n = array_length(barrelBulges);
+	
+	
+    var startBulge = floor(prevProg * n);
+    if (startBulge >= n){
+		startBulge = n - 1; 
 	}
-	if exitNo < array_length(barrelBulges)-1{
-		barrelBulges[exitNo+1].state = true;
-		barrelBulges[exitNo+1].lock = true;
+    var endBulge = floor(nowProg * n);
+	
+	print("PrevProg: ", prevProg);
+	print("NowProg: ", nowProg);
+	print("BulgeCount: ", n);
+	print("StartBulge: ", startBulge);
+	print("EndBulge: ", endBulge);
+    if (endBulge >= n){
+		findBulge(n-1,bullet);
+		return;
 	}
+
+    var passed = endBulge - startBulge;
+    if (passed > 0) {
+		var trueid = startBulge+passed
+		barrelBulges[trueid][array_length(barrelBulges[trueid])] = bullet;
+    }else{
+		return
+	}
+
+	
+    for (var i = 0; i < passed; i++) {
+        var idx = (startBulge + i)
+		findBulge(idx,bullet);
+	}   
+
 });
+
+function findBulge(idx, bullet){
+	var bulletMatcher = method({
+		bullet: bullet
+	}, function(value, index) {
+		return value == bullet;
+	});
+
+	var found = array_find_index(barrelBulges[idx], bulletMatcher);
+	print("bulge", idx, ": ", barrelBulges[idx]);
+    if (found != -1) {
+		array_delete(barrelBulges[idx], found, 1);
+	}
+}
 SignalSubscribe(id, "exitBarrel: " + string(id), function(arg){
 	if animState != animStates.releasing{
 		animState = animStates.releasing;
@@ -47,21 +92,17 @@ SignalSubscribe(id, "exitBarrel: " + string(id), function(arg){
 	ds_queue_dequeue(barrelQueue);
 });
 
-function resetLocks(){
+function countBulge(){
 	var bulgeCount = 0;
 	for (var i = 0; i < array_length(barrelBulges); i++){
-		barrelBulges[i].lock = false;
-		bulgeCount += barrelBulges[i].state
+		bulgeCount += sign(array_length(barrelBulges[i]))
 	}
 	
 	animInfo.frameSpeed = 0.14*(power(bulgeCount+1,2));
 }
 
 
-maxBullets = 5;
-activeBullets = 0;
-firingCooldown = 0;
-firingCooldownTime = 30;
+
 
 function playerFire(){
 	var extraInfo = {
@@ -84,11 +125,9 @@ function playerFire(){
 		bulletInfo.durability,
 		extraInfo
 	)
-	
-	ds_queue_enqueue(barrelQueue, fireBullet(id,obj_bullet_player,image_angle, args))
-	barrelBulges[0].state = true;
-	barrelBulges[0].lock = true;
-	
+	var bullet = fireBullet(id,obj_bullet_player,image_angle, args)
+	ds_queue_enqueue(barrelQueue, bullet)
+	barrelBulges[0][array_length(barrelBulges[0])] = bullet
 }
 
 

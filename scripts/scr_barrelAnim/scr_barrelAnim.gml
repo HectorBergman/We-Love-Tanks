@@ -5,14 +5,11 @@ function barrelAnim_normal(){
 	}
 }
 function barrelAnim_charging(){
-	var instance = ds_queue_head(barrelQueue)
-	if instance_exists(instance){
-		image_index = instance.bulgeNumber;
+	var highestBulgeNo = findFurthestBarrelBullet();
+	if highestBulgeNo != -1{
+		image_index = highestBulgeNo
 	}else{
-		ds_queue_dequeue(barrelQueue);
-		if !ds_queue_empty(barrelQueue){
-			barrelAnim_charging()
-		}
+		animState = animStates.normal;
 	}
 }
 function barrelAnim_releasing(){
@@ -23,4 +20,15 @@ function barrelAnim_releasing(){
 		animState = animStates.normal;
 		sprite_index = spr_player_cannon;
 	}
+}
+
+function findFurthestBarrelBullet(){
+	for (var i = array_length(barrelBulges)-1; i >= 0; i--){
+		print(i);
+		var arr = barrelBulges[i]
+		if array_length(barrelBulges[i]) != 0{
+			return i
+		}
+	}
+	return -1
 }
