@@ -54,6 +54,14 @@ function defineItems(){
 		itemPools : ["itemRoom"],
 		
 		onPickup: fullMetalJacket_onPickup,
+	},
+	{
+		name:"The Red Pill",
+		pickupText:"When you're ready, you won't have to.",
+		infoText:"Time slows down when near bullets",
+		sprite: spr_item_cactus,
+		itemPools: ["itemRoom"],
+		onTick: redPill_onTick
 	}]
 	for (var i = 0; i < array_length(global.items); i++){
 		global.items[i].itemId = i;

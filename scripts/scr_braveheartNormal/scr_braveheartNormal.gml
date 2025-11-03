@@ -1,4 +1,4 @@
-function braveheartNormal_create(){
+function create_braveheartNormal(){
 	_health = 1;
 	tickrate = 5;
 	tick = 5;
@@ -29,7 +29,7 @@ function braveheartNormal_create(){
 }
 //move ts
 
-function braveheartNormal_step(){
+function step_braveheartNormal(){
 	
 	exeStateFunc("braveheartNormal_",state);
 

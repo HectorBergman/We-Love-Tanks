@@ -9,7 +9,6 @@ function initHandlerStruct(){
 
 
 function createSummonStructStruct(goalStruct ,summonStructStruct){
-	print(goalStruct)
 	for (var i = 0; i < array_length(summonStructStruct); i++){
 		var name = object_get_name(summonStructStruct[i][0])
 		var noobj_name = string_delete(name, 1, 4);
@@ -31,18 +30,17 @@ function summonAllFromStruct(struct){
 }
 alwaysSummon = {
 }
-print("test")
 alwaysSummon = initHandlerStruct()
-print("test");
 createSummonStructStruct(alwaysSummon,
 [
 	[obj_cam,[]],
 	[obj_handler_delay,[]],
 	[obj_itemHandler,[]],
 	[obj_handler_particle,[]],
-	[obj_handler_time,[]]
+	[obj_handler_time,[]],
+	[obj_handler_money,[]],
 ])
-print("test");
+
 //summonAllFromStruct(alwaysSummon)
 inGame = {
 }
@@ -61,6 +59,8 @@ createSummonStructStruct(inGame,
 //summonAllFromStruct(inGame)
 editor = {
 }
+
+editor = initHandlerStruct();
 
 
 

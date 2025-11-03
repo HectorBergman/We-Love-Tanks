@@ -11,14 +11,7 @@ switch(phase){
 	case enemyPhase.active:{
 		checkForDeath();
 
-		switch(type){
-			case enemyTypes.stiffNormal: stiffNormal_step(); break;
-			case enemyTypes.braveheartNormal: braveheartNormal_step(); break;
-			case enemyTypes.stiffRicochet: stiffRicochet_step(); break;
-			case enemyTypes.tinyman: tinyman_step(); break;
-			case enemyTypes.stiffBuckshot: stiffBuckshot_step(); break;
-	
-		}
+		exeStateFunc("step_", type);
 	}break;
 }
 angle= point_direction(x,y,x+movementVector[0],y+movementVector[1])

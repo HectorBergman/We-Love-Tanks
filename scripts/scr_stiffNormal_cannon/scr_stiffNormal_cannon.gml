@@ -1,4 +1,4 @@
-function stiffNormal_create_cannon(){
+function create_cannon_stiffNormal(){
 	
 	bulletInfo = bulletInfo_create(
 		1,
@@ -33,10 +33,10 @@ function stiffNormal_create_cannon(){
 
 }
 
-function stiffNormal_step_cannon(){
+function step_cannon_stiffNormal(){
 	x = parent.x
 	y = parent.y
 	firingCooldown--
 	
-	exeStateFunc("stiffNormal_cannon_", state)
+	exeStateFunc("stiffNormal_cannon_", type)
 }

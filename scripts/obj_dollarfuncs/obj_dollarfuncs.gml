@@ -12,7 +12,7 @@ function dollarLogic(){
 		}break;
 		case(dollarStates.descend):{
 			zSpeed = 0.2
-			timer++
+			timer += ts
 			swayX = featherDir*sin(timer/30)*featherVelocity*70*movementVectorSway[0]
 			swayY = featherDir*sin(timer/30)*featherVelocity*70*movementVectorSway[1]
 			featherVelocity *= 0.999

@@ -82,6 +82,6 @@ player_handleWallCollision()
 x += movementVector[0]*movementSpeed*ts;
 y += movementVector[1]*movementSpeed*ts;
 
-
+SignalSend("onTick", {id : id});
 
 

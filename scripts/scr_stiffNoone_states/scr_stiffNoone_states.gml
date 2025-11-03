@@ -1,0 +1,3 @@
+function stiffNoone_normal(){
+
+}

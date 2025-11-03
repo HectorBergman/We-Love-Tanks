@@ -1,4 +1,4 @@
-function stiffRicochet_create(){
+function create_stiffRicochet(){
 	valueRange = [4,6];
 	_health = 1;
 	state = stiffRicochet.normal;
@@ -13,7 +13,7 @@ function stiffRicochet_create(){
 	detectionSquareWidth = 6;
 }
 
-function stiffRicochet_step(){
+function step_stiffRicochet(){
 	distance = point_distance(x, y, obj_player.x, obj_player.y);
 	distanceX = abs(obj_player.x - x);
 	distanceY = abs(obj_player.y - y);//this might be pointless

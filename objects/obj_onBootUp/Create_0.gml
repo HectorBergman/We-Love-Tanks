@@ -48,7 +48,7 @@ global.itemRoomPool = getItemPool("itemRoom");
 
 
 
-global.enemyTypes = ["stiffNormal","braveheartNormal","stiffRicochet","tinyman","stiffBuckshot"]
+global.enemyTypes = ["stiffNoone","stiffNormal","braveheartNormal","stiffRicochet","tinyman","stiffBuckshot"]
 global.bossTypes = ["testStar"]
 global.roomTypes = ["standard","item","boss","nextFloor", "debug"]; 
 global.roomSubtypes_dict = {standard: ["normal"], item: ["normal"], boss: ["normal","elevator"], nextFloor: ["normal"]}

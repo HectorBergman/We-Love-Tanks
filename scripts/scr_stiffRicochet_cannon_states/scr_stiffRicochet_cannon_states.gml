@@ -1,8 +1,9 @@
 function stiffRicochet_cannon_normal(){
 	print(shotCooldown);
-	shotCooldown++
+	shotCooldown += ts
 	//var timeFromCalculationToFire = (scanInfo.angleCap-scanInfo.startAngle)/(scanInfo.scansPerTick*scanInfo.angleInterval)
-	if (shotCooldown mod shotCooldownTime == 0){
+	if (shotCooldown >= shotCooldownTime){
+		shotCooldown = 0
 		state = states.findRicochet //calculates the angle which will get a bullet closest to the player
 	}
 }
@@ -39,12 +40,12 @@ function stiffRicochet_cannon_findRicochet(){
 }
 
 function stiffRicochet_cannon_turning(){
-	if (abs(angle_difference(image_angle, scanInfo.chosenAngle)) < scanInfo.stepAngle+1){
+	if (abs(angle_difference(image_angle, scanInfo.chosenAngle)) < (scanInfo.stepAngle+1)*ts){
 		image_angle = scanInfo.chosenAngle
 		state = states.firing;
 	}else{
 		var angleDirection = -sign(angle_difference(image_angle,scanInfo.chosenAngle))
-		image_angle += angleDirection*scanInfo.stepAngle;
+		image_angle += angleDirection*scanInfo.stepAngle*ts;
 	}
 }
 	

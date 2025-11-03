@@ -121,10 +121,3 @@ function savedAction_addRandom(randomAmt){
 function createActions(appearanceAction = function(arg){}, disappearanceAction = function(arg){}, savedAction = function(arg){}){
 	return  {appearanceAction : appearanceAction, disappearanceAction : disappearanceAction, savedAction : savedAction}
 }
-
-	/*Wall :  {object: obj_wall,  _name: "Wall",   editable:[]},
-	CrumblingWall: {object: obj_wall_crumble, _name: "CrumblingWall", editable:[]},
-	Hole :  {object: obj_hole,  _name: "Hole",   editable:[]},
-	Enemy : {object: obj_enemySpawner, _name: "Enemy",  editable:[["enemyType",global.enemyTypes]]},
-	Item : {object: obj_itemSpawner, _name: "Item",  editable:[["itemPool",global.itemPools]]},
-	Boss : {object: obj_bossSpawner, _name: "Boss",  editable:[["bossType",global.bossTypes]]},

@@ -4,9 +4,9 @@ switch (type){
 }
 image_xscale = scale;
 image_yscale = scale;
-fakeX += movementVector[0]*velocity;
-fakeY += movementVector[1]*velocity;
-z += zSpeed;
+fakeX += movementVector[0]*velocity*ts;
+fakeY += movementVector[1]*velocity*ts;
+z += zSpeed*ts;
 if z < -1{
 	depth = z
 }else{

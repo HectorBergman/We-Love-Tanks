@@ -1,4 +1,4 @@
-function stiffBuckshot_create(){
+function create_stiffBuckshot(){
 	//todo: sprites
 	states = createStates("normal");
 	state = states.normal;
@@ -14,7 +14,7 @@ function stiffBuckshot_create(){
 
 }
 
-function stiffBuckshot_step(){
+function step_stiffBuckshot(){
 	distance = point_distance(x, y, obj_player.x, obj_player.y);
 	distanceX = abs(obj_player.x - x);
 	distanceY = abs(obj_player.y - y);
