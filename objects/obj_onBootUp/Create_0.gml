@@ -11,11 +11,13 @@ global.__signals = new SignalController();
 
 //print(randomize());
 //223416234
-random_set_seed(1020381396);
-global.dungeonSeed = random_get_seed();
+global.dungeonSeed = 1020381396//random_get_seed();
+random_set_seed(global.dungeonSeed);
+
 global.currentSeed = global.dungeonSeed;
 window_set_cursor(cr_none); //hide pc cursorr
 room_goto(rm_menuBum);
+
 
 
 #macro PAUSE if pause(pauseMode){exit;}

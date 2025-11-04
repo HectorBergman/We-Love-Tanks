@@ -1,7 +1,8 @@
 usedPool = variable_global_get(pool + "Pool");
 
-
-chosenIndex = irandom(array_length(usedPool)-1)
+preRandoms = [];
+getPreRandom()
+chosenIndex = usePreRandom(preRandoms) mod (array_length(usedPool)-1);
 chosenOption = usedPool[chosenIndex]
 
 
