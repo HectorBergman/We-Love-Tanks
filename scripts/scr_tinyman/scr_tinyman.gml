@@ -1,4 +1,4 @@
-function tinyman_create(){
+function create_tinyman(){
 	valueRange = [0.1,0.5];
 	createCannon = false;
 	movementSpeed = 3;
@@ -23,7 +23,7 @@ function tinyman_create(){
 
 }
 
-function tinyman_step(){
+function step_tinyman(){
 	exeStateFunc("tinyman_", state)
 }
 

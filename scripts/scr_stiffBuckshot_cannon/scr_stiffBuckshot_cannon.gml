@@ -1,4 +1,4 @@
-function stiffBuckshot_create_cannon(){
+function create_cannon_stiffBuckshot(){
 	
 	bulletInfo = bulletInfo_create(
 		1,
@@ -30,9 +30,9 @@ function stiffBuckshot_create_cannon(){
 
 }
 
-function stiffBuckshot_step_cannon(){
+function step_cannon_stiffBuckshot(){
 	x = parent.x
 	y = parent.y
 	firingCooldown--
-	exeStateFunc("stiffBuckshot_cannon_", state)
+	exeStateFunc("stiffBuckshot_cannon_",state)
 }

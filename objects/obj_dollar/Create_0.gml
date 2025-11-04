@@ -1,5 +1,5 @@
 matters = false;
-if instance_number(obj_moneyHandler) == 1{
+if instance_number(obj_handler_money) == 1{
 	matters = true;
 }
 enum moneyType{

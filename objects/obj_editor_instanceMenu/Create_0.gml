@@ -16,12 +16,18 @@ function summonOptions(){
 	image_xscale = (width.widest+width.widestArgumentChoices+48)/sprite_width;
 	
 	var heightNeeded = 32;
+	print(instanceArgumentsChoices);
+	print(objectArguments);
 	for (var i = 0; i < array_length(objectArguments); i++){
+		var iAC = ""
+		if i < array_length(instanceArgumentsChoices){
+			iAC = instanceArgumentsChoices[i]
+		}
 		summonObject(obj_editor_menu_argumentForm,
 			[["coordsOffset",[16+width.widest+coordsOffset[0], i*24+8+coordsOffset[1]]], 
 			["type", objectArguments[i].argumentType], ["depth", depth-1],
 			["instanceId", instanceId], ["argumentIndex", i], ["name", objectArguments[i].argumentName],
-			["argumentChoice",instanceArgumentsChoices[i]],
+			["argumentChoice",iAC],
 			["allArgumentChoices",objectArguments[i].argumentChoices], ["width", width.widestArgumentChoices]]
 		);
 		heightNeeded += 24;

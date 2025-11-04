@@ -3,28 +3,37 @@ function bullet_inBarrel(){
 		death();
 		exit;
 	}
+	var distance = point_distance(parent.x+startOffset[0],parent.y+startOffset[1],x,y)
 	if parent.object_index == obj_player_cannon{
-		if 1-followCannon/timeWhenExitBarrel > (bulgeNumber)/bulgeAmount{
-			SignalSend("barrelBulletExitBulge",bulgeNumber)
-			bulgeNumber++
-		}
+	
+		SignalSend("barrelBulletExitBulge",{
+			nowProg: distance/barrelLength, 
+			prevProg:lastBarrelProg,
+			bullet:id,
+		})
+		lastBarrelProg = distance/barrelLength;
+		
 	}
-	followCannon--
 	image_angle = parent.image_angle;
 	movementVector = getMovementVector(image_angle);
-	extraMovement += bulletSpeed
-		
+	extraMovement += bSpeedTs
+
 	x = parent.x+extraMovement*movementVector[0]
 	y = parent.y+extraMovement*movementVector[1]
-	if followCannon == 0{
-		SignalSend("exitBarrel: " + string(parent), ceil(barrelLength/bulletSpeed)+1);
+	if distance/barrelLength >= 1 {
+		SignalSend("exitBarrel: " + string(parent));
+		SignalSend("barrelBulletExitBulge",{
+			nowProg: distance/barrelLength, 
+			prevProg:lastBarrelProg,
+			bullet:id,
+		})
+		prevProg = 0;
 		state = states.travel;
 	}
 }
 
 function bullet_travel(){
 	bullet_checkForRico();
-	bullet_tick();
 	findTags();
 	if object_index == obj_bullet_player{
 		hitOpponentBullet(object_index);
@@ -59,16 +68,13 @@ function bounce_finish(){
 	var t = clamp((bulletSpeed - baseBulletSpeed) / (capBulletSpeed - baseBulletSpeed), 0, 1);
 	var scaledBoost = power(1-t,2) // quadratic ease-out
 	bulletSpeed += baseBulletSpeed * bInfo.boostMultiplier * scaledBoost;
-	print("-----");
-	print("bulletSpeed: ", bulletSpeed)
-	print("scaledBoost: ", scaledBoost);
 	bInfo.state = bounceStates.start;
 	state = states.travel
 	bInfo.bounceTimer = bInfo.bounceTime
 	bInfo.timeSinceBounce = 0;
 	movementVector = getMovementVector(image_angle);
-	x += movementVector[0]*bulletSpeed;
-	y += movementVector[1]*bulletSpeed;
+	x += movementVector[0]*bSpeedTs;
+	y += movementVector[1]*bSpeedTs;
 	state = states.travel;
 }
 

@@ -224,9 +224,9 @@ function pickupMoney(){
 		for (var i = 0; i < ds_list_size(list); i++){
 			var dollar = ds_list_find_value(list,i)
 			if dollar.z >= -10{
-				if instance_exists(obj_moneyHandler){
-					obj_moneyHandler.money += dollar.value
-					obj_moneyHandler.bounceSize += dollar.value
+				if instance_exists(obj_handler_money){
+					obj_handler_money.money += dollar.value
+					obj_handler_money.bounceSize += dollar.value
 				}
 				instance_destroy(dollar);
 			}
@@ -257,14 +257,31 @@ function ricochet(movementVector, velocity, radius = 3, spacing = 1){
 	return false;
 }
 
-function findRicochet(movementVector, velocity, radius = 3, spacing = 1){
-	var collisionAngle = collision_normal(x+movementVector[0]*velocity,y+movementVector[1]*velocity,obj_solid,radius,spacing)
-	if collisionAngle != -1{
-		var dot = movementVector[0] * cos(degtorad(collisionAngle)) + movementVector[1] * sin(degtorad(collisionAngle));
-		var reflectedVector = [];
-		reflectedVector[0] = movementVector[0] - 2 * dot * cos(degtorad(collisionAngle));
-		reflectedVector[1] = movementVector[1] - 2 * dot * sin(degtorad(collisionAngle));
-		collisionAngle = point_direction(0,0,reflectedVector[0],reflectedVector[1]);
+function findRicochet(movementVector, velocity, radius = 3, spacing = 1, collisionSteps = 1){
+	var step = -1
+	for (var i = 1; i < collisionSteps; i++){
+		var testStep = i/collisionSteps
+		if collision_circle(x+movementVector[0]*velocity*testStep,y+movementVector[1]*velocity*testStep,radius,obj_solid,false,false){
+			step = testStep
+			break;
+		}
 	}
-	return collisionAngle
+	var collisionAngle = -1;
+	if step != -1{
+		collisionAngle = collision_normal(
+			x+movementVector[0]*velocity*step,
+			y+movementVector[1]*velocity*step,
+			obj_solid,radius,spacing
+		)
+		if collisionAngle != -1{
+			var dot = movementVector[0] * cos(degtorad(collisionAngle)) + movementVector[1] * sin(degtorad(collisionAngle));
+			var reflectedVector = [];
+			reflectedVector[0] = movementVector[0] - 2 * dot * cos(degtorad(collisionAngle));
+			reflectedVector[1] = movementVector[1] - 2 * dot * sin(degtorad(collisionAngle));
+			collisionAngle = point_direction(0,0,reflectedVector[0],reflectedVector[1]);
+		}
+	}else{
+		step = 1
+	}
+	return {angle:collisionAngle,step:step}
 }

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_stiffNoone",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_stiffNoone",
+  "parent":{
+    "name":"stiffNoone",
+    "path":"folders/Objects/enemy/enemies/stiffNoone.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -42,7 +42,9 @@ function summonObject(obj, arguments = noone){
     
 }
 
-
+function getMovementVector(angle){
+	return [cos(degtorad(angle)), -sin(degtorad(angle))]
+}
 
 
 /// @function ds_map_to_struct(dsMap)

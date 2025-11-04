@@ -13,7 +13,7 @@ amountWidth = new_width/base_width;
 amountHeight = new_height/base_height;
 waitForIt = false;
 
-if obj_gameSettingHandler.gameState == gameStates.editorBuilding{
+if obj_handler_gameSetting.gameState == gameStates.editorBuilding{
 	waitForIt = true;
 }
 

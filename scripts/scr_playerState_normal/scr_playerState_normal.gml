@@ -1,11 +1,11 @@
 function playerState_normal(){
-	if obj_inputHandler.moveDown || obj_inputHandler.moveUp{
-		inputVector[1] = (obj_inputHandler.moveDown-obj_inputHandler.moveUp);
+	if obj_handler_input.moveDown || obj_handler_input.moveUp{
+		inputVector[1] = (obj_handler_input.moveDown-obj_handler_input.moveUp);
 	}else{
 		inputVector[1] = 0;
 	}
-	if obj_inputHandler.moveLeft || obj_inputHandler.moveRight{
-		inputVector[0] = (obj_inputHandler.moveRight-obj_inputHandler.moveLeft);
+	if obj_handler_input.moveLeft || obj_handler_input.moveRight{
+		inputVector[0] = (obj_handler_input.moveRight-obj_handler_input.moveLeft);
 	}else{
 		inputVector[0] = 0;
 	}

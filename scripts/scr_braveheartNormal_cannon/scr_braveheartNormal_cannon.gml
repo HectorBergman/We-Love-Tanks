@@ -1,4 +1,4 @@
-function braveheartNormal_create_cannon(){
+function create_cannon_braveheartNormal(){
 	x = parent.x
 	y = parent.y
 	bulletInfo = bulletInfo_create(
@@ -27,12 +27,12 @@ function braveheartNormal_create_cannon(){
 	scanningDirection = 1;
 }
 
-function braveheartNormal_step_cannon(){
+function step_cannon_braveheartNormal(){
 	x = parent.x
 	y = parent.y
 	firingCooldown--
 
-	exeStateFunc("braveheartNormal_cannon_", state)
+	exeStateFunc("braveheartNormal_cannon_",state)
 
 
 }

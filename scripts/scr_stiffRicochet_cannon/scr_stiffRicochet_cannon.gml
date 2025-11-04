@@ -1,4 +1,4 @@
-function stiffRicochet_create_cannon(){
+function create_cannon_stiffRicochet(){
 	//todo: have a second less precise (to be less performance-heavy) ricochet calculation
 	//that is purely so the cannon can turn into position before firing.
 
@@ -53,7 +53,7 @@ function stiffRicochet_create_cannon(){
 	
 }
 
-function stiffRicochet_step_cannon(){
+function step_cannon_stiffRicochet(){
 	exeStateFunc("stiffRicochet_cannon_",state)
 }
 

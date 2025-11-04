@@ -13,8 +13,8 @@ if keyboard_check_pressed(ord("P")){
 }
 
 checkForDeath();
-//loop_onTick();
 pickupMoney();
+
 if keyboard_check(vk_tab){
 	gothruwalls = true;
 }else{
@@ -27,16 +27,16 @@ if invincibilityFrames == 0{
 	invincibilityFrames = 60;
 	invincible = false;
 }
-lol++
-if obj_inputHandler.run{
+
+if obj_handler_input.run{
 	if movementSpeed < runSpeed{
-		movementSpeed += runSpeedStep
+		movementSpeed += runSpeedStep*ts
 	}else{
 		movementSpeed = runSpeed;
 	}
 }else{
 	if movementSpeed > regularSpeed{
-		movementSpeed -= runSpeedStep
+		movementSpeed -= runSpeedStep*ts
 	}else{
 		movementSpeed = regularSpeed;
 	}
@@ -79,9 +79,9 @@ player_handleWallCollision()
 
 
 
-x += movementVector[0]*movementSpeed;
-y += movementVector[1]*movementSpeed;
+x += movementVector[0]*movementSpeed*ts;
+y += movementVector[1]*movementSpeed*ts;
 
-
+SignalSend("onTick", {id : id});
 
 

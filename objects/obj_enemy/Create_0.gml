@@ -14,25 +14,19 @@ valueRange = [1.5,3];
 //customizable probably
 createCannon = true;
 movementSpeed = 1;
-type = stringToEnum(enemyType);
+type = enemyType;
 pointInMoveDir = true;
 hp = 3;
 function movementX(){
-	return movementVector[0]*movementSpeed;
+	return movementVector[0]*movementSpeed*ts;
 }
 function movementY(){
-	return movementVector[1]*movementSpeed;
+	return movementVector[1]*movementSpeed*ts;
 }
 movementVector = [0,0];
 
+exeStateFunc("create_", type);
 
-switch(type){
-	case enemyTypes.stiffNormal: stiffNormal_create(); break;
-	case enemyTypes.braveheartNormal: braveheartNormal_create(); break;
-	case enemyTypes.stiffRicochet: stiffRicochet_create(); break; 
-	case enemyTypes.stiffBuckshot: stiffBuckshot_create(); break; 
-	case enemyTypes.tinyman: tinyman_create(); break;
-}
 cannon = noone;
 if createCannon{
 	cannon = summonObject(obj_enemy_cannon, [["parent", id], ["depth", depth-1]]);

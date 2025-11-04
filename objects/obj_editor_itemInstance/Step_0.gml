@@ -9,7 +9,7 @@ switch (held){
 	}break;
 }
 if highlight != noone{
-	if obj_inputHandler.copy{
+	if obj_handler_input.copy{
 		SignalSend("itemInstance: unhighlight");
 		var iAC = [];
 		var hOffset = [];

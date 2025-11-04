@@ -26,7 +26,7 @@ function summonEssentials(){
 	cannon = summonObject(obj_player_cannon, [["parent", id], ["depth", depth-1]]);
 	hitbox = summonObject(obj_player_visual, [["parent", id], ["cannon", cannon]]);
 	crosshair = summonObject(obj_crosshair);
-	itemHandler = summonObject(obj_itemHandler);
+	//?
 }
 summonEssentials();
 
@@ -41,7 +41,6 @@ invincible = false;
 
 backJackList = ds_list_create();
 angle = 0;
-lol = 0;
 
 breadCrumbRadius = 5;
 

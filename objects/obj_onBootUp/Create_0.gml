@@ -31,6 +31,7 @@ global.roomShapes = [ //this information is purely for knowing which room pool t
 	"bottomRightAbsent",
 	"giant",
 ]
+global.timeSpeed = 1;
 
 
 defineItems();
@@ -47,7 +48,7 @@ global.itemRoomPool = getItemPool("itemRoom");
 
 
 
-global.enemyTypes = ["stiffNormal","braveheartNormal","stiffRicochet","tinyman","stiffBuckshot"]
+global.enemyTypes = ["stiffNoone","stiffNormal","braveheartNormal","stiffRicochet","tinyman","stiffBuckshot"]
 global.bossTypes = ["testStar"]
 global.roomTypes = ["standard","item","boss","nextFloor", "debug"]; 
 global.roomSubtypes_dict = {standard: ["normal"], item: ["normal"], boss: ["normal","elevator"], nextFloor: ["normal"]}
