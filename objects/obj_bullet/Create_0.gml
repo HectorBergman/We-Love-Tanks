@@ -136,9 +136,7 @@ function death(){
 	exit;
 }
 
-function getMovementVector(angle){
-	return [cos(degtorad(angle)), -sin(degtorad(angle))]
-}
+
 
 function bullet_tick(step = 1){
 	if bulletSpeed > capBulletSpeed{

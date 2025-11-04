@@ -25,10 +25,12 @@ function dollarLogic(){
 				var momentarySwayY = featherDir*sin((timer+1)/30)*featherVelocity*70*movementVectorSway[1] - swayY
 				var lerpValX = velocity/abs(momentarySwayX)
 				var lerpValY = velocity/abs(momentarySwayY)
-				var blended_x = lerp(movementVector[0], sign(momentarySwayX), 1-lerpValX);
-			    var blended_y = lerp(movementVector[1], sign(momentarySwayY), 1-lerpValY);
-				movementVector = [blended_x,blended_y]
-				velocity += abs(momentarySwayX)
+				
+				movementVector = getMovementVector(point_direction(x,y,fakeX+swayX,fakeY+swayY));
+				print("swayX: ",momentarySwayX)
+				print("swayY: ",momentarySwayY)
+				print(velocity);
+				//velocity += abs(momentarySwayX)
 			}
 		}break;
 		case(dollarStates.land):{
