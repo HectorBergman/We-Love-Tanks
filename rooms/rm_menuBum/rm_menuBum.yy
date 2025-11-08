@@ -6,11 +6,12 @@
   "inheritCreationOrder":false,
   "inheritLayers":false,
   "instanceCreationOrder":[
-    {"name":"inst_7E3418BE","path":"rooms/rm_menuBum/rm_menuBum.yy",},
     {"name":"inst_32F6CEFB","path":"rooms/rm_menuBum/rm_menuBum.yy",},
+    {"name":"inst_11D850D8","path":"rooms/rm_menuBum/rm_menuBum.yy",},
     {"name":"inst_2CD7DBA5","path":"rooms/rm_menuBum/rm_menuBum.yy",},
-    {"name":"inst_345816FC","path":"rooms/rm_menuBum/rm_menuBum.yy",},
+    {"name":"inst_7E3418BE","path":"rooms/rm_menuBum/rm_menuBum.yy",},
     {"name":"inst_16AF69A3","path":"rooms/rm_menuBum/rm_menuBum.yy",},
+    {"name":"inst_345816FC","path":"rooms/rm_menuBum/rm_menuBum.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -32,6 +33,7 @@
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_button","path":"objects/obj_button/obj_button.yy",},"propertyId":{"name":"action","path":"objects/obj_button/obj_button.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"99",},
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_button","path":"objects/obj_button/obj_button.yy",},"propertyId":{"name":"text","path":"objects/obj_button/obj_button.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"Settings",},
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":10.0,"scaleY":2.0,"x":64.0,"y":288.0,},
+        {"$GMRInstance":"v4","%Name":"inst_11D850D8","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_11D850D8","objectId":{"name":"obj_handler_seed","path":"objects/obj_handler_seed/obj_handler_seed.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":672.0,"y":224.0,},
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":15.0,"animationSpeedType":0,"colour":4278190080,"depth":100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":null,"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":false,"x":0,"y":0,},
   ],

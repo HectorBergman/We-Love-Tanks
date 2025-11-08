@@ -130,6 +130,9 @@ function updateToDrawArray(){
 		}else{
 			break;
 		}
+		if array_length(toDrawArray) > i-roomsPosition{
+			toDrawArray[i-roomsPosition].flush();
+		}
 		toDrawArray[i-roomsPosition] = scribble(text);
 	}
 }

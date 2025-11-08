@@ -151,6 +151,7 @@
     {"id":{"name":"obj_handler_particle","path":"objects/obj_handler_particle/obj_handler_particle.yy",},},
     {"id":{"name":"obj_handler_pathfinder","path":"objects/obj_handler_pathfinder/obj_handler_pathfinder.yy",},},
     {"id":{"name":"obj_handler_room","path":"objects/obj_handler_room/obj_handler_room.yy",},},
+    {"id":{"name":"obj_handler_seed","path":"objects/obj_handler_seed/obj_handler_seed.yy",},},
     {"id":{"name":"obj_handler_time","path":"objects/obj_handler_time/obj_handler_time.yy",},},
     {"id":{"name":"obj_handler_transition","path":"objects/obj_handler_transition/obj_handler_transition.yy",},},
     {"id":{"name":"obj_hole","path":"objects/obj_hole/obj_hole.yy",},},

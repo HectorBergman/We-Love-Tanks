@@ -1,5 +1,7 @@
 pauseMode = [pM.pauseMenu];
 global.newRoom = true;
+
+
 enterInfo = {
 	enteredRoomCoords: [-1,-1], 
 	enteredRoomDoor: 0,

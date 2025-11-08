@@ -112,6 +112,7 @@
     {"name":"obj_handler_particle","order":12,"path":"objects/obj_handler_particle/obj_handler_particle.yy",},
     {"name":"obj_handler_pathfinder","order":5,"path":"objects/obj_handler_pathfinder/obj_handler_pathfinder.yy",},
     {"name":"obj_handler_room","order":16,"path":"objects/obj_handler_room/obj_handler_room.yy",},
+    {"name":"obj_handler_seed","order":23,"path":"objects/obj_handler_seed/obj_handler_seed.yy",},
     {"name":"obj_handler_transition","order":1,"path":"objects/obj_handler_transition/obj_handler_transition.yy",},
     {"name":"obj_impassable","order":1,"path":"objects/obj_impassable/obj_impassable.yy",},
     {"name":"obj_intersection","order":5,"path":"objects/obj_intersection/obj_intersection.yy",},

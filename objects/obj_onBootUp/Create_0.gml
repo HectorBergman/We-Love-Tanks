@@ -48,8 +48,6 @@ global.itemRoomPool = getItemPool("itemRoom");
 //and use all of their onHit effects
 
 
-
-
 global.enemyTypes = ["stiffNoone","stiffNormal","braveheartNormal","stiffRicochet","tinyman","stiffBuckshot"]
 global.bossTypes = ["testStar"]
 global.roomTypes = ["standard","item","boss","nextFloor", "debug"]; 
@@ -70,3 +68,4 @@ scribble_font_bake_outline_and_shadow("fnt_coolFont", "fnt_coolFont_outline",0,0
 scribble_font_set_default("fnt_coolFont_outline");
 
 window_set_size(1920,1080); //window_get_width
+

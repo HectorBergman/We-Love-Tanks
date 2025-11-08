@@ -34,3 +34,7 @@ fadeTime = 30;
 info = global.items[itemId]
 pickupText = info.pickupText;
 sprite_index = info.sprite;
+
+
+text = "[$eee7e7][scale,2][alpha," + string(textAlpha) + "]" + pickupText; 
+toDraw = scribble(text).align(fa_center,fa_middle);
