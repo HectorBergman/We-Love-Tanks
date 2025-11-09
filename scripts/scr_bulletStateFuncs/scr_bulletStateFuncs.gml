@@ -3,10 +3,15 @@ function bullet_inBarrel(){
 		death();
 		exit;
 	}
+	if place_meeting(x+movementVector[0]*bSpeedTs,y+movementVector[1]*bSpeedTs,obj_solid){
+		death();
+		SignalSend("deleteBulge: " + string(parent), id);
+		exit;
+	}
 	var distance = point_distance(parent.x+startOffset[0],parent.y+startOffset[1],x,y)
 	if parent.object_index == obj_player_cannon{
 	
-		SignalSend("barrelBulletExitBulge",{
+		SignalSend("barrelBulletExitBulge: " + string(parent),{
 			nowProg: distance/barrelLength, 
 			prevProg:lastBarrelProg,
 			bullet:id,
@@ -22,7 +27,7 @@ function bullet_inBarrel(){
 	y = parent.y+extraMovement*movementVector[1]
 	if distance/barrelLength >= 1 {
 		SignalSend("exitBarrel: " + string(parent));
-		SignalSend("barrelBulletExitBulge",{
+		SignalSend("barrelBulletExitBulge: " + string(parent),{
 			nowProg: distance/barrelLength, 
 			prevProg:lastBarrelProg,
 			bullet:id,
@@ -39,6 +44,9 @@ function bullet_travel(){
 		hitOpponentBullet(object_index);
 	}
 	hitOpponent(object_index);
+	if !(inRange(x,-32,room_width+32) && inRange(y,-32,room_height+32)){
+		death();
+	}
 }
 
 function bullet_bounce(){
