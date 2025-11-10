@@ -57,6 +57,7 @@ function updateArgumentText(){
 	switch (type){
 		case argumentTypes.options:{
 			text = "[$eee7e7][scale,1][fnt_coolFont]" + argumentChoice; 
+			try{toDraw.flush()}catch(e){}
 			toDraw = scribble(text)
 		}break;
 		case argumentTypes.checkbox:{
@@ -70,6 +71,7 @@ function updateArgumentText(){
 			text = "[$eee7e7][scale,1][fnt_coolFont]" + val; 
 		}break;
 	}
+	try{toDraw.flush()}catch(e){}
 	toDraw = scribble(text)
 }
 function getTextWidestTextPotential(){
@@ -85,6 +87,7 @@ function getTextWidestTextPotential(){
 				if width > widest{
 					widest = width;
 				}
+				tempToDraw.flush();
 			}
 		}break;
 		case argumentTypes.checkbox:{
@@ -94,6 +97,7 @@ function getTextWidestTextPotential(){
 			tempText = "[$eee7e7][scale,1][fnt_coolFont]" + val; 
 			tempToDraw = scribble(tempText)
 			widest = tempToDraw.get_width();
+			tempToDraw.flush();
 		}break;
 	}
 	return widest;

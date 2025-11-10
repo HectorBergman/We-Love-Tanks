@@ -8,4 +8,7 @@ enum bTypes {
 	exitShop,
 }
 
+
+text = "[$eee7e7][scale,1]" + text; 
+toDraw = scribble(text).align(fa_center,fa_middle);
 depth = -199

@@ -24,6 +24,7 @@ function deactivate(){
 	visible = false;
 	isActive = false;
 }
+
 SignalSubscribe(id, "editorMode: editing_start", function(){activate()});
 SignalSubscribe(id, "editorMode: testing_start", function(){deactivate()});
 

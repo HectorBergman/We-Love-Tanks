@@ -25,14 +25,11 @@ if (keyboard_check(vk_space)){
 }else{
 	slowmovin = 0
 }
-if !(inRange(x,-32,room_width+32) && inRange(y,-32,room_height+32)){
-	death();
-}
+
 
 if (slowmovin mod 60 == 0){
 	lifeTime++
 	exeStateFunc("growth_", growthState)
-	//run functions bullet_[state]
 	exeStateFunc("bullet_",state);
 	
 	image_xscale = scale;

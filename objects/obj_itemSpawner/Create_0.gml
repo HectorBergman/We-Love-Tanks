@@ -1,13 +1,14 @@
 usedPool = variable_global_get(pool + "Pool");
 
-
-chosenIndex = irandom(array_length(usedPool)-1)
+preRandoms = [];
+getPreRandom()
+chosenIndex = usePreRandom(preRandoms) mod (array_length(usedPool)-1);
 chosenOption = usedPool[chosenIndex]
 
 
 depth = -200
 summoned = false;
-switch (obj_handler_gameSetting.gameState){
+switch (obj_handler_handler.gameState){
 	case gameStates.regular:{
 		if (obj_handler_room.currentRoom.visited){
 			instance_destroy();
@@ -17,7 +18,7 @@ switch (obj_handler_gameSetting.gameState){
 			sprite_index = spr_smoke
 		}
 	} break;
-	case gameStates.editorTesting:{
+	case gameStates.editor:{
 		visible = true;
 		sprite_index = spr_smoke
 	}break;

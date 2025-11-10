@@ -4,8 +4,8 @@ x = parent.x
 y = parent.y
 image_angle = point_direction(x,y,obj_crosshair.x,obj_crosshair.y) //
 firingCooldown--
-var tip_x = x + 8 * dsin(image_angle+90);
-var tip_y = y + 8 * dcos(image_angle+90);
+var tip_x = x + -8 * dsin(image_angle+90);
+var tip_y = y + -8 * dcos(image_angle+90);
 if obj_handler_input.fire && !place_meeting(tip_x,tip_y, obj_solid) && activeBullets < maxBullets && firingCooldown < 1{
 	playerFire();
 	SignalSend("onFire", {id : id, bulletInfo : bulletInfo});
@@ -20,4 +20,11 @@ if obj_handler_input.fire && !place_meeting(tip_x,tip_y, obj_solid) && activeBul
 	}*/
 }
 exeStateFunc("barrelAnim_",animState);
+
+for (var i = 0; i < array_length(barrelBulges); i++){
+	for (var j = 0; j < array_length(barrelBulges[i]); j++){
+		print("Id: ", barrelBulges[i][j]);
+		print("obj_index: ", barrelBulges[i][j].object_index);
+	}
+}
 

@@ -14,8 +14,17 @@ bulletInfo = bulletInfo_create(
 maxBullets = 99;
 activeBullets = 0;
 firingCooldown = 0;
-firingCooldownTime = 5;
-print("cannonId: ", id);
+firingCooldownTime = 60;
+
+SignalSubscribe(id, "deleteBulge: " + string(id), function(arg){
+	for (var i = 0; i < array_length(barrelBulges); i++){
+		if array_length(barrelBulges[i]) != 0{
+			if findBulge(i, arg){ 
+				exit;
+			}
+		}
+	}
+})
 animStates = createStates("normal","charging","releasing");
 animState = animStates.normal;
 
@@ -31,7 +40,7 @@ animInfo = {
 	frameSpeed : 0.12,
 }
 
-SignalSubscribe(id, "barrelBulletExitBulge", function(exitInfo){
+SignalSubscribe(id, "barrelBulletExitBulge: " + string(id), function(exitInfo){
 	
 	var prevProg = exitInfo.prevProg
 	var nowProg = exitInfo.nowProg
@@ -45,11 +54,7 @@ SignalSubscribe(id, "barrelBulletExitBulge", function(exitInfo){
 	}
     var endBulge = floor(nowProg * n);
 	
-	print("PrevProg: ", prevProg);
-	print("NowProg: ", nowProg);
-	print("BulgeCount: ", n);
-	print("StartBulge: ", startBulge);
-	print("EndBulge: ", endBulge);
+	
     if (endBulge >= n){
 		findBulge(n-1,bullet);
 		return;
@@ -79,10 +84,11 @@ function findBulge(idx, bullet){
 	});
 
 	var found = array_find_index(barrelBulges[idx], bulletMatcher);
-	print("bulge", idx, ": ", barrelBulges[idx]);
     if (found != -1) {
 		array_delete(barrelBulges[idx], found, 1);
+		return true;
 	}
+	return false;
 }
 SignalSubscribe(id, "exitBarrel: " + string(id), function(arg){
 	if animState != animStates.releasing{

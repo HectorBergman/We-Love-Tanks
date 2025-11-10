@@ -11,11 +11,13 @@ global.__signals = new SignalController();
 
 //print(randomize());
 //223416234
-random_set_seed(1020381396);
-global.dungeonSeed = random_get_seed();
+global.dungeonSeed = 1020381396//random_get_seed();
+random_set_seed(global.dungeonSeed);
+
 global.currentSeed = global.dungeonSeed;
 window_set_cursor(cr_none); //hide pc cursorr
 room_goto(rm_menuBum);
+
 
 
 #macro PAUSE if pause(pauseMode){exit;}
@@ -46,8 +48,6 @@ global.itemRoomPool = getItemPool("itemRoom");
 //and use all of their onHit effects
 
 
-
-
 global.enemyTypes = ["stiffNoone","stiffNormal","braveheartNormal","stiffRicochet","tinyman","stiffBuckshot"]
 global.bossTypes = ["testStar"]
 global.roomTypes = ["standard","item","boss","nextFloor", "debug"]; 
@@ -68,3 +68,4 @@ scribble_font_bake_outline_and_shadow("fnt_coolFont", "fnt_coolFont_outline",0,0
 scribble_font_set_default("fnt_coolFont_outline");
 
 window_set_size(1920,1080); //window_get_width
+

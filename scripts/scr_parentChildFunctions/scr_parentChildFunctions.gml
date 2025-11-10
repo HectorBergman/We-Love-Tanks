@@ -7,11 +7,13 @@ function hitOpponent(ownObject){
 	}
 	var enemyHit = instance_place(x,y,target)
 	if enemyHit != noone {
+		if ownObject == obj_bullet_player{
+			print("hitOpponent");
+		}
 		collide(enemyHit, false);
 	}
 }
 function hitOpponentBullet(ownObject){
-	
 	var target = noone
 	if ownObject == obj_bullet_player{
 		target = [obj_bullet_enemy]//, obj_bullet_boss]

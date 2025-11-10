@@ -1,5 +1,7 @@
 pauseMode = [pM.pauseMenu];
 global.newRoom = true;
+
+
 enterInfo = {
 	enteredRoomCoords: [-1,-1], 
 	enteredRoomDoor: 0,
@@ -12,7 +14,19 @@ currentFloor = noone;
 currentRoom = noone;
 
 SignalSubscribe(id, "currentRoom_doors_request", function(){SignalSend("currentRoom_doors_request_response", enterInfo.enteredRoomFullDoors)})
+SignalSubscribe(id, "preRandomRequest:", function(amt){
+	var randoms = [];
+	if amt > array_length(currentRoom.preRandoms){
+		forceCrash("greed");
+	}
+	for (var i = 0; i < amt; i++){
+		randoms[i] = currentRoom.preRandoms[0];
+		array_delete(currentRoom.preRandoms, 0, 1)
+	}
+	SignalSend("preRandomResponse:", randoms);
+})
 function newDungeon(){
+	useSeed("dungeonSeed");
 	with (obj_handler_room){
 		var startPoint = [4,1]
 		var spezRooms = [
@@ -34,6 +48,7 @@ function newDungeon(){
 		currentDungeon = initiateDungeon(floorReqs);
 		currentFloor = changeFloor(currentDungeon, 0)
 		currentRoom = ds_grid_get(currentFloor.grid, currentFloor.startPoint[0],currentFloor.startPoint[1])
+		storeSeed("dungeonSeed");
 		minimapFullUpdate()
 		updateEnterInfo();
 	}

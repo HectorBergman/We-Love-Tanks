@@ -1,5 +1,11 @@
+isActive = (
+	obj_handler_handler.gameState == gameStates.editor && 
+	obj_handler_handler.editorState == editorStates.building) ||
+	obj_handler_handler.menuState == menuStates.active
+
 switch(isActive){
 	case true:{
+		visible = true
 		x = mouse_x;
 		y = mouse_y;
 		if obj_handler_input.fire{
@@ -11,5 +17,6 @@ switch(isActive){
 
 	}break;
 	case false:{
+		visible = false;
 	}break;
 }
