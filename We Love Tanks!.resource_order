@@ -360,6 +360,7 @@
     {"name":"spr_existsAtCoordChecker","order":4,"path":"sprites/spr_existsAtCoordChecker/spr_existsAtCoordChecker.yy",},
     {"name":"spr_grid","order":3,"path":"sprites/spr_grid/spr_grid.yy",},
     {"name":"spr_gridSpawner","order":5,"path":"sprites/spr_gridSpawner/spr_gridSpawner.yy",},
+    {"name":"spr_heart","order":22,"path":"sprites/spr_heart/spr_heart.yy",},
     {"name":"spr_hole","order":8,"path":"sprites/spr_hole/spr_hole.yy",},
     {"name":"spr_intersection","order":6,"path":"sprites/spr_intersection/spr_intersection.yy",},
     {"name":"spr_item_cactus","order":1,"path":"sprites/spr_item_cactus/spr_item_cactus.yy",},

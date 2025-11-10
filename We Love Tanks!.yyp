@@ -432,6 +432,7 @@
     {"id":{"name":"spr_existsAtCoordChecker","path":"sprites/spr_existsAtCoordChecker/spr_existsAtCoordChecker.yy",},},
     {"id":{"name":"spr_grid","path":"sprites/spr_grid/spr_grid.yy",},},
     {"id":{"name":"spr_gridSpawner","path":"sprites/spr_gridSpawner/spr_gridSpawner.yy",},},
+    {"id":{"name":"spr_heart","path":"sprites/spr_heart/spr_heart.yy",},},
     {"id":{"name":"spr_hole","path":"sprites/spr_hole/spr_hole.yy",},},
     {"id":{"name":"spr_intersection","path":"sprites/spr_intersection/spr_intersection.yy",},},
     {"id":{"name":"spr_item_backJack","path":"sprites/spr_item_backJack/spr_item_backJack.yy",},},

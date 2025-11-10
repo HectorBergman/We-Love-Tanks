@@ -34,7 +34,10 @@ summonEssentials();
 playerVariables_movement()
 generalVariables();
 initializeEnums();
-hp = 99;
+maxHp = 10
+hp = maxHp;
+displayMax = 20;
+
 
 invincibilityFrames = 90;
 invincible = false;
