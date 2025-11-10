@@ -197,13 +197,15 @@ function checkForModeSwitchRequest(){
 	if obj_handler_input.space{
 		switch (editorMode){
 			case editorModes.editing:{
-				SignalSend("changeGameState", gameStates.editorTesting);
+				SignalSend("changeEditorState", editorStates.testing);
+				SignalSend("changeGameState", gameStates.editor);
 				SignalSend("editorMode: testing_start")
 				SignalSend("itemInstance: unhighlight");
 				editorMode = editorModes.testing;
 			}break;
 			case editorModes.testing:{
-				SignalSend("changeGameState", gameStates.editorBuilding);
+				SignalSend("changeEditorState", editorStates.building);
+				SignalSend("changeGameState", gameStates.editor);
 				SignalSend("editorMode: editing_start")
 				editorMode = editorModes.editing;
 				instance_destroy(obj_bullet);

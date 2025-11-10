@@ -1,4 +1,4 @@
-if action == 3 && obj_handler_gameSetting.gameState == gameStates.editorTesting{
+if action == 3 && obj_handler_handler.gameState == gameStates.editor{
 	visible = false;
 	exit;
 }
@@ -18,9 +18,9 @@ if (truthStatement){ //hover over button
 		switch (action) {
 			case bTypes.empty:
 				break;
-		
 			case bTypes.startGame: //menu button to start game
-				obj_handler_gameSetting.gameState = gameStates.regular;
+				obj_handler_handler.gameState = gameStates.regular;
+				SignalSend("toggleMenuState");
 				global.roomList = loadData("savedRooms2.sav");
 				room_goto(rm_startingRoom);
 				break;
@@ -30,7 +30,7 @@ if (truthStatement){ //hover over button
 				break;
 		
 			case bTypes.startNewEditor:
-				obj_handler_gameSetting.gameState = gameStates.editorBuilding;
+				obj_handler_handler.gameState = gameStates.editor;
 				room_goto(rm_editor_menu);
 				summonObject(obj_editor_handler);
 				//room_goto(rm_editorRoom_test);

@@ -38,5 +38,5 @@ function step_cannon_stiffNormal(){
 	y = parent.y
 	firingCooldown--
 	
-	exeStateFunc("stiffNormal_cannon_", type)
+	exeStateFunc("stiffNormal_cannon_", state)
 }
