@@ -3,6 +3,7 @@ enum tD_phase {
 	wait,
 	completed
 }
+depth = -9999
 tween = noone;
 phase = tD_phase.start
 loops = 0;

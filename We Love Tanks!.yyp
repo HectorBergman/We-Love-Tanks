@@ -141,7 +141,7 @@
     {"id":{"name":"obj_gridSquare","path":"objects/obj_gridSquare/obj_gridSquare.yy",},},
     {"id":{"name":"obj_handler_currentRoom","path":"objects/obj_handler_currentRoom/obj_handler_currentRoom.yy",},},
     {"id":{"name":"obj_handler_delay","path":"objects/obj_handler_delay/obj_handler_delay.yy",},},
-    {"id":{"name":"obj_handler_gameSetting","path":"objects/obj_handler_gameSetting/obj_handler_gameSetting.yy",},},
+    {"id":{"name":"obj_handler_gameState","path":"objects/obj_handler_gameState/obj_handler_gameState.yy",},},
     {"id":{"name":"obj_handler_handler","path":"objects/obj_handler_handler/obj_handler_handler.yy",},},
     {"id":{"name":"obj_handler_input","path":"objects/obj_handler_input/obj_handler_input.yy",},},
     {"id":{"name":"obj_handler_level","path":"objects/obj_handler_level/obj_handler_level.yy",},},

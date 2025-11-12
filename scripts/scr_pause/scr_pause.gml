@@ -6,7 +6,7 @@ function pause(mode) {
 			case pM.editor: paused = global.editorPause; break;
 			case pM.pauseMenu: paused = global.pause; break;
 			case pM.transition: paused = global.transitionPause; break;
-			case pM.shop: paused = global.shop; break;
+			case pM.dead: paused = global.deadPause; break;
 			default: paused = false; break;
 		}
 		if paused{

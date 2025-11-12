@@ -1,28 +1,4 @@
-enum menuStates{
-	active,
-	inactive,
-}
-enum gameStates {
-	other,
-	regular,
-	editor,
-}
-enum editorStates{
-	building,
-	testing,
-}
-gameState = gameStates.other
-menuState = menuStates.active
-editorState = editorStates.building;
-SignalSubscribe(id, "changeGameState", function(state){
-	gameState = state
-})
-SignalSubscribe(id, "toggleMenuState", function(state){
-	menuState = !menuState
-})
-SignalSubscribe(id, "changeEditorState", function(state){
-	editorState = state
-})
+
 
 
 function initHandlerStruct(){

@@ -79,10 +79,11 @@ function initializeEnums(){
 		editor,
 		pauseMenu,
 		transition,
-		shop,
+		dead,
 	}
 }
-#macro allPause [pM.editor, pM.pauseMenu, pM.transition, pM.shop]
+#macro allPause [pM.editor, pM.pauseMenu, pM.transition, pM.dead]
+
 
 function stringToEnum(str) {
     switch (str) {

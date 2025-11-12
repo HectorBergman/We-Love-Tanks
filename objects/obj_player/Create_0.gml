@@ -1,6 +1,7 @@
-pauseMode = [pM.pauseMenu, pM.transition, pM.shop]
+pauseMode = [pM.pauseMenu, pM.transition, pM.dead]
 luck = 1;
 //SignalSubscribe(id,"roomEntered: newRoom",function(){x = room_width/2; y = room_height/2;})
+global.deadPause = false;
 
 wallBonkCooldownTime = 10;
 wallBonkCooldown = 0;
@@ -34,7 +35,7 @@ summonEssentials();
 playerVariables_movement()
 generalVariables();
 initializeEnums();
-maxHp = 10
+maxHp = 2
 hp = maxHp;
 displayMax = 20;
 
@@ -53,6 +54,8 @@ function death(){
 	cannon.visible = false;
 	hitbox.visible = false;
 	visible = false;
+	global.deadPause = true;
+	SignalSend("changeIngameState", ingameStates.dead);
 }
 
 function decreaseHealth(amount){

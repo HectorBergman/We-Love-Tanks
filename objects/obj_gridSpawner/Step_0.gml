@@ -1,7 +1,7 @@
-if waitForIt && obj_handler_handler.gameState == gameStates.editor{
+if waitForIt && obj_handler_gameState.gameState == gameStates.editor{
 	waitForIt = false;
 	generateGridSquares();
-}else if (!gridsGenerated && obj_handler_handler.gameState == gameStates.regular){
+}else if (!gridsGenerated && obj_handler_gameState.gameState == gameStates.regular){
 	generateGridSquares();
 	gridsGenerated = true;
 }

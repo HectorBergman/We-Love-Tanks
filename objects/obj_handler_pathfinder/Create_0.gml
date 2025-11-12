@@ -31,7 +31,7 @@ function newRoomLogic(){
 	editorException = false;
 }
 
-if obj_handler_handler.gameState == gameStates.editor{
+if obj_handler_gameState.gameState == gameStates.editor{
 	editorException = true;
 }
 
