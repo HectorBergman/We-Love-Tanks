@@ -37,3 +37,11 @@ SignalSubscribe(id, "changeEditorState", function(state){
 
 text = "[$eee7e7][scale,4]" + "You died!"; 
 toDraw = scribble(text).align(fa_center,fa_middle);
+
+function returnToMainMenu(){
+	ingameState = ingameStates.normal;
+	gameState = gameStates.other;
+	menuState = menuStates.active
+	SignalSend("handler_handler: clear");
+	room_goto(rm_menuBum);
+}

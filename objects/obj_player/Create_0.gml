@@ -35,8 +35,8 @@ summonEssentials();
 playerVariables_movement()
 generalVariables();
 initializeEnums();
-maxHp = 2
-hp = maxHp;
+maxHp = 10
+hp = 1;
 displayMax = 20;
 
 
