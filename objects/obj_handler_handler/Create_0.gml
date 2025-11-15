@@ -1,28 +1,4 @@
-enum menuStates{
-	active,
-	inactive,
-}
-enum gameStates {
-	other,
-	regular,
-	editor,
-}
-enum editorStates{
-	building,
-	testing,
-}
-gameState = gameStates.other
-menuState = menuStates.active
-editorState = editorStates.building;
-SignalSubscribe(id, "changeGameState", function(state){
-	gameState = state
-})
-SignalSubscribe(id, "toggleMenuState", function(state){
-	menuState = !menuState
-})
-SignalSubscribe(id, "changeEditorState", function(state){
-	editorState = state
-})
+
 
 
 function initHandlerStruct(){
@@ -33,7 +9,11 @@ function initHandlerStruct(){
 	}
 }
 
-
+SignalSubscribe(id,"handler_handler: clear", function(){
+	dismantle_instanceStruct(alwaysSummon)
+	dismantle_instanceStruct(inGame)
+	dismantle_instanceStruct(editor)
+})
 function createSummonStructStruct(goalStruct ,summonStructStruct){
 	for (var i = 0; i < array_length(summonStructStruct); i++){
 		var name = object_get_name(summonStructStruct[i][0])
@@ -44,6 +24,7 @@ function createSummonStructStruct(goalStruct ,summonStructStruct){
 
 function summonAllFromStruct(struct){
 	if !struct.summoned{
+		print("summon: ",struct);
 		var keys = variable_struct_get_names(struct.summonInstructions);
 
 		for (var i = 0; i < array_length(keys); i++) {

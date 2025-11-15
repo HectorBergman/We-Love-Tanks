@@ -102,7 +102,7 @@
     {"name":"obj_gridSpawner","order":3,"path":"objects/obj_gridSpawner/obj_gridSpawner.yy",},
     {"name":"obj_gridSquare","order":2,"path":"objects/obj_gridSquare/obj_gridSquare.yy",},
     {"name":"obj_handler_currentRoom","order":2,"path":"objects/obj_handler_currentRoom/obj_handler_currentRoom.yy",},
-    {"name":"obj_handler_gameSetting","order":8,"path":"objects/obj_handler_gameSetting/obj_handler_gameSetting.yy",},
+    {"name":"obj_handler_gameState","order":8,"path":"objects/obj_handler_gameState/obj_handler_gameState.yy",},
     {"name":"obj_handler_handler","order":10,"path":"objects/obj_handler_handler/obj_handler_handler.yy",},
     {"name":"obj_handler_input","order":6,"path":"objects/obj_handler_input/obj_handler_input.yy",},
     {"name":"obj_handler_level","order":11,"path":"objects/obj_handler_level/obj_handler_level.yy",},

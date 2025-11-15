@@ -8,5 +8,6 @@ for (var i = 0; i < maxHp; i+=2){
 	}else{
 		imageIndex = 2;
 	}
-	draw_sprite(spr_heart,imageIndex,i*25,0)
+	draw_sprite(spr_heart,imageIndex,10+i*25,10)
 }
+

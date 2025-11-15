@@ -1,7 +1,7 @@
 isActive = (
-	obj_handler_handler.gameState == gameStates.editor && 
-	obj_handler_handler.editorState == editorStates.building) ||
-	obj_handler_handler.menuState == menuStates.active
+	obj_handler_gameState.gameState == gameStates.editor && 
+	obj_handler_gameState.editorState == editorStates.building) ||
+	obj_handler_gameState.menuState == menuStates.active
 
 switch(isActive){
 	case true:{

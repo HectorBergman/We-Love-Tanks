@@ -1,7 +1,7 @@
 display_set_gui_size(camWidth, camHeight);
-switch (obj_handler_handler.gameState){
+switch (obj_handler_gameState.gameState){
 	case gameStates.editor:{
-		switch (obj_handler_handler.editorState){
+		switch (obj_handler_gameState.editorState){
 			case (editorStates.building):{
 				x = x + (obj_handler_input.moveRight-obj_handler_input.moveLeft)*4
 				y = y + (obj_handler_input.moveDown-obj_handler_input.moveUp)*4

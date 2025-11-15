@@ -1,4 +1,4 @@
-if action == 3 && obj_handler_handler.gameState == gameStates.editor{
+if action == 3 && obj_handler_gameState.gameState == gameStates.editor{
 	visible = false;
 	exit;
 }
@@ -15,11 +15,12 @@ var truthStatement = position_meeting(mouse_x, mouse_y, id)
 if (truthStatement){ //hover over button
 	image_index = 1;
 	if (mouse_check_button_pressed(mb_left)){
+		print("action: ",action);
 		switch (action) {
 			case bTypes.empty:
 				break;
 			case bTypes.startGame: //menu button to start game
-				obj_handler_handler.gameState = gameStates.regular;
+				obj_handler_gameState.gameState = gameStates.regular;
 				SignalSend("toggleMenuState");
 				global.roomList = loadData("savedRooms2.sav");
 				room_goto(rm_startingRoom);
@@ -30,7 +31,7 @@ if (truthStatement){ //hover over button
 				break;
 		
 			case bTypes.startNewEditor:
-				obj_handler_handler.gameState = gameStates.editor;
+				obj_handler_gameState.gameState = gameStates.editor;
 				room_goto(rm_editor_menu);
 				summonObject(obj_editor_handler);
 				//room_goto(rm_editorRoom_test);
