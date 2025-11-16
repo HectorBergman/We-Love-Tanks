@@ -26,20 +26,17 @@ SignalSend("minimap");
 
 function getRoomsToDisplay(){
 	ds_grid_clear(roomsToDisplay, noone)
-	print("GETROOMSTODISPLAY")
 	for (var i = -2; i < 3; i++){
 		for (var j = -2; j < 3; j++){
 			if (inRange(currentRoom.coords[0]+i,0,currentFloor.dimensions[0]-1) && 
 				inRange(currentRoom.coords[1]+j,0,currentFloor.dimensions[1]-1)){
 				var relevantRoom = ds_grid_get(currentFloor.grid,currentRoom.coords[0]+i,currentRoom.coords[1]+j)
-				print("rRoom: ",relevantRoom)
 				if roomExists(relevantRoom){
 					ds_grid_set(roomsToDisplay,i+2,j+2,relevantRoom)
 				}else{
 					ds_grid_set(roomsToDisplay,i+2,j+2,noone)
 				}
 			}else{
-				print("irrelevantRoom!!!: ",i,",",j);
 				ds_grid_set(roomsToDisplay,i+2,j+2,noone)
 			}
 		}

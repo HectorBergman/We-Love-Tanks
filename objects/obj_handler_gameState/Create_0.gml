@@ -44,4 +44,5 @@ function returnToMainMenu(){
 	menuState = menuStates.active
 	SignalSend("handler_handler: clear");
 	room_goto(rm_menuBum);
+	SignalSend("activateMenuInstance", "mainMenu");
 }

@@ -20,7 +20,7 @@ growthState = growthStates.grown;
 
 bounceStates = createStates("start","mid","finish");
 
-print("moner");
+
 if variable_instance_exists(id, "bulletGrowthStart"){
 	growthState = growthStates.growing;
 	scale = bulletGrowthStart;
@@ -162,10 +162,8 @@ function bullet_tick(step = 1){
 function bullet_checkForRico(){
 	var rico = findRicochet(movementVector, bSpeedTs, 3, 1, 5)	
 	if rico.angle != -1{
-		print(rico)
 		if bInfo.bounces == 0{
 			state = states.dying;
-			print("test");
 			bullet_tick()
 		}else{
 			//SignalSend("flare", {x:x,y:y});

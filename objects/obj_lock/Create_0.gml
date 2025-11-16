@@ -8,8 +8,6 @@ enum doorModes{
 }
 mode = doorModes.wall
 SignalSubscribe(id, "doors:",function(info){
-	print(info);
-	print(roomNo);
 	var relevantDoor = info[0][roomNo][_direction]
 	if relevantDoor == doorValues.open{
 		if info[1] ||(

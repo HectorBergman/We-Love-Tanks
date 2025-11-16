@@ -25,7 +25,6 @@ SignalSubscribe(id, "button: clicked: " + string(id), function(){
 	for (var i = 1+array_length(global.roomShapes); i < array_length(instanceArgumentsChoices)-1; i++){
 		instanceArgumentsChoices[i] = setTo;
 	}
-	print(instanceArgumentsChoices);
 	updateSearchArray();
 	updateToDrawArray();
 	closeMenu();

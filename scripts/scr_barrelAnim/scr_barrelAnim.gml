@@ -24,7 +24,6 @@ function barrelAnim_releasing(){
 
 function findFurthestBarrelBullet(){
 	for (var i = array_length(barrelBulges)-1; i >= 0; i--){
-		print(i);
 		var arr = barrelBulges[i]
 		if array_length(barrelBulges[i]) != 0{
 			return i

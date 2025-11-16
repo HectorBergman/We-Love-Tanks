@@ -27,9 +27,6 @@ function dollarLogic(){
 				var lerpValY = velocity/abs(momentarySwayY)
 				
 				movementVector = getMovementVector(point_direction(x,y,fakeX+swayX,fakeY+swayY));
-				print("swayX: ",momentarySwayX)
-				print("swayY: ",momentarySwayY)
-				print(velocity);
 				//velocity += abs(momentarySwayX)
 			}
 		}break;

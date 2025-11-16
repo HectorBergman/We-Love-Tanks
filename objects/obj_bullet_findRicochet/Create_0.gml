@@ -22,10 +22,6 @@ bounces = 0;
 function ricochetBounce(){
 	
 	if bounces >= maxBounce{
-		
-		print(closestDistanceToPlayer);
-		print(originalAngle);
-		print("-----");
 		instance_destroy();
 	}else{
 		bounces++

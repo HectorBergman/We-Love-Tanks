@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_clickables",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_clickables",
+  "parent":{
+    "name":"menu",
+    "path":"folders/Objects/handlers/menu.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,5 +1,4 @@
 function generateDFloor(dfloor){
-	print("createDfloore")
 	dfloor.roomsQueue = ds_queue_create();
 	var generateCount = iterateDFloor(dfloor);
 	var entriesCount = fillEdgesArray(dfloor)
@@ -79,7 +78,6 @@ function insertSpecialRoomInGrid(dfloor, sRoom){
 		exit;
 	}
 	//getPremadeRoomDir(dfloor, ds_grid_get(dfloor.grid,newCoords[0],newCoords[1]))
-	print(sRoom);
 	var newRoom = createRoom(dfloor, newCoords, 0,sRoom, sRoom.roomType, true, sRoom.subType)
 	ds_grid_set(dfloor.grid, newCoords[0], newCoords[1], newRoom);
 }
@@ -112,7 +110,7 @@ function roomDoorCount(dfloor,sRoom){
 
 
 function specialRoomGetCoords(dfloor,sRoom){
-	print("posReq: ",sRoom.positionRequirements)
+	//print("posReq: ",sRoom.positionRequirements)
 	var arr = getAllAvailableCoordsFittingReq(dfloor, sRoom.positionRequirements)
 
 	var potentialCoords = getAllAvailableRoomsFittingReq(dfloor,arr);
@@ -217,8 +215,6 @@ function iterateRoom_helper(dfloor,_room, index, doors){
 function generateDoors(dfloor, _room){
 	//step 1: discern door amounts
 	var doors = _room.doors;
-	print(" generateDoors: " + string(_room.coords));
-	print(doors);
 	var weights = [];
 	array_copy(weights, 0, _room.doorWeights, 0, array_length(_room.doorWeights));
 
@@ -294,8 +290,6 @@ function generateDoors(dfloor, _room){
 			doorAmtChosen--;
 		}
 	}
-	print("donezo");
-	print(doors);
 	return doors;
 }
 

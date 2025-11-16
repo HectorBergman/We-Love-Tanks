@@ -29,7 +29,7 @@ function clickable_create(obj_index, variables, popup_info = popup_createInfo(fa
 /// @param {real} [popupTime=10]
 /// @param {method} [easingFunc=EaseOutBounce]
 /// @returns {struct}
-function popup_createInfo(doesPopup, popupTime = 10, easingFunc = EaseOutBounce) {
+function popup_createInfo(doesPopup, popupTime = 120, easingFunc = EaseOutElastic) {
     return {
         doesPopup: doesPopup,
         popupTime: popupTime,

@@ -21,10 +21,4 @@ if obj_handler_input.fire && !place_meeting(tip_x,tip_y, obj_solid) && activeBul
 }
 exeStateFunc("barrelAnim_",animState);
 
-for (var i = 0; i < array_length(barrelBulges); i++){
-	for (var j = 0; j < array_length(barrelBulges[i]); j++){
-		print("Id: ", barrelBulges[i][j]);
-		print("obj_index: ", barrelBulges[i][j].object_index);
-	}
-}
 

@@ -9,12 +9,8 @@ function initiateDungeon(floorReqList){
 		var floorReq = ds_list_find_value(floorReqList,0)
 
 		var dfloor = populateDFloor(floorReq);
-		print("initiateDungeon1")
-		print(dfloor)
 		dfloor.floorNo = dungeon.floorCount;
 		var dfloor_full = generateDFloor(dfloor)
-		print("initiateDungeon2")
-		print(dfloor_full)
 		ds_list_add(dungeon.floors,dfloor_full)
 		dungeon.floorCount++;
 		ds_list_delete(floorReqList,0)

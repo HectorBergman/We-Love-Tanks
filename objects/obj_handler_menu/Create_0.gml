@@ -1,11 +1,17 @@
 menuInstances = {}
 activeInstance = noone;
 
-var mainMenu_clickables = [clickable_create(
-	obj_button, 
-	[["x", 64],["y",160],["image_xscale", 10],["image_yscale",2],["action",1],["text","Play!"]],
-	popup_createInfo(true)
-)]
+var mainMenu_clickables = clickables_mainMenu()
+SignalSubscribe(id, "closeMenus", function(){
+	//SignalSend("closeMenuInstance")
+	instance_destroy(activeInstance)
+	activeInstance = noone;
+})
+
+SignalSubscribe(id, "activateMenuInstance", function(name){
+	activateMenuInstance(name)
+})
+
 
 menuInstance_add("mainMenu",mainMenu_clickables)
 
@@ -15,8 +21,7 @@ menuInstance_add("mainMenu",mainMenu_clickables)
 /// @param {string} name
 /// @returns {void}
 function activateMenuInstance(name) {
-    SignalSend("activateMenuInstance", name);
-	print(variable_struct_get(menuInstances, name))
+	print("activateMenuInstance")
     activeInstance = summonObject(
         obj_menuInstance,
         [
@@ -26,4 +31,4 @@ function activateMenuInstance(name) {
     );
 }
 
-activateMenuInstance("mainMenu");
+SignalSend("activateMenuInstance", "mainMenu");

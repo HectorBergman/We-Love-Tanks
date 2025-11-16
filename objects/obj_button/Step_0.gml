@@ -15,7 +15,7 @@ var truthStatement = position_meeting(mouse_x, mouse_y, id)
 if (truthStatement){ //hover over button
 	image_index = 1;
 	if (mouse_check_button_pressed(mb_left)){
-		print("action: ",action);
+		SignalSend("closeMenus")
 		switch (action) {
 			case bTypes.empty:
 				break;
