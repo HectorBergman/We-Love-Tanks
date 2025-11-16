@@ -20,6 +20,7 @@
     {"name":"stiffNormal","order":2,"path":"folders/Objects/enemy/enemies/stiffNormal.yy",},
     {"name":"stiffRicochet","order":4,"path":"folders/Objects/enemy/enemies/stiffRicochet.yy",},
     {"name":"tinyman","order":5,"path":"folders/Objects/enemy/enemies/tinyman.yy",},
+    {"name":"bombs","order":19,"path":"folders/Objects/bombs.yy",},
     {"name":"handlers","order":4,"path":"folders/Objects/handlers.yy",},
     {"name":"delay","order":19,"path":"folders/Objects/handlers/delay.yy",},
     {"name":"menu","order":25,"path":"folders/Objects/handlers/menu.yy",},

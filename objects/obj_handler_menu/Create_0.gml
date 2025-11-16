@@ -3,7 +3,7 @@ activeInstance = noone;
 
 var mainMenu_clickables = clickables_mainMenu()
 SignalSubscribe(id, "closeMenus", function(){
-	//SignalSend("closeMenuInstance")
+	SignalSend("closeMenuInstance")
 	instance_destroy(activeInstance)
 	activeInstance = noone;
 })
