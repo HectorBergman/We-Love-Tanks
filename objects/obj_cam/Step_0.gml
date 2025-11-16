@@ -3,8 +3,8 @@ switch (obj_handler_gameState.gameState){
 	case gameStates.editor:{
 		switch (obj_handler_gameState.editorState){
 			case (editorStates.building):{
-				x = x + (obj_handler_input.moveRight-obj_handler_input.moveLeft)*4
-				y = y + (obj_handler_input.moveDown-obj_handler_input.moveUp)*4
+				x = x + (listenForInput("right")-listenForInput("left"))*4
+				y = y + (listenForInput("down")-listenForInput("up"))*4
 				x = clamp(x,camWidth*0.5,room_width-(camWidth*0.5));
 				y = clamp(y,camHeight*0.5,room_height-(camHeight*0.5));
 				newX = clamp(x-(camWidth*0.5),0,room_width-(camWidth));

@@ -4,7 +4,7 @@ toggleInRoom()
 switch (menuMode){
 	case editorMenuModes.selectingRoom:{
 		
-		var move = obj_handler_input.moveDownClick-obj_handler_input.moveUpClick
+		var move = listenForInput("up_press")-listenForInput("down_press")
 		roomsPosition = (roomsPosition+move) mod (array_length(searchArray)+1);
 		if move != 0{
 			
@@ -29,7 +29,7 @@ switch (menuMode){
 function toggleInRoom(){
 	switch (menuMode){
 		case editorMenuModes.selectingRoom:{
-			if obj_handler_input.confirm{
+			if listenForInput("confirm"){
 				if roomsPosition != 0{
 					var chosenRoom = searchArray[roomsPosition-1]
 					room_goto(asset_get_index("rm_roomTemplate_" + chosenRoom.roomShape));
@@ -46,7 +46,7 @@ function toggleInRoom(){
 		}
 		break;
 		case editorMenuModes.editingRoom:{
-			if obj_handler_input.escape{
+			if listenForInput("escape"){
 				try{ //i messed up by not dereferencing globalMenu upon closing without opening another
 					// menu so this is how we do it to save dev time
 					globalMenu.close()

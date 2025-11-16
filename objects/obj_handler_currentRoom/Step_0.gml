@@ -1,5 +1,5 @@
 PAUSE
-if obj_handler_input.debugUnlockAndKill{
+if listenForInput("unlock_and_kill"){
 	print("debugunlockandkill");
 	lock = false;
 	for (var i = 0; i < instance_number(obj_enemy); i++){
@@ -10,7 +10,7 @@ if obj_handler_input.debugUnlockAndKill{
 
 	cRoom.cleared = true;
 }
-if obj_handler_input.debugUnlock{
+if listenForInput("unlock"){
 	print("debugunlock");
 	lock = false;
 	ds_grid_get(obj_handler_room.dungeonGrid, obj_handler_room.currentRoom[0], obj_handler_room.currentRoom[1]).cleared  =true;

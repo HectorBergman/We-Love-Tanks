@@ -1,3 +1,7 @@
+function menuInstance_activate(name){
+	SignalSend("activateMenuInstance", name);
+}
+
 //TBA: backgrounds and non-clickable elements
 /// @function menuInstance_add
 /// @param {string} name the name of the menu instance

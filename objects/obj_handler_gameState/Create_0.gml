@@ -23,6 +23,7 @@ menuState = menuStates.active
 editorState = editorStates.building;
 ingameState = ingameStates.normal;
 SignalSubscribe(id, "changeIngameState", function(state){
+	print("changingStatee");
 	ingameState = state;
 })
 SignalSubscribe(id, "changeGameState", function(state){
@@ -35,6 +36,9 @@ SignalSubscribe(id, "changeEditorState", function(state){
 	editorState = state
 })
 
+
+
+
 text = "[$eee7e7][scale,4]" + "You died!"; 
 toDraw = scribble(text).align(fa_center,fa_middle);
 
@@ -44,5 +48,5 @@ function returnToMainMenu(){
 	menuState = menuStates.active
 	SignalSend("handler_handler: clear");
 	room_goto(rm_menuBum);
-	SignalSend("activateMenuInstance", "mainMenu");
+	SignalSend("activateMenuInstance", "main");
 }

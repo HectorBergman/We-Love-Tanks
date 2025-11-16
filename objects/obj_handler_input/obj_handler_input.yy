@@ -11,8 +11,8 @@
   "name":"obj_handler_input",
   "overriddenProperties":[],
   "parent":{
-    "name":"handlers",
-    "path":"folders/Objects/handlers.yy",
+    "name":"input",
+    "path":"folders/Objects/handlers/input.yy",
   },
   "parentObjectId":null,
   "persistent":true,

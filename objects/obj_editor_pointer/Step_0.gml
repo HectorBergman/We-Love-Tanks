@@ -8,7 +8,7 @@ switch(isActive){
 		visible = true
 		x = mouse_x;
 		y = mouse_y;
-		if obj_handler_input.fire{
+		if listenForInput("click"){
 			image_index = 1;
 		}else{
 			image_index = 0;

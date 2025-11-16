@@ -1,4 +1,4 @@
-function clickables_mainMenu(){
+function clickables_main(){
 	return [
 		clickable_create(
 			obj_button, 
@@ -42,5 +42,23 @@ function clickables_mainMenu(){
 				["text","Room Editor"]],
 			popup_createInfo(true)
 		),
+	]
+}
+
+function clickables_pause(){
+	return [
+		clickable_create(
+				obj_button, 
+				[
+					["x", display_get_width()/4],
+					["y", display_get_height()/4],
+					["image_xscale", 3],
+					["image_yscale", 1],
+					["action",6],
+					["depth", -9000],
+					["text","Continue"]
+				],
+				popup_createInfo(true)
+		)
 	]
 }

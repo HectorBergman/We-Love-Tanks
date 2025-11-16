@@ -193,7 +193,7 @@ summonMenuObjects();
 
 
 function checkForModeSwitchRequest(){
-	if obj_handler_input.space{
+	if listenForInput("space"){
 		switch (editorMode){
 			case editorModes.editing:{
 				SignalSend("changeEditorState", editorStates.testing);

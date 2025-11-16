@@ -6,7 +6,7 @@ image_angle = point_direction(x,y,obj_crosshair.x,obj_crosshair.y) //
 firingCooldown--
 var tip_x = x + -8 * dsin(image_angle+90);
 var tip_y = y + -8 * dcos(image_angle+90);
-if obj_handler_input.fire && !place_meeting(tip_x,tip_y, obj_solid) && activeBullets < maxBullets && firingCooldown < 1{
+if listenForInput("shoot") && !place_meeting(tip_x,tip_y, obj_solid) && activeBullets < maxBullets && firingCooldown < 1{
 	playerFire();
 	SignalSend("onFire", {id : id, bulletInfo : bulletInfo});
 	/*

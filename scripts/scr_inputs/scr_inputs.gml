@@ -1,108 +1,67 @@
-function playerInput(){
-	if keyboard_check(ord("W"))
-	{
-		moveUp = true;
+function listenForInput(name) {
+    var groups = variable_struct_get_names(global.inputs);
+
+    // Loop through top-level groups
+    for (var i = 0; i < array_length(groups); i++) {
+        var groupName = groups[i];
+        var group = variable_struct_get(global.inputs, groupName);
+
+        // Check if the input exists in this group
+        if (variable_struct_exists(group, name)) {
+            var entry = variable_struct_get(group, name);
+            if (entry.func != undefined) {
+                return entry.func();
+            } else {
+                forceCrash("Input variable '" + string(name) + "' has no func!");
+            }
+        }
+    }
+
+    // If not found
+    forceCrash("Input variable '" + string(name) + "' does not exist!");
+}
+     
+function input_init(){
+	global.inputs = {
+    
+	    movement: {
+	        up:        { func: function(){ return keyboard_check(ord("W")); } },
+	        down:      { func: function(){ return keyboard_check(ord("S")); } },
+	        left:      { func: function(){ return keyboard_check(ord("A")); } },
+	        right:     { func: function(){ return keyboard_check(ord("D")); } },
+
+	        up_press:   { func: function(){ return keyboard_check_pressed(ord("W")); } },
+	        down_press: { func: function(){ return keyboard_check_pressed(ord("S")); } }
+	    },
+
+	    actions: {
+	        shoot:			{ func: function(){ return mouse_check_button(mb_left); } },
+	        click:			{ func: function(){ return mouse_check_button_pressed(mb_left); } },
+	        click_right:	{ func: function(){ return mouse_check_button_pressed(mb_right); } },
+	        click_released:	{ func: function(){ return mouse_check_button_released(mb_left); } },
+	        interact:		{ func: function(){ return keyboard_check(ord("E")); } },
+	        run:			{ func: function(){ return keyboard_check(vk_shift); } }
+	    },
+
+	    debug: {
+	        unlock_and_kill: { func: function(){ return keyboard_check(ord("T")); } },
+	        unlock:          { func: function(){ return keyboard_check(ord("G")); } }
+	    },
+
+	    keys: {
+	        escape:     { func: function(){ return keyboard_check_pressed(vk_escape); } },
+	        control:    { func: function(){ return keyboard_check(vk_control); } },
+	        c_key:      { func: function(){ return keyboard_check(ord("C")); } },
+	        copy:       { func: function(){ return keyboard_check(ord("C")) && keyboard_check(vk_control); } },
+	        up_press:   { func: function(){ return keyboard_check_pressed(vk_up); } },
+	        down_press: { func: function(){ return keyboard_check_pressed(vk_down); } },
+	        confirm:    { func: function(){ return keyboard_check_pressed(vk_enter); } },
+	        space:      { func: function(){ return keyboard_check_pressed(vk_space); } },
+	        space_held: { func: function(){ return keyboard_check(vk_space); } },
+	        delete:     { func: function(){ return keyboard_check_pressed(vk_delete); } }
+		}
 	}
-	if keyboard_check(ord("S"))
-	{
-		moveDown = true;
-	}
-	if keyboard_check(ord("A"))
-	{
-		moveLeft = true;
-	}
-	if keyboard_check(ord("D"))
-	{
-		moveRight = true;
-	}
-	if keyboard_check_pressed(ord("W"))
-	{
-		moveUpClick = true;
-	}
-	if keyboard_check_pressed(ord("S"))
-	{
-		moveDownClick = true;
-	}
-	if mouse_check_button(mb_left)
-	{
-		fire = true;
-	}
-	if mouse_check_button_pressed(mb_left)
-	{
-		click = true;
-	}
-	if mouse_check_button_pressed(mb_right)
-	{
-		rightClick = true;
-	}
-	if mouse_check_button_released(mb_left)
-	{
-		clickRelease = true;
-	}
-	if keyboard_check(vk_shift){
-		run = true;
-	}
-	if keyboard_check(ord("E")){
-		interact = true;
-	}
-	if keyboard_check(ord("T")){
-		debugUnlockAndKill = true;
-	}
-	if keyboard_check(ord("G")){
-		debugUnlock = true;
-	}
-	if keyboard_check_pressed(vk_escape){
-		escape = true;
-	}
-	if keyboard_check(vk_control){
-		control = true;
-	}
-	if keyboard_check(ord("C")){
-		cKey = true;
-	}
-	if keyboard_check_pressed(vk_up){
-		pressUp = true;
-	}
-	if keyboard_check_pressed(vk_down){
-		pressDown = true;
-	}
-	if keyboard_check_pressed(vk_enter){
-		confirm = true;
-	}
-	if keyboard_check_pressed(vk_space){
-		space = true;
-	}
-	if keyboard_check(vk_space){
-		heldSpace = true;
-	}
-	if keyboard_check_pressed(vk_delete){
-		del = true;
-	}
+	//input_reset()
+	print(global.inputs);
 }
 
-function resetInputs(){
-	moveUp = false;
-	moveDown = false;
-	moveLeft = false;
-	moveRight = false;
-	moveUpClick = false;
-	moveDownClick = false;
-	fire = false;
-	click = false;
-	run = false;
-	debugUnlockAndKill = false;
-	debugUnlock = false;
-	escape = false;
-	control = false;
-	cKey = false;
-	copy = false;
-	pressUp = false;
-	pressDown = false;
-	confirm = false;
-	space = false;
-	del = false;
-	rightClick = false;
-	clickRelease = false;
-	interact = false;
-	heldSpace = false;
-}

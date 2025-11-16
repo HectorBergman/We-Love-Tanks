@@ -1,5 +1,6 @@
-playerInput()
-if control && cKey && !hasCopied{
+//input_reset()
+//input_check()
+/*if control && cKey && !hasCopied{
 	copy = true;
 	hasCopied = true;
 }

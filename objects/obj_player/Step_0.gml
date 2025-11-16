@@ -28,7 +28,7 @@ if invincibilityFrames == 0{
 	invincible = false;
 }
 
-if obj_handler_input.run{
+if listenForInput("run"){
 	if movementSpeed < runSpeed{
 		movementSpeed += runSpeedStep*ts
 	}else{

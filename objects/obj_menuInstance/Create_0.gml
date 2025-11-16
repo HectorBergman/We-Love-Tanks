@@ -7,6 +7,8 @@ function menuInstance_close(){
 
 
 SignalSubscribe(id,"activateMenuInstance",function(instanceName){
+	print(name)
+	print(instanceName)
 	if name != instanceName{
 		menuInstance_close()
 	}else{
