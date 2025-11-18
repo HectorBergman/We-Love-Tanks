@@ -10,17 +10,16 @@ switch gameState{
 			}break;
 			case ingameStates.normal:{
 				if listenForInput("escape"){
-					ingameState = ingameStates.paused
-					menuInstance_activate("pause")
+					menu_pause()
 				}
-				global.pause = true;
-			}
+				
+			}break;
 			case ingameStates.paused:{
 				if listenForInput("escape"){
-					ingameState = ingameStates.normal
+					menu_unpause()
 				}
-				global.pause = false;
-			}
+				
+			}break;
 		}
 	}break;
 }

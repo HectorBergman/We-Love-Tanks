@@ -23,7 +23,6 @@ menuState = menuStates.active
 editorState = editorStates.building;
 ingameState = ingameStates.normal;
 SignalSubscribe(id, "changeIngameState", function(state){
-	print("changingStatee");
 	ingameState = state;
 })
 SignalSubscribe(id, "changeGameState", function(state){
@@ -34,6 +33,14 @@ SignalSubscribe(id, "toggleMenuState", function(state){
 })
 SignalSubscribe(id, "changeEditorState", function(state){
 	editorState = state
+})
+
+SignalSubscribe(id, "pauseMenu", function(){
+	if global.pause{
+		menu_unpause()
+	}else{
+		menu_pause()
+	}
 })
 
 
@@ -49,4 +56,15 @@ function returnToMainMenu(){
 	SignalSend("handler_handler: clear");
 	room_goto(rm_menuBum);
 	SignalSend("activateMenuInstance", "main");
+}
+
+function menu_pause(){
+	ingameState = ingameStates.paused
+	menuInstance_activate("pause")
+	pause(pM.pauseMenu)
+}
+function menu_unpause(){
+	ingameState = ingameStates.normal
+	menuInstance_deactivate("pause")
+	pause(pM.pauseMenu)
 }

@@ -37,6 +37,7 @@ function input_init(){
 	    actions: {
 	        shoot:			{ func: function(){ return mouse_check_button(mb_left); } },
 	        click:			{ func: function(){ return mouse_check_button_pressed(mb_left); } },
+			click_held:		{ func: function(){ return mouse_check_button(mb_left); } },
 	        click_right:	{ func: function(){ return mouse_check_button_pressed(mb_right); } },
 	        click_released:	{ func: function(){ return mouse_check_button_released(mb_left); } },
 	        interact:		{ func: function(){ return keyboard_check(ord("E")); } },

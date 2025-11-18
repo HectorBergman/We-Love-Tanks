@@ -40,3 +40,7 @@ function popup_createInfo(doesPopup, popupTime = 120, easingFunc = EaseOutElasti
         easingFunc: easingFunc
     };
 }
+
+function menuInstance_deactivate(name){
+	SignalSend("closeMenuInstance", name);
+}

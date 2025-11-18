@@ -59,6 +59,11 @@ function clickables_pause(){
 					["text","Continue"]
 				],
 				popup_createInfo(true)
+		),
+		clickable_create( 
+				obj_mouse,
+				[],
+				popup_createInfo(false)
 		)
 	]
 }

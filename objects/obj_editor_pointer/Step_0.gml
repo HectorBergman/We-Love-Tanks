@@ -8,7 +8,7 @@ switch(isActive){
 		visible = true
 		x = mouse_x;
 		y = mouse_y;
-		if listenForInput("click"){
+		if listenForInput("click_held"){
 			image_index = 1;
 		}else{
 			image_index = 0;

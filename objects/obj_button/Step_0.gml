@@ -36,6 +36,10 @@ if (truthStatement){ //hover over button
 				summonObject(obj_editor_handler);
 				//room_goto(rm_editorRoom_test);
 				break;
+			case bTypes.stopPause:
+				SignalSend("pauseMenu")
+				//room_goto(rm_editorRoom_test);
+				break;
 		}
 	}
 }else{

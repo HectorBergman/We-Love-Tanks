@@ -6,6 +6,7 @@ enum bTypes {
 	test,
 	startNewEditor,
 	exitShop,
+	stopPause,
 }
 
 goalScale = image_xscale;
