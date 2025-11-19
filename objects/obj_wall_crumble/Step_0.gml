@@ -20,7 +20,6 @@ switch (state){
 		if bullet != noone && is_undefined(ds_map_find_value(rememberBullets,bullet)){
 			ds_map_add(rememberBullets,bullet,4);
 			crumbleTimerIncoming = 40;
-			print("decrease");
 		}
 		processDsMapValues(rememberBullets);
 		if crumbleTimer < 1{

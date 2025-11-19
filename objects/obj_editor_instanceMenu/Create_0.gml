@@ -16,8 +16,6 @@ function summonOptions(){
 	image_xscale = (width.widest+width.widestArgumentChoices+48)/sprite_width;
 	
 	var heightNeeded = 32;
-	print(instanceArgumentsChoices);
-	print(objectArguments);
 	for (var i = 0; i < array_length(objectArguments); i++){
 		var iAC = ""
 		if i < array_length(instanceArgumentsChoices){

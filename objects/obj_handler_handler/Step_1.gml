@@ -1,6 +1,5 @@
-print(obj_handler_gameState.gameState);
+
 if obj_handler_gameState.gameState == gameStates.regular{
-	print("soi");
 	summonAllFromStruct(alwaysSummon);
 	summonAllFromStruct(inGame);
 	dismantle_instanceStruct(editor)

@@ -35,6 +35,18 @@ SignalSubscribe(id, "changeEditorState", function(state){
 	editorState = state
 })
 
+SignalSubscribe(id, "pauseMenu", function() {
+	print("moneY")
+	print(global.pause);
+    if (global.pause) {
+		menu_unpause();
+    } else {
+		menu_pause();
+    }
+})
+
+
+
 text = "[$eee7e7][scale,4]" + "You died!"; 
 toDraw = scribble(text).align(fa_center,fa_middle);
 
@@ -44,4 +56,16 @@ function returnToMainMenu(){
 	menuState = menuStates.active
 	SignalSend("handler_handler: clear");
 	room_goto(rm_menuBum);
+	SignalSend("activateMenuInstance", "main");
+}
+
+function menu_pause(){
+	ingameState = ingameStates.paused
+	menuInstance_activate("pause")
+	global.pause = true
+}
+function menu_unpause(){
+	ingameState = ingameStates.normal
+	menuInstance_deactivate("pause")
+	global.pause = false
 }

@@ -1,0 +1,2 @@
+clickables_unsummon(summonedClickables)
+SignalUnsubscribe(id,"activateMenuInstance")

@@ -15,21 +15,10 @@ function dropMoney(valueRange){
 	valueDropped = valueDropped-nickelAmt*0.05;
 	var pennyAmt = floor(valueDropped/0.01);
 	valueDropped = valueDropped-pennyAmt*0.01;
-	if valueDropped == 0{
-		print("dropped money successfully");
-	}else{
-		print("dropped money unsuccessfully");
-	}
-	print(valueDropped);
 	var moneyValueArr = [100,10,1,0.25,0.1,0.05,0.01];
 	var amtArr = [benjaminAmt,hamiltonAmt,dollarAmt,quarterAmt,dimeAmt,nickelAmt,pennyAmt];
 	print(amtArr);
 	for (var i = 0; i < 5; i++){
-		print("newLoop");
-		print(i);
-		var val = moneyValueArr[i];
-		print(val)
-		print(amtArr[i])
 		for (var j = 0; j < (amtArr[i]); j++){
 			var zSpeed = 0;
 			if val >= 1{

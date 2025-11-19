@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_inputs",
   "parent":{
-    "name":"handlers",
-    "path":"folders/Objects/handlers.yy",
+    "name":"input",
+    "path":"folders/Objects/handlers/input.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

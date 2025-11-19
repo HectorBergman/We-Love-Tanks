@@ -24,7 +24,6 @@ function createSummonStructStruct(goalStruct ,summonStructStruct){
 
 function summonAllFromStruct(struct){
 	if !struct.summoned{
-		print("summon: ",struct);
 		var keys = variable_struct_get_names(struct.summonInstructions);
 
 		for (var i = 0; i < array_length(keys); i++) {

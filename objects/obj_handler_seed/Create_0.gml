@@ -1,7 +1,6 @@
 /// @function string_to_uint32(_str)
 /// @param {string} _str
 /// @returns {real} 32-bit unsigned integer
-print("swag");
 function string_to_uint32(_str) {
     var hash = 2166136261; // FNV offset basis
     var prime = 16777619;  // FNV prime

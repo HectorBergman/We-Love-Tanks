@@ -15,7 +15,7 @@ var truthStatement = position_meeting(mouse_x, mouse_y, id)
 if (truthStatement){ //hover over button
 	image_index = 1;
 	if (mouse_check_button_pressed(mb_left)){
-		print("action: ",action);
+		SignalSend("closeMenus")
 		switch (action) {
 			case bTypes.empty:
 				break;
@@ -34,6 +34,11 @@ if (truthStatement){ //hover over button
 				obj_handler_gameState.gameState = gameStates.editor;
 				room_goto(rm_editor_menu);
 				summonObject(obj_editor_handler);
+				//room_goto(rm_editorRoom_test);
+				break;
+			case bTypes.stopPause:
+				SignalSend("pauseMenu")
+				print("puase")
 				//room_goto(rm_editorRoom_test);
 				break;
 		}

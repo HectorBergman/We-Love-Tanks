@@ -1,5 +1,4 @@
 depth = -300;
-print("button: ", id);
 menu = noone;
 menuOffset = [0,16]
 totalRandoms = 0;
@@ -17,7 +16,6 @@ setInstanceArgumentsChoices()
 updateSubtypes();
 
 function updateSubtypes(){
-	print("updatingSubtypes");
 	global.roomSubtypes = variable_struct_get(global.roomSubtypes_dict, instanceArgumentsChoices[2])
 	objectArguments[3] = createArgument("subType", argumentTypes.options, global.roomSubtypes)
 	

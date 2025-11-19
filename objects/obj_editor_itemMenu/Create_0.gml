@@ -113,7 +113,7 @@ function deactivateDisplayObjects(){
 function purgeInstances(_id){
 	mask_index = spr_roomEditor_menu_hitbox;
 	if place_meeting(x,y,_id) && state == editorMenuStates2.active{
-		with _id{closeMenu();dismantle(self);};
+		with _id{closeMenu();dismantle(id);};
 		
 	}
 	mask_index = regularHitbox

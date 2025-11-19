@@ -74,7 +74,6 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 		}
 		if sRoom.doorWeights[0] != -1{
 			doorWeights = sRoom.doorWeights;
-			print("debug: sRoom.doorWeights: " + string(doorWeights))
 		}
 		roomType = sRoom.roomType
 		forceSkipAmalgam = true;
@@ -82,7 +81,6 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 	var roomShape = ["normal",0]
 	var amalgamClaimedCoords = [coords];
 	if !forceSkipAmalgam{
-		print(dfloor)
 		var shouldAmalgamate = random_range(0,1) < dfloor.amalgamOdds
 		if shouldAmalgamate{
 			roomShape = randomAmalgamateShape(dfloor,fromDir,coords);
@@ -93,12 +91,8 @@ function createRoom(dfloor, coords, fromDir, sRoom = noone, roomType = noone, fo
 	}
 	
 	//roomName, instances, sanitized, roomShape, roomType, savedRandomsNeeded
-	if roomType != "standard"{
-		print("roomType: ",roomType);
-	}
 	var roomInfo = pickRandomRoomByType(global.roomList, roomType, roomShape[0], roomSubtype)//add something in here for custom rooms
 
-	print(roomInfo)
 	var preRandoms = [];
 	if !is_undefined(roomInfo){
 		preRandoms = generateRandoms(roomInfo.savedRandomsNeeded);
@@ -140,7 +134,6 @@ function getAmalgamClaimedCoords(dfloor, shape, coords){
 			index++;
 		}
 	}
-	print("amalgamClCo: ", amalgamClaimedCoords)
 	return amalgamClaimedCoords;
 }
 
@@ -215,7 +208,6 @@ function generateDoorWeights(stagesArray){
 	for (var i = 0; i < array_length(stagesArray); i++){
 		struct_set(struct, structEntryNameTemplate+string(i), stagesArray[i]);
 	}
-	print("debug2: structDoorWeights: " + string(struct))
 	return struct;
 }
 	

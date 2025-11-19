@@ -37,7 +37,7 @@ function newDungeon(){
 		var oneReq = floorRequirements([6,6],startPoint,0.1,[[0,0,4,2,1], [0,0.5,4,1,1], [0,1,2,2,1], [0,1,4,1,0.5], [0,1.1,0.5,0,0]],[4,8],spezRooms)
 		SignalSubscribe(id,"roomEntered: general", function(){
 			if enterInfo.enteredRoomDoor != -1{
-				print("roomentranceno: " , [(enterInfo.enteredRoomDoor+2) mod 4,enterInfo.enteredRoomNo])
+				//print("roomentranceno: " , [(enterInfo.enteredRoomDoor+2) mod 4,enterInfo.enteredRoomNo])
 				SignalSend("roomEntranceNo", [(enterInfo.enteredRoomDoor+2) mod 4,enterInfo.enteredRoomNo]);
 			}
 			SignalSend("clearedStatus", currentRoom.cleared);
@@ -205,7 +205,6 @@ function coord_sort(coordsArray){
 }
 
 function gotoRoom(_room){
-	print("wegotoroom");
 	room_goto(asset_get_index("rm_roomTemplate_" + _room.roomShape[0]));
 }
 
@@ -246,7 +245,6 @@ function loadRoom(newRoom){
 
 }
 function getAllDoors(coordArr){
-	print("getAllDoors: ", coordArr);
 	var newArr = []
 	for (var i = 0; i < array_length(coordArr); i++){
 		if !array_equals([-1,-1],coordArr[i]){
@@ -255,7 +253,6 @@ function getAllDoors(coordArr){
 			newArr[i] = [-1,-1,-1,-1]
 		}
 	}
-	print("result: ", newArr);
 	return newArr
 }
 /// @function coord_sort_fill(coordsArray)
@@ -318,7 +315,6 @@ function coord_sort_fill(coordsArray) {
         }
     }
 
-	print("postFill: ", filled);
     return filled;
 }
 
@@ -331,9 +327,6 @@ function checkCleared(){
 }
 
 function changeFloor(currentDungeon, floorNo){
-	for (var i = 0; i < ds_list_size(currentDungeon.floors); i++){
-		print(ds_list_find_value(currentDungeon.floors,i));
-	}
 	var currentFloorNo = floorNo
 	var currentFloor = ds_list_find_value(currentDungeon.floors, currentFloorNo)
 	return currentFloor;
