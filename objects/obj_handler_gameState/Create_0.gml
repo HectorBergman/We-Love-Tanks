@@ -35,14 +35,15 @@ SignalSubscribe(id, "changeEditorState", function(state){
 	editorState = state
 })
 
-SignalSubscribe(id, "pauseMenu", function(){
-	if global.pause{
-		menu_unpause()
-	}else{
-		menu_pause()
-	}
+SignalSubscribe(id, "pauseMenu", function() {
+	print("moneY")
+	print(global.pause);
+    if (global.pause) {
+		menu_unpause();
+    } else {
+		menu_pause();
+    }
 })
-
 
 
 
@@ -61,10 +62,10 @@ function returnToMainMenu(){
 function menu_pause(){
 	ingameState = ingameStates.paused
 	menuInstance_activate("pause")
-	pause(pM.pauseMenu)
+	global.pause = true
 }
 function menu_unpause(){
 	ingameState = ingameStates.normal
 	menuInstance_deactivate("pause")
-	pause(pM.pauseMenu)
+	global.pause = false
 }

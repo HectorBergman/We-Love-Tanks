@@ -6,7 +6,7 @@ function clickables_main(){
 				["x", 224],["y", 160],
 				["image_xscale", 10],
 				["image_yscale", 2],
-				["action",1],
+				["action",bTypes.startGame],
 				["text","Play!"]
 			],
 			popup_createInfo(true)
@@ -28,7 +28,7 @@ function clickables_main(){
 				["x", 704],["y", 96],
 				["image_xscale", 3],
 				["image_yscale", 1],
-				["action",4],
+				["action",bTypes.test],
 				["text","Dungeon Gen Debug"]],
 			popup_createInfo(true)
 		),
@@ -38,7 +38,7 @@ function clickables_main(){
 				["x", 896],["y", 96],
 				["image_xscale", 3],
 				["image_yscale", 1],
-				["action",5],
+				["action",bTypes.startNewEditor],
 				["text","Room Editor"]],
 			popup_createInfo(true)
 		),
@@ -54,7 +54,7 @@ function clickables_pause(){
 					["y", display_get_height()/4],
 					["image_xscale", 3],
 					["image_yscale", 1],
-					["action",6],
+					["action",bTypes.stopPause],
 					["depth", -9000],
 					["text","Continue"]
 				],
