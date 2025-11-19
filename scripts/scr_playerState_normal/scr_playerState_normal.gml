@@ -10,6 +10,11 @@ function playerState_normal(){
 		inputVector[0] = 0;
 	}
 	inputVector = normalizeVector(inputVector);
+	if listenForInput("space"){
+		summonObject(obj_bomb,
+			[["x",x],["y",y],
+			 ["radius",128],["lifespan",180]])
+	}
 }
 
 function normalizeVector(vector){
