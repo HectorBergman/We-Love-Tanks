@@ -20,7 +20,8 @@ switch (explosionState){
 			print(_listSize);
 			for (var i = 0; i < _listSize; i++){
 				var _check = ds_list_find_value(collision_list,0)
-				SignalSend("bomb_found: ", string(_check));
+				print(_check);
+				SignalSend("bomb_found: " + string(_check));
 				ds_list_delete(collision_list,0);
 			}
 		}

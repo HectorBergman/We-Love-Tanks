@@ -1,4 +1,5 @@
-
+pauseMode = [pM.pauseMenu];
+collideable = true;
 SignalSubscribe(id, "bomb_found: " + string(id), function(){
 	print("found");
 	mask_index = spr_breakable_help

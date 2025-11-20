@@ -13,7 +13,7 @@ function playerState_normal(){
 	if listenForInput("space"){
 		summonObject(obj_bomb,
 			[["x",x],["y",y],
-			 ["radius",128],["lifespan",180]])
+			 ["radius",64],["lifespan",180]])
 	}
 }
 
