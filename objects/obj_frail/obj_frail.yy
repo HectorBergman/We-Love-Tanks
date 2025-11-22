@@ -1,20 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"obj_wall_breakable_bits",
+  "%Name":"obj_frail",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_wall_breakable_bits",
+  "name":"obj_frail",
   "overriddenProperties":[],
   "parent":{
-    "name":"breakable",
-    "path":"folders/Objects/wallsNStuff/breakable.yy",
+    "name":"wallsNStuff",
+    "path":"folders/Objects/wallsNStuff.yy",
   },
-  "parentObjectId":{
-    "name":"obj_frail",
-    "path":"objects/obj_frail/obj_frail.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -28,16 +25,11 @@
   "physicsShape":1,
   "physicsShapePoints":[],
   "physicsStartAwake":true,
-  "properties":[
-    {"$GMObjectProperty":"v2","%Name":"variable_name","filters":[],"listItems":[],"multiselect":false,"name":"variable_name","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":0,},
-  ],
+  "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_breakable_help",
-    "path":"sprites/spr_breakable_help/spr_breakable_help.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }
