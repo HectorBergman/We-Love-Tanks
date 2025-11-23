@@ -22,9 +22,13 @@ enum turnStates{
 	turn
 }
 
-movementState = movementStates.nothing;
+movementState_x = movementStates.nothing;
+movementState_y = movementStates.nothing;
+rot_vel = 0;
 state = playerStates.normal;
 turnState = turnStates.normal;
+horizontalMoveSpeed = 0;
+verticalMoveSpeed = 0;
 inputVector = [0,0];
 trueMovementVector = [0,0];
 
@@ -45,6 +49,8 @@ function summonEssentials(){
 }
 summonEssentials();
 fakeMovementVec = [0,0]
+timeSpentTurning = -3
+angDiff = 0;
 //initialize a bunch of variables
 playerVariables_movement()
 generalVariables();
@@ -92,7 +98,6 @@ enum collide_type{
 	none,//always last!!!
 }
 function player_handleWallCollision(){
-	print("handlerwallcoll")
 	var collideTypes_list = [[obj_wall, obj_wall_breakable, obj_enemy], [obj_wall_breakable_bits]]
 	var collideTypes_list_full = [obj_impassable, obj_enemy, obj_frail]
 	var moveX_list = ds_list_create()
@@ -134,7 +139,6 @@ function player_collision(type, collision_instance, collideTypes_list, isYMoveme
 		case collide_type.none: return false;
 			
 		case collide_type.hard:{
-			print("swag");
 			if (collision_instance.collideable && !gothruwalls){
 				var _step = sign(movementX()*!isYMovement + movementY()*isYMovement);
 				stepCollisionWhileWithFailCon(collideTypes_list[type], _step, true)

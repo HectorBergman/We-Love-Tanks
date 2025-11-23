@@ -30,11 +30,12 @@ if invincibilityFrames == 0{
 
 playerMovement_state()
 movementVector = calculateVector(movementVector, trueMovementVector, inputVector, 0.05)
+
 player_handleWallCollision()
 
 
-x += movementVector[0]*movementSpeed*ts;
-y += movementVector[1]*movementSpeed*ts;
+x += horizontalMoveSpeed*ts;
+y += verticalMoveSpeed*ts;
 
 if keyboard_check_pressed(ord("M")){
 	summonObject(obj_dollar, [["x", x], ["y", y], 

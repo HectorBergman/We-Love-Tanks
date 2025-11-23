@@ -1,72 +1,84 @@
 function playerMovement_state(){
-	movementState = movementStates.nothing
-	if listenForInput("up") || listenForInput("down") || listenForInput("left") || listenForInput("right"){
+	movementState_x = movementStates.nothing
+	movementState_y = movementStates.nothing
+	if listenForInput("left") || listenForInput("right"){
 		if listenForInput("run"){
-			movementState = movementStates.run
+			movementState_x = movementStates.run
 		}else{
-			movementState = movementStates.walk
+			movementState_x = movementStates.walk
 		}
 	}
-	switch (movementState){
-		case movementStates.run:{
-			if movementSpeed < runSpeed{
-				movementSpeed += runSpeedStep*ts
-			}else{
-				movementSpeed = runSpeed;
-			}
-		}break;
-		case movementStates.walk:{
-			if movementSpeed > regularSpeed{
-				movementSpeed -= runSpeedStep*ts
-			}else if inRange(movementSpeed, regularSpeed-0.05*ts, regularSpeed + 0.05*ts){
-				movementSpeed = regularSpeed;
-			}else{
-				movementSpeed += runSpeedStep*0.5*ts
-			}
-		}break;
-		case movementStates.nothing:{
-			if inRange(movementSpeed, -0.1,0.1*ts){
-				movementSpeed = 0
-			}else if movementSpeed > 0{
-				movementSpeed -= runSpeedStep*0.5*ts
-			}else{
-				movementSpeed += runSpeedStep*0.5*ts
+	if listenForInput("up") || listenForInput("down"){
+		if listenForInput("run"){
+			movementState_y = movementStates.run
+		}else{
+			movementState_y = movementStates.walk
+		}
+	}
+	var movementState_xy = [movementState_x, movementState_y]
+	var moveSpeed = [horizontalMoveSpeed,verticalMoveSpeed]
+	for (var i = 0; i < 2; i++){
+		switch (movementState_xy[i]){
+			case movementStates.run:{
+				var diff = regularSpeed*movementVector[i]-moveSpeed[i]
+				if sign(moveSpeed[i]) != sign(movementVector[i]) ||
+					abs(moveSpeed[i]) < abs(runSpeed*movementVector[i]){
+					moveSpeed[i] += runSpeedStep*movementVector[i]*sqrt(abs(diff))
+				}
+			}break;
+			case movementStates.walk:{
+					
+				var diff = regularSpeed*movementVector[i]-moveSpeed[i]
+				if sign(moveSpeed[i]) != sign(movementVector[i]) ||
+					abs(moveSpeed[i]) < abs(regularSpeed*movementVector[i]){
+					moveSpeed[i] += 0.1*movementVector[i]*sqrt(abs(diff))
+				}
+					
+			}break;
+			case movementStates.nothing:{
+				if inRange(moveSpeed[i], -0.1,0.1){
+					moveSpeed[i] = 0
+				}else{
+					moveSpeed[i] *= 0.9
+				}
 			}
 		}
 	}
-	switch turnState{
-		case turnStates.turn:
-			movementSpeed *= 0.9*(1/ts)
-			break;
-	}
+	horizontalMoveSpeed = moveSpeed[0]
+	verticalMoveSpeed = moveSpeed[1];
 }
 
 function calculateVector(movementVector, trueMovementVector, inputVector, turn_speed){
 	switch (state){
 	    case playerStates.normal: playerState_normal(); break;
 	}
-	
-	diffArr = [inputVector[0] - trueMovementVector[0],
-			   inputVector[1] - trueMovementVector[1]]
-
-
-	for (var i = 0; i < 2; i++){
-		if abs(diffArr[i]) < 0.05{
-			trueMovementVector[i] = inputVector[i]
-			turnState = turnStates.normal;
-		}else{
-			trueMovementVector[i] += sign(diffArr[i])*turn_speed
-			turnState = turnStates.turn;
-		}
+	switch turnState{
+		case turnStates.normal:{
+		}break;
+		case turnStates.turn:{
+		}break;
+			
 	}
-	print(trueMovementVector)
-	print(inputVector)
-	print("---")
-	var dir = point_direction(0,0,trueMovementVector[0],trueMovementVector[1])
-	movementVector = [lengthdir_x(1, dir), lengthdir_y(1, dir)];
-	print(movementVector)
+	movementVector = inputVector;
+	var angle = hitbox.image_angle
+	var goal = point_direction(0,0,movementVector[0],movementVector[1])
+	if abs(angle_difference(angle, goal)) <= 0.2{
+		hitbox.image_angle = goal;
+	}else{
+		var rot_stiffness = 20
+		var rot_damp_coeff = 30;
+		var diff = angle_difference(goal, angle);
+		var accel = diff * rot_stiffness*(1/60);
 
-	hitbox.image_angle = point_direction(0,0,movementVector[0],movementVector[1]);
+		rot_vel += accel;
+		rot_vel *= exp(-rot_damp_coeff*(1/60));
+		hitbox.image_angle += rot_vel
+		print("---");
+		print(rot_vel);
+		// Normalize angle to 0-360 range
+		hitbox.image_angle = hitbox.image_angle mod 360
+	}
+
 	return movementVector;
 	/*if abs(inputVector[0]-fakeMovementVec[0]) < 0.05{
 		fakeMovementVec[0] = inputVector[0]
