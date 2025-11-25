@@ -27,7 +27,6 @@ function allObjectVariables(isParent){
 			}
 			newArr = 
 				[["DOindex", currentDisplayObject.DOindex]]
-			print(newArr);
 		}break;
 		case false:{
 			newArr = 

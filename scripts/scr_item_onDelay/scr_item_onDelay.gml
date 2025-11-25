@@ -1,8 +1,6 @@
 //functions that trigger upon a certain delay
 
 function backJack_onDelay(fireInfo){
-	print("i am: ", id)
-	print("i want to be: ", fireInfo.id);
 	var bulletInfo = fireInfo.bulletInfo
 	var extraInfo = {
 		bulletGrowthStart: 0.3, 
@@ -24,7 +22,6 @@ function backJack_onDelay(fireInfo){
 		extraInfo
 	)
 	
-	print(fireInfo.id.object_index);
 	fireBullet(fireInfo.id, obj_bullet_player,fireInfo.id.image_angle,args,false)
 	sprite_index = spr_player_cannon_firingAnim
 }

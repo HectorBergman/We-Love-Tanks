@@ -10,7 +10,6 @@ function playerState_normal(){
 	if point_distance(0,0,testVec[0],testVec[1]) > 0{
 		inputVector = [lengthdir_x(1,test), lengthdir_y(1,test)]
 	}
-	print(inputVector);
 	
 }
 

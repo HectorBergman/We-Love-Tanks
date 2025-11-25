@@ -36,11 +36,14 @@ function playerMovement_state(){
 					
 			}break;
 			case movementStates.nothing:{
-				if inRange(moveSpeed[i], -0.1,0.1){
-					moveSpeed[i] = 0
-				}else{
-					moveSpeed[i] *= 0.9
-				}
+				if (abs(moveSpeed[i]) <= 0.2) {
+			        moveSpeed[i] = 0;
+			    } else if (abs(moveSpeed[i]) < 1.0) {
+			        moveSpeed[i] *= 0.8; //for making smaller adjustments
+			    } else {
+			        moveSpeed[i] *= 0.95;
+			    }
+    break;
 			}
 		}
 	}
@@ -62,46 +65,24 @@ function calculateVector(movementVector, trueMovementVector, inputVector, turn_s
 	movementVector = inputVector;
 	var angle = hitbox.image_angle
 	var goal = point_direction(0,0,movementVector[0],movementVector[1])
-	if abs(angle_difference(angle, goal)) <= 0.2{
+	if abs(angle_difference(angle, goal)) > 135+5{
+	}else if abs(angle_difference(angle, goal)) < 0.2{
 		hitbox.image_angle = goal;
 	}else{
-		var rot_stiffness = 20
-		var rot_damp_coeff = 30;
+		var rot_stiffness = 10
+		var rot_damp_coeff = 50;
 		var diff = angle_difference(goal, angle);
 		var accel = diff * rot_stiffness*(1/60);
 
 		rot_vel += accel;
 		rot_vel *= exp(-rot_damp_coeff*(1/60));
-		hitbox.image_angle += rot_vel
-		print("---");
-		print(rot_vel);
-		// Normalize angle to 0-360 range
-		hitbox.image_angle = hitbox.image_angle mod 360
-	}
-
-	return movementVector;
-	/*if abs(inputVector[0]-fakeMovementVec[0]) < 0.05{
-		fakeMovementVec[0] = inputVector[0]
-	}else{
-		fakeMovementVec[0] += sign(fakeMovementVec[0]-fakeMovementVec[0])*movementVectorStep
-	}
-	if abs(inputVector[1]-fakeMovementVec[1]) < 0.05{
-		fakeMovementVec[1] = inputVector[1]
-	}else{
-		fakeMovementVec[1] += sign(inputVector[1]-fakeMovementVec[1])*movementVectorStep
-	}
-	if (fakeMovementVec[0] != 0 || fakeMovementVec[1] != 0){
-		if wallBonkCooldown == 0{
-			var goalAngle = point_direction(x,y,x + fakeMovementVec[0], y + fakeMovementVec[1])
-			hitbox.image_angle = gradualPoint(goalAngle, hitbox.image_angle, turningSpeed);
-			angle = hitbox.image_angle
+		if abs(diff) < 2{
+			hitbox.image_angle = goal
 		}else{
-			wallBonkCooldown--
+			hitbox.image_angle += rot_vel
 		}
 	}
-	var goalAngle = point_direction(x,y,x + fakeMovementVec[0], y + fakeMovementVec[1])
-	movementVector = [dsin(goalAngle), dcos(goalAngle)]
-	return movementVector*/
+	return movementVector;
 }
 
 

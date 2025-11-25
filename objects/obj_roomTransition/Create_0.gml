@@ -11,6 +11,9 @@ function getTransitionFunction(){
 		switch(currentRoom_doors[roomNo][doorNo]){
 			case doorValues.open:{
 				transitionFunction = function(){
+					print("transfunc")
+					print(obj_player.x,",",obj_player.y)
+					print(x,",",y)
 					//signal to transitionHandler
 					SignalSend("transitionStart", {
 						transitionType: transitionTypes.toRoom, 
@@ -18,7 +21,9 @@ function getTransitionFunction(){
 							roomNo:roomNo,
 							doorNo:doorNo, 
 							movementVector: obj_player.movementVector,
-							store: true
+							store: true,
+							offset: [(obj_player.x-x)*(doorNo mod 2 == 1), 
+									 (obj_player.y-y)*(doorNo mod 2 == 0)],
 						},
 						transitionLengthMult : 1
 					})

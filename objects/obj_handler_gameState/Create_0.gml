@@ -36,8 +36,6 @@ SignalSubscribe(id, "changeEditorState", function(state){
 })
 
 SignalSubscribe(id, "pauseMenu", function() {
-	print("moneY")
-	print(global.pause);
     if (global.pause) {
 		menu_unpause();
     } else {

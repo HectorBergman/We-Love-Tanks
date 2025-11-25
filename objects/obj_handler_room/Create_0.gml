@@ -7,7 +7,8 @@ enterInfo = {
 	enteredRoomDoor: 0,
 	enteredRoomNo: 0,
 	enteredRoomDir: [-1,-1],
-	enteredRoomFullDoors: []
+	enteredRoomFullDoors: [],
+	enteredRoomOffset: [0,0],
 }
 currentDungeon = noone;
 currentFloor = noone;
@@ -38,7 +39,7 @@ function newDungeon(){
 		SignalSubscribe(id,"roomEntered: general", function(){
 			if enterInfo.enteredRoomDoor != -1{
 				//print("roomentranceno: " , [(enterInfo.enteredRoomDoor+2) mod 4,enterInfo.enteredRoomNo])
-				SignalSend("roomEntranceNo", [(enterInfo.enteredRoomDoor+2) mod 4,enterInfo.enteredRoomNo]);
+				SignalSend("roomEntranceNo", [(enterInfo.enteredRoomDoor+2) mod 4,enterInfo.enteredRoomNo, enterInfo.enteredRoomOffset]);
 			}
 			SignalSend("clearedStatus", currentRoom.cleared);
 			loadRoom(currentRoom)
@@ -56,7 +57,7 @@ function newDungeon(){
 
 newDungeon()
 SignalSubscribe(id,"transportRoom",function(arg){
-	enterNewRoom(arg.roomNo,arg.doorNo,arg.store);
+	enterNewRoom(arg.roomNo,arg.doorNo,arg.store, arg.offset);
 });
 SignalSubscribe(id, "Boss defeated", summonDungeonTrans);
 SignalSubscribe(id,"newDungeon",  nextLvl)
@@ -77,13 +78,14 @@ function nextLvl(){
 						roomNo:0,
 						doorNo:-1, 
 						movementVector: [0,0],
-						store: false
+						store: false,
+						offset: [0,0],
 					},
 		transitionLengthMult : 3
 	})
 }
 
-function enterNewRoom(roomNo,doorNo, store = true){
+function enterNewRoom(roomNo,doorNo, store = true, offset = [0,0]){
 	var dir = getRoomAndDoorVector(roomNo,doorNo)
 	if store{
 		storePreviousRoom([
@@ -99,16 +101,17 @@ function enterNewRoom(roomNo,doorNo, store = true){
 		checkCleared()
 	}
 	enterInfo.enteredRoomDoor = doorNo;
+	print("PENISIIIIS")
+	print(offset)
+	enterInfo.enteredRoomOffset = offset;
 	currentRoom.visited = true;
-	//var extraDiff = getRoomDiff(enterInfo.enteredRoomNo,roomNo);
-	//enterInfo.enteredRoomDoor = doorNo;
+
 	var newCoords = [currentRoom.coords[0]+dir[0], currentRoom.coords[1]+dir[1]]//+extraDiff[0],currentRoom[1]+yDirection+extraDiff[1]];
 	var newRoom = ds_grid_get(currentFloor.grid, newCoords[0], newCoords[1])
 	if inRange(newCoords[0], 0, currentFloor.dimensions[0]) && inRange(newCoords[1], 0, currentFloor.dimensions[1]) && !is_undefined(newRoom) && newRoom != noone{
-		//obj_currentRoomHandler.roomDoors = room_getAllDoors(newRoom);
+
 		gotoRoom(newRoom);
 		currentRoom = newRoom
-		//enterInfo.enteredRoomNo = newRoom.roomShapeInfo.roomNo
 	}else{
 		currentRoom = undefinedCoords;
 		forceCrash("roomOutsideBoundaries");
@@ -118,7 +121,6 @@ function enterNewRoom(roomNo,doorNo, store = true){
 	SignalSend("update: minimap")
 	
 	updateEnterInfo()
-	//isNewRoom = true;
 }
 
 function updateEnterInfo(){
