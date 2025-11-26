@@ -89,20 +89,22 @@ function enterNewRoom(roomNo,doorNo, store = true, offset = [0,0]){
 	var dir = getRoomAndDoorVector(roomNo,doorNo)
 	if store{
 		storePreviousRoom([
-			{oIndex: obj_enemy, variables:["x","y","hp","enemyType"]},
-			{oIndex: obj_item, variables:["x","y","itemId","state"]},
-			{oIndex: obj_dollar, variables:["x","y","scale","type","z","image_angle",
-				"rotation","velocity","zSpeed","movementVector","dollarState","coinState",
-				"swayX","swayY","timer","movementVectorSway","featherDir","featherVelocity",
+			{oIndex: obj_enemy,				  variables:["x","y","hp","enemyType"]},
+			{oIndex: obj_item,				  variables:["x","y","itemId","state"]},
+			{oIndex: obj_dollar,			  variables:
+				["x","y","scale","type","z","image_angle",
+				"rotation","velocity","zSpeed","movementVector",
+				"dollarState","coinState","swayX","swayY","timer",
+				"movementVectorSway","featherDir","featherVelocity",
 				"fakeX","fakeY"]},
-			{oIndex: obj_dungeonTrans, variables:["x","y"]},
-			{oIndex: obj_boss, variables:["x","y","hp","phase","type","movementVector"]}
+			{oIndex: obj_dungeonTrans,		  variables:["x","y"]},
+			{oIndex: obj_boss,				  variables:["x","y","hp","phase","type","movementVector"]},
+			{oIndex: obj_wall_breakable,	  variables:["x","y", "image_xscale", "image_yscale"]},
+			{oIndex: obj_wall_breakable_bits, variables:["x","y", "image_xscale", "image_yscale"]}
 		]);
 		checkCleared()
 	}
 	enterInfo.enteredRoomDoor = doorNo;
-	print("PENISIIIIS")
-	print(offset)
 	enterInfo.enteredRoomOffset = offset;
 	currentRoom.visited = true;
 

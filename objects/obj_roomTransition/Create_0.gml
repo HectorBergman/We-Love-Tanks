@@ -7,7 +7,7 @@ SignalSubscribe(id,"transitionEnd", function(arg){active = true;})
 transitionFunction = function(){}
 function getTransitionFunction(){
 	//todo: amend
-	SignalSubscribe(id, "currentRoom_doors_request_response", function(currentRoom_doors){
+	currentRoom_doors_request(function(currentRoom_doors){
 		switch(currentRoom_doors[roomNo][doorNo]){
 			case doorValues.open:{
 				transitionFunction = function(){
@@ -35,6 +35,5 @@ function getTransitionFunction(){
 			}break;
 		}
 	})
-	SignalSend("currentRoom_doors_request");
-	SignalUnsubscribe(id, "currentRoom_doors_request_response");
 }
+

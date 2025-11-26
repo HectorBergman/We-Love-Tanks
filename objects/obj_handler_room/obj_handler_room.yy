@@ -11,8 +11,8 @@
   "name":"obj_handler_room",
   "overriddenProperties":[],
   "parent":{
-    "name":"handlers",
-    "path":"folders/Objects/handlers.yy",
+    "name":"room",
+    "path":"folders/Objects/handlers/room.yy",
   },
   "parentObjectId":null,
   "persistent":true,
