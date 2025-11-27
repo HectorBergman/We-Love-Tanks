@@ -14,7 +14,23 @@ currentDungeon = noone;
 currentFloor = noone;
 currentRoom = noone;
 
-SignalSubscribe(id, "currentRoom_doors_request", function(){SignalSend("currentRoom_doors_request_response", enterInfo.enteredRoomFullDoors)})
+SignalSubscribe(id, "currentRoom_doors_request", function(){
+	SignalSend("currentRoom_doors_request_response", enterInfo.enteredRoomFullDoors)
+})
+SignalSubscribe(id, "currentRoom_neighbours_request", function(){
+	var arr = []
+	for (var i = 0; i < array_length(currentRoom.amalgamClaimedCoords); i++){
+		arr[i] = []
+		for (var j = 0; j < 4; j++){
+			var XY = getXY(j)
+			arr[i][j] = ds_grid_get(currentFloor.grid, 
+				currentRoom.coords[0] + XY[0], 
+				currentRoom.coords[1] + XY[1]
+			)
+		}
+	}
+	SignalSend("currentRoom_neighbours_request_response", arr)
+})
 SignalSubscribe(id, "preRandomRequest:", function(amt){
 	var randoms = [];
 	if amt > array_length(currentRoom.preRandoms){
@@ -100,7 +116,8 @@ function enterNewRoom(roomNo,doorNo, store = true, offset = [0,0]){
 			{oIndex: obj_dungeonTrans,		  variables:["x","y"]},
 			{oIndex: obj_boss,				  variables:["x","y","hp","phase","type","movementVector"]},
 			{oIndex: obj_wall_breakable,	  variables:["x","y", "image_xscale", "image_yscale"]},
-			{oIndex: obj_wall_breakable_bits, variables:["x","y", "image_xscale", "image_yscale"]}
+			{oIndex: obj_wall_breakable_bits, variables:["x","y", "image_xscale", "image_yscale"]},
+			{oIndex: obj_wall_forgetmenot,	  variables:["x","y", "image_xscale", "image_yscale"]},
 		]);
 		checkCleared()
 	}
@@ -123,6 +140,7 @@ function enterNewRoom(roomNo,doorNo, store = true, offset = [0,0]){
 	SignalSend("update: minimap")
 	
 	updateEnterInfo()
+	print(currentRoom)
 }
 
 function updateEnterInfo(){

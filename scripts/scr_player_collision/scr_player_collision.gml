@@ -5,7 +5,8 @@ enum collide_type{
 	none,//always last!!!
 }
 function player_handleWallCollision(){
-	var collideTypes_list = [[obj_wall, obj_wall_breakable, obj_enemy], [obj_wall_breakable_bits]]
+	var collideTypes_list = [[obj_wall, obj_wall_breakable, obj_enemy, obj_wall_forgetmenot], 
+							 [obj_wall_breakable_bits]]
 	var collideTypes_list_full = [obj_impassable, obj_enemy, obj_frail]
 	var moveX_list = ds_list_create()
 	instance_place_list(x + horizontalMoveSpeed, y, collideTypes_list_full, moveX_list, false)
