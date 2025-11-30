@@ -27,6 +27,7 @@ function getTransitionFunction(){
 								store: true,
 								offset: [(obj_player.x-x)*(doorNo mod 2 == 1), 
 										 (obj_player.y-y)*(doorNo mod 2 == 0)],
+								visitPrev : true
 							},
 							transitionLengthMult : 1
 						})

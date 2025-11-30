@@ -25,8 +25,14 @@ currentRoom_neighbours_request(function(currentRoom_neighbours){
 	
 
 })
-
-
+try{
+	print("blocksummonchecks: ", checkIfVisited, ", ", obj_handler_room.currentRoom.visited);
+	print("should be 1, 0")
+}catch(e){
+	print("flop");
+	print(e);
+}
+print("juj");
 if !checkIfVisited || !obj_handler_room.currentRoom.visited {
 	for (var i = 0; i < amountWidth; i += 1){
 		var widthCheck = amountWidth - i
@@ -50,3 +56,8 @@ if !checkIfVisited || !obj_handler_room.currentRoom.visited {
 		}
 	}
 }
+
+try{
+	print(obj_handler_room.currentRoom.visited)
+}catch(e){print("swag");}
+print("sus");

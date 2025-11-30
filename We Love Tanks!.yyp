@@ -174,7 +174,6 @@
     {"id":{"name":"obj_itemSpawner","path":"objects/obj_itemSpawner/obj_itemSpawner.yy",},},
     {"id":{"name":"obj_lock_boss","path":"objects/obj_lock_boss/obj_lock_boss.yy",},},
     {"id":{"name":"obj_lock","path":"objects/obj_lock/obj_lock.yy",},},
-    {"id":{"name":"obj_lvlTrans_debug","path":"objects/obj_lvlTrans_debug/obj_lvlTrans_debug.yy",},},
     {"id":{"name":"obj_menuInstance","path":"objects/obj_menuInstance/obj_menuInstance.yy",},},
     {"id":{"name":"obj_mouse","path":"objects/obj_mouse/obj_mouse.yy",},},
     {"id":{"name":"obj_onBootUp","path":"objects/obj_onBootUp/obj_onBootUp.yy",},},

@@ -128,7 +128,6 @@
     {"name":"obj_itemSpawner","order":5,"path":"objects/obj_itemSpawner/obj_itemSpawner.yy",},
     {"name":"obj_lock_boss","order":10,"path":"objects/obj_lock_boss/obj_lock_boss.yy",},
     {"name":"obj_lock","order":7,"path":"objects/obj_lock/obj_lock.yy",},
-    {"name":"obj_lvlTrans_debug","order":11,"path":"objects/obj_lvlTrans_debug/obj_lvlTrans_debug.yy",},
     {"name":"obj_menuInstance","order":2,"path":"objects/obj_menuInstance/obj_menuInstance.yy",},
     {"name":"obj_mouse","order":12,"path":"objects/obj_mouse/obj_mouse.yy",},
     {"name":"obj_onBootUp","order":4,"path":"objects/obj_onBootUp/obj_onBootUp.yy",},

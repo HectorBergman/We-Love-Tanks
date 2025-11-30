@@ -1,9 +1,6 @@
 usedPool = variable_global_get(pool + "Pool");
 
-preRandoms = [];
-getPreRandom()
-chosenIndex = usePreRandom(preRandoms) mod (array_length(usedPool)-1);
-chosenOption = usedPool[chosenIndex]
+
 
 
 depth = -200
@@ -14,6 +11,10 @@ switch (obj_handler_gameState.gameState){
 			instance_destroy();
 	
 		}else{
+			preRandoms = [];
+			getPreRandom()
+			chosenIndex = usePreRandom(preRandoms) mod (array_length(usedPool)-1);
+			chosenOption = usedPool[chosenIndex]
 			visible = true;
 			sprite_index = spr_smoke
 		}

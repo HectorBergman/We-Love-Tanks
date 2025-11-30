@@ -17,20 +17,34 @@ currentRoom = noone;
 SignalSubscribe(id, "currentRoom_doors_request", function(){
 	SignalSend("currentRoom_doors_request_response", enterInfo.enteredRoomFullDoors)
 })
+
 SignalSubscribe(id, "currentRoom_neighbours_request", function(){
 	var arr = []
-	for (var i = 0; i < array_length(currentRoom.amalgamClaimedCoords); i++){
+	var amalgamClaimedCoords = []
+	array_copy(amalgamClaimedCoords, 0, currentRoom.amalgamClaimedCoords, 0, array_length(currentRoom.amalgamClaimedCoords))
+	amalgamClaimedCoords = coord_sort_fill(amalgamClaimedCoords)
+	print("sortfill: ", amalgamClaimedCoords);
+	for (var i = 0; i < array_length(amalgamClaimedCoords); i++){
 		arr[i] = []
-		for (var j = 0; j < 4; j++){
-			var XY = getXY(j)
-			arr[i][j] = ds_grid_get(currentFloor.grid, 
-				currentRoom.coords[0] + XY[0], 
-				currentRoom.coords[1] + XY[1]
-			)
+		if !array_equals(amalgamClaimedCoords[i], [-1,-1]){
+			var val = array_find_equal(amalgamClaimedCoords, currentRoom.coords)
+			for (var j = 0; j < 4; j++){
+				
+				var XY = getXY(j)
+				XY[0] += i mod 2 - val mod 2
+				XY[1] += i div 2 - val div 2
+
+				arr[i][j] = ds_grid_get(currentFloor.grid, 
+					currentRoom.coords[0] + XY[0], 
+					currentRoom.coords[1] + XY[1]
+				)
+			}
 		}
 	}
+	
 	SignalSend("currentRoom_neighbours_request_response", arr)
 })
+
 SignalSubscribe(id, "preRandomRequest:", function(amt){
 	var randoms = [];
 	if amt > array_length(currentRoom.preRandoms){
@@ -42,38 +56,43 @@ SignalSubscribe(id, "preRandomRequest:", function(amt){
 	}
 	SignalSend("preRandomResponse:", randoms);
 })
-function newDungeon(){
-	useSeed("dungeonSeed");
-	with (obj_handler_room){
-		var startPoint = [4,1]
-		var spezRooms = [
-			createSpecialRoom("item", "normal",   posRequirement(coordsWithinRangeChebyshev_edgesOnly,[startPoint, 0,6])),
-			createSpecialRoom("boss", "elevator", posRequirement(coordsWithinRangeChebyshev_edgesOnly,[startPoint, 0,6]))
-		]
-		floorReqs = ds_list_create()
-		var oneReq = floorRequirements([6,6],startPoint,0.1,[[0,0,4,2,1], [0,0.5,4,1,1], [0,1,2,2,1], [0,1,4,1,0.5], [0,1.1,0.5,0,0]],[4,8],spezRooms)
-		SignalSubscribe(id,"roomEntered: general", function(){
-			if enterInfo.enteredRoomDoor != -1{
-				//print("roomentranceno: " , [(enterInfo.enteredRoomDoor+2) mod 4,enterInfo.enteredRoomNo])
-				SignalSend("roomEntranceNo", [(enterInfo.enteredRoomDoor+2) mod 4,enterInfo.enteredRoomNo, enterInfo.enteredRoomOffset]);
-			}
-			SignalSend("clearedStatus", currentRoom.cleared);
-			loadRoom(currentRoom)
-		})
-		ds_list_add(floorReqs, oneReq);
-		//ds_list_add(floorReqs, oneReq); //2 floors
-		currentDungeon = initiateDungeon(floorReqs);
-		currentFloor = changeFloor(currentDungeon, 0)
-		currentRoom = ds_grid_get(currentFloor.grid, currentFloor.startPoint[0],currentFloor.startPoint[1])
-		storeSeed("dungeonSeed");
-		minimapFullUpdate()
-		updateEnterInfo();
+
+SignalSubscribe(id, "roomEntered: general", function(){
+	SignalSend("clearedStatus", currentRoom.cleared);
+	loadRoom(currentRoom)
+	if enterInfo.enteredRoomDoor != -1{
+		SignalSend("roomEntranceNo", [(enterInfo.enteredRoomDoor+2) mod 4,enterInfo.enteredRoomNo, enterInfo.enteredRoomOffset]);
 	}
+})
+
+function newDungeon(){
+	print("Seed: ", global.dungeonSeed)
+	useSeed("dungeonSeed");
+
+	var startPoint = [irandom_range(1,4),irandom_range(1,4)]
+	var spezRooms = [
+		createSpecialRoom("item", "normal",   posRequirement(coordsWithinRangeChebyshev_edgesOnly,[startPoint, 0,6])),
+		createSpecialRoom("boss", "elevator", posRequirement(coordsWithinRangeChebyshev_edgesOnly,[startPoint, 0,6]))
+	]
+	floorReqs = ds_list_create()
+	var oneReq = floorRequirements([6,6],startPoint,0.1,[[0,0,4,2,1], [0,0.5,4,1,1], [0,1,2,2,1], [0,1,4,1,0.5], [0,1.1,0.5,0,0]],[4,8],spezRooms)
+	
+	ds_list_add(floorReqs, oneReq);
+	//ds_list_add(floorReqs, oneReq); //2 floors
+	currentDungeon = initiateDungeon(floorReqs);
+	currentFloor = changeFloor(currentDungeon, 0)
+	currentRoom = ds_grid_get(currentFloor.grid, currentFloor.startPoint[0],currentFloor.startPoint[1])
+	storeSeed("dungeonSeed");
+	minimapFullUpdate()
+	updateEnterInfo();
+	currentRoom.visited = false;
+	print("gaga:");
+	print(currentRoom)
 }
 
 newDungeon()
 SignalSubscribe(id,"transportRoom",function(arg){
-	enterNewRoom(arg.roomNo,arg.doorNo,arg.store, arg.offset);
+	enterNewRoom(arg.roomNo,arg.doorNo,arg.store, arg.offset, arg.visitPrev);
 });
 SignalSubscribe(id, "Boss defeated", summonDungeonTrans);
 SignalSubscribe(id,"newDungeon",  nextLvl)
@@ -96,12 +115,13 @@ function nextLvl(){
 						movementVector: [0,0],
 						store: false,
 						offset: [0,0],
+						visitPrev : false
 					},
 		transitionLengthMult : 3
 	})
 }
 
-function enterNewRoom(roomNo,doorNo, store = true, offset = [0,0]){
+function enterNewRoom(roomNo,doorNo, store = true, offset = [0,0], visitPrev = true){
 	var dir = getRoomAndDoorVector(roomNo,doorNo)
 	if store{
 		storePreviousRoom([
@@ -123,7 +143,7 @@ function enterNewRoom(roomNo,doorNo, store = true, offset = [0,0]){
 	}
 	enterInfo.enteredRoomDoor = doorNo;
 	enterInfo.enteredRoomOffset = offset;
-	currentRoom.visited = true;
+	currentRoom.visited = visitPrev;
 
 	var newCoords = [currentRoom.coords[0]+dir[0], currentRoom.coords[1]+dir[1]]//+extraDiff[0],currentRoom[1]+yDirection+extraDiff[1]];
 	var newRoom = ds_grid_get(currentFloor.grid, newCoords[0], newCoords[1])
@@ -226,6 +246,35 @@ function coord_sort(coordsArray){
 	});
 }
 
+
+function coord_sort_insert(arr){
+	if array_length(arr) == 1{
+		array_insert(arr, 1, [-1,-1], [-1,-1], [-1,-1])
+		return arr;
+	}
+	var prevCoords = arr[0]
+	
+	for (var i = 1; i < 4; i++){
+		switch i{
+			case 1:{
+				if prevCoords[0] < arr[i][0]{
+					array_insert(arr,1,[-1,-1])
+				}
+			}break;
+			case 2:{
+				if prevCoords[1] < arr[i][1]{
+					array_insert(arr,2,[-1,-1])
+				}
+			}break;
+			case 3:{
+				if array_length(arr) > 4{
+					array_insert(arr,3,[-1,-1]);
+				}
+			}
+		}
+	}
+}
+
 function gotoRoom(_room){
 	room_goto(asset_get_index("rm_roomTemplate_" + _room.roomShape[0]));
 }
@@ -240,6 +289,7 @@ function storePreviousRoom(objectIndexes){
 	}
 }
 
+
 function storeInstance(queue, instance, variables){
 	var summonArray = [];
 	for (var i = 0; i < array_length(variables); i++){
@@ -251,6 +301,8 @@ function storeInstance(queue, instance, variables){
 	}
 	ds_queue_enqueue(queue,newEntry);
 }
+
+
 function loadRoom(newRoom){
 	var insts = newRoom.loadedEntities
 	var queueLen = ds_queue_size(insts)

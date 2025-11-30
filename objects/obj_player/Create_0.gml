@@ -54,16 +54,30 @@ maxHp = 10
 hp = 1;
 displayMax = 20;
 
-
 invincibilityFrames = 90;
 invincible = false;
 
-backJackList = ds_list_create();
+
 angle = 0;
 
 breadCrumbRadius = 5;
 
 subToTriggers(object_index)
+
+SignalSubscribe(id, "playerMoved", function(){
+	var list = ds_list_create()
+	instance_place_list(x,y,obj_wall_breakable,list,false)
+	var len = ds_list_size(list)
+
+	for (var i = 0; i < len; i++){
+		print("penis");
+		var val = ds_list_find_value(list,i)
+		with val{
+			sunder()
+		}
+	}
+	ds_list_destroy(list);
+})	
 
 function death(){
 	cannon.visible = false;

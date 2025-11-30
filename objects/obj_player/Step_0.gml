@@ -4,7 +4,6 @@ PAUSE
 if keyboard_check(ord("J")) || keyboard_check_pressed(ord("K")){
 	//with obj_levelHandler{enterLevel();} (TOO FAST!)
 	global.disablePrints = true;
-	summonObject(obj_lvlTrans_debug, [["x", x], ["y", y]]);
 }else{
 	global.disablePrints = false;
 }
