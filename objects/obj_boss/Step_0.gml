@@ -1,6 +1,7 @@
 PAUSE
 hit--;
 
+
 switch(phase){
 	case bossPhase.startingUp:{
 		startUpTimer--
@@ -11,10 +12,7 @@ switch(phase){
 	case bossPhase.active:{
 		checkForDeath();
 
-		switch(type){
-			case bossTypes.testStar : testStar_step(); break;
-
-		}
+		exeStateFunc("step_", type);
 	}break;
 }
  x += movementVector[0]*movementSpeed;

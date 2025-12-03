@@ -26,26 +26,28 @@ currentRoom_neighbours_request(function(currentRoom_neighbours){
 
 })
 try{
-	print("blocksummonchecks: ", checkIfVisited, ", ", obj_handler_room.currentRoom.visited);
-	print("should be 1, 0")
+	if !checkIfVisited || !obj_handler_room.currentRoom.visited {
+		walls_summon()
+	}
 }catch(e){
-	print("flop");
-	print(e);
+	summon_objIndex = obj_wall_forgetmenot
+	walls_summon()
+		
 }
-print("juj");
-if !checkIfVisited || !obj_handler_room.currentRoom.visited {
+
+function walls_summon(){
 	for (var i = 0; i < amountWidth; i += 1){
 		var widthCheck = amountWidth - i
 		var width = 1;
 		if widthCheck < 1{
-			width = widthCheck
+			width = round(widthCheck*64)/64
 		}
 	
 		for (var j = 0; j < amountHeight; j += 1){
 			var heightCheck = amountHeight - j
 			var height = 1;
 			if heightCheck < 1{
-				height = heightCheck
+				height = round(heightCheck*64)/64
 			}
 			summonObject(summon_objIndex, 
 				[["x", x + i*base_width*scale], 
@@ -56,8 +58,3 @@ if !checkIfVisited || !obj_handler_room.currentRoom.visited {
 		}
 	}
 }
-
-try{
-	print(obj_handler_room.currentRoom.visited)
-}catch(e){print("swag");}
-print("sus");

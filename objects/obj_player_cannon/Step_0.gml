@@ -1,4 +1,10 @@
 PAUSE
+
+if keyboard_check(ord("B")){
+	bulletInfo.damage = 100
+}else{
+	bulletInfo.damage = 3
+}
 pickupMoney();
 x = parent.x
 y = parent.y
