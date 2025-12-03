@@ -38,7 +38,6 @@ if (truthStatement){ //hover over button
 				break;
 			case bTypes.stopPause:
 				SignalSend("pauseMenu")
-				print("puase")
 				//room_goto(rm_editorRoom_test);
 				break;
 		}

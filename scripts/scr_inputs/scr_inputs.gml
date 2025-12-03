@@ -62,7 +62,5 @@ function input_init(){
 	        delete:     { func: function(){ return keyboard_check_pressed(vk_delete); } }
 		}
 	}
-	//input_reset()
-	print(global.inputs);
 }
 

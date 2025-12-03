@@ -1,15 +1,16 @@
 function playerState_normal(){
+	var testVec = [0,0]
 	if listenForInput("down") || listenForInput("up"){
-		inputVector[1] = (listenForInput("down")-listenForInput("up"));
-	}else{
-		inputVector[1] = 0;
+		testVec[1] = (listenForInput("down")-listenForInput("up"));
 	}
 	if listenForInput("left") || listenForInput("right"){
-		inputVector[0] = (listenForInput("right")-listenForInput("left"));
-	}else{
-		inputVector[0] = 0;
+		testVec[0] = (listenForInput("right")-listenForInput("left"));
 	}
-	inputVector = normalizeVector(inputVector);
+	var test = point_direction(0, 0, testVec[0], testVec[1])
+	if point_distance(0,0,testVec[0],testVec[1]) > 0{
+		inputVector = [lengthdir_x(1,test), lengthdir_y(1,test)]
+	}
+	
 }
 
 function normalizeVector(vector){

@@ -5,7 +5,7 @@ pauseMode = parent.pauseMode
 x = parent.x
 y = parent.y
 bulletInfo = bulletInfo_create(
-	100,
+	3,
 	1,
 	1,
 	2,

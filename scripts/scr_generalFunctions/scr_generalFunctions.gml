@@ -389,3 +389,16 @@ function point_to_segment_distance(segmentPoint1, segmentPoint2, point, obstacle
     // Otherwise return the true shortest distance
     return point_distance(px, py, cx, cy);
 }
+
+function array_find_equal(list, target) {
+    var count = array_length(list);
+    var target_len = array_length(target);
+
+    for (var i = 0; i < count; i++) {
+        var arr = list[i];
+
+        if array_equals(arr, target) return i; // Found exact match
+    }
+
+    return -1; // Not found
+}

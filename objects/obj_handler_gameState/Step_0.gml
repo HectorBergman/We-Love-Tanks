@@ -4,7 +4,6 @@ switch gameState{
 		switch (ingameState){
 			case ingameStates.dead:{
 				if listenForInput("space"){
-					print("dub");
 					returnToMainMenu()
 				}
 			}break;

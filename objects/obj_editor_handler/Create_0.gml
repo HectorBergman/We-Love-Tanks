@@ -189,7 +189,7 @@ function destroyEditorObjects(){
 	instance_destroy(obj_editor_itemInstance);
 }
 
-summonMenuObjects();
+//summonMenuObjects();
 
 
 function checkForModeSwitchRequest(){

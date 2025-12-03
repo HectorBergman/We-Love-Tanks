@@ -20,7 +20,7 @@ valueRange = [110,130];
 //customizable probably
 createCannon = true;
 movementSpeed = 1;
-type = stringToEnum(bossType);
+type = bossType;
 pointInMoveDir = true;
 hp = 100;
 function movementX(){
@@ -31,11 +31,8 @@ function movementY(){
 }
 movementVector = [0,0];
 
+exeStateFunc("create_", type)
 
-switch(type){
-	case bossTypes.testStar : testStar_create(); break;
-	//case enemyTypes.stiffNormal: stiffNormal_create(); break;
-}
 
 
 hitbox = summonObject(obj_boss_hitbox, [["parent", id]]);

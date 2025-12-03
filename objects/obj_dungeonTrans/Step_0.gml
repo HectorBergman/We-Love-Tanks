@@ -1,4 +1,4 @@
-if active && place_meeting(x,y,obj_player) && obj_handler_input.interact{
+if active && place_meeting(x,y,obj_player) && listenForInput("interact"){
 	active = false;
 	SignalSend("newDungeon");
 }

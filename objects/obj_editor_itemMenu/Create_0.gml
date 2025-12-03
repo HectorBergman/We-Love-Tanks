@@ -89,7 +89,6 @@ function activateMenu(){
 function initiateDisplayObjects(){
 	for (var i = 0; i < ds_list_size(global.displayObjects); i++) {
 	    currentDisplayObject = ds_list_find_value(global.displayObjects,i);
-		print(currentDisplayObject);
 		var summonStruct = 
 			[["coordsOffset", [32+(i mod 4)*64,64+(floor(i/4)*64)]], 
 			["depth", depth-1],

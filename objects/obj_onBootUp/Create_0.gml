@@ -12,7 +12,7 @@ global.__signals = new SignalController();
 
 //print(randomize());
 //223416234
-global.dungeonSeed = 1020381396//random_get_seed();
+global.dungeonSeed = 1013759533//2911830160//1020381396//random_get_seed();
 random_set_seed(global.dungeonSeed);
 
 global.currentSeed = global.dungeonSeed;
@@ -50,7 +50,7 @@ global.itemRoomPool = getItemPool("itemRoom");
 
 
 global.enemyTypes = ["stiffNoone","stiffNormal","braveheartNormal","stiffRicochet","tinyman","stiffBuckshot"]
-global.bossTypes = ["testStar"]
+global.bossTypes = ["testStar", "helicopter"]
 global.roomTypes = ["standard","item","boss","nextFloor", "debug"]; 
 global.roomSubtypes_dict = {standard: ["normal"], item: ["normal"], boss: ["normal","elevator"], nextFloor: ["normal"]}
 global.roomSubtypes = global.roomSubtypes_dict.standard;

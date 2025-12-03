@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_helicopter",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_helicopter",
+  "parent":{
+    "name":"testboss",
+    "path":"folders/Objects/enemy/bosses/testboss.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

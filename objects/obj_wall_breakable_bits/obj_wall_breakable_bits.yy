@@ -1,18 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"obj_lvlTrans_debug",
+  "%Name":"obj_wall_breakable_bits",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_lvlTrans_debug",
+  "name":"obj_wall_breakable_bits",
   "overriddenProperties":[],
   "parent":{
-    "name":"wallsNStuff",
-    "path":"folders/Objects/wallsNStuff.yy",
+    "name":"breakable",
+    "path":"folders/Objects/wallsNStuff/breakable.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_frail",
+    "path":"objects/obj_frail/obj_frail.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -27,8 +29,7 @@
   "physicsShapePoints":[],
   "physicsStartAwake":true,
   "properties":[
-    {"$GMObjectProperty":"v2","%Name":"xDiff","filters":[],"listItems":[],"multiselect":false,"name":"xDiff","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":1,},
-    {"$GMObjectProperty":"v2","%Name":"yDiff","filters":[],"listItems":[],"multiselect":false,"name":"yDiff","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":1,},
+    {"$GMObjectProperty":"v2","%Name":"variable_name","filters":[],"listItems":[],"multiselect":false,"name":"variable_name","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":0,},
     {"$GMObjectProperty":"v2","%Name":"roomNo","filters":[],"listItems":[],"multiselect":false,"name":"roomNo","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":1,},
     {"$GMObjectProperty":"v2","%Name":"doorNo","filters":[],"listItems":[],"multiselect":false,"name":"doorNo","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":1,},
   ],
@@ -36,8 +37,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_intersection",
-    "path":"sprites/spr_intersection/spr_intersection.yy",
+    "name":"spr_breakable_help",
+    "path":"sprites/spr_breakable_help/spr_breakable_help.yy",
   },
   "spriteMaskId":null,
   "visible":true,

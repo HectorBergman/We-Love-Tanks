@@ -21,6 +21,7 @@ function dropMoney(valueRange){
 	for (var i = 0; i < 5; i++){
 		for (var j = 0; j < (amtArr[i]); j++){
 			var zSpeed = 0;
+			var val = 1
 			if val >= 1{
 				zSpeed = random_range(-3,-6);
 			}else{

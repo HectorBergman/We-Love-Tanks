@@ -36,19 +36,13 @@ SignalSubscribe(id, "transitionStart", function(arg){
 	tMult = tMultBase*arg.transitionLengthMult
 	transitionType = arg.transitionType;
 	transitionStruct = arg.transitionStruct
+	transitionSignal = function(){
+		SignalSend("transportRoom", transitionStruct)
+		ds_list_add(delayNewRoom, "newRoom")
+	}
 	switch transitionType{
-		case (transitionTypes.toRoom):{
-			transitionSignal = function(){
-				SignalSend("transportRoom", transitionStruct)
-				ds_list_add(delayNewRoom, "newRoom")
-			}
-		}break;
-		case (transitionTypes.newDungeon):{
-			transitionSignal = function(){
-				SignalSend("transportRoom", transitionStruct)
-				ds_list_add(delayNewRoom, "newRoom")
-			}
-		}break;
+		case (transitionTypes.toRoom):{}break;
+		case (transitionTypes.newDungeon):{}break;
 	}
 	global.transitionPause = true;
 	tP = transitionPhase.start;

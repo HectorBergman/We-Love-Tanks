@@ -1,6 +1,7 @@
 PAUSE
 
 
+
 /*if instance_exists(obj_currentRoomHandler){
 	var relevantDoor = obj_currentRoomHandler.roomDoors[roomNo][_direction]
 	if relevantDoor == doorValues.open ||
