@@ -1,4 +1,5 @@
 function create_helicopter(){
+	depth = -9999
 	sprite_index = spr_helicopter
 	states_heli = createStates("normal", "relocate");
 	state_heli = states_heli.normal;
@@ -6,26 +7,38 @@ function create_helicopter(){
 	states_heli_normal = createStates("normal", "dodge");
 	state_heli_normal = states_heli_normal.normal;
 	
-	dir = random_range(0,360);
-	movementVector = [lengthdir_x(1,dir),lengthdir_y(1,dir)]
+	movementVector = [0,0]
 	velocity = 3;
 	timer_randomNoise = 0;
 
-	freq_x = 0.04;
-	freq_y = 0.02;
+	freq = [0.04,0.02];
 
-	amp_x  = 3;
-	amp_y  = 4;
+	amp	 = [3,4];
 	dodgeDiff = [0,0]
 	
-	dodgeSpeed = 3;
-	moveSpeed_max = 3;
-	moveSpeed = 0
+	moveInfo = {
+		normal:{
+			moveSpeed_max : 3,
+			acceleration : 0.1,
+		},
+		dodge:{
+			moveSpeed_max : 5,
+			acceleration : 0.4,
+		},
+	}
+	
+	moveSpeed = [0,0]
 	goalCoords = [x,y]
-	homeCoords = [irandom_range(50,room_width-50), irandom_range(25,room_height-25)]
+	homeCoords = [irandom_range(100,room_width-100), irandom_range(50,room_height-50)]
 	diff = [0,0];
 	
 	angle = 0;
+	
+	noise = [0,0]
+	
+	coords = [x,y];
+	
+	targetBullet = noone;
 	
 	enum movementStates_heli{
 		normal,
@@ -42,26 +55,28 @@ function step_helicopter(){
 function helicopter_normal(){
 	hitbox.image_angle = point_direction(x,y,obj_player.x,obj_player.y);
 	timer_randomNoise += ts
+	noise[0] = amp[0] * (sin(freq[0] * timer_randomNoise) + sin(pi * freq[0] * 0.5 * timer_randomNoise));
+	noise[1] = amp[1] * (sin(freq[1] * timer_randomNoise) + sin(pi * freq[1] * 0.5 * timer_randomNoise));
 	define_movementState()
-	//noise_x = amp_x * (sin(freq_x * timer_randomNoise) + sin(pi * freq_x * 0.5 * timer_randomNoise));
-	//noise_y = amp_y * (sin(freq_y * timer_randomNoise) + sin(pi * freq_y * 0.5 * timer_randomNoise));
+
 	exeStateFunc("helicopter_normal_",state_heli_normal);
 	
-	print("goalcoords: ", goalCoords);
-	print("angle: ", angle);
+	print("moveSpeed: ", moveSpeed)
 
-	if abs(diff[0]) > moveSpeed {
-		x = x + lengthdir_x(moveSpeed, angle)
+	if abs(diff[0]) > moveSpeed[0] {
+		coords[0] = coords[0] + moveSpeed[0]
 	}else{
-		x = goalCoords[0]
+		coords[0] = goalCoords[0]
 	}
 	
-	if abs(diff[1]) > moveSpeed {
-		y = y + lengthdir_y(moveSpeed, angle)
+	if abs(diff[1]) > moveSpeed[1] {
+		coords[1] = coords[1] + moveSpeed[1]
 	}else{
-		y = goalCoords[1]
+		coords[1] = goalCoords[1]
 	}
 	
+	x = coords[0] + noise[0]
+	y = coords[1] + noise[1]
 }
 
 function helicopter_normal_normal(){
@@ -70,16 +85,34 @@ function helicopter_normal_normal(){
 	
 	var bullet = findNearestBullet()
 	if !is_undefined(bullet){
+		targetBullet = bullet;
 		print("bullet found: ", bullet)
-		state_heli_normal = states_heli_normal.dodge	
+		state_heli_normal = states_heli_normal.dodge
+		var test = [room_width/2, room_height/2]
+		var angle1 = (point_direction(0, 0, bullet.movementVector[0], bullet.movementVector[1]) + 90) mod 360
+		var angle2 = (point_direction(0, 0, bullet.movementVector[0], bullet.movementVector[1]) - 90) mod 360
+		var lol1 = angle_difference(point_direction(x,y,test[0],test[1]), angle1)
+		var lol2 = angle_difference(point_direction(x,y,test[0],test[1]), angle1)
+		if lol1 < lol2{
+			angle = angle1
+		}else{
+			angle = angle2
+		}
+		diff = [goalCoords[0] - x, goalCoords[1] - y]
+		return;
 	}
 	diff = [goalCoords[0] - x, goalCoords[1] - y]
-	angle = (point_direction(x, y, x + diff[0], y + diff[1]) - 180) mod 360;
+	angle = (point_direction(x, y, x + diff[0], y + diff[1])) mod 360;
+	print(angle)
 
 }
 
 function define_movementState(){
 	var movementState_xy = [movementState_x, movementState_y]
+	var _angle = point_direction(x,y,goalCoords[0],goalCoords[1])
+	movementVector = [lengthdir_x(1,_angle), lengthdir_y(1,_angle)]
+	print("goalCoords: ", goalCoords);
+	print("trucoords: ", [x,y]);
 	for (var i = 0; i < 2; i++){
 		if point_distance(x * (i == 0), y * (i == 1), 
 						  goalCoords[0] * (i == 0), goalCoords[1] * (i == 1)) < 1{
@@ -95,50 +128,55 @@ function define_movementState(){
 		}
 	}
 	
-	
+	var mI = variable_struct_get(moveInfo, state_heli_normal);
 	for (var i = 0; i < 2; i++){
 		switch (movementState_xy[i]){
 			case movementStates_heli.normal:{
 					
-				var diff = moveSpeed_max*movementVector[i]-moveSpeed
-				if sign(moveSpeed) != sign(movementVector[i]) ||
-					abs(moveSpeed) < abs(moveSpeed_max*movementVector[i]){
-					moveSpeed += 0.1*movementVector[i]*sqrt(abs(diff))
+				var diff = mI.moveSpeed_max*movementVector[i] - moveSpeed[i]
+				if sign(moveSpeed[i]) != sign(movementVector[i]) ||
+					abs(moveSpeed[i]) < abs(mI.moveSpeed_max*movementVector[i]){
+					print("isY : ", i, " movementVector[i]: ", movementVector[i]);
+					moveSpeed[i] += mI.acceleration*movementVector[i]*sqrt(abs(diff))*ts
 				}
 					
 			}break;
 			case movementStates_heli.slowing:{
-				if (abs(moveSpeed) < 1.0) {
-			        moveSpeed *= 0.8; 
+				if (abs(moveSpeed[i]) < 1.0) {
+			        moveSpeed[i] *= 0.8*ts; 
 			    } else {
-			        moveSpeed *= 0.95;
+			        moveSpeed[i] *= 0.95*ts;
 			    }
 			}break;
 			case movementStates_heli.stopped:{
-				//x = goalCoords[0];
-				//y = goalCoords[1];
-				moveSpeed = 0;
+
+				moveSpeed[i] = 0;
 			}
 		}
 	}
 }
 
 function helicopter_normal_dodge(){
+	print("dodge");
 	var bullet = findNearestBullet()
 	if is_undefined(bullet){
 		state_heli_normal = states_heli_normal.normal
 		return;
+	}else if bullet != targetBullet{
+		angle = (point_direction(x, y, bullet.x, bullet.y) - 90) mod 360
 	}
 
-	angle = point_direction(x, y, bullet.x, bullet.y)
+	
 	var vector = [lengthdir_x(1, angle), lengthdir_y(1, angle)]
 	goalCoords = [x + vector[0] * 1000, y + vector[1] * 1000]
+
 	diff = [goalCoords[0] - x, goalCoords[1] - y]
 
 
 }
 
-function findNearestBullet(radius = 100){
+
+function findNearestBullet(radius = 90){
 	var list = ds_list_create();
 	collision_circle_list(x, y, radius, obj_bullet_player, false, true, list, true);
 	var bullet = ds_list_find_value(list,0)
