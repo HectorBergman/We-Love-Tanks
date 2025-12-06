@@ -1,5 +1,6 @@
 function create_helicopter(){
-	depth = -9999
+	depth = -999
+
 	sprite_index = spr_helicopter
 	states_heli = createStates("normal", "relocate");
 	state_heli = states_heli.normal;
@@ -20,10 +21,14 @@ function create_helicopter(){
 		normal:{
 			moveSpeed_max : 3,
 			acceleration : 0.1,
+			decceleration1 : 0.95,
+			decceleration2 : 0.8,
 		},
 		dodge:{
 			moveSpeed_max : 5,
 			acceleration : 0.4,
+			decceleration1 : 0.8,
+			decceleration2: 0.5,
 		},
 	}
 	
@@ -89,14 +94,23 @@ function helicopter_normal_normal(){
 		print("bullet found: ", bullet)
 		state_heli_normal = states_heli_normal.dodge
 		var test = [room_width/2, room_height/2]
-		var angle1 = (point_direction(0, 0, bullet.movementVector[0], bullet.movementVector[1]) + 90) mod 360
-		var angle2 = (point_direction(0, 0, bullet.movementVector[0], bullet.movementVector[1]) - 90) mod 360
-		var lol1 = angle_difference(point_direction(x,y,test[0],test[1]), angle1)
-		var lol2 = angle_difference(point_direction(x,y,test[0],test[1]), angle1)
+		var closestPoint = closestPointOfLine(bullet)
+		
+		var counterClockwise = point_direction(0, 0, -bullet.movementVector[1], bullet.movementVector[0])
+		var clockwise = point_direction(0, 0, bullet.movementVector[1], -bullet.movementVector[0])
+		
+		var lol1 = point_distance(x + -bullet.movementVector[1], 
+								  y + bullet.movementVector[0],
+								  closestPoint[0], closestPoint[1]
+		)
+		var lol2 = point_distance(x + bullet.movementVector[1], 
+								  y + -bullet.movementVector[0],
+								  closestPoint[0], closestPoint[1]
+		)
 		if lol1 < lol2{
-			angle = angle1
+			angle = counterClockwise
 		}else{
-			angle = angle2
+			angle = clockwise
 		}
 		diff = [goalCoords[0] - x, goalCoords[1] - y]
 		return;
@@ -143,9 +157,9 @@ function define_movementState(){
 			}break;
 			case movementStates_heli.slowing:{
 				if (abs(moveSpeed[i]) < 1.0) {
-			        moveSpeed[i] *= 0.8*ts; 
+			        moveSpeed[i] *= mI.decceleration2*ts; 
 			    } else {
-			        moveSpeed[i] *= 0.95*ts;
+			        moveSpeed[i] *= mI.decceleration1*ts;
 			    }
 			}break;
 			case movementStates_heli.stopped:{
@@ -182,4 +196,23 @@ function findNearestBullet(radius = 90){
 	var bullet = ds_list_find_value(list,0)
 	ds_list_destroy(list)
 	return bullet;
+}
+
+function closestPointOfLine(bullet){
+	var diff = [x - bullet.x, y - bullet.y];
+
+	// dot products
+	var dot_wv = diff[0]*bullet.movementVector[0] + diff[1]*bullet.movementVector[1];
+	var dot_vv = bullet.movementVector[0]*bullet.movementVector[0] + 
+				 bullet.movementVector[1]*bullet.movementVector[1];
+
+	var t = dot_wv / dot_vv;
+
+	// closest point
+	var closest = [
+	    bullet.x + diff[0] * t,
+	    bullet.y + diff[1] * t
+	];
+	
+	return closest;
 }
