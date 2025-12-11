@@ -1,5 +1,6 @@
 
 function helicopter_basic(){
+	print("instance_exist hitbox: ", instance_exists(hitbox))
 	hitbox.image_angle = point_direction(x,y,obj_player.x,obj_player.y);
 	timer_randomNoise += ts
 	noise[0] = amp[0] * (sin(freq[0] * timer_randomNoise) + sin(pi * freq[0] * 0.5 * timer_randomNoise));

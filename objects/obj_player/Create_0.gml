@@ -38,7 +38,7 @@ activeBullets = [];
 
 function summonEssentials(){
 	cannon = summonObject(obj_player_cannon, [["parent", id], ["depth", depth-1]]);
-	hitbox = summonObject(obj_player_visual, [["parent", id], ["cannon", cannon]]);
+	hitbox = summonObject(obj_player_hitbox, [["parent", id], ["cannon", cannon]]);
 	crosshair = summonObject(obj_crosshair);
 	//?
 }

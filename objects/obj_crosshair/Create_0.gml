@@ -1,2 +1,3 @@
+#macro depth_crosshair -999
 pauseMode = [pM.editor,pM.pauseMenu];
-depth = -999
+depth = depth_crosshair

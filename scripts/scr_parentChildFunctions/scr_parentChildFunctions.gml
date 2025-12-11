@@ -3,7 +3,7 @@ function hitOpponent(ownObject){
 	if ownObject == obj_bullet_player{
 		target = [obj_enemy_hitbox, obj_boss_hitbox]
 	}else if ownObject == obj_bullet_enemy{
-		target = obj_player_visual
+		target = obj_player_hitbox
 	}
 	var enemyHit = instance_place(x,y,target)
 	if enemyHit != noone {

@@ -10,7 +10,9 @@ switch(phase){
 		}
 	}break;
 	case bossPhase.active:{
-		checkForDeath();
+		if checkForDeath(){
+			exit;
+		}
 
 		exeStateFunc("step_", type);
 	}break;

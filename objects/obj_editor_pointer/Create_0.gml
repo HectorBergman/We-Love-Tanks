@@ -1,5 +1,6 @@
+#macro depth_pointer -500
 isActive = true;
-depth = -500;
+depth = depth_pointer;
 
 	
 enum clickTypes{

@@ -1,17 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"obj_bullet_findRicochet",
+  "%Name":"obj_explosion_enemy",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":12,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_bullet_findRicochet",
+  "name":"obj_explosion_enemy",
   "overriddenProperties":[],
   "parent":{
-    "name":"bullets",
-    "path":"folders/Objects/bullets.yy",
+    "name":"bombs",
+    "path":"folders/Objects/bombs.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -27,14 +27,16 @@
   "physicsShape":1,
   "physicsShapePoints":[],
   "physicsStartAwake":true,
-  "properties":[],
+  "properties":[
+    {"$GMObjectProperty":"v2","%Name":"lifespan","filters":[],"listItems":[],"multiselect":false,"name":"lifespan","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"60","varType":0,},
+  ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_bullet_enemy",
-    "path":"sprites/spr_bullet_enemy/spr_bullet_enemy.yy",
+    "name":"spr_explosion",
+    "path":"sprites/spr_explosion/spr_explosion.yy",
   },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }

@@ -1,5 +1,5 @@
 function create_helicopter(){
-	depth = -999
+	depth = depth_crosshair+1
 
 	sprite_index = spr_helicopter
 	states_heli = createStates("normal", "relocate");
