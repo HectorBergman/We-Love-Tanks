@@ -1,5 +1,4 @@
 if place_meeting(x,y,obj_player){
-	print("colliding");
 	ds_list_add(actionList,setLock);
 	setLock(false);
 }

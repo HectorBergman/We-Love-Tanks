@@ -1,4 +1,5 @@
 PAUSE
+
 ds_list_add(pathPoints, [x, y]);
 if !place_meeting(x,y,obj_player_cannon){
 	depth = -99;
@@ -29,6 +30,7 @@ if (keyboard_check(vk_space)){
 
 if (slowmovin mod 60 == 0){
 	lifeTime++
+
 	exeStateFunc("growth_", growthState)
 	exeStateFunc("bullet_",state);
 	

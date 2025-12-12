@@ -54,7 +54,9 @@ function death(){
 }
 
 function decreaseHealth(amount){
-	print("decreasinghealth");
+	if amount == 0{
+		return;
+	}
 	if phase != bossPhase.startingUp{
 		hp -= amount;
 	}

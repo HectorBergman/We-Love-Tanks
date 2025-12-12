@@ -8,6 +8,8 @@ function create_helicopter(){
 	states_heli_attack = createStates("idle", "rockets", "spread");
 	state_heli_attack = states_heli_attack.idle;
 	
+	states_heli_attacksOnly = createStates("rockets", "spread");
+	
 	states_heli_movement = createStates("normal", "dodge");
 	state_heli_movement = states_heli_movement.normal;
 	
@@ -37,7 +39,7 @@ function create_helicopter(){
 	
 	attackInfo = {
 		timer : 0,
-		timerMax : 300,
+		timerMax : 30,
 	}
 	moveSpeed = [0,0]
 	goalCoords = [x,y]

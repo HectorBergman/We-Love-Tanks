@@ -106,7 +106,7 @@
     {"name":"obj_enemy","order":6,"path":"objects/obj_enemy/obj_enemy.yy",},
     {"name":"obj_enemySpawner","order":2,"path":"objects/obj_enemySpawner/obj_enemySpawner.yy",},
     {"name":"obj_explosion_enemy","order":3,"path":"objects/obj_explosion_enemy/obj_explosion_enemy.yy",},
-    {"name":"obj_explosion_player","order":2,"path":"objects/obj_explosion_player/obj_explosion_player.yy",},
+    {"name":"obj_explosion_player","order":4,"path":"objects/obj_explosion_player/obj_explosion_player.yy",},
     {"name":"obj_explosion","order":1,"path":"objects/obj_explosion/obj_explosion.yy",},
     {"name":"obj_frail","order":15,"path":"objects/obj_frail/obj_frail.yy",},
     {"name":"obj_gridSpawner","order":3,"path":"objects/obj_gridSpawner/obj_gridSpawner.yy",},

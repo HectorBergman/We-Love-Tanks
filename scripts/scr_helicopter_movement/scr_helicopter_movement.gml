@@ -1,6 +1,6 @@
 
 function helicopter_basic(){
-	print("instance_exist hitbox: ", instance_exists(hitbox))
+
 	hitbox.image_angle = point_direction(x,y,obj_player.x,obj_player.y);
 	timer_randomNoise += ts
 	noise[0] = amp[0] * (sin(freq[0] * timer_randomNoise) + sin(pi * freq[0] * 0.5 * timer_randomNoise));
@@ -50,7 +50,7 @@ function helicopter_normal_normal(){
 	var bullet = findNearestBullet()
 	if !is_undefined(bullet){
 		targetBullet = bullet;
-		print("bullet found: ", bullet)
+
 		state_heli_movement = states_heli_movement.dodge
 		var test = [room_width/2, room_height/2]
 		var closestPoint = closestPointOfLine(bullet)
@@ -76,7 +76,6 @@ function helicopter_normal_normal(){
 	}
 	diff = [goalCoords[0] - x, goalCoords[1] - y]
 	angle = (point_direction(x, y, x + diff[0], y + diff[1])) mod 360;
-	print(angle)
 
 }
 
@@ -84,20 +83,15 @@ function define_movementState(){
 	var movementState_xy = [movementState_x, movementState_y]
 	var _angle = point_direction(x,y,goalCoords[0],goalCoords[1])
 	movementVector = [lengthdir_x(1,_angle), lengthdir_y(1,_angle)]
-	print("goalCoords: ", goalCoords);
-	print("trucoords: ", [x,y]);
 	for (var i = 0; i < 2; i++){
 		if point_distance(x * (i == 0), y * (i == 1), 
 						  goalCoords[0] * (i == 0), goalCoords[1] * (i == 1)) < 1{
 			movementState_xy[i] = movementStates_heli.stopped;
-			print("stopped");
 		}else if point_distance(x * (i == 0), y * (i == 1), 
 							    goalCoords[0] * (i == 0), goalCoords[1] * (i == 1)) < 20{
 			movementState_xy[i] = movementStates_heli.slowing;
-			print("slowing")
 		}else{
 			movementState_xy[i] = movementStates_heli.normal;
-			print("normal");
 		}
 	}
 	
@@ -109,7 +103,6 @@ function define_movementState(){
 				var diff = mI.moveSpeed_max*movementVector[i] - moveSpeed[i]
 				if sign(moveSpeed[i]) != sign(movementVector[i]) ||
 					abs(moveSpeed[i]) < abs(mI.moveSpeed_max*movementVector[i]){
-					print("isY : ", i, " movementVector[i]: ", movementVector[i]);
 					moveSpeed[i] += mI.acceleration*movementVector[i]*sqrt(abs(diff))*ts
 				}
 					
@@ -130,7 +123,6 @@ function define_movementState(){
 }
 
 function helicopter_normal_dodge(){
-	print("dodge");
 	var bullet = findNearestBullet()
 	if is_undefined(bullet){
 		state_heli_movement = states_heli_movement.normal

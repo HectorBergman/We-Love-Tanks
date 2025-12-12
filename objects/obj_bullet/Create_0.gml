@@ -1,5 +1,6 @@
 #macro bSpeedTs bulletSpeed*ts
 
+
 depth = parent.depth+1
 visible = false;
 pauseMode = allPause
@@ -132,10 +133,20 @@ function death(){
 	if increaseCount && instance_exists(parent){
 		parent.activeBullets--;
 	}
+	enemyTriggers_trigger("death")
 	instance_destroy()
 	exit;
 }
 
+function enemyTriggers_trigger(name){
+	if object_index == obj_bullet_enemy{
+		if variable_instance_exists(id, "enemyTriggers_" + name){
+			for (var i = 0; i < array_length(variable_instance_get(id, "enemyTriggers_" + name)); i++){
+				variable_instance_get(id, "enemyTriggers_" + name)[i]()
+			}
+		}
+	}
+}
 
 
 function bullet_tick(step = 1){
@@ -153,6 +164,7 @@ function bullet_tick(step = 1){
 		pickupMoney();
 		SignalSend("onBulletTravel", {id : id});
 	}
+	enemyTriggers_trigger("tick")
 	
 	image_angle = point_direction(x,y,x+movementVector[0],y+movementVector[1]);
 	x += movementX()*ts*step;
@@ -162,7 +174,7 @@ function bullet_tick(step = 1){
 function bullet_checkForRico(){
 	var rico = findRicochet(movementVector, bSpeedTs, 3, 1, 5)	
 	if rico.angle != -1{
-		if bInfo.bounces == 0{
+		if bInfo.bounces <= 0{
 			state = states.dying;
 			bullet_tick()
 		}else{
