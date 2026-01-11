@@ -131,7 +131,7 @@ function playerFire(){
 		bulletInfo.durability,
 		extraInfo
 	)
-	var bullet = fireBullet(id,obj_bullet_player,image_angle, args)
+	var bullet = fireBullet(id, obj_bullet_player, image_angle, args)
 	ds_queue_enqueue(barrelQueue, bullet)
 	barrelBulges[0][array_length(barrelBulges[0])] = bullet
 }

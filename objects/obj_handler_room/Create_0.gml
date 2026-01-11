@@ -134,7 +134,7 @@ function enterNewRoom(roomNo,doorNo, store = true, offset = [0,0], visitPrev = t
 				"movementVectorSway","featherDir","featherVelocity",
 				"fakeX","fakeY"]},
 			{oIndex: obj_dungeonTrans,		  variables:["x","y"]},
-			{oIndex: obj_boss,				  variables:["x","y","hp","phase","type","movementVector"]},
+			{oIndex: obj_boss,				  variables:["x","y","hp","phase","type","movementVector", "bossType"]},
 			{oIndex: obj_wall_breakable,	  variables:["x","y", "image_xscale", "image_yscale"]},
 			{oIndex: obj_wall_breakable_bits, variables:["x","y", "image_xscale", "image_yscale"]},
 			{oIndex: obj_wall_forgetmenot,	  variables:["x","y", "image_xscale", "image_yscale"]},

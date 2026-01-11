@@ -66,21 +66,25 @@ function determineIfWithinBoxCone(wall, quadrant, objectCoords, acceptableAngleD
 
 
 function fireBullet(instance, bulletObj, angle, extraArgs = {}, increaseCount = true){
-	if instance == noone || is_undefined(instance){
+	if instance == noone || is_undefined(instance) || !instance_exists(instance){
 		forceCrash("bullet needs parent, parent: " + string(instance))
 	}
+	print(angle);
+	
 	var summonArray = 
-		[
+	[
 		 ["parent",instance], 
 		 ["movementVector", [dcos(angle),-dsin(angle)]], 
 		 ["increaseCount", increaseCount]
-		];
+	];
+	
 	var keys = variable_struct_get_names(extraArgs)
 	for (var i = 0; i < array_length(keys); i++) {
 	    var key = keys[i];
 	    var value = variable_struct_get(extraArgs, key);
 		summonArray[i+3] = [key,value]
 	}
+	print(summonArray)
 	var bullet = summonObject(bulletObj, summonArray);
 	if increaseCount{
 		instance.activeBullets++;

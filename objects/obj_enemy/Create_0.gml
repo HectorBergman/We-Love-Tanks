@@ -53,6 +53,9 @@ function death(){
 }
 
 function decreaseHealth(amount){
+	if amount == 0{
+		return;
+	}
 	if phase != enemyPhase.startingUp{
 		hp -= amount;
 	}

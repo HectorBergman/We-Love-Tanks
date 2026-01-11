@@ -10,10 +10,12 @@ switch(phase){
 		}
 	}break;
 	case bossPhase.active:{
-		checkForDeath();
+		if checkForDeath(){
+			exit;
+		}
 
 		exeStateFunc("step_", type);
 	}break;
 }
- x += movementVector[0]*movementSpeed;
- y += movementVector[1]*movementSpeed;
+//x += movementVector[0]*movementSpeed;
+//y += movementVector[1]*movementSpeed;
