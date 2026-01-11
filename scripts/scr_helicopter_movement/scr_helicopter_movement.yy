@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_helicopter",
+  "%Name":"scr_helicopter_movement",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_helicopter",
+  "name":"scr_helicopter_movement",
   "parent":{
     "name":"helicopter",
     "path":"folders/Objects/enemy/bosses/helicopter.yy",

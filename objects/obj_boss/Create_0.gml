@@ -9,7 +9,6 @@ enum bossTypes {
 	testStar,
 }
 scale = 1
-depth = -100
 color = c_white;
 phase = bossPhase.startingUp
 startUpTimer = 90;
@@ -31,11 +30,12 @@ function movementY(){
 }
 movementVector = [0,0];
 
+
 exeStateFunc("create_", type)
 
+hitbox = summonObject(obj_boss_hitbox, [["parent", id], ["depth", depth]]);
 
 
-hitbox = summonObject(obj_boss_hitbox, [["parent", id]]);
 //todo: add code for selecting a sprite according to boss type
 
 function death(){
@@ -54,6 +54,9 @@ function death(){
 }
 
 function decreaseHealth(amount){
+	if amount == 0{
+		return;
+	}
 	if phase != bossPhase.startingUp{
 		hp -= amount;
 	}
@@ -65,6 +68,8 @@ function checkForDeath(){
 	
 	if hp < 1{
 		death();
+		return true;
 	}
+	return false;
 }
 

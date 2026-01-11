@@ -14,9 +14,6 @@ function getTransitionFunction(){
 					
 				default:{
 					transitionFunction = function(){
-						print("transfunc")
-						print(obj_player.x,",",obj_player.y)
-						print(x,",",y)
 						//signal to transitionHandler
 						SignalSend("transitionStart", {
 							transitionType: transitionTypes.toRoom, 

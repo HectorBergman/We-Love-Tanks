@@ -38,7 +38,7 @@ activeBullets = [];
 
 function summonEssentials(){
 	cannon = summonObject(obj_player_cannon, [["parent", id], ["depth", depth-1]]);
-	hitbox = summonObject(obj_player_visual, [["parent", id], ["cannon", cannon]]);
+	hitbox = summonObject(obj_player_hitbox, [["parent", id], ["cannon", cannon]]);
 	crosshair = summonObject(obj_crosshair);
 	//?
 }
@@ -70,7 +70,6 @@ SignalSubscribe(id, "playerMoved", function(){
 	var len = ds_list_size(list)
 
 	for (var i = 0; i < len; i++){
-		print("penis");
 		var val = ds_list_find_value(list,i)
 		with val{
 			sunder()
@@ -88,7 +87,9 @@ function death(){
 }
 
 function decreaseHealth(amount){
-	print("take damage: ",amount);
+	if amount == 0{
+		return;
+	}
 	if !invincible{
 		invincible = true;
 		SignalSend("onHit", {cannonId: cannon, bulletInfo: cannon.bulletInfo});

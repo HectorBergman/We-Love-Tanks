@@ -1,4 +1,5 @@
 function bullet_inBarrel(){
+	print("newbullet5: ", movementVector);
 	if !instance_exists(parent){
 		death();
 		exit;
@@ -8,6 +9,7 @@ function bullet_inBarrel(){
 		SignalSend("deleteBulge: " + string(parent), id);
 		exit;
 	}
+	print("newbullet6: ", movementVector);
 	var distance = point_distance(parent.x+startOffset[0],parent.y+startOffset[1],x,y)
 	if parent.object_index == obj_player_cannon{
 	
@@ -19,6 +21,7 @@ function bullet_inBarrel(){
 		lastBarrelProg = distance/barrelLength;
 		
 	}
+	
 	image_angle = parent.image_angle;
 	movementVector = getMovementVector(image_angle);
 	extraMovement += bSpeedTs
